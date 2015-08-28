@@ -1,0 +1,29 @@
+{
+  "name": "semantic-react",
+  "version": "0.0.1",
+  "description": "React components for Semantic UI.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "webpack --progress --colors --progress --config webpack-production.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Justin Hall <justin@hallister.me>",
+  "license": "MIT",
+  "dependencies": {
+    "classnames": "^2.1.3",
+    "react": "^0.14.0-beta1",
+    "react-dom": "^0.14.0-beta1"
+  },
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
+    "babel-runtime": "^5.8.20",
+    "json-loader": "^0.5.2",
+    "react-hot-loader": "^1.2.8",
+    "redux-devtools": "^1.0.2",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1"
+  }
+}
