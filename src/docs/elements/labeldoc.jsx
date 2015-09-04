@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label, Labels, Detail, Segment } from '../../components/elements';
+import { Content, Label, Labels, Detail, Segment, Segments, Icon, Image } from '../../components/elements';
 
 // Todo: Pointing examples after forms
 // Todo: Image/Overview/Attached examples after grid
@@ -100,13 +100,13 @@ export class LabelDoc extends Component {
                     </Image>
                 </Segment>
                 <Segment>
-                        <Label tag onClick={this.handleOnClick}>
+                        <Label arrow onClick={this.handleOnClick}>
                             New
                         </Label>
-                        <Label tag color="red" onClick={this.handleOnClick}>
+                        <Label arrow color="red" onClick={this.handleOnClick}>
                             Upcoming
                         </Label>
-                        <Label tag color="teal" onClick={this.handleOnClick}>
+                        <Label arrow color="teal" onClick={this.handleOnClick}>
                             Featured
                         </Label>
                 </Segment>
@@ -155,10 +155,9 @@ export class LabelDoc extends Component {
                     </Label>
                 </Segment>
                 <Segment>
-                    <Label>
-                        <Icon name="mail"/>
-                        23
-                        <Detail onClick={this.handleOnClick}>View Mail</Detail>
+                    <Label onClick={this.handleOnClick}>
+                        <Icon name="mail"/>23
+                        <Detail>View Mail</Detail>
                     </Label>
                 </Segment>
                 <Segment>
@@ -171,53 +170,24 @@ export class LabelDoc extends Component {
                     {sizeDiv}
                 </Segment>
                 <Segment>
-                    <Labels size="huge">
-                        <Label>Fun</Label>
-                        <Label>Happy</Label>
-                        <Label>Smart</Label>
-                        <Label>Witty</Label>
-                    </Labels>
-                </Segment>
-                <Segment>
                     <Labels color="blue">
                         <Label>
                             Fun
-                            <Icon name="close"/>
+                            <Icon name="close" />
                         </Label>
                         <Label>
                             Happy
                             <Detail>22</Detail>
                         </Label>
-                        <Label>Smart</Label>
-                        <Label>Insane</Label>
-                        <Label>Exciting</Label>
-                    </Labels>
-                </Segment>
-                <Segment>
-                    <Labels tag>
-                        <Label>$10.00</Label>
-                        <Label>$19.99</Label>
-                        <Label>$24.99</Label>
-                        <Label>$30.99</Label>
-                        <Label>$10.25</Label>
-                    </Labels>
-                </Segment>
-                <Segment>
-                    <Labels circular>
-                        <Label>11</Label>
-                        <Label>22</Label>
-                        <Label>33</Label>
-                        <Label>44</Label>
-                        <Label>141</Label>
-                    </Labels>
-                </Segment>
-                <Segment>
-                    <Labels corner>
-                        <Label>11</Label>
-                        <Label>22</Label>
-                        <Label>33</Label>
-                        <Label>44</Label>
-                        <Label>141</Label>
+                        <Label>
+                            Smart
+                        </Label>
+                        <Label>
+                            Insane
+                        </Label>
+                        <Label>
+                            Exciting
+                        </Label>
                     </Labels>
                 </Segment>
             </div>

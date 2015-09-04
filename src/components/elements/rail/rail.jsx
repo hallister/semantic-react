@@ -1,35 +1,31 @@
 import React, { Component } from 'react';
-
-// Todo: Can't do much without a dimmer
-
-// can't get import working?
-var classNames = require('classnames');
+import { returnTag } from '../../utilities';
+import classNames from 'classnames';
 
 export class Rail extends Component {
-	static defaultProps = {
-        close: false,
-		defaultClasses: true
-	};
-
     static propTypes = {
+        attached: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
         close: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.bool
         ]),
-        attached: React.PropTypes.bool,
+        defaultClasses: React.PropTypes.bool,
         dividing: React.PropTypes.bool,
         float: React.PropTypes.string.isRequired,
         internal: React.PropTypes.bool
     };
 
-     constructor(props) {
-        super(props);
-    }
+    static defaultProps = {
+        close: false,
+        defaultClasses: true
+    };
 
     render() {
-    	let classes = {
+        let classes = {
             // default
-        	ui: this.props.defaultClasses,
+            ui: this.props.defaultClasses,
 
             // positioning
             left: false,
@@ -40,16 +36,22 @@ export class Rail extends Component {
             close: this.props.close,
             dividing: this.props.dividing,
             internal: this.props.internal,
+
+            // component
             rail: this.props.defaultClasses
         };
 
-        classes[this.props.close] = this.props.close !== true && this.props.close !== false ? true : false;
-        classes[this.props.float] = this.props.float ? true : false;
+        classes[this.props.close] = typeof this.props.close == 'string' ? true : false;
+        classes[this.props.float] = !!this.props.float;
 
-        return (
-            <div className={classNames(this.props.className, classes)}>
-                {this.props.children}
-            </div>
-        )
+        let Tag = returnTag(this.props.tag || React.DOM.div);
+
+        let { attached, children, className, close, defaultClasses, 
+              dividing, float, internal, ...other } = this.props;
+
+        return Tag({
+            className: classNames(this.props.className, classes),
+            ...other
+        }, this.props.children);
     }
 }

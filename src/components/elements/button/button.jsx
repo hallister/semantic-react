@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import { Icon } from '../../elements'; // needed for type comparison
-
-// can't get import working?
-var classNames = require('classnames');
+import { Icon } from '../../elements';
+import { hasChild, childCount, returnTag } from '../../utilities';
+import classNames from 'classnames';
 
 export class Button extends Component {
-	static defaultProps = {
-        annimated: false,
-        attached: false,
-		defaultClasses: true
-	};
-
     static propTypes = {
         active: React.PropTypes.bool,
         animated: React.PropTypes.oneOfType([
@@ -22,7 +15,9 @@ export class Button extends Component {
             React.PropTypes.bool
         ]),
         basic: React.PropTypes.bool,
+        children: React.PropTypes.node,
         circular: React.PropTypes.bool,
+        className: React.PropTypes.node,
         color: React.PropTypes.string,
         compact: React.PropTypes.bool,
         defaultClasses: React.PropTypes.bool,
@@ -39,43 +34,28 @@ export class Button extends Component {
         secondary: React.PropTypes.bool,
         size: React.PropTypes.string,
         social: React.PropTypes.string,
+        tag: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.func,
+            React.PropTypes.string
+        ]),
         toggle: React.PropTypes.bool
     };
 
     static contextTypes = {
-        attached: React.PropTypes.bool
+        isAttached: React.PropTypes.bool
+    };
+    
+    static defaultProps = {
+        animated: false,
+        attached: false,
+        defaultClasses: true
     };
 
-    constructor(props) {
-        super(props);
-
-    }
-
-  	isLabeled() {
-  		if (this.props.label || (React.Children.count(this.props.children) > 1 && this.hasIcon())) {
-  			return true;
-  		} else {
-  			return false;
-  		}
-  	}
-
-    hasIcon() {
-        let hasIcon = false;
-
-        React.Children.forEach(this.props.children, function(child) {
-            if (child.type === Icon && child.type != undefined) {
-                hasIcon = true;
-            }
-        });
-
-        return hasIcon;
-    }
-
     render() {
-
-    	let classes = {
+        let classes = {
             // default
-        	ui: this.props.defaultClasses,
+            ui: this.props.defaultClasses,
 
             // positioning
             left: false,
@@ -84,9 +64,9 @@ export class Button extends Component {
             // types
             animated: this.props.animated,
             basic: this.props.basic,
-            icon: this.hasIcon() && (!this.props.social || this.props.circular),
-        	inverted: this.props.inverted,
-        	labeled: this.isLabeled() && !this.props.social,
+            icon: hasChild(this.props.children, Icon) && (!this.props.social || this.props.circular),
+            inverted: this.props.inverted,
+            labeled: (this.hasOneIconChild() || this.props.label) && !this.props.social,
 
             // states
             active: this.props.active,
@@ -107,22 +87,36 @@ export class Button extends Component {
             button: this.props.defaultClasses
         };
 
-        // handle all string or mixed string/bool props
-        classes[this.props.animated] = this.props.animated !== true && this.props.animated !== false ? true : false;
-        classes[this.props.attached] = this.props.attached !== true && this.props.attached !== false ? true : false;
-        classes[this.props.color] = this.props.color ? true : false;
-        classes[this.props.floated] = this.props.floated ? true : false;
-        classes[this.props.label] = this.props.label ? true : false;
-        classes[this.props.size] = this.props.size ? true : false;
-        classes[this.props.social] = this.props.social ? true : false;
+        // handle mixed string/bool props
+        classes[this.props.animated] = typeof this.props.animated == 'string' ? true : false;
+        classes[this.props.attached] = typeof this.props.attached == 'string' ? true : false;
+        
+        // string types
+        classes[this.props.color] = !!this.props.color;
+        classes[this.props.floated] = !!this.props.floated;
+        classes[this.props.label] = !!this.props.label;
+        classes[this.props.size] = !!this.props.size;
+        classes[this.props.social] = !!this.props.social;
 
-        // if it's attached or animated use a div instead of a button (as Semantic UI's examples do)
-        let Tag = this.props.attached || this.context.attached || this.props.animated ? "div" : "button";
+        // if it's attached or animated use a div instead of a button
+        let Tag = this.props.attached || this.context.isAttached || this.props.animated ? React.DOM.div : React.DOM.button;
+        Tag = returnTag(this.props.tag || Tag);
 
-        return (
-            <Tag className={classNames(this.props.className, classes)}>
-                {this.props.children}
-            </Tag>
-        )
+        let { active, animated, attached, basic, children, circular, color, compact, defaultClasses, disabled, 
+            fluid, inverted, label, loading, negative, positive, primary, secondary, size, social, tag, 
+            ...other } = this.props;
+
+        return Tag({
+            className: classNames(this.props.className, classes),
+            ...other
+        }, this.props.children);
+    }
+
+    hasOneIconChild() {
+        if (childCount(this.props.children) > 1 && hasChild(this.props.children, Icon)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

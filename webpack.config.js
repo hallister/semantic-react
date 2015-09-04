@@ -28,8 +28,8 @@ module.exports = {
         loaders: [{
             test: /\.jsx?$/,
             loaders: ['react-hot', 'babel?optional[]=runtime&stage=0'],
-            include: path.join(__dirname, 'src'),
-            exclude: /node_modules/
+            include: path.join(__dirname, 'src')
+            //exclude: /node_modules/
         }]
     }
 };

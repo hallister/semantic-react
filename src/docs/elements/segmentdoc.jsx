@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Segments, } from '../../components/elements';
+import { Segment, Segments, Button } from '../../components/elements';
 // can't get import working?
 var classNames = require('classnames');
 

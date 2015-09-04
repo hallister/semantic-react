@@ -1,36 +1,37 @@
 import React, { Component } from 'react';
-
-// can't get import working?
-var classNames = require('classnames');
+import { returnTag } from '../../utilities';
+import classNames from 'classnames';
 
 // Currently header/dividers are only headers. Maybe do both?
 
 export class Divider extends Component {
-	static defaultProps = {
-		defaultClasses: true
-	};
-
     static propTypes = {
-        defaultClasses: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
         clearing: React.PropTypes.bool,
+        defaultClasses: React.PropTypes.bool,
         fitted: React.PropTypes.bool,
-        inverted: React.PropTypes.bool,
         header: React.PropTypes.bool,
         hidden: React.PropTypes.bool,
         horizontal: React.PropTypes.bool,
+        inverted: React.PropTypes.bool,
         section: React.PropTypes.bool,
+        tag: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.func,
+            React.PropTypes.string
+        ]),
         vertical: React.PropTypes.bool
     };
 
-    constructor(props) {
-        super(props);
-    }
+    static defaultProps = {
+        defaultClasses: true
+    };
 
     render() {
-
-    	let classes = {
+        let classes = {
             // default
-        	ui: this.props.defaultClasses,
+            ui: this.props.defaultClasses,
 
             //types
             header: this.props.header,
@@ -48,10 +49,14 @@ export class Divider extends Component {
             divider: this.props.defaultClasses
         };
 
-        return (
-            <div className={classNames(this.props.className, classes)}>
-                {this.props.children}
-            </div>
-        )
+        let Tag = returnTag(this.props.tag || React.DOM.div);
+
+        let { children, className, clearing, defaultClasses, fitted, header, hidden, 
+              horizontal, inverted, section, tag, vertical, ...other } = this.props;
+
+        return Tag({
+            className: classNames(this.props.className, classes),
+            ...other
+        }, this.props.children);
     }
 }

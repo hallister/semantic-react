@@ -1,122 +1,109 @@
 import React, { Component } from 'react';
 import { Icon } from '../../elements';
-
-// can't get import working?
-var classNames = require('classnames');
+import { hasChild, returnTag } from '../../utilities';
+import classNames from 'classnames';
 
 // TODO: image and horizontal list examples
 
 export class Header extends Component {
-	static defaultProps = {
-		attached: false,
-		defaultClasses: true,
-	};
-
-	static propTypes = {
-		aligned: React.PropTypes.string,
-		attached: React.PropTypes.oneOfType([
-			React.PropTypes.string,
-			React.PropTypes.bool
-		]),
-		block: React.PropTypes.bool,
-		color: React.PropTypes.string,
-		disabled: React.PropTypes.bool,
+    static propTypes = {
+        aligned: React.PropTypes.string,
+        attached: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.bool
+        ]),
+        block: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
+        color: React.PropTypes.string,
+        defaultClasses: React.PropTypes.bool,
+        disabled: React.PropTypes.bool,
         divider: React.PropTypes.bool,
-		dividing: React.PropTypes.bool,
-		element: React.PropTypes.string,
-		floated: React.PropTypes.string,
+        dividing: React.PropTypes.bool,
+        element: React.PropTypes.string,
+        floated: React.PropTypes.string,
         horizontal: React.PropTypes.bool,
-		inverted: React.PropTypes.bool,				
-		size: React.PropTypes.string
-	};
+        inverted: React.PropTypes.bool,             
+        size: React.PropTypes.string,
+        tag: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.func,
+            React.PropTypes.string
+        ])
+    };
 
-    /* A header that is under a header is a special case sub-header.
-     * If we find ourselves as the ancestor of a Header, we avoid the ui
-     * css class. This behavior can be overridden with the style prop.
-     */
-	static childContextTypes = {
-		isChildHeader: React.PropTypes.bool
-	};
+    // we don't want the ui in these circumstances
+    static contextTypes = {
+        isListChild: React.PropTypes.bool,
+        isHeaderChild: React.PropTypes.bool,
+        isAccordionChild: React.PropTypes.bool
+    };
 
-    /* A header that is under a list is a special case header. 
-     * If we find ourselves as the ancestor of a List, we avoid the ui
-     * css class. This behavior can be overridden with the style prop.
-     */
-	static contextTypes = {
-        isChildList: React.PropTypes.bool,
-		isChildHeader: React.PropTypes.bool
-	};
+    // any header/subheader under a header is a subheader
+    static childContextTypes = {
+        isHeaderChild: React.PropTypes.bool
+    };
 
-	constructor(props) {
-        super(props);
-    }
+    static defaultProps = {
+        attached: false,
+        defaultClasses: true
+    };
 
     getChildContext() {
-    	return {
-    		'isChildHeader': true
-    	}
+        return {
+            isHeaderChild: true
+        };
     }
 
-    // replace with hasComponent DFS
-    hasIcon() {
-        let hasIcon = false;
-
-        React.Children.forEach(this.props.children, function(child) {
-            if (child.type === Icon && child.type != undefined) {
-                hasIcon = true;
-            }
-        });
-
-        return hasIcon;
-    }
-
-	render() {
-    	let classes = {
+    render() {
+        let classes = {
             // default
-        	ui: this.props.defaultClasses  && !this.context.isChildList,
+            ui: this.props.defaultClasses  && !this.context.isListChild && !this.context.isHeaderChild,
 
             // positioning
-        	right: false,
-        	left: false,
+            right: false,
+            left: false,
 
             // types
-            header: this.props.defaultClasses,
+            icon: hasChild(this.props.children, Icon) && this.props.aligned == 'center',
 
             // states
             disabled: this.props.disabled,
 
             // variations
-            aligned: this.props.aligned && this.props.aligned !== "justified",
+            aligned: this.props.aligned && this.props.aligned !== 'justified',
             attached: this.props.attached,
             block: this.props.block,
             divider: this.props.divider,
             dividing: this.props.dividing,
-        	floated: this.props.floated,
+            floated: this.props.floated,
             horizontal: this.props.horizontal,
-       		inverted: this.props.inverted
+            inverted: this.props.inverted,
+
+            // component
+            header: this.props.defaultClasses
         };
 
-        // handle all string or mixed string/bool props
-        classes[this.props.aligned] = this.props.aligned ? true : false;
-        classes[this.props.attached] = this.props.attached !== true && this.props.attached !== false ? true : false;
-        classes[this.props.color] = this.props.color ? true : false;
-        classes[this.props.floated] = this.props.floated ? true : false;
-        classes[this.props.size] = this.props.size ? true : false;
+        // handle all mixed string/bool props
+        classes[this.props.attached] = typeof this.props.attached == 'string' ? true : false;
+       
+        // string types
+        classes[this.props.aligned] = !!this.props.aligned;
+        classes[this.props.color] = !!this.props.color;
+        classes[this.props.floated] = !!this.props.floated;
+        classes[this.props.size] = !!this.props.size;
 
-        let Tag = "";
+        // if it's attached or animated use a div instead of a button, allow tag overriding
+        let Tag = this.props.onClick ? React.DOM.a : React.DOM.div;
+        Tag = returnTag(this.props.tag || Tag);
 
-        if (this.props.element) {
-            Tag = this.props.element;
-        } else if (this.props.onClick){
-            Tag = "a";
-        } else{
-            Tag = "div";
-        }
+        let { aligned, attached, block, children, className, color, defaultClasses, 
+              disabled, divider, dividing, element, floated, horizontal, inverted, 
+              size, tag, ...other } = this.props;
 
-		return (
-			<Tag className={classNames(this.props.className, classes)}>
-				{this.props.children}
-			</Tag>
-		);
-	}
+        return Tag({
+            className: classNames(this.props.className, classes),
+            ...other
+        }, this.props.children);
+    }
 }

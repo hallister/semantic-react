@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Images, Segment } from '../../components/elements';
+import { Image, Images, Segment, Segments } from '../../components/elements';
 
 // can't get import working?
 var classNames = require('classnames');

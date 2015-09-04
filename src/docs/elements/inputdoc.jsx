@@ -16,7 +16,9 @@ export class InputDoc extends Component {
                    <Input focus type="text"/>
                 </Segment>
                 <Segment>
-                   <Input loading type="text"/>
+                    <Input loading type="text">
+                        <Icon name="search" />
+                    </Input>
                 </Segment>
                 <Segment>
                    <Input error type="text"/>
@@ -58,8 +60,8 @@ export class InputDoc extends Component {
                 <Segment>
                     <Input type="text">
                         <Icon left name="tags"/>
-                        <Label right tag link>
-                            Add tag
+                        <Label right arrow link>
+                            Add arrow
                         </Label>
                     </Input>
                 </Segment>

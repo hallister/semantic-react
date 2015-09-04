@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, SubHeader, Content, Segment } from '../../components/elements';
+import { Header, SubHeader, Content, Segment, Icon, Image} from '../../components/elements';
 
 
 // can't get import working?
@@ -36,8 +36,8 @@ export class HeaderDoc extends Component {
         colors.forEach(function(color) {
             let capColor = color.charAt(0).toUpperCase() + color.slice(1);
 
-            colorDiv.push(<Header key={color} element="h4" color={color}>{capColor}</Header>);
-            colorInvertedDiv.push(<Header key={color} inverted element="h4" color={color}>{capColor}</Header>);
+            colorDiv.push(<Header key={color} tag={React.DOM.h4} color={color}>{capColor}</Header>);
+            colorInvertedDiv.push(<Header key={color} inverted tag={React.DOM.h4} color={color}>{capColor}</Header>);
         });     
 
 		return (
@@ -50,7 +50,7 @@ export class HeaderDoc extends Component {
 					<Header size="tiny">Tiny Header</Header>
 				</Segment>
 				<Segment>
-					<Header icon element="h2">
+					<Header tag={React.DOM.div}>
 						<Icon name="settings"/>
 						<Content>
 							Account Settings
@@ -59,7 +59,7 @@ export class HeaderDoc extends Component {
 					</Header>
 				</Segment>
 				<Segment>
-					<Header icon aligned="center">
+					<Header aligned="center">
 						<Icon name="users" circular/>
 						Friends
 					</Header>
@@ -69,25 +69,25 @@ export class HeaderDoc extends Component {
 					<Content>$10.99</Content>
 				</Segment>
 				<Segment>
-					<Header element="h2">
+					<Header tag={React.DOM.h2}>
 						<Image src="http://semantic-ui.com/images/icons/school.png"/>
 						<Content>Learn More</Content>
 					</Header>
 				</Segment>
 				<Segment>
-					<Header element="h2">
+					<Header tag={React.DOM.h2}>
 						<Image circular src="http://semantic-ui.com/images/avatar2/large/patrick.png"/>
 						<Content>Patrick</Content>
 					</Header>
 				</Segment>
 				<Segment>
-					<Header element="h2">
+					<Header tag={React.DOM.h2}>
 						<Icon name="plug"/>
 						<Content>Uptime Guarantee</Content>
 					</Header>
 				</Segment>
 				<Segment>
-					<Header element="h2">
+					<Header tag={React.DOM.h2}>
 						<Icon name="settings"/>
 						<Content>
 							Account Settings
@@ -96,7 +96,7 @@ export class HeaderDoc extends Component {
 					</Header>
 				</Segment>
 				<Segment>
-					<Header element="h2">
+					<Header tag={React.DOM.h2}>
 						<Content>
 							Account Settings
 							<SubHeader>Manage your account settings and set e-mail preferences.</SubHeader>
@@ -104,23 +104,23 @@ export class HeaderDoc extends Component {
 					</Header>
 				</Segment>
 				<Segment>
-					<Header element="h1">
+					<Header tag={React.DOM.h1}>
 						H1
 						<SubHeader>Sub Header</SubHeader>
 					</Header>
-					<Header element="h2">
+					<Header tag={React.DOM.h2}>
 						H2
 						<SubHeader>Sub Header</SubHeader>
 					</Header>
-					<Header element="h3">
+					<Header tag={React.DOM.h3}>
 						H3
 						<SubHeader>Sub Header</SubHeader>
 					</Header>
-					<Header element="h4">
+					<Header tag={React.DOM.h4}>
 						H4
 						<SubHeader>Sub Header</SubHeader>
 					</Header>
-					<Header element="h5">
+					<Header tag={React.DOM.h5}>
 						H5
 						<SubHeader>Sub Header</SubHeader>
 					</Header>
@@ -131,7 +131,7 @@ export class HeaderDoc extends Component {
 					</Header>
 				</Segment>
 				<Segment>
-					<Header element="h3" dividing>
+					<Header tag={React.DOM.h3} dividing>
 						Dividing Header
 					</Header>
 				</Segment>
@@ -141,37 +141,37 @@ export class HeaderDoc extends Component {
 					</Header>
 				</Segment>
 				<Segment>
-					<Header element="h3" attached="top">
+					<Header tag={React.DOM.h3} attached="top">
 						Top Attached
 					</Header>
 					<Segment attached />
-					<Header element="h3" attached>
+					<Header tag={React.DOM.h3} attached>
 						Attached
 					</Header>
 					<Segment attached />
-					<Header element="h3" attached="bottom">
+					<Header tag={React.DOM.h3} attached="bottom">
 						Bottom Attached
 					</Header>
 				</Segment>
 				<Segment clearing>
-					<Header element="h3" floated="right">
+					<Header tag={React.DOM.h3} floated="right">
 						Go Forward
 					</Header>
-					<Header element="h3" floated="left">
+					<Header tag={React.DOM.h3} floated="left">
 						Go Backward
 					</Header>
 				</Segment>
 				<Segment>
-					<Header element="h3" aligned="right">
+					<Header tag={React.DOM.h3} aligned="right">
 						Right
 					</Header>
-					<Header element="h3" aligned="left">
+					<Header tag={React.DOM.h3} aligned="left">
 						Left
 					</Header>
-					<Header element="h3" aligned="justified">
+					<Header tag={React.DOM.h3} aligned="justified">
 						This should take up the full width even if only one line
 					</Header>
-					<Header element="h3" aligned="center">
+					<Header tag={React.DOM.h3} aligned="center">
 						Center
 					</Header>
 				</Segment>

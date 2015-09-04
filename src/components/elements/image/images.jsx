@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
-
-// can't get import working?
-var classNames = require('classnames');
+import { returnTag } from '../../utilities';
+import classNames from 'classnames';
 
 export class Images extends Component {
-    static defaultProps = {
-        defaultClasses: true
-    };
-
     static propTypes = {
         avatar: React.PropTypes.bool,
         bordered: React.PropTypes.bool,
+        children: React.PropTypes.node,
         circular: React.PropTypes.bool,
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         hidden: React.PropTypes.bool,
         rounded: React.PropTypes.bool,
-        size: React.PropTypes.string
+        size: React.PropTypes.string,
+        tag: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.func,
+            React.PropTypes.string
+        ])
     };
 
-	constructor(props) {
-        super(props);
-    }
+    static defaultProps = {
+        defaultClasses: true
+    };    
 
     render() {
-    	let classes = {
+        let classes = {
             // default
             ui: this.props.defaultClasses,
 
             // types
-        	images: this.props.defaultClasses,
 
             // states
             hidden: this.props.hidden,
@@ -39,16 +39,23 @@ export class Images extends Component {
             avatar: this.props.avatar,
             bordered: this.props.bordered,
             circular: this.props.circular,
-            rounded: this.props.rounded
+            rounded: this.props.rounded,
+
+            // component 
+            images: this.props.defaultClasses
         };
 
-        classes[this.props.size] = this.props.size ? true : false;
+        classes[this.props.size] = !!this.props.size;
 
-        return (
-            <div className={classNames(this.props.className, classes)}>
-                {this.props.children}
-            </div>
-        )
+        let Tag = returnTag(this.props.tag || React.DOM.div);
+
+        let { avatar, bordered, children, circular, defaultClasses, disabled, hidden, rounded,
+              size, tag, ...other } = this.props;
+
+        return Tag({
+            className: classNames(this.props.className, classes),
+            ...other
+        }, this.props.children);
     }
 
 }

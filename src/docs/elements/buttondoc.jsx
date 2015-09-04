@@ -12,8 +12,6 @@ export class ButtonDoc extends Component {
         let socialDiv = [];
         let coloredDiv = [];
         let sizeDiv = [];
-
-        let black = {backgroundColor: 'black', padding: '10px'}
         
         let social = ['facebook', 'twitter', 'google plus', 'vk', 'linkedin', 'instagram', 'youtube'];
         let colors = ['red', 'orange', 'yellow', 'olive', 'green', 
@@ -25,8 +23,8 @@ export class ButtonDoc extends Component {
             let capColor = color.charAt(0).toUpperCase() + color.slice(1);
 
             invertedDiv.push(<Button key={color} inverted color={color}>Basic Inverted {capColor}</Button>);
-            invertedBasicDiv.push(<Button key={color}Inverted basic inverted color={color}>Basic Inverted {capColor}</Button>);
-            coloredDiv.push(<Button key={color}Normal color={color}>{capColor}</Button>);
+            invertedBasicDiv.push(<Button key={color} basic inverted color={color}>Basic Inverted {capColor}</Button>);
+            coloredDiv.push(<Button key={color} color={color}>{capColor}</Button>);
         });
 
         social.forEach(function(social) {
@@ -39,7 +37,7 @@ export class ButtonDoc extends Component {
 
         return (
             <div>
-                <Segment>
+                <Segment className="spaced example">
                     <Button>Normal</Button>
                     <Button basic>Basic</Button>
                     <Button basic color="red">Basic Red</Button>
@@ -47,7 +45,7 @@ export class ButtonDoc extends Component {
                     <Button secondary>Secondary</Button>
                     <Button basic color="orange">Basic Orange Inverted</Button>
                 </Segment>
-                <Segment>
+                <Segment className="spaced example">
                     {coloredDiv}
                 </Segment>
                 <Segment>
@@ -70,14 +68,14 @@ export class ButtonDoc extends Component {
                         </Content>
                     </Button>
                 </Segment>
-                <Segment>
+                <Segment className="spaced example">
                     {sizeDiv}
                 </Segment>
-                <Segment inverted>
+                <Segment inverted className="spaced example">
                     <Button inverted>Basic Inverted</Button>
                     {invertedDiv}
                 </Segment>
-                <Segment inverted>
+                <Segment inverted className="spaced example">
                     {invertedBasicDiv}
                 </Segment>
                 <Segment>
@@ -132,7 +130,7 @@ export class ButtonDoc extends Component {
                 <Segment>
                     <Button fluid>Fluid</Button>
                 </Segment>
-                <Segment>
+                <Segment className="spaced example">
                     {socialDiv}
                 </Segment>
                 <Segment>

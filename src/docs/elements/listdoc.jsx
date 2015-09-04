@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List, Item, Icon, Content, Header, Description, Segment } from '../../components/elements';
+import { List, Item, Icon, Content, Header, Description, Segment, Image } from '../../components/elements';
 // Todo: Aligned example
 // Todo: Floating example
 
