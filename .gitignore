@@ -8,9 +8,6 @@ pids
 *.pid
 *.seed
 
-# Distribution
-dist
-
 # Modules
 node_modules
 

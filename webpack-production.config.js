@@ -2,11 +2,12 @@ var path = require('path');
 var webpack = require('webpack');
 var package = require('./package.json');
 
+var externals = [];
+externals.push(/^react(\/.*)?$/, /^react-dom(\/.*)?$/);
+
 module.exports = {
     entry: './src/components/semantic-react',
-    externals: {
-        'react': 'React'
-    },
+    externals: externals,
     output: {
         path: path.join(__dirname, 'dist'),
         filename: package.name + '-' + package.version + '.js'

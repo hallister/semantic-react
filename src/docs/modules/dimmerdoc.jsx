@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Segment, Button, Content } from '../../components/elements';
 import { Dimmer } from '../../components/modules';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export class DimmerDoc extends Component {
     constructor(props) {

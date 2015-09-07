@@ -29,8 +29,7 @@ export class Accordion extends Component {
         }
 
         this.setState({
-            currentActive: active,
-            event: e
+            currentActive: active
         })
     }
 

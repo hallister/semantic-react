@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { getChild, returnTag } from '../../utilities';
 import { Segment, Content } from '../../elements';
 import { Animate } from '../../modules';
@@ -31,9 +30,7 @@ export class Dimmer extends Component {
     }
 
     renderChildren() {
-        let children = this.props.children;
-
-        return getChild(children, Content);
+        return getChild(this.props.children, Content);
     }
 
     renderContent() {
@@ -45,7 +42,6 @@ export class Dimmer extends Component {
             ui: true,
             dimmer: true,
             transition: true,
-            visible: true,
             active: true
         };
         
@@ -72,18 +68,29 @@ export class Dimmer extends Component {
 
         let { disabled, inverted, ...other } = this.props;
 
+        let animation = {
+            state: this.props.dimmed,
+            enterState: {
+                name: 'fadeIn',
+                ease: 'cubic-out',
+                duration: 250
+            },
+            exitState: {
+                name: 'fadeOut',
+                ease: 'cubic-out',
+                duration: 300
+            },
+        };
+
         return Tag({
             className: classNames(this.props.className, classes),
             ...other
         }, [
                 <Animate className={classNames(dimClasses)}
-                         key="animate"
-                         onFalse="fadeOut" 
-                         onTrue="fadeIn" 
-                         propName="dimmed" 
-                         propState={this.props.dimmed} 
+                         animation={animation}
+                         key="animation"
                 > 
-                    {this.renderContent()}
+                    {this.props.dimmed ? this.renderContent() : ''}
                 </Animate>,
                 this.renderChildren()
             ]

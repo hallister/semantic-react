@@ -4,8 +4,9 @@ import _ from './lodash';
 
 
 // https://github.com/elierotenberg/react-animate
-// we use a custom lodash build only including .each and .mapValues 
-// until this is rewritten. turns a 50kb lib into 10kb
+// fundamentally there is no reason that we can't just implement this entire library into our 
+// animate module. much of htis library is supporting the ability to extend react components
+// which we don't need since all animations are through our animate module
 
 
 const __DEV__ = process.env.NODE_ENV === 'development';
