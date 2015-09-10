@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
+import React from 'react';
 import classNames from 'classnames';
 
 // Currently header/dividers are only headers. Maybe do both?
 
-export class Divider extends Component {
+export class Divider extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
         clearing: React.PropTypes.bool,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
         fitted: React.PropTypes.bool,
         header: React.PropTypes.bool,
@@ -16,19 +19,28 @@ export class Divider extends Component {
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         section: React.PropTypes.bool,
-        tag: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.func,
-            React.PropTypes.string
-        ]),
         vertical: React.PropTypes.bool
     };
 
     static defaultProps = {
+        component: 'div',
         defaultClasses: true
     };
 
     render() {
+        let { children, className, clearing, defaultClasses, fitted, header, hidden, 
+              horizontal, inverted, section, tag, vertical, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
             ui: this.props.defaultClasses,
@@ -49,14 +61,6 @@ export class Divider extends Component {
             divider: this.props.defaultClasses
         };
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);
-
-        let { children, className, clearing, defaultClasses, fitted, header, hidden, 
-              horizontal, inverted, section, tag, vertical, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

@@ -1,6 +1,3 @@
-import { Card } from './views/card/card';
-import { Cards } from './views/card/cards';
-
-
-exports.Card = Card;
-exports.Cards = Cards;
+export * from './views/card/card';
+export * from './views/card/cards';
+export * from './views/menu/menu';

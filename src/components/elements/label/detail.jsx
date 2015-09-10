@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
+import React from 'react';
 import classNames from 'classnames';
 
-export class Detail extends Component {
+export class Detail extends React.Component {
     static defaultProps = {
         defaultClasses: true
     };
@@ -12,20 +11,24 @@ export class Detail extends Component {
     };
 
     render() {
+        let Component = this.props.onClick ? 'a' : 'div';      
+        let { defaultClasses, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component || Component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
             detail: this.props.defaultClasses
         };
 
-        let Tag = this.props.onClick || this.props.link ? React.DOM.a : React.DOM.div;
-        Tag = returnTag(this.props.tag || Tag);
-       
-        let { defaultClasses, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            onClick: this.props.onClick,
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

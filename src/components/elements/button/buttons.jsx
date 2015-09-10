@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Numbers, returnTag } from '../../utilities';
+import React from 'react';
+import { Icon } from '../../elements';
+import { Numbers, hasDescendant } from '../../utilities';
 import classNames from 'classnames';
 
-export class Buttons extends Component {
+export class Buttons extends React.Component {
     static propTypes = {
         attached: React.PropTypes.string,
         basic: React.PropTypes.bool,
@@ -10,6 +11,10 @@ export class Buttons extends Component {
         className: React.PropTypes.node,
         color: React.PropTypes.string,
         compact: React.PropTypes.bool,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
         even: React.PropTypes.bool,
         icon: React.PropTypes.bool,
@@ -20,36 +25,47 @@ export class Buttons extends Component {
         primary: React.PropTypes.bool,
         secondary: React.PropTypes.bool,
         size: React.PropTypes.string,
-        tag: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.func,
-            React.PropTypes.string
-        ]),
         vertical: React.PropTypes.bool
     };
 
     static childContextTypes = {
-        isAttached: React.PropTypes.bool
+        isAttached: React.PropTypes.bool,
+        hasIconClass: React.PropTypes.bool
     };
 
     static defaultProps = {
+        component: 'div',
         defaultClasses: true
     };
 
     getChildContext() {
         return {
-            'isAttached': !!this.props.attached
+            'isAttached': !!this.props.attached,
+            'hasIconClass': this.props.icon 
         };
     }
 
     render() {
+        let { attached, basic, children, className, color, compact, component, defaultClasses, even, icon, inverted, 
+              labeled, negative, positive, primary, secondary, size, vertical, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
             ui: this.props.defaultClasses,
 
             // types
             basic: this.props.basic,
-            icon: this.props.icon,
+            icon: this.props.icon || hasDescendant(this.props.children, Icon),
             inverted: this.props.inverted,
             labeled: this.props.labeled,
 
@@ -69,7 +85,7 @@ export class Buttons extends Component {
         let childCount = React.Children.count(this.props.children);
 
         // buttons group with >0 buttons that are all of equal width
-        if (classes.attached || this.props.even) {
+        if (this.props.attached || this.props.even) {
             if (childCount > 0  && childCount <= 12) {
                 classes[Numbers[childCount]] = true;
             }
@@ -78,14 +94,6 @@ export class Buttons extends Component {
         classes[this.props.color] = !!this.props.color;
         classes[this.props.size] = !!this.props.size;
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);
-
-        let { attached, basic, children, className, color, compact, defaultClasses, even, icon, labeled, 
-              negative, positive, primary, secondary, size, tag, vertical, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

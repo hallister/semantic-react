@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
 import classNames from 'classnames';
 
 
@@ -16,12 +15,24 @@ export class Segments extends Component {
     };
 
     static defaultProps = {
+        component: 'div',
         defaultClasses: true
     };
 
     render() {
-        let style = {};
+        let { children, className, compact, defaultClasses, horizontal,
+              piled, raised, stacked, ...other } = this.props;
 
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             ui: this.props.defaultClasses,
             segments: this.props.defaultClasses,
@@ -29,18 +40,10 @@ export class Segments extends Component {
             raised: this.props.raised,
             stacked: this.props.stacked,
             piled: this.props.piled,
-            compact: this.props.compact
+            compact: this.props.compact,
+            inverted: this.props.inverted
         };
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);
-
-        let { children, className, compact, defaultClasses, horizontal,
-              piled, raised, stacked, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            style: style,
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

@@ -189,6 +189,7 @@ Animate.extend = (Component) => class extends Component {
     );
     // get an interpolator for each property
     const interpolators = _.mapValues(styles, ([from, to]) => tween.interpolate(from, to));
+
     // pre-compute the final style (ignore [from])
     const finalStyle = _.mapValues(styles, ([, to]) => to);
 

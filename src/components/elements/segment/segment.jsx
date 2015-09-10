@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
+import React from 'react';
 import classNames from 'classnames';
 
 
-export class Segment extends Component {
+export class Segment extends React.Component {
     static defaultProps = {
+        component: 'div',
         defaultClasses: true,
         attached: false,
         style: {}
@@ -34,14 +34,28 @@ export class Segment extends Component {
         raised: React.PropTypes.bool,
         secondary: React.PropTypes.bool,
         stacked: React.PropTypes.bool,
+        style: React.PropTypes.object,
         tertiary: React.PropTypes.bool,
         vertical: React.PropTypes.bool,
         zIndex: React.PropTypes.number
     };
 
     render() {
-        let style = this.props.style;
+        let { aligned, attached, basic, children, className, clearing, color, compact, 
+              defaultClasses, disabled, floated, index, inverted, loading, padded, piled, 
+              primary, raised, secondary, stacked, tertiary, vertical, zIndex, ...other } = this.props;
 
+        other.className = classNames(this.props.className, this.getClasses());
+        other.style = this.getStyle();
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
             ui: this.props.defaultClasses,
@@ -50,6 +64,8 @@ export class Segment extends Component {
             right: false,
             left: false,
             center: false,
+            top: false,
+            bottom: false,
 
             // types
             raised: this.props.raised,
@@ -85,20 +101,16 @@ export class Segment extends Component {
         classes[this.props.color] = !!this.props.color;
         classes[this.props.floated] = this.props.floated;
 
-        if (this.props.piled) {
+        return classes;
+    }
+
+    getStyle() {
+        let style = this.props.style;
+
+        if (this.props.piled && !style.zIndex) {
             style.zIndex = this.props.zIndex || 0;
         }
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);
-
-        let { aligned, attached, basic, children, className, clearing, color, compact, 
-              defaultClasses, disabled, floated, index, inverted, loading, padded, piled, 
-              primary, raised, secondary, stacked, tertiary, vertical, zIndex, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            style: style,
-            ...other
-        }, this.props.children);
+        return style;
     }
 }

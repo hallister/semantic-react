@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Icon } from '../../elements'; // needed for type comparison
+import React from 'react';
+import { Icon } from '../../elements';
 
-export class Flag extends Component {
+export class Flag extends React.Component {
     render() {
         return (
-            <Icon 
-                  className="flag" 
+            <Icon className="flag" 
                   defaultClasses={false} 
                   {...this.props} 
             />

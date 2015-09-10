@@ -1,15 +1,8 @@
-import { Accordion } from './modules/accordion/accordion';
-import { AccordionBody } from './modules/accordion/accordionbody';
-import { AccordionTitle } from './modules/accordion/accordiontitle';
-import { Animate } from './modules/animate/animate';
-import { Checkboxes } from './modules/checkbox/checkboxes';
-import { Checkbox } from './modules/checkbox/checkbox';
-import { Dimmer } from './modules/dimmer/dimmer';
-
-exports.Accordion = Accordion;
-exports.AccordionBody = AccordionBody;
-exports.AccordionTitle = AccordionTitle;
-exports.Animate = Animate;
-exports.Checkbox = Checkbox;
-exports.Checkboxes = Checkboxes;
-exports.Dimmer = Dimmer;
+export * from './modules/accordion/accordion';
+export * from './modules/accordion/accordionbody';
+export * from './modules/accordion/accordiontitle';
+export * from './modules/animate/animate';
+export * from './modules/checkbox/checkbox';
+export * from './modules/checkbox/checkboxes';
+export * from './modules/dimmer/dimmer';
+export * from './modules/dropdown/dropdown';

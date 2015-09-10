@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
+import React from 'react';
 import classNames from 'classnames';
 
-export class Rail extends Component {
+export class Rail extends React.Component {
     static propTypes = {
         attached: React.PropTypes.bool,
         children: React.PropTypes.node,
@@ -18,11 +17,25 @@ export class Rail extends Component {
     };
 
     static defaultProps = {
+        component: 'div',
         close: false,
         defaultClasses: true
     };
 
     render() {
+        let { attached, children, className, close, defaultClasses, 
+              dividing, float, internal, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
             ui: this.props.defaultClasses,
@@ -44,14 +57,6 @@ export class Rail extends Component {
         classes[this.props.close] = typeof this.props.close == 'string' ? true : false;
         classes[this.props.float] = !!this.props.float;
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);
-
-        let { attached, children, className, close, defaultClasses, 
-              dividing, float, internal, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

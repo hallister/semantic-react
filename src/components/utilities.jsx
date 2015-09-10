@@ -3,7 +3,8 @@ import React from 'react';
 
 exports.Numbers = ['zero', 'one', 'two', 'three', 'four', 
                    'five', 'six', 'seven', 'eight', 'nine', 
-                   'ten', 'eleven', 'twelve'];
+                   'ten', 'eleven', 'twelve', 'thirteen', 
+                   'fourteen', 'fifteen', 'sixteen'];
 
 exports.Social = ['facebook', 'twitter', 'google plus', 'vk', 
                   'linkedin', 'instagram', 'youtube'];
@@ -31,16 +32,42 @@ export function hasDescendant(children, component) {
     return found;
 }
 
+export function arrayToObject(array, value = false) {
+    let returnObject = {};
+
+    for (let v of array) {
+        returnObject[v] = value;
+    }
+
+    return returnObject;
+}
+
 export function hasChild(children, component) {
     let found = false;
 
     React.Children.forEach(children, function(child) {
         if (child.type === component && child.type != undefined) {
             found = true;
+        } else if (typeof child === 'string' && component === 'string') {
+            found = true;
         }
     });
 
     return found;
+}
+
+export function hasFirstChild(children, component) {
+    if (typeof children === 'string') {
+        return false;
+    }
+
+    if (React.Children.count(children) === 1) {
+        return React.Children.only(children).type === component;
+    } else {
+        return (children[0].type === component);
+    }
+
+    return false;
 }
 
 export function getChild(children, component, equal = true) {
@@ -61,14 +88,18 @@ export function childCount(children) {
 
 export function returnTag(tag) {
     if (typeof tag == 'function') {
-        return tag;
+        return 'div';
     } else if (typeof tag == 'string') {
-        return React.DOM[tag];
+        return tag;
     } else if (typeof tag == 'object') {
         let child = tag;
 
+        console.log(child);
+
         return function(config, children) {
-            return React.cloneElement(child, config, children);
-        };
+            let element = React.cloneElement(child, config, children);
+            console.log(element.type);
+            return element.type;
+        }
     }
 }

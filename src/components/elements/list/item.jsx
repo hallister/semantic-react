@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
+import React from 'react';
 import classNames from 'classnames';
 
-export class Item extends Component {
+export class Item extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
-        tag: React.PropTypes.oneOfType([
+        component: React.PropTypes.oneOfType([
             React.PropTypes.element,
-            React.PropTypes.func,
             React.PropTypes.string
         ])
+    };
+    // anytime we are the child of a menu, we want to use a div
+    static contextTypes = {
+        isMenuChild: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -17,14 +19,29 @@ export class Item extends Component {
     };
 
     render() {
+        // if it's attached or animated use a div instead of a button
+        let Component = this.props.onClick && !this.context.isMenuChild ? 'a' : 'div';
+
+        let { defaultClasses, tag, selected, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component || Component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses,
 
             // positioning
 
             // types
-            active: this.props.active,
+            active: this.props.selected,
+            selected: this.props.selected,
 
             // content
 
@@ -32,18 +49,10 @@ export class Item extends Component {
 
             // component
             item: this.props.defaultClasses
-
         };
 
-        // if it's attached or animated use a div instead of a button
-        let Tag = this.props.link || this.props.onClick ? React.DOM.a : React.DOM.div;
-        Tag = returnTag(this.props.tag || Tag);
+        classes[this.props.color] = !!this.props.color;
 
-        let { defaultClasses, tag, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

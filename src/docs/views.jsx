@@ -1,3 +1,2 @@
-import { CardDoc } from './views/carddoc';
-
-exports.CardDoc = CardDoc;
+export * from './views/carddoc';
+export * from './views/menudoc';

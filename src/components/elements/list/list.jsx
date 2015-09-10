@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
+import React from 'react';
 import classNames from 'classnames';
 
-export class List extends Component {
+export class List extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.string,
         animated: React.PropTypes.bool,
@@ -10,6 +9,10 @@ export class List extends Component {
         celled: React.PropTypes.bool,
         children: React.PropTypes.node,
         className: React.PropTypes.node,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
         divided: React.PropTypes.bool,
         horizontal: React.PropTypes.bool,
@@ -18,12 +21,7 @@ export class List extends Component {
         ordered: React.PropTypes.bool,
         relaxed: React.PropTypes.bool,
         selection: React.PropTypes.bool,
-        size: React.PropTypes.string,
-        tag: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.func,
-            React.PropTypes.string
-        ])
+        size: React.PropTypes.string
     };
 
     static childContextTypes = {
@@ -31,6 +29,7 @@ export class List extends Component {
     };
 
     static defaultProps = {
+        component: 'div',
         defaultClasses: true
     };
 
@@ -41,6 +40,19 @@ export class List extends Component {
     }
 
     render() {
+        let { aligned, animated, celled, bulleted, defaultClasses, divided, horizontal, 
+              inverted, link, ordered, relaxed, selection, size, tag, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
             ui: this.props.defaultClasses,
@@ -72,14 +84,6 @@ export class List extends Component {
         classes[this.props.aligned] = !!this.props.aligned;
         classes[this.props.size] = !!this.props.size;
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);
-
-        let { aligned, animated, celled, bulleted, defaultClasses, divided, horizontal, 
-              inverted, link, ordered, relaxed, selection, size, tag, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

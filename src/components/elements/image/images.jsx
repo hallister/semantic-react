@@ -1,30 +1,43 @@
-import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
+import React from 'react';
 import classNames from 'classnames';
 
-export class Images extends Component {
+export class Images extends React.Component {
     static propTypes = {
         avatar: React.PropTypes.bool,
         bordered: React.PropTypes.bool,
         children: React.PropTypes.node,
         circular: React.PropTypes.bool,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.func,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         hidden: React.PropTypes.bool,
         rounded: React.PropTypes.bool,
-        size: React.PropTypes.string,
-        tag: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.func,
-            React.PropTypes.string
-        ])
+        size: React.PropTypes.string
     };
 
     static defaultProps = {
+        component: 'div',
         defaultClasses: true
     };    
 
     render() {
+        let { avatar, bordered, children, circular, defaultClasses, disabled, hidden, rounded,
+              size, tag, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
             ui: this.props.defaultClasses,
@@ -47,15 +60,7 @@ export class Images extends Component {
 
         classes[this.props.size] = !!this.props.size;
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);
-
-        let { avatar, bordered, children, circular, defaultClasses, disabled, hidden, rounded,
-              size, tag, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            ...other
-        }, this.props.children);
+        return classes;
     }
 
 }

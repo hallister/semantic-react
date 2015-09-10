@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
+import React from 'react';
 import classNames from 'classnames';
 
-export class Label extends Component {
+export class Label extends React.Component {
     static defaultProps = {
         corner: false,
         defaultClasses: true,
@@ -13,8 +12,13 @@ export class Label extends Component {
     static propTypes = {
         arrow: React.PropTypes.bool,
         attached: React.PropTypes.string,
+        basic: React.PropTypes.bool,
         circular: React.PropTypes.bool,
         color: React.PropTypes.string,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         corner: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.bool
@@ -22,7 +26,6 @@ export class Label extends Component {
         defaultClasses: React.PropTypes.bool,
         image: React.PropTypes.bool,
         left: React.PropTypes.bool,
-        link: React.PropTypes.bool,
         pointing: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.bool
@@ -32,15 +35,26 @@ export class Label extends Component {
             React.PropTypes.bool
         ]),
         right: React.PropTypes.bool,
-        size: React.PropTypes.string,
-        tag: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.func,
-            React.PropTypes.string
-        ])
+        size: React.PropTypes.string
     };
 
     render() {
+        // if it's attached or animated use a div instead of a button
+        let Component = this.props.onClick ? 'a' : 'div';
+
+        let { defaultClasses, left, right, corner, label, attached, image, color, pointing, ribbon, tag, 
+              link, circular, size, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component || Component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
             ui: this.props.defaultClasses,
@@ -56,6 +70,7 @@ export class Label extends Component {
             pointing: this.props.pointing,
             ribbon: this.props.ribbon,
             tag: this.props.arrow,
+            basic: this.props.basic,
 
             // variations
             circular: this.props.circular,
@@ -73,18 +88,6 @@ export class Label extends Component {
         classes[this.props.color] = !!this.props.color;
         classes[this.props.size] = !!this.props.size;
 
-        // if it's attached or animated use a div instead of a button
-        let Tag = this.props.onClick || this.props.link ? React.DOM.a : React.DOM.div;
-        Tag = returnTag(this.props.tag || Tag);
-
-        let { defaultClasses, left, right, corner, label, 
-              attached, image, color, pointing, ribbon, tag, 
-              link, circular, size, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            onClick: this.props.onClick,
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

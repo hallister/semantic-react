@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import classNames from 'classnames';
 
-// can't get import working?
-var classNames = require('classnames');
 
-export class Content extends Component {
+export class Content extends React.Component {
 	static defaultProps = {
+		component: 'div',
 		defaultClasses: true,
 		floated: false
 	};
@@ -26,7 +26,25 @@ export class Content extends Component {
         isDimmerChild: React.PropTypes.bool
     };
 
+    renderDimmerChild() {
+    	return (<div className="center">{this.props.children}</div>);
+    }
+
 	render() {
+		let children = this.context.isDimmerChild ? this.renderDimmerChild() : this.props.children;
+
+		let { aligned, component, extra, floated, hidden, meta, visible, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            children
+        );
+	}
+
+	getClasses() {
 		let classes = {
 			// default
         	content: this.props.defaultClasses,
@@ -51,14 +69,6 @@ export class Content extends Component {
 		classes[this.props.floated] = typeof floated == 'string' ? true : false;
 		classes[this.props.aligned] = !!this.props.aligned;
 
-		let children = this.context.isDimmerChild ? 
-			<div className="center">{this.props.children}</div> :
-			this.props.children;
-
-		return (
-			<div className={classNames(this.props.className, classes)} style={this.props.style} active={this.props.active}>
-				{children}
-			</div>
-		);
+		return classes;
 	}
 }

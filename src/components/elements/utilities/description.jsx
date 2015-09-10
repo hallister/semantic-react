@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
+import classNames from 'classnames';
 
-// can't get import working?
-var classNames = require('classnames');
-
-export class Description extends Component {
+export class Description extends React.Component {
 	static defaultProps = {
+		component: 'div',
 		defaultClasses: true
 	};
 
@@ -18,6 +17,18 @@ export class Description extends Component {
     }
 
 	render() {
+		let { defaultClasses, component, visible, hidden, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+	}
+
+	getClasses() {
 		let classes = {
 			// default
         	description: this.props.defaultClasses,
@@ -27,10 +38,6 @@ export class Description extends Component {
         	hidden: this.props.hidden
 		};
 
-		return (
-			<div className={classNames(this.props.className, classes)}>
-				{this.props.children}
-			</div>
-		);
+		return classes;
 	}
 }

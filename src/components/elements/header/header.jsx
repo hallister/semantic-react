@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Icon } from '../../elements';
-import { hasChild, returnTag } from '../../utilities';
+import { hasChild } from '../../utilities';
 import classNames from 'classnames';
 
 // TODO: image and horizontal list examples
 
-export class Header extends Component {
+export class Header extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.string,
         attached: React.PropTypes.oneOfType([
@@ -16,6 +16,10 @@ export class Header extends Component {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
         color: React.PropTypes.string,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         divider: React.PropTypes.bool,
@@ -24,19 +28,15 @@ export class Header extends Component {
         floated: React.PropTypes.string,
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,             
-        size: React.PropTypes.string,
-        tag: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.func,
-            React.PropTypes.string
-        ])
+        size: React.PropTypes.string
     };
 
     // we don't want the ui in these circumstances
     static contextTypes = {
         isListChild: React.PropTypes.bool,
         isHeaderChild: React.PropTypes.bool,
-        isAccordionChild: React.PropTypes.bool
+        isAccordionChild: React.PropTypes.bool,
+        isMenuChild: React.PropTypes.bool
     };
 
     // any header/subheader under a header is a subheader
@@ -46,6 +46,7 @@ export class Header extends Component {
 
     static defaultProps = {
         attached: false,
+        component: 'div',
         defaultClasses: true
     };
 
@@ -56,9 +57,24 @@ export class Header extends Component {
     }
 
     render() {
+        let { aligned, attached, block, children, className, color, defaultClasses, 
+              disabled, divider, dividing, element, floated, horizontal, inverted, 
+              size, tag, ...other } = this.props;
+
+        // add classnames
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses  && !this.context.isListChild && !this.context.isHeaderChild,
+            ui: this.props.defaultClasses  && !this.context.isListChild && !this.context.isHeaderChild && !this.context.isMenuChild,
 
             // positioning
             right: false,
@@ -66,6 +82,7 @@ export class Header extends Component {
 
             // types
             icon: hasChild(this.props.children, Icon) && this.props.aligned == 'center',
+            item: this.context.isMenuChild,
 
             // states
             disabled: this.props.disabled,
@@ -93,17 +110,6 @@ export class Header extends Component {
         classes[this.props.floated] = !!this.props.floated;
         classes[this.props.size] = !!this.props.size;
 
-        // if it's attached or animated use a div instead of a button, allow tag overriding
-        let Tag = this.props.onClick ? React.DOM.a : React.DOM.div;
-        Tag = returnTag(this.props.tag || Tag);
-
-        let { aligned, attached, block, children, className, color, defaultClasses, 
-              disabled, divider, dividing, element, floated, horizontal, inverted, 
-              size, tag, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

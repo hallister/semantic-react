@@ -1,201 +1,232 @@
-import React, { Component } from 'react';
-import { Button, Buttons, Icon, Segment, Content } from '../../components/elements';
+import React from 'react';
+import { Segment, Header, Rail, Item } from '../../components/elements';
+import { Menu } from '../../components/views';
+import * as Types from './button/types';
+import * as Groups from './button/groups';
+import * as Content from './button/content';
+import * as States from './button/states';
+import * as Variations from './button/variations';
 
-export class ButtonDoc extends Component {
-    constructor(props) {
-        super(props);
-    }
+const DOC = {
+    Types: [
+        {
+            class: 'Button',
+            id: 'button-types-button-example',
+            header: 'Button',
+            subheader: 'A standard button'
+        },
+        {
+            class: 'Button2'
+        },
+        {
+            class: 'Emphasis',
+            id: 'button-types-emphasis-example',
+            header: 'Emphasis',
+            subheader: 'A button can be formatted to show different levels of emphasis'
+        },
+        {
+            class: 'Emphasis2'
+        },
+        {
+            class: 'Animated',
+            id: 'button-types-animated-example',
+            header: 'Animated',
+            subheader: 'A button can animate to show hidden content'
+        },
+        {
+            class: 'Labeled',
+            id: 'button-types-labeled-example',
+            header: 'Labeled',
+            subheader: 'A button can appear alongside a label'
+        },
+        {
+            class: 'Labeled2'
+        },
+        {
+            class: 'Icon',
+            id: 'button-types-icon-example',
+            header: 'Icon',
+            subheader: 'A button can have only an icon'
+        },
+        {
+            class: 'LabeledIcon',
+            id: 'button-types-labeledicon-example',
+            header: 'Labeled Icon',
+            subheader: 'A button can use an icon as a label'
+        },
+        {
+            class: 'Basic',
+            id: 'button-types-basic-example',
+            header: 'Basic',
+            subheader: 'A basic button is less pronounced'
+        },
+        {
+            class: 'Inverted',
+            id: 'button-types-inverted-example',
+            header: 'Inverted',
+            subheader: 'A button can be formatted to appear on dark backgrounds'
+        },
+        {
+            class: 'Inverted2'
+        }
+    ],
+    Groups: [
+        {
+            class: 'Buttons',
+            id: 'button-groups-buttons-example',
+            header: 'Buttons',
+            subheader: 'Buttons can exist together as a group'
+        },
+        {
+            class: 'IconButtons',
+            id: 'button-groups-iconbuttons-example',
+            header: 'Icon Buttons',
+            subheader: 'Button groups can show groups of icons'
+        }
+    ],
+    States: [
+        {
+            class: 'Active',
+            id: 'button-states-active-example',
+            header: 'Active',
+            subheader: 'A button can show it is currently the active user selection'
+        },
+        {
+            class: 'Disabled',
+            id: 'button-states-disabled-example',
+            header: 'Disabled',
+            subheader: 'A button can show it is currently unable to be interacted with'
+        },
+        {
+            class: 'Loading',
+            id: 'button-states-loading-example',
+            header: 'Loading',
+            subheader: 'A button can show it is currently unable to be interacted with'
+        }
+    ],
+    Variations: [
+        {
+            class: 'Social',
+            id: 'button-variations-social-example',
+            header: 'Social',
+            subheader: 'A button can be formatted to link to a social website'
+        },
+        {
+            class: 'Size',
+            id: 'button-variations-size-example',
+            header: 'Size',
+            subheader: 'A button can have different sizes'
+        },
+        {
+            class: 'Floated',
+            id: 'button-variations-floated-example',
+            header: 'Floated',
+            subheader: '"A button can be aligned to the left or right of its container'
+        },
+        {
+            class: 'Colored',
+            id: 'button-variations-colored-example',
+            header: 'Colored',
+            subheader: 'A button can have different colors'
+        },
+        {
+            class: 'Compact',
+            id: 'button-variations-compact-example',
+            header: 'Compact',
+            subheader: 'A button can reduce its padding to fit into tighter spaces'
+        },
+        {
+            class: 'Consequence',
+            id: 'button-variations-consequence-example',
+            header: 'Consequence',
+            subheader: 'A button can hint towards a positive or negative consequence'
+        },
+        {
+            class: 'Fluid',
+            id: 'button-variations-fluid-example',
+            header: 'Fluid',
+            subheader: 'A button can take the width of its container'
+        },
+        {
+            class: 'Circular',
+            id: 'button-variations-circular-example',
+            header: 'Circular',
+            subheader: 'A button can be circular'
+        },
+        {
+            class: 'Circular2'
+        },
+        {
+            class: 'VerticallyAttached',
+            id: 'button-variations-verticallyattached-example',
+            header: 'Vertically Attached',
+            subheader: 'A button can be attached to the top or bottom of other content'
+        },
+        {
+            class: 'HorizontallyAttached',
+            id: 'button-variations-horizontallyattached-example',
+            header: 'Horizontally Attached',
+            subheader: 'A button can be attached to the left or right of other content'
+        }
+    ]
+};
 
+export class ButtonDoc extends React.Component {
     render() {
-        let invertedDiv = [];
-        let invertedBasicDiv = [];
-        let socialDiv = [];
-        let coloredDiv = [];
-        let sizeDiv = [];
-        
-        let social = ['facebook', 'twitter', 'google plus', 'vk', 'linkedin', 'instagram', 'youtube'];
-        let colors = ['red', 'orange', 'yellow', 'olive', 'green', 
-                    'teal', 'blue', 'violet', 'purple', 'pink',
-                    'brown', 'grey', 'black'];
-        let size = ['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive'];
+        let documentDiv = [];
+        let menuDiv = [];
+ 
+        ['Types', 'Groups', 'States', 'Variations'].forEach(function(group) {
+            documentDiv.push(
+                <Header dividing tag="h1" key={group}>
+                    {group}
+                </Header>
+            );
 
-        colors.forEach(function(color) {
-            let capColor = color.charAt(0).toUpperCase() + color.slice(1);
+            let menuHeader = <Header key={group}>{group}</Header>;
+            let menuItems = [];
 
-            invertedDiv.push(<Button key={color} inverted color={color}>Basic Inverted {capColor}</Button>);
-            invertedBasicDiv.push(<Button key={color} basic inverted color={color}>Basic Inverted {capColor}</Button>);
-            coloredDiv.push(<Button key={color} color={color}>{capColor}</Button>);
+            DOC[group].forEach(function(item) {
+                if (item.id) {
+                    menuItems.push(<Item key={item.class}><a href={'#' + item.id}>{item.header}</a></Item>);
+                }
+
+
+                let element = React.createElement(
+                    eval(group + '.' + item.class + 'Doc'),
+                    {
+                        key: item.class,
+                        id: item.id,
+                        header: item.header,
+                        subheader: item.subheader
+                    }
+                )
+
+                documentDiv.push(element);
+            });
+
+            menuDiv.push(
+                <Item key={Item + group}>
+                    {menuHeader}
+                    <Menu>
+                        {menuItems}
+                    </Menu>
+                </Item>
+            );
         });
 
-        social.forEach(function(social) {
-            socialDiv.push(<Button key={social} social={social}><Icon name={social} />{social}</Button>)
-        });
-
-        size.forEach(function(size) {
-            sizeDiv.push(<Button key={size} size={size}>{size}</Button>)
-        });
 
         return (
-            <div>
-                <Segment className="spaced example">
-                    <Button>Normal</Button>
-                    <Button basic>Basic</Button>
-                    <Button basic color="red">Basic Red</Button>
-                    <Button primary>Primary</Button>
-                    <Button secondary>Secondary</Button>
-                    <Button basic color="orange">Basic Orange Inverted</Button>
-                </Segment>
-                <Segment className="spaced example">
-                    {coloredDiv}
-                </Segment>
-                <Segment>
-                    <Button animated>
-                        <Content visible>Next</Content>
-                        <Content hidden>
-                            <Icon name="right arrow"/>
-                        </Content>
-                    </Button>
-                    <Button animated="vertical">
-                        <Content visible>Shop</Content>
-                        <Content hidden>
-                            <Icon name="shop"/>
-                        </Content>
-                    </Button>
-                    <Button animated="fade">
-                        <Content visible>Sign-up for a Pro account</Content>
-                        <Content hidden>
-                            $12.99 a month
-                        </Content>
-                    </Button>
-                </Segment>
-                <Segment className="spaced example">
-                    {sizeDiv}
-                </Segment>
-                <Segment inverted className="spaced example">
-                    <Button inverted>Basic Inverted</Button>
-                    {invertedDiv}
-                </Segment>
-                <Segment inverted className="spaced example">
-                    {invertedBasicDiv}
-                </Segment>
-                <Segment>
-                    <Button>
-                        <Icon name="pause" />
-                        Labeled Icon Left
-                    </Button>
-                    <Button label="right">
-                        <Icon name="pause" />
-                        Labeled Icon Right
-                    </Button>
-                </Segment>
-                <Segment>
-                    <Button>
-                        <Icon name="cloud" />
-                    </Button>
-                </Segment>
-                <Segment>
-                    <Buttons>
-                        <Button>Test1</Button>
-                        <Button>Test2</Button>
-                    </Buttons>
-                </Segment>
-                <Segment>
-                    <Buttons icon>
-                        <Button>
-                            <Icon name="align left" />
-                        </Button>
-                        <Button>
-                            <Icon name="align center" />
-                        </Button>
-                        <Button>
-                            <Icon name="align right" />
-                        </Button>
-                    </Buttons>
-                </Segment>
-                <Segment>
-                    <Buttons>
-                        <Button positive>Yes</Button>
-                        <div className="or"></div>
-                        <Button negative>No</Button>
-                    </Buttons>
-                </Segment>
-                <Segment>
-                    <Button active>Active</Button>
-                    <Button disabled>Disabled</Button>
-                    <Button loading>Loading</Button>
-                    <Button circular social="facebook">
-                        <Icon name="facebook" />
-                    </Button>
-                </Segment>
-                <Segment>
-                    <Button fluid>Fluid</Button>
-                </Segment>
-                <Segment className="spaced example">
-                    {socialDiv}
-                </Segment>
-                <Segment>
-                    <Button compact>Hold</Button>
-                    <Button compact>
-                        <Icon name="pause" />
-                    </Button>
-                    <Button compact>
-                        <Icon name="pause" />
-                        Pause
-                    </Button>
-                </Segment>
-                <Segment>
-                    <Button attached="top">Top</Button>
-                    <Segment attached></Segment>
-                    <Button attached="bottom">Bottom</Button>
-                </Segment>
-                <Segment>
-                    <Buttons attached="top">
-                        <Button>Top 1</Button>
-                        <Button>Top 2</Button>
-                    </Buttons>
-                    <Segment attached></Segment>
-                    <Buttons attached="bottom">
-                        <Button>Bottom 1</Button>
-                        <Button>Bottom 2</Button>
-                    </Buttons>
-                </Segment>
-                <Segment>
-                    <Button attached="left">Left</Button>
-                    <Button attached="right">Right</Button>
-                </Segment>
-                <Segment>
-                    <Buttons vertical>
-                        <Button>Feed</Button>
-                        <Button>Messages</Button>
-                    </Buttons>
-                </Segment>
-                <Segment>
-                    <Buttons vertical labeled>
-                        <Button>
-                            <Icon name="shuffle" />
-                            Shuffle
-                        </Button>
-                        <Button>
-                            <Icon name="play" />
-                            Play
-                        </Button>
-                    </Buttons>
-                </Segment>
-                <Segment>
-                    <Buttons even>
-                        <Button>Overview</Button>
-                        <Button>Specs</Button>
-                        <Button>Support</Button>
-                    </Buttons>
-                </Segment>
-                <Segment>
-                    <Buttons primary>
-                        <Button>One</Button>
-                        <Button>Two</Button>
-                        <Button>Three</Button>
-                    </Buttons>
-                </Segment>
-            </div>
+            <Segment basic className="main ui container">
+                <Rail float="right" dividing style={{minHeight: '1025px'}}>
+                    <div className="ui sticky fixed top">
+                        <Menu secondary vertical>
+                            {menuDiv}
+                        </Menu>
+                    </div>
+                </Rail>
+               {documentDiv}
+            </Segment>
         );
     }
 }

@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
+import React from 'react';
 import { Icon, Label, Checkbox } from '../../elements';
 import classNames from 'classnames';
 
-export class Input extends Component {
+export class Input extends React.Component {
     static propTypes = {
         children: React.PropTypes.node, 
         className: React.PropTypes.node, 
@@ -28,6 +27,7 @@ export class Input extends Component {
     };
 
     static defaultProps = {
+        component: 'div',
         defaultClasses: true,
         loading: false,
         placeholder: 'Search...'
@@ -41,6 +41,36 @@ export class Input extends Component {
     }
 
     renderText() {
+        // see if icon and label are children
+        this.processChildren();
+        
+        let { children, className, defaultClasses, icon, labeled, loading, name, 
+              placeholder, tag, type,...other } = this.props;
+
+        other.className = classNames(
+            this.props.className, 
+            this.getLabelClasses(), 
+            this.getIconClasses(), 
+            this.getClasses()
+        );
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.prepareInput()
+        );
+    }
+
+    render() {
+        if (this.props.type == 'checkbox') {
+            return this.renderCheckbox();
+        } else{
+            return this.renderText();
+        }
+
+    }
+
+    getClasses() {
         let classes = {
             // default
             ui: this.props.defaultClasses,
@@ -62,37 +92,13 @@ export class Input extends Component {
             transparent: this.props.transparent
         };
 
-        // see if icon and label are children
-        this.processChildren();
-        
-        let labelClass = this.getLabelClass();
-        let iconClass = this.getIconClass();
-        let input = this.prepareInput(labelClass);
-
         classes[this.props.size] = !!this.props.size;
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);
-
-        let { children, className, defaultClasses, icon, labeled, loading, name, 
-              placeholder, tag, type,...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, labelClass, iconClass, classes),
-            ...other
-        }, input);
-    }
-
-    render() {
-        if (this.props.type == 'checkbox') {
-            return this.renderCheckbox();
-        } else{
-            return this.renderText();
-        }
-
+        return classes;
     }
 
     // sets iconClass if Icon is a child
-    getIconClass() {
+    getIconClasses() {
         let classes = {
             right: false,
             left: false,
@@ -110,7 +116,7 @@ export class Input extends Component {
     }
 
     // sets labelClass if label is a child
-    getLabelClass() {
+    getLabelClasses() {
         let classes = {
             right: false,
             left: false,
@@ -130,7 +136,8 @@ export class Input extends Component {
     }
 
     // ensures that the label is on the correct side of the input
-    prepareInput(labelClass) {
+    prepareInput() {
+        let labelClasses = this.getLabelClasses();
         let input = [];
 
         // the actual input element
@@ -140,14 +147,14 @@ export class Input extends Component {
                             type={this.props.type} 
                         />;
 
-        if (labelClass.corner) {
+        if (labelClasses.corner) {
             input.push(inputHTML);
             input.push(this.props.children);
         } else{
             input.push(this.children.icon);
 
-            // if label is on the write, put the input on the left
-            if (labelClass.right) {
+            // if label is on the right, put the input on the left
+            if (labelClasses.right) {
                 input.push(inputHTML);
                 input.push(this.children.label);
             } else {

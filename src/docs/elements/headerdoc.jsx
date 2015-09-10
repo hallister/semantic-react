@@ -43,14 +43,14 @@ export class HeaderDoc extends Component {
 		return (
 			<div>
 				<Segment>
-					<Header size="huge">Huge Header</Header>
+					<Header size="huge" onClick={function test(){}}>Huge Header</Header>
 					<Header size="large">Large Header</Header>
 					<Header size="medium">Medium Header</Header>
 					<Header size="small">Small Header</Header>
 					<Header size="tiny">Tiny Header</Header>
 				</Segment>
 				<Segment>
-					<Header tag={React.DOM.div}>
+					<Header>
 						<Icon name="settings"/>
 						<Content>
 							Account Settings
@@ -69,25 +69,25 @@ export class HeaderDoc extends Component {
 					<Content>$10.99</Content>
 				</Segment>
 				<Segment>
-					<Header tag={React.DOM.h2}>
+					<Header component="h3">
 						<Image src="http://semantic-ui.com/images/icons/school.png"/>
 						<Content>Learn More</Content>
 					</Header>
 				</Segment>
 				<Segment>
-					<Header tag={React.DOM.h2}>
+					<Header component="h2">
 						<Image circular src="http://semantic-ui.com/images/avatar2/large/patrick.png"/>
 						<Content>Patrick</Content>
 					</Header>
 				</Segment>
 				<Segment>
-					<Header tag={React.DOM.h2}>
+					<Header component="h2">
 						<Icon name="plug"/>
 						<Content>Uptime Guarantee</Content>
 					</Header>
 				</Segment>
 				<Segment>
-					<Header tag={React.DOM.h2}>
+					<Header component="h2">
 						<Icon name="settings"/>
 						<Content>
 							Account Settings
@@ -96,7 +96,7 @@ export class HeaderDoc extends Component {
 					</Header>
 				</Segment>
 				<Segment>
-					<Header tag={React.DOM.h2}>
+					<Header component="h2">
 						<Content>
 							Account Settings
 							<SubHeader>Manage your account settings and set e-mail preferences.</SubHeader>
@@ -104,23 +104,23 @@ export class HeaderDoc extends Component {
 					</Header>
 				</Segment>
 				<Segment>
-					<Header tag={React.DOM.h1}>
+					<Header component="h1">
 						H1
 						<SubHeader>Sub Header</SubHeader>
 					</Header>
-					<Header tag={React.DOM.h2}>
+					<Header component="h2">
 						H2
 						<SubHeader>Sub Header</SubHeader>
 					</Header>
-					<Header tag={React.DOM.h3}>
+					<Header component="h3">
 						H3
 						<SubHeader>Sub Header</SubHeader>
 					</Header>
-					<Header tag={React.DOM.h4}>
+					<Header component="h4">
 						H4
 						<SubHeader>Sub Header</SubHeader>
 					</Header>
-					<Header tag={React.DOM.h5}>
+					<Header component="h5">
 						H5
 						<SubHeader>Sub Header</SubHeader>
 					</Header>
@@ -131,7 +131,7 @@ export class HeaderDoc extends Component {
 					</Header>
 				</Segment>
 				<Segment>
-					<Header tag={React.DOM.h3} dividing>
+					<Header component="h3" dividing>
 						Dividing Header
 					</Header>
 				</Segment>
@@ -141,37 +141,37 @@ export class HeaderDoc extends Component {
 					</Header>
 				</Segment>
 				<Segment>
-					<Header tag={React.DOM.h3} attached="top">
+					<Header component="h3" attached="top">
 						Top Attached
 					</Header>
 					<Segment attached />
-					<Header tag={React.DOM.h3} attached>
+					<Header component="h3" attached>
 						Attached
 					</Header>
 					<Segment attached />
-					<Header tag={React.DOM.h3} attached="bottom">
+					<Header component="h3" attached="bottom">
 						Bottom Attached
 					</Header>
 				</Segment>
 				<Segment clearing>
-					<Header tag={React.DOM.h3} floated="right">
+					<Header component="h3" floated="right">
 						Go Forward
 					</Header>
-					<Header tag={React.DOM.h3} floated="left">
+					<Header component="h3" floated="left">
 						Go Backward
 					</Header>
 				</Segment>
 				<Segment>
-					<Header tag={React.DOM.h3} aligned="right">
+					<Header component="h3" aligned="right">
 						Right
 					</Header>
-					<Header tag={React.DOM.h3} aligned="left">
+					<Header component="h3" aligned="left">
 						Left
 					</Header>
-					<Header tag={React.DOM.h3} aligned="justified">
+					<Header component="h3" aligned="justified">
 						This should take up the full width even if only one line
 					</Header>
-					<Header tag={React.DOM.h3} aligned="center">
+					<Header component="h3" aligned="center">
 						Center
 					</Header>
 				</Segment>

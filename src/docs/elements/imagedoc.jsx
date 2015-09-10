@@ -15,6 +15,9 @@ export class ImageDoc extends Component {
         		<Segment>
             		<Image size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
             	</Segment>
+                <Segment>
+                    <Image component="div" size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
+                </Segment>
         		<Segment>
             		<Image size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
             	</Segment>
@@ -98,6 +101,7 @@ export class ImageDoc extends Component {
    					convenire mnesarchum eu per, quas minimum postulant per id.</p>
             	</Segment>
             	<Segment>
+                test
             		<Images size="tiny" aligned="top">
             			<Image src="http://semantic-ui.com/images/wireframe/white-image.png"/> test
             			<Image src="http://semantic-ui.com/images/wireframe/image.png"/> test

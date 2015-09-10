@@ -15,17 +15,14 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
     constructor(props) {
         super(props);
 
-        // avoid flicker on firefox
         this.state = {
-            style: {
-                visibility: 'hidden'
-            }
+            hideComponent: true
         }
  
     }
 
     componentWillReceiveProps(props) {
-        let animation = {}
+        let animation = {};
 
         if (props.animation.state !== this.props.animation.state) {
 
@@ -40,13 +37,13 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                                      animation.duration, animation.options);
 
             } else {
-                this[animation.name](animation.duration, animation.easing);  
+                this[animation.name](animation.duration, animation.options);  
             }      
 
             // animation will run, unset our styling from componentDidMount
             this.setState({
                 animation: animation.name,
-                style: null
+                hideComponent: false
             });
 
         }
@@ -54,7 +51,8 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
 
     componentDidMount() {
         // we check if this component is ever going to do a slideUp or slideDown animation
-        // we need these values if it does
+        // it would be vastly better to simply not have a value in here if it is already 
+        // zero.
         if ((this.props.animation.enterState.name == 'slideUp' || this.props.animation.enterState.name == 'slideUp') ||
             (this.props.animation.enterState.name == 'slideDown' || this.props.animation.enterState.name == 'slideDown')) {
             this.style = {
@@ -63,29 +61,17 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                 paddingBottom:  this.getPropertyValue('padding-bottom'),
                 marginTop:  this.getPropertyValue('margin-top'),
                 marginBottom:  this.getPropertyValue('margin-bottom'),
-                overflow: 'hidden'
+                overflow: 'hidden',
+                visibility: 'visible'
             };
         }
-
-        // this is to fight off Semantic's use of !important on display and visibility properties
-        // dimmable's active state set's display to !important, so we use opacity instead. The 
-        // visibility is to fix an issue with flickering on accordion in Firefox
-        this.setState({
-            style: {
-                display: 'none',
-                visibility: 'hidden',
-                opacity: 0
-            }
-        });      
-
     }
 
     render() {
-
         return (
             <div className={this.props.className} 
-                 style={this.state.style || Animator.getAnimatedStyle.call(this, this.state.animation)}>
-                {this.props.children}
+                 style={ Animator.getAnimatedStyle.call(this, this.state.animation)}>
+                {this.state.hideComponent ? '' : this.props.children}
             </div>
         )
     }
@@ -152,8 +138,8 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
             // IE8 doesn't support this
             this.computedStyle = window.getComputedStyle(this.component, null);
         }
-
-        /* as of right now there is zero use case for this
+       
+        /*
         if (property == 'height' && 
             this.getPropertyValue('boxSizing').toString().toLowerCase() !== 'border-box') 
         {
@@ -161,8 +147,7 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                    (parseFloat(this.getPropertyValue('borderBottomWidth')) || 0) - 
                    (parseFloat(this.getPropertyValue('paddingTop')) || 0) -
                    (parseFloat(this.getPropertyValue('paddingBottom')) || 0));
-        }
-        */
+        } */
 
         let computedValue;
 
@@ -191,7 +176,7 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
             }
         }
 
-        return  parseFloat(computedValue);
+        return  computedValue;
     }
 
     customAnimation(config, name, duration, options) {
@@ -204,7 +189,7 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
         );
     }
 
-    fadeIn(duration, easing) {
+    fadeIn(duration, options) {
         Animator.animate.call(this, 
             'fadeIn',
             {
@@ -213,13 +198,13 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                 opacity: 1
             }, 
             duration,
-            {
-                easing: easing
-            }
+            options
         );
     }
 
-    fadeOut(duration, easing) {
+    fadeOut(duration, options) {
+        let self = this;
+
         Animator.animate.call(this, 
             'fadeOut',
             {
@@ -229,12 +214,17 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
             }, 
             duration,
             {
-                easing: easing
+                easing: options.easing,
+                onComplete: function() {
+                    self.setState({
+                        hideComponent: true
+                    });
+                }
             }
         );
     }
 
-    slideDown(duration, easing) {
+    slideDown(duration, options) {
         Animator.animate.call(this, 
             'slideDown',
             {
@@ -246,13 +236,13 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
             },
             this.style, 
             duration,
-            {
-                easing: easing
-            }
+            options
         );
     }
 
-    slideUp(duration, easing) {
+    slideUp(duration, options) {
+        let self = this;
+
         Animator.animate.call(this, 
             'slideUp',
             this.style,
@@ -262,11 +252,120 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                 paddingBottom: 0,
                 marginTop: 0,
                 marginBottom: 0,
-                overflow: 'hidden'
+                overflow: 'hidden',
+                visibility: 'visibile'
             },
             duration,
             {
-                easing: easing
+                easing: options.easing,
+                onComplete: function() {
+                    self.setState({
+                        hideComponent: true
+                    });
+                }
+            }
+        );
+    }
+
+    slideIn(duration, options) {   
+        Animator.animate.call(this, 
+            'slideIn',
+            {
+                opacity: 0,
+                transform: 'scaleY(0)',
+                transformOrigin: 'top center',
+                'WebkitTransform': 'scaleY(0)',
+                'WebkitTransformOrigin': 'top center'
+            },
+            {
+                opacity: 1,
+                transform: 'scaleY(1)'
+            },
+            duration,
+            options
+        );
+    }
+
+    slideOut(duration, options) {
+        let self = this;
+
+        Animator.animate.call(this, 
+            'slideOut',
+            {
+                opacity: 1,
+                transform: 'scaleY(1)',
+                transformOrigin: 'top center',
+                'WebkitTransform': 'scaleY(1)',
+                'WebkitTransformOrigin': 'top center'
+            },
+            {
+                opacity: 0,
+                transform: 'scaleY(0)',
+                transformOrigin: 'top center',
+                'WebkitTransform': 'scaleY(0)',
+                'WebkitTransformOrigin': 'top center'
+            },
+            duration,
+            {
+                easing: options.easing,
+                onComplete: function() {
+                    self.setState({
+                        hideComponent: true
+                    });
+                }
+            }
+        );
+    }
+
+    slideRightIn(duration, options) {
+        Animator.animate.call(this, 
+            'slideRightIn',
+            {
+                opacity: 0,
+                transform: 'scale(0, 0)',
+                transformOrigin: 'left top',
+                'WebkitTransform': 'scale(0, 0)',
+                'WebkitTransformOrigin': 'left top'
+            },
+            {
+                opacity: 1,
+                transform: 'scale(1, 1)',
+                transformOrigin: 'left top',
+                'WebkitTransform': 'scale(1, 1)',
+                'WebkitTransformOrigin': 'left top'
+            },
+            duration,
+            options
+        );
+    }
+
+    slideLeftOut(duration, options) {
+        let self = this;
+
+        Animator.animate.call(this, 
+            'slideLeftOut',
+            {
+                opacity: 1,
+                transform: 'scale(1, 1)',
+                transformOrigin: 'left top',
+                'WebkitTransform': 'scale(1, 1)',
+                'WebkitTransformOrigin': 'left top'
+            },
+            {
+                opacity: 0,
+                transform: 'scale(0, 0)',
+                transformOrigin: 'left top',
+                'WebkitTransform': 'scale(0, 0)',
+                'WebkitTransformOrigin': 'left top'
+            },
+            duration,
+            {
+                easing: options.easing,
+                onComplete: function() {
+                    self.setState({
+                        hideComponent: true
+                    });
+                }
             }
         );
     }

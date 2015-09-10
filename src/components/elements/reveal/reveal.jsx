@@ -30,6 +30,7 @@ export class Reveal extends Component {
     };
 
     static defaultProps = {
+        component: 'div',
         defaultClasses: true,
         image: false,
         move: false,
@@ -37,6 +38,19 @@ export class Reveal extends Component {
     };
 
     render() {
+        let { active, circular, children, className, defaultClasses, disabled, fade,
+              instant, image, move, rotate, size, type, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
             // default
             ui: this.props.defaultClasses,
@@ -66,14 +80,6 @@ export class Reveal extends Component {
         classes[this.props.size] = !!this.props.size;
         classes[this.props.type] = !!this.props.type;
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);
-
-        let { active, circular, children, className, defaultClasses, disabled, fade,
-              instant, image, move, rotate, size, type, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

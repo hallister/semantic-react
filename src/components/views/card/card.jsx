@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-
-// can't get import working?
-var classNames = require('classnames');
+import classNames from 'classnames';
 
 export class Card extends Component {
 	static defaultProps = {
