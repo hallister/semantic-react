@@ -38,6 +38,17 @@ export class Buttons extends React.Component {
         defaultClasses: true
     };
 
+    stringProps = [
+        {
+            prop: 'floated',
+            options: ['right', 'left']
+        },
+        {
+            prop: 'labeled',
+            options: ['right', 'left']
+        }
+    ];
+
     getChildContext() {
         return {
             'isAttached': !!this.props.attached,

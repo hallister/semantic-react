@@ -86,20 +86,22 @@ export function childCount(children) {
     return React.Children.count(children);
 }
 
-export function returnTag(tag) {
-    if (typeof tag == 'function') {
-        return 'div';
-    } else if (typeof tag == 'string') {
-        return tag;
-    } else if (typeof tag == 'object') {
-        let child = tag;
+export function handleMultiClasses(classes, props, stringProps) {
 
-        console.log(child);
+    stringProps.forEach(item => {
+        // this prop is active
+        if (!!props[item.prop] === true) {
+            let value = props[item.prop];
+            classes[item.prop] = false;
 
-        return function(config, children) {
-            let element = React.cloneElement(child, config, children);
-            console.log(element.type);
-            return element.type;
+            if (typeof value === 'string') {
+                classes[value + ' ' + item.prop] = true;          
+            } else {
+                classes[item.prop] = true;
+            }
+
         }
-    }
+    });
+
+    return classes;
 }

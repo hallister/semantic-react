@@ -26,6 +26,7 @@
     "eslint-plugin-react": "^3.3.2",
     "he": "^0.5.0",
     "json-loader": "^0.5.2",
+    "react-addons-perf": "^0.14.0-beta3",
     "react-hot-loader": "^1.2.8",
     "uglify-js": "^2.4.24",
     "webpack": "^1.11.0",

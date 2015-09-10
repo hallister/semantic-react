@@ -30,7 +30,7 @@ export class LabeledIconDoc extends React.Component {
                     Pause
                 </Button>
 
-                <Button labeled="right">
+                <Button labeled="right" floated="right">
                     <Icon name="pause" />
                     Next
                 </Button>
