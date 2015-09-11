@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
-export class Card extends Component {
+export class Card extends React.Component {
 	static defaultProps = {
+        component: 'div',
 		defaultClasses: true
 	};
 
@@ -12,15 +13,16 @@ export class Card extends Component {
         color: React.PropTypes.string,
         doubling: React.PropTypes.string,
         defaultClasses: React.PropTypes.bool,
-        fluid: React.PropTypes.bool
+        fluid: React.PropTypes.bool,
+        link: React.PropTypes.bool
     };
 
     static childContextTypes = {
-        DisableUIClass: React.PropTypes.bool
+        isCardChild: React.PropTypes.bool
     };
 
 	static contextTypes = {
-        DisableUIClass: React.PropTypes.bool
+        isCardChild: React.PropTypes.bool
 	};
 
 	constructor(props) {
@@ -29,34 +31,43 @@ export class Card extends Component {
 
     getChildContext() {
         return {
-            DisableUIClass: true
+            isCardChild: true
         }
     }
 
     render() {
-    	let classes = {
+        let { centered, col, color, doubling, defaultClasses, fluid, ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
+        let classes = {
             // default
-        	ui: this.props.defaultClasses  && !this.context.isChildCard,
+            ui: this.props.defaultClasses  && !this.context.isChildCard,
 
 
-        	// component
-        	card: this.props.defaultClasses,
+            // component
+            card: this.props.defaultClasses,
 
             // variations
             centered: this.props.centered,
             doubling: this.props.doubling,
             color: this.props.color,
-            fluid: this.props.fluid
+            fluid: this.props.fluid,
+            link: this.props.link || this.props.onClick
         };
 
-        classes[this.props.color] = this.props.color ? true : false;
-        classes[this.props.col] = this.props.col ? true : false;
-        classes[this.props.doubling] = this.props.doubling ? true : false;
+        classes[this.props.color] = !!this.props.color;
+        classes[this.props.col] = !!this.props.col;
+        classes[this.props.doubling] = !!this.props.doubling;
 
-        return (
-            <div className={classNames(this.props.className, classes)}>
-                {this.props.children}
-            </div>
-        );
+        return classes;
     }
 }

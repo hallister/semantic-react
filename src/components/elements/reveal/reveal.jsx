@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { Image } from '../../elements';
-import { hasDescendant, returnTag } from '../../utilities';
+import { hasDescendant, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+
+let validProps = {
+    move: ['right', 'up', 'down'],
+    rotate: ['left']  
+};
 
 export class Reveal extends Component {
     static propTypes = {
@@ -12,19 +17,17 @@ export class Reveal extends Component {
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         fade: React.PropTypes.bool,
-        image: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.bool
-        ]),
+        image: React.PropTypes.bool,
         instant: React.PropTypes.bool,
         move: React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(validProps.move),
             React.PropTypes.bool
         ]),
         rotate: React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(validProps.rotate),
             React.PropTypes.bool
         ]),
+        // required?
         size: React.PropTypes.string,
         type: React.PropTypes.string
     };
@@ -34,12 +37,13 @@ export class Reveal extends Component {
         defaultClasses: true,
         image: false,
         move: false,
-        rotate: false
+        rotate: false,
+        size: 'small'
     };
 
     render() {
         let { active, circular, children, className, defaultClasses, disabled, fade,
-              instant, image, move, rotate, size, type, ...other } = this.props;
+              instant, image, move, rotate, size, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -73,13 +77,8 @@ export class Reveal extends Component {
             image: this.props.image || hasDescendant(this.props.children, Image)
         };
 
-        classes[this.props.image] = typeof this.props.image == 'string' ? true : false;
-        classes[this.props.move] = typeof this.props.move == 'string' ? true : false;
-        classes[this.props.rotate] = typeof this.props.rotate == 'string' ? true : false;
-
         classes[this.props.size] = !!this.props.size;
-        classes[this.props.type] = !!this.props.type;
 
-        return classes;
+        return validateClassProps(classes, this.props, validProps);
     }
 }

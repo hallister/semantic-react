@@ -13,7 +13,7 @@ export class RevealDoc extends Component {
         return (
             <div>
                 <Segment>
-                    <Reveal type="fade">
+                    <Reveal fade>
                         <Content visible>
                             <Image size="small" src="http://semantic-ui.com/images/wireframe/square-image.png" />
                         </Content>
@@ -23,7 +23,7 @@ export class RevealDoc extends Component {
                     </Reveal>
                 </Segment>
                 <Segment>
-                    <Reveal type="fade" size="small">
+                    <Reveal fade size="small">
                         <Content visible>
                             <Image src="http://semantic-ui.com/images/wireframe/square-image.png" />
                         </Content>
@@ -79,7 +79,7 @@ export class RevealDoc extends Component {
                     </Reveal>
                 </Segment>
                 <Segment>
-                    <Reveal rotate="left" size="small" image="circular">
+                    <Reveal rotate="left" size="small" circular>
                         <Image visible content src="http://semantic-ui.com/images/wireframe/square-image.png" />
                         <Image hidden content src="http://semantic-ui.com/images/avatar/large/ade.jpg" />
                     </Reveal>

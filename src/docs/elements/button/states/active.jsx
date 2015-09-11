@@ -1,16 +1,14 @@
 import React from 'react';
-import { Button, Icon } from '../../../../components/elements';
+import { IconButton } from '../../../../components/elements';
 import { DocBlock } from '../../../docblock';
 
 import classNames from 'classnames';
 import he from 'he';
 
 let JSXExample = he.encode(`
-<Button active>
-  <Icon name="user" />
-  Follow
-</Button>
-
+<IconButton name="user" active>
+    Follow
+</IconButton>
 `);
 
 export class ActiveDoc extends React.Component {
@@ -22,10 +20,9 @@ export class ActiveDoc extends React.Component {
                       subheader={this.props.subheader}
                       JSX={JSXExample}>
 
-                      <Button active>
-                        <Icon name="user" />
-                        Follow
-                      </Button>
+                      <IconButton name="user" active>
+                          Follow
+                      </IconButton>
 
             </DocBlock>
         );

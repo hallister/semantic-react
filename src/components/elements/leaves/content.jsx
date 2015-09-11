@@ -1,6 +1,11 @@
 import React from 'react';
+import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 
+let validProps = {
+    aligned: ['top', 'middle', 'bottom'],
+    floated: ['right', 'left']
+};
 
 export class Content extends React.Component {
 	static defaultProps = {
@@ -49,14 +54,7 @@ export class Content extends React.Component {
 			// default
         	content: this.props.defaultClasses,
         	
-        	// positioning
-        	left: false,
-        	right: false,
-        	top: false,
-        	middle: false,
-        	bottom: false,
-
-        	// variations
+            // variations
         	active: this.props.active,
         	aligned: this.props.aligned,
         	extra: this.props.extra,
@@ -66,9 +64,6 @@ export class Content extends React.Component {
         	visible: this.props.visible
 		};
 
-		classes[this.props.floated] = typeof floated == 'string' ? true : false;
-		classes[this.props.aligned] = !!this.props.aligned;
-
-		return classes;
+        return validateClassProps(classes, this.props, validProps);
 	}
 }

@@ -1,40 +1,57 @@
 import React, { Component } from 'react';
-import { returnTag } from '../../utilities';
+import { hasChild } from '../../utilities';
 import classNames from 'classnames';
-
-// Todo: Can't do much without a dimmer
 
 export class Loader extends Component {
     static defaultProps = {
-        defaultClasses: true
+        defaultClasses: true,
+        component: 'div'
     };
 
     static propTypes = {
-        defaultClasses: React.PropTypes.bool,
-        tag: React.PropTypes.oneOfType([
+        active: React.PropTypes.bool,
+        centered: React.PropTypes.bool,
+        component: React.PropTypes.oneOfType([
             React.PropTypes.element,
-            React.PropTypes.func,
             React.PropTypes.string
-        ])
+        ]),
+        defaultClasses: React.PropTypes.bool,
+        disabled: React.PropTypes.bool,
+        inline: React.PropTypes.bool,
+        inverted: React.PropTypes.bool,
+        text: React.PropTypes.bool
     };
 
-
     render() {
+        let { ...other } = this.props;
+
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    getClasses() {
         let classes = {
-            // default
             ui: this.props.defaultClasses,
 
-            // component
+            active: this.props.active,
+            centered: this.props.centered,
+            indeterminate: this.props.indeterminate,
+            inline: this.props.inline,
+            inverted: this.props.inverted,
+            text: this.props.text || hasChild(this.props.children, 'string'),
+            disabled: this.props.disabled,
+
+            //component
             loader: this.props.defaultClasses
         };
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);
+        classes[this.props.size] = !!this.props.size;
 
-        let { defaultClasses, tag, ...other } = this.props;
-
-        return Tag({
-            className: classNames(this.props.className, classes),
-            ...other
-        }, this.props.children);
+        return classes;
     }
 }

@@ -1,7 +1,14 @@
 import React from 'react';
 import { Icon, Label } from '../../elements';
-import { hasChild, hasFirstChild, handleMultiClasses } from '../../utilities';
+import { hasChild, hasFirstChild, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+
+let validProps = {
+    animated: ['vertical', 'fade'],
+    attached: ['left', 'right', 'bottom', 'top'],   
+    labeled: ['right', 'left'],   
+    floated: ['right', 'left']
+};
 
 export class Button extends React.Component {
     static propTypes = {
@@ -11,7 +18,7 @@ export class Button extends React.Component {
             React.PropTypes.bool
         ]),
         attached: React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(validProps.attached),
             React.PropTypes.bool
         ]),
         basic: React.PropTypes.bool,
@@ -26,13 +33,13 @@ export class Button extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-        floated: React.PropTypes.string,
+        floated: React.PropTypes.oneOf(validProps.floated),
         fluid: React.PropTypes.bool,
         focusable: React.PropTypes.bool,
-        icon: React.PropTypes.string,
+        icon: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         labeled:  React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(validProps.labeled),
             React.PropTypes.bool
         ]),
         loading: React.PropTypes.bool,
@@ -46,13 +53,10 @@ export class Button extends React.Component {
 
     static contextTypes = {
         isAttached: React.PropTypes.bool,
-        isButtonChild: React.PropTypes.bool,
-        hasIconClass: React.PropTypes.bool
+        isIconButtons: React.PropTypes.bool,
+        isLabeledButtons: React.PropTypes.bool
     };
 
-    static childContextTypes = {
-        isButtonChild: React.PropTypes.bool
-    };
 
     static defaultProps = {
         animated: false,
@@ -60,32 +64,16 @@ export class Button extends React.Component {
         defaultClasses: true
     };
 
-    stringProps = [
-        {
-            prop: 'floated',
-            options: ['right', 'left']
-        },
-        {
-            prop: 'labeled',
-            options: ['right', 'left']
-        }
-    ];
-
-    getChildContext() {
-        return {
-            isButtonChild: true
-        };
+    isIconButton() {
+        return hasChild(this.props.children, Icon) && React.Children.count(this.props.children) === 1 ? true : false;
     }
 
     render() {
-        // select the proper component
-        let Component = this.context.isButtonChild || 
-                        hasChild(this.props.children, Button) ||
-                        (this.props.attached || this.context.isAttached || this.props.animated) ? 'div' : 'button';
+        let Component = (this.props.attached || this.context.isAttached || this.props.animated || React.Children.count(this.props.children) > 1) ? 'div' : 'button';
 
         // consume props
         let { active, animated, attached, basic, children, circular, color, component, compact, className, defaultClasses, 
-            disabled, fluid, inverted, label, loading, negative, positive, primary, secondary, size, social, 
+            disabled, fluid, icon, inverted, label, loading, negative, positive, primary, secondary, size, social, 
             ...other } = this.props;
 
         // add classnames
@@ -98,66 +86,21 @@ export class Button extends React.Component {
         );
     }
 
-    hasLabel() {
-        // it has more than one children and the child is anIcon or a Button
-        if (React.Children.count(this.props.children) > 1 && 
-            (
-                hasChild(this.props.children, Icon) || 
-                hasChild(this.props.children, Button)
-            ) && 
-
-            // another child is either a Label or free-floating text, but free-floating text
-            // won't work if it's also a child of a button. Fixes complex labeled icon buttons
-            ( 
-                hasChild(this.props.children, Label) ||
-                (hasChild(this.props.children, 'string') && !this.context.isButtonChild)
-            ) &&
-            // social icons are never labeled
-            !this.props.social
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    hasIcon() {
-        // must have a icon as a direct child
-        if (hasChild(this.props.children, Icon) && 
-            (
-                // if this is not a child of another button OR it only has a single child (that must be an icon)
-                !this.context.isButtonChild ||
-                React.Children.count(this.props.children) === 1
-            ) && 
-            // if the parent (button) does not already have an icon class (neccesary?)
-            !this.context.hasIconClass &&
-            // if it's not a social button OR it's circular
-            (
-                !this.props.social ||
-                this.props.circular
-            )
-        ) {
-            return true;
-        } else {
-            return false;  
-        }
-    }
-
     getClasses() {
         let classes = {
             // default
             ui: this.props.defaultClasses,
 
-            // floated prop needs to stick with psoitioning
+            // position based props
             floated: this.props.floated,
-            labeled: this.hasLabel() || this.props.labeled,
+            labeled: this.props.labeled && !this.context.isLabeledButtons,
+            attached: this.props.attached,
 
             // types
             animated: this.props.animated,
             basic: this.props.basic,
-            icon: (this.hasIcon() || this.props.icon),
+            icon:  (this.props.icon || this.isIconButton()) && !this.context.isIconButtons,
             inverted: this.props.inverted,
-
 
             // states
             active: this.props.active,
@@ -165,8 +108,6 @@ export class Button extends React.Component {
             loading: this.props.loading,
 
             // variations
-
-            attached: this.props.attached,
             circular: this.props.circular,
             compact: this.props.compact,
             fluid: this.props.fluid,
@@ -179,46 +120,11 @@ export class Button extends React.Component {
             button: this.props.defaultClasses
         };
 
-        // handle mixed string/bool props
-        classes[this.props.animated] = typeof this.props.animated == 'string' ? true : false;
-        classes[this.props.attached] = typeof this.props.attached == 'string' ? true : false;
-        //classes[this.props.labeled] = typeof this.props.labeled == 'string' ? true : false
-        
         // string types
         classes[this.props.color] = !!this.props.color;
         classes[this.props.size] = !!this.props.size;
         classes[this.props.social] = !!this.props.social;
 
-        classes = handleMultiClasses(classes, this.props, this.stringProps);
-
-        /* special case for labeled icons. this handles the use-case where a button has a 
-           label and a button as a child. The better use case is allowing this syntax:
-            
-            <Button>
-                <Icon name="heart" /> Like
-                <Label basic>
-                    2,048
-                </Label>
-            </Button>
-
-            which would convert to
-
-            <Button>
-                <div class="ui button">
-                    <Icon name="heart" /> Like
-                </div>
-                <Label basic>
-                    2,048
-                </Label>
-            </Button>
-
-            This should be easy to fix (has child of type Icon and of type Label)
-        */
-        if (hasFirstChild(this.props.children, Label)) {
-            classes['left labeled'] = true;
-            classes['labeled'] = false;
-        }
-
-        return classes;
+        return validateClassProps(classes, this.props, validProps);
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon } from '../../../../components/elements';
+import { Button, Icon, IconButton, LabeledButton } from '../../../../components/elements';
 import { DocBlock } from '../../../docblock';
 
 import classNames from 'classnames';
@@ -10,14 +10,12 @@ let JSXExample = he.encode(`
     Hold
 </Button>
 
-<Button compact>
-    <Icon name="pause" />
-</Button>
+<IconButton compact name="pause" />
 
-<Button compact>
+<LabeledButton compact>
     <Icon name="pause" />
     Pause
-</Button>
+</LabeledButton> 
 `);
 
 export class CompactDoc extends React.Component {
@@ -32,13 +30,13 @@ export class CompactDoc extends React.Component {
                 <Button compact>
                     Hold
                 </Button>
-                <Button compact>
-                    <Icon name="pause" />
-                </Button>
-                <Button compact>
+
+                <IconButton compact name="pause" />
+
+                <LabeledButton compact>
                     <Icon name="pause" />
                     Pause
-                </Button>                                      
+                </LabeledButton>                                      
             </DocBlock>
         );
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Buttons, Icon } from '../../../../components/elements';
+import { Button, Buttons, Icon, IconButton } from '../../../../components/elements';
 import { DocBlock } from '../../../docblock';
 
 import classNames from 'classnames';
@@ -7,30 +7,16 @@ import he from 'he';
 
 let JSXExample = he.encode(`
 <Buttons>
-    <Button>
-        <Icon name="align left" />
-    </Button>
-    <Button>
-        <Icon name="align center" />
-    </Button>
-    <Button>
-        <Icon name="align right" />
-    </Button>
-    <Button>
-        <Icon name="align justify" />
-    </Button>
+    <IconButton name="align left" />
+    <IconButton name="align center" />
+    <IconButton name="align right" />
+    <IconButton name="align justify" />
 </Buttons>
 
 <Buttons>
-    <Button>
-        <Icon name="bold" />
-    </Button>
-    <Button>
-        <Icon name="underline" />
-    </Button>
-    <Button>
-        <Icon name="text width" />
-    </Button>
+    <IconButton name="bold" />
+    <IconButton name="underline" />
+    <IconButton name="text width" />
 </Buttons>
 `);
 
@@ -46,30 +32,16 @@ export class IconButtonsDoc extends React.Component {
                       JSX={JSXExample}>
 
                       <Buttons>
-                          <Button>
-                              <Icon name="align left" />
-                          </Button>
-                          <Button>
-                              <Icon name="align center" />
-                          </Button>
-                          <Button>
-                              <Icon name="align right" />
-                          </Button>
-                          <Button>
-                              <Icon name="align justify" />
-                          </Button>
+                          <IconButton name="align left" />
+                          <IconButton name="align center" />
+                          <IconButton name="align right" />
+                          <IconButton name="align justify" />
                       </Buttons>
 
                       <Buttons>
-                          <Button>
-                              <Icon name="bold" />
-                          </Button>
-                          <Button>
-                              <Icon name="underline" />
-                          </Button>
-                          <Button>
-                              <Icon name="text width" />
-                          </Button>
+                          <IconButton name="bold" />
+                          <IconButton name="underline" />
+                          <IconButton name="text width" />
                       </Buttons>
 
             </DocBlock>

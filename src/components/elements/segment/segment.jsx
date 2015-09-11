@@ -1,6 +1,12 @@
 import React from 'react';
+import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 
+let validProps = {
+    aligned: ['right', 'left', 'center'],
+    attached: ['bottom', 'top'],
+    floated: ['right', 'left']
+};
 
 export class Segment extends React.Component {
     static defaultProps = {
@@ -11,9 +17,9 @@ export class Segment extends React.Component {
     };
 
     static propTypes = {
-        aligned: React.PropTypes.string,
+        aligned: React.PropTypes.oneOf(validProps.aligned),
         attached: React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(validProps.attached),
             React.PropTypes.bool
         ]),
         basic: React.PropTypes.bool,
@@ -24,7 +30,7 @@ export class Segment extends React.Component {
         compact: React.PropTypes.bool,
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-        floated: React.PropTypes.string,
+        floated: React.PropTypes.oneOf(validProps.floated),
         index: React.PropTypes.number,
         inverted: React.PropTypes.bool,
         loading: React.PropTypes.bool,
@@ -95,13 +101,9 @@ export class Segment extends React.Component {
             segment: this.props.defaultClasses
         };
 
-        classes[this.props.attached] = typeof this.props.attached == 'string' ? true : false;
-
-        classes[this.props.aligned] = !!this.props.aligned;
         classes[this.props.color] = !!this.props.color;
-        classes[this.props.floated] = this.props.floated;
 
-        return classes;
+        return validateClassProps(classes, this.props, validProps);
     }
 
     getStyle() {

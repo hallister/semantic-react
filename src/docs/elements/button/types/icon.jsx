@@ -1,14 +1,13 @@
 import React from 'react';
-import { Button, Icon, Label } from '../../../../components/elements';
+import { IconButton } from '../../../../components/elements';
 import { DocBlock } from '../../../docblock';
 
 import classNames from 'classnames';
 import he from 'he';
 
 let JSXExample = he.encode(`
-<Button>
-    <Icon name="cloud">
-</Button>
+<IconButton name="cloud" />
+<IconButton color="blue" iconColor="yellow" name="cloud" />
 `);
 
 export class IconDoc extends React.Component {
@@ -19,10 +18,8 @@ export class IconDoc extends React.Component {
                       subheader={this.props.subheader}
                       JSX={JSXExample}>
 
-                <Button>
-                    <Icon name="cloud" />
-                </Button>
-
+                <IconButton name="cloud" />
+                <IconButton color="blue" iconColor="yellow" name="cloud" />
             </DocBlock>
         );
     }

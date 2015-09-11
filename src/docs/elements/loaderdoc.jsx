@@ -1,31 +1,41 @@
 import React, { Component } from 'react';
-import { Segments } from '../segment/segments';
-import { Segment } from '../segment/segment';
-import { Input } from '../input/input';
-import { Icon } from '../icon/icon';
-import { Image } from '../image/image';
-import { Label } from '../label/label';
-import { Labels } from '../label/labels';
-import { Detail } from '../label/detail';
-import { Content } from '../header/content';
-import { Loader } from './loader';
+import { Loader, Segment } from '../../components/elements';
+import { Dimmer } from '../../components/modules';
 
 // Todo: Can't do much without a dimmer
 
 export class LoaderDoc extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-
     render() {
 
         return (
             <div>
-                <Segment inverted>
-                    <div className="ui active dimmer">
-                    <Loader />
-                    </div>
+                <Segment inverted compact aligned="center" >
+                    <img src="docs/images/paragraph.png" className="wireframe" />
+                    <Dimmer dimmed={true}>
+                        <Loader />
+                    </Dimmer>
+                </Segment>
+                <Segment inverted compact>
+                    <img src="docs/images/paragraph.png" className="wireframe" />
+                    <Dimmer dimmed={true}>
+                        <Loader>Loading</Loader>
+                    </Dimmer>
+                </Segment>
+                <Segment compact>
+                <img src="docs/images/paragraph.png" className="wireframe" />
+                    <Dimmer inverted dimmed={true}>
+                        <Loader>Loading</Loader>
+                    </Dimmer>
+                </Segment>
+                <Segment compact>
+                <img src="docs/images/paragraph.png" className="wireframe" />
+                    <Dimmer dimmed={true}>
+                        <Loader indeterminate>Loading</Loader>
+                    </Dimmer>
+                </Segment>
+                <Segment compact>
+                    <Loader active={true}>Loading</Loader>
+                    <img src="docs/images/paragraph.png" className="wireframe" />
                 </Segment>
             </div>
         );

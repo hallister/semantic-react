@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
-import { Numbers, returnTag, arrayToObject } from '../../utilities';
+import React from 'react';
+import { Numbers, arrayToObject, validateClassProps } from '../../utilities';
 import { Item, Header } from '../../elements';
 import { Animate } from '../../modules';
 import classNames from 'classnames';
 
-export class Menu extends Component {
+let validProps = {
+    attached: ['top', 'bottom']
+};
+
+export class Menu extends React.Component {
 	static defaultProps = {
         component: 'div',
 		defaultClasses: true
@@ -29,7 +33,7 @@ export class Menu extends Component {
         };
     }
 
-    renderDropdownSubMenu(classes, other) {
+    renderDropdownSubMenu(other) {
         let animation = {
             state: this.props.active,
             enterState: {
@@ -48,12 +52,10 @@ export class Menu extends Component {
             }
         };
 
-        return this.renderDropdownMenu(classes, other, animation);
+        return this.renderDropdownMenu(other, animation);
     }
 
-    renderDropdownMenu(classes, other, customAnimation = null) {
-        let Tag = returnTag(this.props.tag || React.DOM.div);   
-
+    renderDropdownMenu(other, customAnimation = null) {
         let animation = customAnimation ? customAnimation : {
             state: this.props.active,
             enterState: {
@@ -72,10 +74,11 @@ export class Menu extends Component {
             }
         };
 
+        other.className = classNames(this.props.className, this.getClasses());
+
         return (
-            <Animate className={classNames(classes)} 
-                     animation={animation}
-                     {...this.props}>
+            <Animate animation={animation}
+                     {...other}>
                 {this.props.children}
             </Animate>
         );
@@ -146,8 +149,6 @@ export class Menu extends Component {
             }
         }
 
-        classes[this.props.attached] = typeof this.props.attached == 'string' ? true : false;
-
-        return classes;
+        return validateClassProps(classes, this.props, validProps);
     }
 }

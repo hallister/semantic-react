@@ -1,5 +1,14 @@
 import React from 'react';
+import { hasChild, validateClassProps } from '../../utilities';
+import { Image } from '../../elements';
 import classNames from 'classnames';
+
+let validProps = {
+    attached: ['top', 'bottom', 'top right', 'top left', 'bottom left', 'bottom right'],
+    corner: ['left', 'right'],
+    pointing: ['below', 'left', 'right'],
+    ribbon: ['right']
+};
 
 export class Label extends React.Component {
     static defaultProps = {
@@ -10,8 +19,7 @@ export class Label extends React.Component {
     };
 
     static propTypes = {
-        arrow: React.PropTypes.bool,
-        attached: React.PropTypes.string,
+        attached: React.PropTypes.oneOf(validProps.attached),
         basic: React.PropTypes.bool,
         circular: React.PropTypes.bool,
         color: React.PropTypes.string,
@@ -20,26 +28,40 @@ export class Label extends React.Component {
             React.PropTypes.string
         ]),
         corner: React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(validProps.corner),
             React.PropTypes.bool
         ]),
         defaultClasses: React.PropTypes.bool,
+        floating: React.PropTypes.bool,
         image: React.PropTypes.bool,
         left: React.PropTypes.bool,
         pointing: React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(validProps.pointing),
             React.PropTypes.bool
         ]),
         ribbon: React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(validProps.ribbon),
             React.PropTypes.bool
         ]),
         right: React.PropTypes.bool,
-        size: React.PropTypes.string
+        size: React.PropTypes.string,
+        tag: React.PropTypes.bool
     };
+
+    // any header/subheader under a header is a subheader
+    static childContextTypes = {
+        isLabelChild: React.PropTypes.bool
+    };
+
+    getChildContext() {
+        return {
+            isLabelChild: true
+        };
+    }
 
     render() {
         // if it's attached or animated use a div instead of a button
+
         let Component = this.props.onClick ? 'a' : 'div';
 
         let { defaultClasses, left, right, corner, label, attached, image, color, pointing, ribbon, tag, 
@@ -59,17 +81,14 @@ export class Label extends React.Component {
             // default
             ui: this.props.defaultClasses,
 
-            // positioning
-            left: false,
-            right: false,
-
             // types
             attached: this.props.attached,
             corner: this.props.corner,
-            image: this.props.image,
+            floating: this.props.floating,
+            image: this.props.image || hasChild(this.props.children, Image),
             pointing: this.props.pointing,
             ribbon: this.props.ribbon,
-            tag: this.props.arrow,
+            tag: this.props.tag,
             basic: this.props.basic,
 
             // variations
@@ -80,14 +99,9 @@ export class Label extends React.Component {
         };
 
         // handle mixed string/bool props
-        classes[this.props.corner] = typeof this.props.corner == 'string' ? true : false;
-        classes[this.props.pointing] = typeof this.props.pointing == 'string' ? true : false;   
-        classes[this.props.ribbon] = typeof this.props.ribbon == 'string' ? true : false;   
-
-        classes[this.props.attached] = !!this.props.attached;
         classes[this.props.color] = !!this.props.color;
         classes[this.props.size] = !!this.props.size;
 
-        return classes;
+        return validateClassProps(classes, this.props, validProps);
     }
 }

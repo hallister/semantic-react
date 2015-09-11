@@ -3,7 +3,6 @@ import classNames from 'classnames';
 
 export class Labels extends React.Component {
     static propTypes = {
-        arrow: React.PropTypes.bool,
         children: React.PropTypes.node,
         circular: React.PropTypes.bool,
         className: React.PropTypes.node,
@@ -13,8 +12,8 @@ export class Labels extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
-        onClick: React.PropTypes.func,
-        size: React.PropTypes.string
+        size: React.PropTypes.string,
+        tag: React.PropTypes.bool
     };
 
     // we only set defaults for props that can be both bool and string + the defaultClasses
@@ -24,7 +23,7 @@ export class Labels extends React.Component {
     };
 
     render() {
-        let { arrow, circular, color, defaultClasses, size, tag, ...other } = this.props;
+        let { circular, component, color, defaultClasses, size, tag, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -42,7 +41,7 @@ export class Labels extends React.Component {
 
             // types
             labels: this.props.defaultClasses,
-            tag: this.props.arrow,
+            tag: this.props.tag,
 
             // variations
             color: this.props.color,

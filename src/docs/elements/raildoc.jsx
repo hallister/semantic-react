@@ -14,12 +14,12 @@ export class RailDoc extends Component {
         return (
             <div style={{width: '700px', marginLeft: 'auto', marginRight: 'auto'}}>
                 <Segment>
-                    <Rail float="left">
+                    <Rail floated="left">
                         <Segment>
                             Left Rail Content
                         </Segment>
                     </Rail>
-                    <Rail float="right">
+                    <Rail floated="right">
                         <Segment>
                             Right Rail Content
                         </Segment>
@@ -27,37 +27,24 @@ export class RailDoc extends Component {
                     <p>Something</p>
                 </Segment>
                 <Segment style={{left: '-150px', width: '960px', minHeight: '300px'}}>
-                    <Rail internal float="left">
+                    <Rail internal floated="left">
                         <Segment>
                             Left Rail Content
                         </Segment>
                     </Rail>
-                    <Rail internal float="right">
+                    <Rail internal floated="right">
                         <Segment>
                             Right Rail Content
                         </Segment>
                     </Rail>
                 </Segment>
                 <Segment>
-                    <Rail dividing float="left">
+                    <Rail dividing floated="left">
                         <Segment>
                             Left Rail Content
                         </Segment>
                     </Rail>
-                    <Rail dividing float="right">
-                        <Segment>
-                            Right Rail Content
-                        </Segment>
-                    </Rail>
-                    <p>Something</p>
-                </Segment>
-                <Segment>
-                    <Rail attached float="left">
-                        <Segment>
-                            Left Rail Content
-                        </Segment>
-                    </Rail>
-                    <Rail attached float="right">
+                    <Rail dividing floated="right">
                         <Segment>
                             Right Rail Content
                         </Segment>
@@ -65,12 +52,12 @@ export class RailDoc extends Component {
                     <p>Something</p>
                 </Segment>
                 <Segment>
-                    <Rail close float="left">
+                    <Rail attached floated="left">
                         <Segment>
                             Left Rail Content
                         </Segment>
                     </Rail>
-                    <Rail close float="right">
+                    <Rail attached floated="right">
                         <Segment>
                             Right Rail Content
                         </Segment>
@@ -78,12 +65,25 @@ export class RailDoc extends Component {
                     <p>Something</p>
                 </Segment>
                 <Segment>
-                    <Rail close="very" float="left">
+                    <Rail close floated="left">
                         <Segment>
                             Left Rail Content
                         </Segment>
                     </Rail>
-                    <Rail close="very" float="right">
+                    <Rail close floated="right">
+                        <Segment>
+                            Right Rail Content
+                        </Segment>
+                    </Rail>
+                    <p>Something</p>
+                </Segment>
+                <Segment>
+                    <Rail closer floated="left">
+                        <Segment>
+                            Left Rail Content
+                        </Segment>
+                    </Rail>
+                    <Rail closer floated="right">
                         <Segment>
                             Right Rail Content
                         </Segment>

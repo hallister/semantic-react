@@ -1,11 +1,16 @@
 import React from 'react';
-import { Icon } from '../../elements';
-import { Numbers, hasDescendant } from '../../utilities';
+import { LabeledButton, IconButton } from '../../elements';
+import { Numbers, validateClassProps, isEveryChild } from '../../utilities';
 import classNames from 'classnames';
+
+let validProps = {
+    attached: ['bottom', 'top'],
+    floated: ['right', 'left']
+}
 
 export class Buttons extends React.Component {
     static propTypes = {
-        attached: React.PropTypes.string,
+        attached: React.PropTypes.oneOf(validProps.attached),
         basic: React.PropTypes.bool,
         children: React.PropTypes.node,
         className: React.PropTypes.node,
@@ -16,7 +21,8 @@ export class Buttons extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
-        even: React.PropTypes.bool,
+        equal: React.PropTypes.bool,
+        floated: React.PropTypes.oneOf(validProps.floated),
         icon: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         labeled: React.PropTypes.bool,
@@ -30,7 +36,8 @@ export class Buttons extends React.Component {
 
     static childContextTypes = {
         isAttached: React.PropTypes.bool,
-        hasIconClass: React.PropTypes.bool
+        isIconButtons: React.PropTypes.bool,
+        isLabeledButtons: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -38,26 +45,16 @@ export class Buttons extends React.Component {
         defaultClasses: true
     };
 
-    stringProps = [
-        {
-            prop: 'floated',
-            options: ['right', 'left']
-        },
-        {
-            prop: 'labeled',
-            options: ['right', 'left']
-        }
-    ];
-
     getChildContext() {
         return {
             'isAttached': !!this.props.attached,
-            'hasIconClass': this.props.icon 
+            'isIconButtons': !!this.props.icon,
+            'isLabeledButtons': !!this.props.labeled
         };
     }
 
     render() {
-        let { attached, basic, children, className, color, compact, component, defaultClasses, even, icon, inverted, 
+        let { attached, basic, children, className, color, compact, component, defaultClasses, equal, icon, inverted, 
               labeled, negative, positive, primary, secondary, size, vertical, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -76,9 +73,9 @@ export class Buttons extends React.Component {
 
             // types
             basic: this.props.basic,
-            icon: this.props.icon || hasDescendant(this.props.children, Icon),
+            icon: this.props.icon || isEveryChild(this.props.children, IconButton),
             inverted: this.props.inverted,
-            labeled: this.props.labeled,
+            labeled: this.props.labeled || isEveryChild(this.props.children, LabeledButton),
 
             // variations
             attached: this.props.attached,
@@ -96,7 +93,7 @@ export class Buttons extends React.Component {
         let childCount = React.Children.count(this.props.children);
 
         // buttons group with >0 buttons that are all of equal width
-        if (this.props.attached || this.props.even) {
+        if (this.props.equal) {
             if (childCount > 0  && childCount <= 12) {
                 classes[Numbers[childCount]] = true;
             }
@@ -105,6 +102,6 @@ export class Buttons extends React.Component {
         classes[this.props.color] = !!this.props.color;
         classes[this.props.size] = !!this.props.size;
 
-        return classes;
+        return validateClassProps(classes, this.props, validProps);
     }
 }

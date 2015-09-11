@@ -1,10 +1,17 @@
 import React from 'react';
+import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+
+let validProps = {
+    aligned: ['top', 'middle', 'bottom'],
+    floated: ['right', 'left'],
+    spaced: ['right', 'left'],
+};
 
 // can't do SVG since JSX/React breaks on SVG images
 export class Image extends React.Component {
     static propTypes = {
-        aligned: React.PropTypes.string,
+        aligned: React.PropTypes.oneOf(validProps.aligned),
         avatar: React.PropTypes.bool,
         bordered: React.PropTypes.bool,
         centered: React.PropTypes.bool,
@@ -13,19 +20,18 @@ export class Image extends React.Component {
         className: React.PropTypes.node,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
-            React.PropTypes.func,
             React.PropTypes.string
         ]),
         content: React.PropTypes.bool,
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-        floated: React.PropTypes.string,
+        floated: React.PropTypes.oneOf(validProps.floated),
         fluid: React.PropTypes.bool,
         hidden: React.PropTypes.bool,
         rounded: React.PropTypes.bool,
         size: React.PropTypes.string,
         spaced: React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(validProps.spaced),
             React.PropTypes.bool
         ]),
         src: React.PropTypes.string.isRequired,
@@ -33,8 +39,12 @@ export class Image extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
         defaultClasses: true
+    };
+
+    // we don't want the ui in these circumstances
+    static contextTypes = {
+        isLabelChild: React.PropTypes.bool
     };
 
     renderComponent(other) {
@@ -42,7 +52,7 @@ export class Image extends React.Component {
                             src={this.props.src} />;
 
         return React.createElement(
-            this.props.component,
+            this.props.component || 'div',
             other,
             [this.props.children, imageDiv]
         );
@@ -76,10 +86,6 @@ export class Image extends React.Component {
             // is there a usecase for an image to be content and still have the ui/image classes?
             ui: this.props.defaultClasses && !this.props.content,
 
-            // positioning
-            right: false,
-            left: false,
-
             // types
             content: this.props.content,
 
@@ -104,12 +110,9 @@ export class Image extends React.Component {
 
         };
 
-        classes[this.props.aligned] = !!this.props.aligned;
-        classes[this.props.floated] = !!this.props.floated;
         classes[this.props.size] = !!this.props.size;
-        classes[this.props.spaced] = !!this.props.spaced;
 
-        return classes;
+        return validateClassProps(classes, this.props, validProps);
     }
 
 }

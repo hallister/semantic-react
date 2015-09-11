@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { getChild, returnTag } from '../../utilities';
-import { Segment, Content } from '../../elements';
+import { getChild, hasChild } from '../../utilities';
+import { Segment, Content, Loader } from '../../elements';
 import { Animate } from '../../modules';
 import classNames from 'classnames';
 
@@ -20,6 +20,7 @@ export class Dimmer extends Component {
     };
    
     static defaultProps = {
+        component: 'div',
         defaultClasses: true
     };
 
@@ -37,38 +38,56 @@ export class Dimmer extends Component {
         return getChild(this.props.children, Content, false);
     }
 
-    render() {
-        let dimClasses = {
-            ui: true,
-            dimmer: true,
-            transition: true,
-            active: true
-        };
-        
-        let classes = {
-            // default
-            dimmable: this.props.defaultClasses,
-            dimmed: this.props.dimmed,
-
-            // positioning
-
-            // types
-            blurring: this.props.blurring,
-            inverted: this.props.inverted,
-            page: this.props.page
-
-            // component
-
-            // variations
-        };
-
-        // if it's attached or animated use a div instead of a button
-        let Tag = this.props.page ? React.DOM.div : <Segment />
-        Tag = returnTag(this.props.tag || Tag);                   
-
+    renderDimmer() {
         let { disabled, inverted, ...other } = this.props;
 
-        let animation = {
+        return React.createElement(
+            this.props.component,
+            other, 
+            [
+                <Animate className={classNames(this.getDimmerClasses())}
+                         animation={this.getAnimation()}
+                         key="animation"> 
+                    {this.props.dimmed ? this.renderContent() : ''}
+                </Animate>,
+                this.renderChildren()
+            ]
+        );
+
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    renderLoader() {
+        let { disabled, inverted, ...other } = this.props;
+
+        other.className = classNames(
+            this.props.className, 
+            this.props.inverted ? 'inverted' : '', 
+            this.getDimmerClasses()
+        );
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.props.children
+        );
+    }
+
+    render() { 
+        if (hasChild(this.props.children, Loader)) {
+            return this.renderLoader();
+        } else {
+            return this.renderDimmer();
+        }
+    }
+
+    getAnimation() {
+        return {
             state: this.props.dimmed,
             enterState: {
                 name: 'fadeIn',
@@ -81,19 +100,36 @@ export class Dimmer extends Component {
                 duration: 300
             },
         };
+    }
 
-        return Tag({
-            className: classNames(this.props.className, classes),
-            ...other
-        }, [
-                <Animate className={classNames(dimClasses)}
-                         animation={animation}
-                         key="animation"
-                > 
-                    {this.props.dimmed ? this.renderContent() : ''}
-                </Animate>,
-                this.renderChildren()
-            ]
-        );
+    getClasses() {
+        let classes = {
+            // default
+            dimmable: this.props.defaultClasses,
+            dimmed: this.props.dimmed,
+
+            // positioning
+
+            // types
+            inverted: this.props.inverted,
+            blurring: this.props.blurring,
+            page: this.props.page
+
+            // component
+
+            // variations
+        };
+
+        return classes;
+    }
+
+    getDimmerClasses() {
+        let classes = {
+            ui: this.props.defaultClasses,
+            active: this.props.defaultClasses,
+            dimmer: this.props.defaultClasses
+        }
+
+        return classes;
     }
 }

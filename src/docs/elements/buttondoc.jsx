@@ -218,7 +218,7 @@ export class ButtonDoc extends React.Component {
 
         return (
             <Segment basic className="main ui container">
-                <Rail float="right" dividing style={{minHeight: '1025px'}}>
+                <Rail floated="right" dividing style={{minHeight: '1025px'}}>
                     <div className="ui sticky fixed top">
                         <Menu secondary vertical>
                             {menuDiv}

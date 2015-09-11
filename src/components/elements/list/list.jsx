@@ -1,9 +1,15 @@
 import React from 'react';
+import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+
+let validProps = {
+    aligned: ['top', 'middle', 'bottom'],
+    floated: ['right', 'left']
+};
 
 export class List extends React.Component {
     static propTypes = {
-        aligned: React.PropTypes.string,
+        aligned: React.PropTypes.oneOf(validProps.aligned),
         animated: React.PropTypes.bool,
         bulleted: React.PropTypes.bool,
         celled: React.PropTypes.bool,
@@ -15,6 +21,7 @@ export class List extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         divided: React.PropTypes.bool,
+        floated: React.PropTypes.oneOf(validProps.floated),
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         link: React.PropTypes.bool,
@@ -70,20 +77,14 @@ export class List extends React.Component {
             inverted: this.props.inverted,
             relaxed: this.props.relaxed,
             selection: this.props.selection,
-
-            // aligned variation
-            top: false,
-            middle: false,
-            bottom: false,
             aligned: this.props.aligned,
 
             // component
             list: this.props.defaultClasses
         };
 
-        classes[this.props.aligned] = !!this.props.aligned;
         classes[this.props.size] = !!this.props.size;
 
-        return classes;
+        return validateClassProps(classes, this.props, validProps);
     }
 }

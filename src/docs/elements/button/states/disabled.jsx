@@ -1,15 +1,14 @@
 import React from 'react';
-import { Button, Icon } from '../../../../components/elements';
+import { IconButton } from '../../../../components/elements';
 import { DocBlock } from '../../../docblock';
 
 import classNames from 'classnames';
 import he from 'he';
 
 let JSXExample = he.encode(`
-<Button disabled>
-  <Icon name="user" />
+<IconButton name="user" disabled>
   Followed
-</Button>
+</IconButton>
 `);
 
 export class DisabledDoc extends React.Component {
@@ -21,10 +20,9 @@ export class DisabledDoc extends React.Component {
                       subheader={this.props.subheader}
                       JSX={JSXExample}>
 
-                      <Button disabled>
-                        <Icon name="user" />
+                      <IconButton name="user" disabled>
                         Followed
-                      </Button>
+                      </IconButton>
 
             </DocBlock>
         );

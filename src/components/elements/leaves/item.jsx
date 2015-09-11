@@ -20,7 +20,7 @@ export class Item extends React.Component {
 
     render() {
         // if it's attached or animated use a div instead of a button
-        let Component = this.props.onClick && !this.context.isMenuChild ? 'a' : 'div';
+        let Component = (this.props.link || this.props.onClick) && !this.context.isMenuChild ? 'a' : 'div';
 
         let { defaultClasses, tag, selected, ...other } = this.props;
 
@@ -40,8 +40,8 @@ export class Item extends React.Component {
             // positioning
 
             // types
-            active: this.props.selected,
-            selected: this.props.selected,
+            active: this.props.active,
+            selected: this.props.active && this.context.isMenuChild,
 
             // content
 

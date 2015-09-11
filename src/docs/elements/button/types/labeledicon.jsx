@@ -1,20 +1,20 @@
 import React from 'react';
-import { Button, Icon, Label } from '../../../../components/elements';
+import { Button, Icon, Label, LabeledButton } from '../../../../components/elements';
 import { DocBlock } from '../../../docblock';
 
 import classNames from 'classnames';
 import he from 'he';
 
 let JSXExample = he.encode(`
-<Button>
+<LabeledButton>
     <Icon name="pause" />
     Pause
-</Button>
+</LabeledButton>
 
-<Button labeled="right">
+<LabeledButton labeled="right" floated="right">
     <Icon name="pause" />
     Next
-</Button>
+</LabeledButton>
 `);
 
 export class LabeledIconDoc extends React.Component {
@@ -25,15 +25,15 @@ export class LabeledIconDoc extends React.Component {
                       subheader={this.props.subheader}
                       JSX={JSXExample}>
 
-                <Button>
+                <LabeledButton>
                     <Icon name="pause" />
                     Pause
-                </Button>
+                </LabeledButton>
 
-                <Button labeled="right" floated="right">
+                <LabeledButton labeled="right" floated="right">
                     <Icon name="pause" />
                     Next
-                </Button>
+                </LabeledButton>
 
             </DocBlock>
         );

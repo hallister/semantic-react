@@ -5,7 +5,7 @@ export * from './elements/imagedoc';
 export * from './elements/inputdoc';
 export * from './elements/labeldoc';
 export * from './elements/listdoc';
-// export * from './elements/loaderdoc';
+export * from './elements/loaderdoc';
 export * from './elements/raildoc';
 export * from './elements/revealdoc';
 export * from './elements/segmentdoc';

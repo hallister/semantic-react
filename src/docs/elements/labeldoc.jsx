@@ -140,11 +140,11 @@ export class LabelDoc extends Component {
                 </Segment>
                 <Segment>
                     <Label onClick={this.handleOnClick}>
-                        <Image right spaced avatar src="http://semantic-ui.com/images/avatar/small/elliot.jpg"/>
+                        <Image spaced="right" avatar src="http://semantic-ui.com/images/avatar/small/elliot.jpg" />
                         Elliot
                     </Label>
                     <Label onClick={this.handleOnClick}>
-                        <Image src="http://semantic-ui.com/images/avatar/small/stevie.jpg" defaultClasses={false}/>
+                        <Image src="http://semantic-ui.com/images/avatar/small/stevie.jpg" />
                         Stevie
                     </Label>
                 </Segment>

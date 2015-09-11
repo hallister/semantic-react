@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon } from '../../../../components/elements';
+import { SocialButton } from '../../../../components/elements';
 import { DocBlock } from '../../../docblock';
 import { Social } from '../../../utilities';
 
@@ -10,10 +10,9 @@ let JSXExample = '';
 
 Social.forEach(function(company) {
     JSXExample += he.encode(`
-<Button social="` + company.toLowerCase() + `">
-  <Icon name="` + company.toLowerCase() + `" />
+<SocialButton name="` + company.toLowerCase() + `">
   ` + company + `
-</Button>
+</SocialButton>
 `);
 });
 
@@ -24,7 +23,7 @@ export class SocialDoc extends React.Component {
         Social.forEach(function(social) {
             let lowerSocial = social.toLowerCase();
 
-            buttonDiv.push(<Button social={lowerSocial} key={social}><Icon name={lowerSocial} />{social}</Button>);
+            buttonDiv.push(<SocialButton name={lowerSocial} key={social}>{social}</SocialButton>);
         });
 
         return (

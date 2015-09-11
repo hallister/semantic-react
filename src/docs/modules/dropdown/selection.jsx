@@ -123,15 +123,17 @@ export class SelectionExample extends Component {
                           default="Gender"
                           onClick={this.onClick.bind(this)}
                           inputName="gender"
+                          multiple
                           inputValue={this.state.selection}>
                     <Icon name="dropdown" />
+                    <a className="ui label transition visible" data-value="css" style={{display: 'inline-block'}}>CSS<i className="delete icon"></i></a>
                     <Menu active={this.state.active}>
                         <Item onClick={this.onMenuItemClick.bind(this, 'Male')}
-                              selected={this.state.selection === 'Male'}>
+                              active={this.state.selection === 'Male'}>
                             Male
                         </Item>
                         <Item onClick={this.onMenuItemClick.bind(this, 'Female')}
-                              selected={this.state.selection === 'Female'}>
+                              active={this.state.selection === 'Female'}>
                             Female
                         </Item>
                     </Menu>

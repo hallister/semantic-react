@@ -32,9 +32,6 @@ export class CardDoc extends Component {
     						<Image avatar src="http://semantic-ui.com/images/avatar/large/elliot.jpg" /> Elliot
     					</Content>
 						<Image src="http://semantic-ui.com/images/wireframe/square-image.png"/>
-    					<Content extra>
-    						<Icon name="user" /> 22 Friends
-    					</Content>
     					<Content>
     						<Content floated="right">
     							<Icon name="heart icon like" /> 17 likes

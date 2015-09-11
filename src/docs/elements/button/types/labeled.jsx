@@ -1,37 +1,32 @@
 import React from 'react';
-import { Button, Icon, Label } from '../../../../components/elements';
+import { Button, Icon, Label, LabeledButton } from '../../../../components/elements';
 import { DocBlock } from '../../../docblock';
 
 import classNames from 'classnames';
 import he from 'he';
 
 let JSXExample = he.encode(`
-<Button focusable>
-    <Button>
-        <Icon name="heart" /> Like
-    </Button>
+<LabeledButton focusable>
+    <Icon name="heart" /> 
+    Like
     <Label basic>
         2,048
     </Label>
-</Button>
+</LabeledButton>
 
-<Button focusable>
+<LabeledButton focusable>
     <Label basic pointing="right">
         2,048
     </Label>
-    <Button>
-        <Icon name="heart" /> Like
-    </Button>
-</Button>
+    <Icon name="heart" /> Like
+</LabeledButton>
 
-<Button focusable>
+<LabeledButton focusable>
     <Label basic>
         1,048
     </Label>
-    <Button>
-        <Icon name="fork" />
-    </Button>
-</Button>
+    <Icon name="fork" />
+</LabeledButton>
 `);
 
 export class LabeledDoc extends React.Component {
@@ -42,32 +37,27 @@ export class LabeledDoc extends React.Component {
                       subheader={this.props.subheader}
                       JSX={JSXExample}>
 
-                <Button focusable>
-                    <Button>
-                        <Icon name="heart" /> Like
-                    </Button>
+                <LabeledButton focusable>
+                    <Icon name="heart" /> 
+                    Like
                     <Label basic>
                         2,048
                     </Label>
-                </Button>
+                </LabeledButton>
 
-                <Button focusable>
+                <LabeledButton focusable>
                     <Label basic pointing="right">
                         2,048
                     </Label>
-                    <Button>
-                        <Icon name="heart" /> Like
-                    </Button>
-                </Button>
+                    <Icon name="heart" /> Like
+                </LabeledButton>
 
-                <Button focusable>
+                <LabeledButton focusable>
                     <Label basic>
                         1,048
                     </Label>
-                    <Button>
-                        <Icon name="fork" />
-                    </Button>
-                </Button>
+                    <Icon name="fork" />
+                </LabeledButton>
             </DocBlock>
         );
     }

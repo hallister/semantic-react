@@ -1,15 +1,19 @@
 import React from 'react';
 import { Icon } from '../../elements';
-import { hasChild } from '../../utilities';
+import { hasChild, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 
-// TODO: image and horizontal list examples
+let validProps = {
+    aligned: ['right', 'left', 'justified', 'center'],
+    attached: ['bottom', 'top'],
+    floated: ['right', 'left']  
+};
 
 export class Header extends React.Component {
     static propTypes = {
-        aligned: React.PropTypes.string,
+        aligned: React.PropTypes.oneOf(validProps.aligned),
         attached: React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(validProps.attached),
             React.PropTypes.bool
         ]),
         block: React.PropTypes.bool,
@@ -25,7 +29,7 @@ export class Header extends React.Component {
         divider: React.PropTypes.bool,
         dividing: React.PropTypes.bool,
         element: React.PropTypes.string,
-        floated: React.PropTypes.string,
+        floated: React.PropTypes.oneOf(validProps.floated),
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,             
         size: React.PropTypes.string
@@ -46,7 +50,6 @@ export class Header extends React.Component {
 
     static defaultProps = {
         attached: false,
-        component: 'div',
         defaultClasses: true
     };
 
@@ -57,6 +60,8 @@ export class Header extends React.Component {
     }
 
     render() {
+        let Component = this.props.onClick ? 'a' : 'div';
+
         let { aligned, attached, block, children, className, color, defaultClasses, 
               disabled, divider, dividing, element, floated, horizontal, inverted, 
               size, tag, ...other } = this.props;
@@ -65,7 +70,7 @@ export class Header extends React.Component {
         other.className = classNames(this.props.className, this.getClasses());
 
         return React.createElement(
-            this.props.component,
+            this.props.component || Component,
             other,
             this.props.children
         );
@@ -75,10 +80,6 @@ export class Header extends React.Component {
         let classes = {
             // default
             ui: this.props.defaultClasses  && !this.context.isListChild && !this.context.isHeaderChild && !this.context.isMenuChild,
-
-            // positioning
-            right: false,
-            left: false,
 
             // types
             icon: hasChild(this.props.children, Icon) && this.props.aligned == 'center',
@@ -100,16 +101,10 @@ export class Header extends React.Component {
             // component
             header: this.props.defaultClasses
         };
-
-        // handle all mixed string/bool props
-        classes[this.props.attached] = typeof this.props.attached == 'string' ? true : false;
        
-        // string types
-        classes[this.props.aligned] = !!this.props.aligned;
         classes[this.props.color] = !!this.props.color;
-        classes[this.props.floated] = !!this.props.floated;
         classes[this.props.size] = !!this.props.size;
 
-        return classes;
+        return validateClassProps(classes, this.props, validProps);
     }
 }

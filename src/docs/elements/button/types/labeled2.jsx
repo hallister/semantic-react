@@ -1,28 +1,26 @@
 import React from 'react';
-import { Button, Icon, Label } from '../../../../components/elements';
+import { Button, Icon, Label, LabeledButton } from '../../../../components/elements';
 import { DocBlock } from '../../../docblock';
 
 import classNames from 'classnames';
 import he from 'he';
 
 let JSXExample = he.encode(`
-<Button focusable>
-    <Button color="red">
-        <Icon name="heart" /> Like
-    </Button>
+<LabeledButton color="red" focusable>
+    <Icon name="heart" /> 
+    Like
     <Label basic pointing="left" color="red">
         1,048
     </Label>
-</Button>
+</LabeledButton>
 
-<Button focusable>
-    <Button basic color="blue">
-        <Icon name="fork" /> Forks
-    </Button>
+<LabeledButton focusable basic color="blue">
+    <Icon name="fork" /> 
+    Forks
     <Label basic pointing="left" color="blue">
         1,048
     </Label>
-</Button>
+</LabeledButton>
 `);
 
 export class Labeled2Doc extends React.Component {
@@ -30,24 +28,21 @@ export class Labeled2Doc extends React.Component {
         return (
             <DocBlock JSX={JSXExample}>
 
-                <Button focusable>
-                    <Button color="red">
-                        <Icon name="heart" /> Like
-                    </Button>
+                <LabeledButton color="red" focusable>
+                    <Icon name="heart" /> 
+                    Like
                     <Label basic pointing="left" color="red">
                         1,048
                     </Label>
-                </Button>
+                </LabeledButton>
 
-                <Button focusable>
-                    <Button basic color="blue">
-                        <Icon name="fork" /> Forks
-                    </Button>
+                <LabeledButton focusable basic color="blue">
+                    <Icon name="fork" /> 
+                    Forks
                     <Label basic pointing="left" color="blue">
                         1,048
                     </Label>
-                </Button>
-
+                </LabeledButton>
             </DocBlock>
         );
     }

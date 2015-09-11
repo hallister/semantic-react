@@ -1,5 +1,10 @@
 import React from 'react';
+import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+
+let validProps = {
+    floated: ['right', 'left']  
+};
 
 export class Rail extends React.Component {
     static propTypes = {
@@ -12,7 +17,7 @@ export class Rail extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         dividing: React.PropTypes.bool,
-        float: React.PropTypes.string.isRequired,
+        floated: React.PropTypes.oneOf(validProps.floated).isRequired,
         internal: React.PropTypes.bool
     };
 
@@ -24,7 +29,7 @@ export class Rail extends React.Component {
 
     render() {
         let { attached, children, className, close, defaultClasses, 
-              dividing, float, internal, ...other } = this.props;
+              dividing, floated, internal, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -40,13 +45,10 @@ export class Rail extends React.Component {
             // default
             ui: this.props.defaultClasses,
 
-            // positioning
-            left: false,
-            right: false,
-
             // types
             attached: this.props.attached,
-            close: this.props.close,
+            very: this.props.closer,
+            close: this.props.close || this.props.closer,
             dividing: this.props.dividing,
             internal: this.props.internal,
 
@@ -54,9 +56,6 @@ export class Rail extends React.Component {
             rail: this.props.defaultClasses
         };
 
-        classes[this.props.close] = typeof this.props.close == 'string' ? true : false;
-        classes[this.props.float] = !!this.props.float;
-
-        return classes;
+        return validateClassProps(classes, this.props, validProps);
     }
 }

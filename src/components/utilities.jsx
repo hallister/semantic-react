@@ -16,22 +16,6 @@ exports.Colors = ['red', 'orange', 'yellow', 'olive', 'green',
 exports.Sizes = ['mini', 'tiny', 'small', 'medium', 'large', 
                  'big', 'huge', 'massive'];
 
-export function hasDescendant(children, component) {
-    let found = false;
-
-    React.Children.forEach(children, function(child) {
-        if (child.type === component && child.type != undefined) {
-            found = true;
-        } else {
-            if (child.props && child.props.children) {
-                found = hasDescendant(child.props.children, component);
-            }
-        }
-    });
-
-    return found;
-}
-
 export function arrayToObject(array, value = false) {
     let returnObject = {};
 
@@ -43,18 +27,35 @@ export function arrayToObject(array, value = false) {
 }
 
 export function hasChild(children, component) {
-    let found = false;
+    children = React.Children.toArray(children);
 
-    React.Children.forEach(children, function(child) {
-        if (child.type === component && child.type != undefined) {
-            found = true;
-        } else if (typeof child === 'string' && component === 'string') {
-            found = true;
+    for (let child of children) {
+        if (child.type && child.type == component) {
+            return true;
+        } else if (component === typeof child) {
+            return true;
         }
-    });
+    }
 
-    return found;
+    return false;
 }
+
+export function hasDescendant(children, component) {
+    children = React.Children.toArray(children);
+
+    for (let child of children) {
+        if (child.type && child.type == component) {
+            return true;
+        } else {
+            if(React.Children.count(child.props.children) > 0) {
+                return hasDescendant(child.props.children, component);
+            }
+        }
+    }
+
+    return false;
+}
+
 
 export function hasFirstChild(children, component) {
     if (typeof children === 'string') {
@@ -82,26 +83,49 @@ export function getChild(children, component, equal = true) {
     }.bind(this));
 }
 
-export function childCount(children) {
-    return React.Children.count(children);
-}
-
-export function handleMultiClasses(classes, props, stringProps) {
-
-    stringProps.forEach(item => {
-        // this prop is active
-        if (!!props[item.prop] === true) {
-            let value = props[item.prop];
-            classes[item.prop] = false;
-
-            if (typeof value === 'string') {
-                classes[value + ' ' + item.prop] = true;          
+export function validateClassProps(classes, props, validator) {
+    for (let propName of Object.keys(validator)) {
+        if (!!props[propName] === true) {
+            classes[propName] = false;
+            
+            if (typeof props[propName] === 'string') {
+                classes[props[propName] + ' ' + propName] = true;
             } else {
-                classes[item.prop] = true;
+                classes[propName] = true;
             }
 
         }
-    });
+    }
 
     return classes;
+}
+
+export function spliceChildren(children, component) {
+    let splicedComponent, componentIndex;
+    children = React.Children.toArray(children);
+
+    children.forEach((child, index) => {
+        if (child.type && child.type == component) {
+            splicedComponent = children.splice(index, 1);
+            componentIndex = index;
+        }
+    });
+
+    return {
+        'component': splicedComponent, 
+        'remaining': children,
+        'index': componentIndex
+    };
+}
+
+export function isEveryChild(children, component) {
+    children = React.Children.toArray(children);
+
+    for (let child of children) {
+        if (!child.type || child.type !== component) {
+            return false;
+        }
+    }
+
+    return true;
 }
