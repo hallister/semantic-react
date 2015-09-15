@@ -1,7 +1,6 @@
 import React from 'react';
 import { hasChild, validateClassProps } from '../../utilities';
 import { Image } from '../../elements';
-import { Animate } from '../../modules';
 import classNames from 'classnames';
 
 let validProps = {
@@ -20,7 +19,6 @@ export class Label extends React.Component {
     };
 
     static propTypes = {
-        annimation: React.PropTypes.object,
         attached: React.PropTypes.oneOf(validProps.attached),
         basic: React.PropTypes.bool,
         circular: React.PropTypes.bool,
@@ -61,20 +59,13 @@ export class Label extends React.Component {
         };
     }
 
-    renderAnimatedLabel(other) {
-        other.className = classNames(this.props.className, this.getClasses());
+    render() {
+        // if it's attached or animated use a div instead of a button
 
-        return (
-            <Animate animation={this.props.animation}
-                     {...other}>
-                {this.props.children}
-            </Animate>
-        );
-    }
-
-
-    renderLabel(other) {
         let Component = this.props.onClick ? 'a' : 'div';
+
+        let { defaultClasses, left, right, corner, label, attached, image, color, pointing, ribbon, tag, 
+              link, circular, size, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -83,14 +74,6 @@ export class Label extends React.Component {
             other,
             this.props.children
         );
-    }
-
-    render() {
-        let { defaultClasses, left, right, corner, label, attached, image, color, pointing, ribbon, tag, 
-              link, circular, size, ...other } = this.props;
-
-        return this.props.animation ? this.renderAnimatedLabel(other) : this.renderLabel(other);
-
     }
 
     getClasses() {
