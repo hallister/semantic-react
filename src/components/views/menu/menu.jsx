@@ -33,51 +33,11 @@ export class Menu extends React.Component {
         };
     }
 
-    renderDropdownSubMenu(other) {
-        let animation = {
-            state: this.props.active,
-            enterState: {
-                name: 'slideRightIn',
-                duration: 200,
-                options: {
-                    easing: 'linear'
-                }
-            },
-            exitState: {
-                name: 'slideLeftOut',
-                duration: 200,
-                options: {
-                    easing: 'linear'
-                }
-            }
-        };
-
-        return this.renderDropdownMenu(other, animation);
-    }
-
-    renderDropdownMenu(other, customAnimation = null) {
-        let animation = customAnimation ? customAnimation : {
-            state: this.props.active,
-            enterState: {
-                name: 'slideIn',
-                duration: 200,
-                options: {
-                    easing: 'linear'
-                }
-            },
-            exitState: {
-                name: 'slideOut',
-                duration: 200,
-                options: {
-                    easing: 'linear'
-                }
-            }
-        };
-
+    renderAnimatedMenu(other) {
         other.className = classNames(this.props.className, this.getClasses());
 
         return (
-            <Animate animation={animation}
+            <Animate animation={this.props.animation}
                      {...other}>
                 {this.props.children}
             </Animate>
@@ -100,14 +60,7 @@ export class Menu extends React.Component {
 
         let { defaultClasses, even, ...other } = this.props;
 
-        if (this.context.isDropdownChild && this.context.isMenuChild) {
-
-            return this.renderDropdownSubMenu(other);
-        } else if (this.context.isDropdownChild) {
-            return this.renderDropdownMenu(other);
-        } else {
-            return this.renderMenu(other);
-        }
+        return this.props.animation ? this.renderAnimatedMenu(other) : this.renderMenu(other);
 
     }
 

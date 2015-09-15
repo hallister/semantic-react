@@ -37,6 +37,7 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                                      animation.duration, animation.options);
 
             } else {
+
                 this[animation.name](animation.duration, animation.options);  
             }      
 
@@ -289,6 +290,20 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
     slideOut(duration, options) {
         let self = this;
 
+        options = options ? options : {};
+
+        let onComplete = options.onComplete;
+
+        options.onComplete = function(e) {
+            self.setState({
+                hideComponent: true
+            });
+
+            if (onComplete) {
+                onComplete(e);
+            }
+        } 
+
         Animator.animate.call(this, 
             'slideOut',
             {
@@ -306,14 +321,7 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                 'WebkitTransformOrigin': 'top center'
             },
             duration,
-            {
-                easing: options.easing,
-                onComplete: function() {
-                    self.setState({
-                        hideComponent: true
-                    });
-                }
-            }
+            options
         );
     }
 

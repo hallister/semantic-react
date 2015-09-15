@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Item, Segment, Icon, Description, Divider } from '../../../components/elements';
 import { Menu } from '../../../components/views';
-import { Dropdown } from '../../../components/modules';
+import { Dropdown, Select, Option } from '../../../components/modules';
 import { DocBlock } from '../../docblock';
 
 import classNames from 'classnames';
@@ -82,7 +82,7 @@ let JSXExample = he.encode(`
 </Dropdown>
 `);
 
-export class DropdownExample extends Component {
+export class Search2Example extends Component {
     constructor(props) {
         super(props);
 
@@ -146,57 +146,11 @@ export class DropdownExample extends Component {
                       JS={JSExample}
                       JSX={JSXExample}>
 
-                <Dropdown onClick={this.onClick.bind(this)}>
-                    File
-                    <Icon name="dropdown" />
-                    <Menu active={this.state.active}>
-                        <Item>
-                            New...
-                        </Item>
-                        <Item>
-                            <Description>ctrl + o</Description>
-                            Open...
-                        </Item>
-                        <Item>
-                            <Description>ctrl + s</Description>
-                            Save as...
-                        </Item>
-                        <Item>
-                            <Description>ctrl + r</Description>
-                            Rename
-                        </Item>
-                        <Item>
-                            Make a copy
-                        </Item>
-                        <Item>
-                            <Icon name="folder" />
-                            Move to folder
-                        </Item>
-                        <Item>
-                            <Icon name="trash" />
-                            Move to trash
-                        </Item>
-                        <Divider />
-                        <Item>
-                            Download as...
-                        </Item>
-                        <Item onClick={this.onSubClick.bind(this)}>
-                            <Icon name="dropdown" />
-                            Publish To Web
-                            <Menu active={this.state.subActive}>
-                                <Item onClick={this.onDocumentClick.bind(this)}>Google Docs</Item>
-                                <Item onClick={this.onDocumentClick.bind(this)}>Google Drive</Item>
-                                <Item onClick={this.onDocumentClick.bind(this)}>Dropbox</Item>
-                                <Item onClick={this.onDocumentClick.bind(this)}>Adobe Creative Cloud</Item>
-                                <Item onClick={this.onDocumentClick.bind(this)}>Private FTP</Item>
-                                <Item onClick={this.onDocumentClick.bind(this)}>Another Service...</Item>
-                            </Menu>
-                        </Item>
-                        <Item>
-                            E-mail Collaborators
-                        </Item>
-                    </Menu>
-                </Dropdown>
+                <Select name="Gender" placeholder="Gender..." search multiple>
+                    <Option value="male">Male</Option>
+                    <Option value="female">Female</Option>
+                </Select>
+
             </DocBlock>
         );
     }

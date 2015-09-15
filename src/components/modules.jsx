@@ -6,3 +6,5 @@ export * from './modules/checkbox/checkbox';
 export * from './modules/checkbox/checkboxes';
 export * from './modules/dimmer/dimmer';
 export * from './modules/dropdown/dropdown';
+export * from './modules/dropdown/select';
+export * from './modules/dropdown/option';
