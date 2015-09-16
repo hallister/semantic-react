@@ -31,7 +31,8 @@ export class Header extends React.Component {
         element: React.PropTypes.string,
         floated: React.PropTypes.oneOf(validProps.floated),
         horizontal: React.PropTypes.bool,
-        inverted: React.PropTypes.bool,             
+        inverted: React.PropTypes.bool,
+        onClick: React.PropTypes.func,           
         size: React.PropTypes.string
     };
 
@@ -64,7 +65,7 @@ export class Header extends React.Component {
 
         let { aligned, attached, block, children, className, color, defaultClasses, 
               disabled, divider, dividing, element, floated, horizontal, inverted, 
-              size, tag, ...other } = this.props;
+              size, ...other } = this.props;
 
         // add classnames
         other.className = classNames(this.props.className, this.getClasses());

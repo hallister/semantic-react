@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 import { Icon } from '../../elements';
-
-// can't get import working?
-var classNames = require('classnames');
+import classNames from 'classnames';
 
 export class AccordionTitle extends Component {
-	static defaultProps = {
-		defaultClasses: true,
-        icon: 'dropdown'
-	};
-
     static propTypes = {
-        defaultClasses: React.PropTypes.bool
+        active: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
+        defaultClasses: React.PropTypes.bool,
+        icon: React.PropTypes.bool,
+        onClick: React.PropTypes.func
+
     };
 
-     constructor(props) {
+    static defaultProps = {
+        defaultClasses: true,
+        icon: 'dropdown'
+    };
+
+    constructor(props) {
         super(props);
     }
 
     render() {
-
-    	let classes = {
+        let classes = {
             // default
 
             // positioning
@@ -35,7 +38,10 @@ export class AccordionTitle extends Component {
         };
 
         return (
-            <div className={classNames(this.props.className, classes)} onClick={this.props.onClick}>
+            <div 
+                className={classNames(this.props.className, classes)} 
+                onClick={this.props.onClick}
+            >
                 <Icon name={this.props.icon} />
                 {this.props.children}
             </div>

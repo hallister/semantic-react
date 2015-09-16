@@ -1,6 +1,5 @@
 import React from 'react';
 import { Numbers, arrayToObject, validateClassProps } from '../../utilities';
-import { Item, Header } from '../../elements';
 import { Animate } from '../../modules';
 import classNames from 'classnames';
 
@@ -9,10 +8,10 @@ let validProps = {
 };
 
 export class Menu extends React.Component {
-	static defaultProps = {
+    static defaultProps = {
         component: 'div',
-		defaultClasses: true
-	};
+        defaultClasses: true
+    };
 
     static propTypes = {
 
@@ -29,7 +28,7 @@ export class Menu extends React.Component {
 
     getChildContext() {
         return {
-            'isMenuChild': true,
+            isMenuChild: true
         };
     }
 
@@ -37,8 +36,10 @@ export class Menu extends React.Component {
         other.className = classNames(this.props.className, this.getClasses());
 
         return (
-            <Animate animation={this.props.animation}
-                     {...other}>
+            <Animate 
+                animation={this.props.animation}
+                {...other}
+            >
                 {this.props.children}
             </Animate>
         );
@@ -47,7 +48,7 @@ export class Menu extends React.Component {
     renderMenu(other) {
         other.className = classNames(this.props.className, this.getClasses());
 
-       return React.createElement(
+        return React.createElement(
             this.props.component,
             other,
             this.props.children
@@ -55,8 +56,8 @@ export class Menu extends React.Component {
     }
 
     render() {
-        //classes[this.props.size] = !!this.props.size;
-        //classes[this.props.aligned] = !!this.props.aligned;
+        // classes[this.props.size] = !!this.props.size;
+        // classes[this.props.aligned] = !!this.props.aligned;
 
         let { defaultClasses, even, ...other } = this.props;
 

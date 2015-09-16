@@ -1,29 +1,28 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Segment, Icon, Content } from '../../elements';
 import { Animate } from '../../modules';
 import classNames from 'classnames';
-import Animator from '../../../lib/animate';
 
 // TODO: image and horizontal list examples
 
 export class AccordionBody extends Component {
-	static defaultProps = {
-		defaultClasses: true
-	};
+    static propTypes = {
+        active: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        defaultClasses: React.PropTypes.bool
+    };
 
-	static propTypes = {
+    static defaultProps = {
+        defaultClasses: true
+    };
 
-	};
-
-	constructor(props) {
+    constructor(props) {
         super(props);
     }
 
-	render() {
-     	let classes = {
+    render() {
+        let classes = {
             // default
-        	ui: this.props.defaultClasses,
+            ui: this.props.defaultClasses,
 
             // positioning
 
@@ -38,6 +37,7 @@ export class AccordionBody extends Component {
             active: true
         };
 
+        /*
         let didMount = function() {
             this.setScrollHeight();
             let computedStyle = window.getComputedStyle(ReactDOM.findDOMNode(this), null);
@@ -45,6 +45,7 @@ export class AccordionBody extends Component {
             this.state.paddingTop = parseFloat(computedStyle.getPropertyValue('padding-top'));
             this.state.paddingBottom = parseFloat(computedStyle.getPropertyValue('padding-bottom'));
         };
+        */
 
         //
         let animation = {
@@ -86,15 +87,16 @@ export class AccordionBody extends Component {
 
 
         // handle all string or mixed string/bool props
-		return (
-                <Animate className={classNames(classes)}
-                         key="animate"
-                         animation={animation}
+        return (
+                <Animate 
+                    animation={animation}
+                    className={classNames(classes)}
+                    key="animate"
                 > 
                     <Animate animation={childAnimation}>
                         {this.props.children}
                     </Animate>
                 </Animate>
-		);
-	}
-};
+        );
+    }
+}

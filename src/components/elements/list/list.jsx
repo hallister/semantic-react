@@ -42,13 +42,13 @@ export class List extends React.Component {
 
     getChildContext() {
         return {
-            'isListChild': true
+            isListChild: true
         }
     }
 
     render() {
         let { aligned, animated, celled, bulleted, defaultClasses, divided, horizontal, 
-              inverted, link, ordered, relaxed, selection, size, tag, ...other } = this.props;
+              inverted, link, ordered, relaxed, selection, size, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 

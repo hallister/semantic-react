@@ -1,40 +1,43 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { getChild } from '../../utilities';
-import { Segment, Content, Item } from '../../elements';
-import { Menu } from '../../views';
-import { Animate } from '../../modules';
 import classNames from 'classnames';
 
 export class Dropdown extends Component {
     static propTypes = {
+        active: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
+        defaultClasses: React.PropTypes.bool,
+        disabled: React.PropTypes.bool,
+        error: React.PropTypes.bool,
+        fluid: React.PropTypes.bool,
+        inverted: React.PropTypes.bool,
+        labeled: React.PropTypes.bool,
+        multiple: React.PropTypes.bool,
+        search: React.PropTypes.bool,
+        selection: React.PropTypes.bool,
+        visible: React.PropTypes.bool
+    };
 
+    static childContextTypes = {
+        isDropdownChild: React.PropTypes.bool
     };
 
     static defaultProps = {
         component: 'div',
         defaultClasses: true
     };
-
-    /*
-    static contextTypes = {
-        isDropdownChild: React.PropTypes.bool
-    };
-    */
-
-    static childContextTypes = {
-        isDropdownChild: React.PropTypes.bool
-    };
     
     constructor(props) {
         super(props);
-
-        //this.searchFocused = false;
     }
     
     getChildContext() {
         return {
-            'isDropdownChild': true
+            isDropdownChild: true
         };
     }
 
@@ -95,8 +98,6 @@ export class Dropdown extends Component {
         return children;
     }
     */
-
-
 
     render() {
         let { disabled, inverted, multiple, ...other } = this.props;

@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { getChild } from '../../utilities';
-import { Segment, Content, Item, Icon, Label } from '../../elements';
+import { Icon, Label } from '../../elements';
 import { Menu } from '../../views';
-import { Animate, Dropdown, Option } from '../../modules';
+import { Dropdown, Option } from '../../modules';
 import classNames from 'classnames';
 import OutsideClick from 'react-outsideclickhandler';
 
 export class Select extends Component {
     static propTypes = {
-
+        active: React.PropTypes.bool,
+        case: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
+        glyphWidth: React.PropTypes.number,
+        multiple: React.PropTypes.bool,
+        name: React.PropTypes.string,
+        noResults: React.PropTypes.string,
+        placeholder: React.PropTypes.string,
+        search: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -32,9 +40,13 @@ export class Select extends Component {
         this.validOptions = []
     }
 
-    shouldComponentUpdate(props, state) {
+    componentWillMount() {
+        React.Children.forEach(this.props.children, child => {
+            this.validOptions[child.props.children] = child.props.value;     
+        });
+    }
 
-        
+    shouldComponentUpdate(props, state) {
         // prevents duplicate states from rerendering. happens frequently with 
         // this many onclick handlers, and the only expected prop change that 
         // would warrant a re-render is the child length
@@ -50,22 +62,14 @@ export class Select extends Component {
         return true;
     }
 
-    componentWillMount() {
-        React.Children.forEach(this.props.children, child => {
-            this.validOptions[child.props.children] = child.props.value;     
-        });
-    }
-
     // clicking anywhere but component
-    onDocumentClick(e) {
-        console.log('onDocumentClick');
+    onDocumentClick() {
         this.setState({
             active: false
         })
     }
 
     onClick(e) {
-        console.log('onClick');
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
 
@@ -78,13 +82,11 @@ export class Select extends Component {
     }
 
     onLabelClick(name, e) {
-        
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation(); 
     }
 
     onOptionClick(name, e) {
-        console.log('onOptionClick');
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
 
@@ -100,7 +102,6 @@ export class Select extends Component {
 
     // prevents this.onClick from closing when the search bar is clicked
     onSearchInputClick(e) {
-        console.log('onSearchInputClick');
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
 
@@ -110,8 +111,7 @@ export class Select extends Component {
     }
 
     // for some reason this causes issues with onOptionClick if the field is blank.
-    onSearchChange(e) {
-        console.log('onSearchChange');
+    onSearchChange() {
         if (this.refs.search && this.refs.search.value) {
             this.setState({
                 active: true,
@@ -121,7 +121,6 @@ export class Select extends Component {
     }
 
     onSearchBlur(e) {
-        console.log('onSearchBlur');
         let match = false;
         let target = this.props.case ? e.target.value : e.target.value.toLowerCase();
 
@@ -154,7 +153,7 @@ export class Select extends Component {
 
     // animation is complete
     // we could use to only set the dropdown active state after the menu animation
-    onSearchComplete(e) {
+    onSearchComplete() {
         
         this.setState({
             visible: false,
@@ -208,6 +207,29 @@ export class Select extends Component {
         return newChildren;
     }
 
+    // there isn't a very clean way to animate this since Semantics CSS isn't TransitionGroup 
+    // friendly.
+    renderLabels() {
+        if (this.props.multiple) {
+            return this.state.selected.map(label => {
+                return (
+                    <Label 
+                        component="a" 
+                        key={label}
+                        onClick={this.onLabelClick.bind(this, label)}
+                        style={{ display: 'inline-block' }}
+                    >
+                        {label}
+                        <Icon 
+                            name="close"
+                            onClick={this.onOptionClick.bind(this, label)}
+                        />
+                    </Label>
+                );
+            });
+        }
+    }
+
     renderSearch() {
         let style = {};
         let width = this.refs.search ? this.refs.search.value.length * this.props.glyphWidth : null;
@@ -217,13 +239,13 @@ export class Select extends Component {
         }
 
         return this.props.search ? 
-            <input className="search" 
-                   tabIndex="0" 
-                   ref="search"
-                   onChange={this.onSearchChange.bind(this)}
-                   onBlur={this.onSearchBlur.bind(this)}
-                   style={style}
-                   
+            <input 
+                className="search" 
+                onBlur={this.onSearchBlur.bind(this)}
+                onChange={this.onSearchChange.bind(this)}
+                ref="search"
+                style={style}
+                tabIndex="0" 
             /> 
             : false;
     }
@@ -234,26 +256,6 @@ export class Select extends Component {
                 {this.state.selected && !this.props.multiple ? this.state.selected : this.props.placeholder}
             </div>
         );
-    }
-
-    // there isn't a very clean way to animate this since Semantics CSS isn't TransitionGroup 
-    // friendly.
-    renderLabels() {
-        if (this.props.multiple) {
-            return this.state.selected.map(label => {
-                return (
-                    <Label component="a" 
-                           onClick={this.onLabelClick.bind(this, label)}
-                           key={label}
-                           style={{display: 'inline-block'}}
-                    >
-                        {label}
-                        <Icon name="close"
-                              onClick={this.onOptionClick.bind(this, label)}/>
-                    </Label>
-                );
-            });
-        }
     }
 
     render() {
@@ -285,18 +287,33 @@ export class Select extends Component {
 
         if (React.Children.count(children) == 0) {
             children = <div className="message">{this.props.noResults}</div>;
-        };
+        }
 
         return (
-            <OutsideClick onOutsideClick={this.onDocumentClick.bind(this)}>
-                <Dropdown {...other} active={this.state.active} visible={this.state.visible}>
-                    <input type="hidden" name={this.props.name} value={this.formatValue()} />
-                    <Icon name="dropdown" 
-                          onClick={this.onSearchInputClick.bind(this)}/>
-                    {this.renderLabels()}
-                    {this.renderSearch()}
-                    {this.renderText()}
-                    <Menu animation={animation} active={this.state.active}>
+            <OutsideClick 
+                onOutsideClick={this.onDocumentClick.bind(this)}
+            >
+                <Dropdown 
+                    {...other} 
+                    active={this.state.active} 
+                    visible={this.state.visible}
+                >
+                    <input 
+                        name={this.props.name}
+                        type="hidden"
+                        value={this.formatValue()}
+                    />
+                    <Icon 
+                        name="dropdown"
+                        onClick={this.onSearchInputClick.bind(this)}
+                    />
+                        {this.renderLabels()}
+                        {this.renderSearch()}
+                        {this.renderText()}
+                    <Menu 
+                        active={this.state.active}
+                        animation={animation} 
+                    >
                         {children}
                     </Menu>
                 </Dropdown>
@@ -306,7 +323,7 @@ export class Select extends Component {
 
     formatValue() {
         if (this.props.multiple) {
-            //return this.state.selected.join(', ');
+            // return this.state.selected.join(', ');
             let selected = [];
 
             this.state.selected.forEach(item => {
@@ -321,7 +338,7 @@ export class Select extends Component {
 
     getTextClasses() {
         let classes = {
-            default: !!!this.state.selected || this.props.multiple,
+            default: !this.state.selected || this.props.multiple,
             filtered: this.refs.search && this.refs.search.value.length > 0,
             text: true
         }

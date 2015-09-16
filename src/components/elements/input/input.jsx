@@ -45,7 +45,7 @@ export class Input extends React.Component {
         this.processChildren();
         
         let { children, className, defaultClasses, icon, labeled, loading, name, 
-              placeholder, tag, type,...other } = this.props;
+              placeholder, tag, type, ...other } = this.props;
 
         other.className = classNames(
             this.props.className, 
@@ -64,7 +64,7 @@ export class Input extends React.Component {
     render() {
         if (this.props.type == 'checkbox') {
             return this.renderCheckbox();
-        } else{
+        } else {
             return this.renderText();
         }
 
@@ -128,7 +128,7 @@ export class Input extends React.Component {
         if (this.children.label) {
             classes.right = this.children.label.props.right || false;
             classes.corner = this.children.label.props.corner || false;
-            classes.left = this.children.label.props.left || (classes.corner == 'left')|| false;
+            classes.left = this.children.label.props.left || (classes.corner == 'left') || false;
             classes.labeled = true;
         }
 
@@ -141,16 +141,18 @@ export class Input extends React.Component {
         let input = [];
 
         // the actual input element
-        let inputHTML = <input 
-                            key="input" 
-                            placeholder={this.props.placeholder} 
-                            type={this.props.type} 
-                        />;
+        let inputHTML = ( 
+                            <input 
+                                key="input" 
+                                placeholder={this.props.placeholder} 
+                                type={this.props.type} 
+                            />
+                        );
 
         if (labelClasses.corner) {
             input.push(inputHTML);
             input.push(this.props.children);
-        } else{
+        } else {
             input.push(this.children.icon);
 
             // if label is on the right, put the input on the left
@@ -177,9 +179,9 @@ export class Input extends React.Component {
         };
 
         React.Children.forEach(this.props.children, function(child) {
-            if (child.type === Icon && child.type != undefined) {
+            if (child.type === Icon && typeof child.type !== 'undefined') {
                 children.icon = child;
-            } else if (child.type === Label && child.type != undefined) {
+            } else if (child.type === Label && typeof child.type !== 'undefined') {
                 children.label = child;
             }
         });

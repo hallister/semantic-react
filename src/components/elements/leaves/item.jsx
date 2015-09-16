@@ -4,11 +4,18 @@ import classNames from 'classnames';
 export class Item extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
+        children: React.PropTypes.children,
+        className: React.PropTypes.node,
+        color: React.PropTypes.string,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.string
         ]),
-        name: React.PropTypes.string
+        defaultClasses: React.PropTypes.bool,
+        link: React.PropTypes.bool,
+        name: React.PropTypes.string,
+        onClick: React.PropTypes.func,
+        selected: React.PropTypes.bool
     };
     // anytime we are the child of a menu, we want to use a div
     static contextTypes = {
@@ -23,7 +30,7 @@ export class Item extends React.Component {
         // if it's attached or animated use a div instead of a button
         let Component = (this.props.link || this.props.onClick) && !this.context.isMenuChild ? 'a' : 'div';
 
-        let { defaultClasses, tag, selected, name, ...other } = this.props;
+        let { defaultClasses, selected, name, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 

@@ -14,6 +14,10 @@ export class Reveal extends Component {
         children: React.PropTypes.node,
         circular: React.PropTypes.bool,
         className: React.PropTypes.node,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         fade: React.PropTypes.bool,

@@ -3,23 +3,27 @@ import { hasChild } from '../../utilities';
 import classNames from 'classnames';
 
 export class Loader extends Component {
-    static defaultProps = {
-        defaultClasses: true,
-        component: 'div'
-    };
-
     static propTypes = {
         active: React.PropTypes.bool,
         centered: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
+        indeterminate: React.PropTypes.bool,
         inline: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
+        size: React.PropTypes.string,
         text: React.PropTypes.bool
+    };
+
+    static defaultProps = {
+        defaultClasses: true,
+        component: 'div'
     };
 
     render() {
@@ -46,7 +50,7 @@ export class Loader extends Component {
             text: this.props.text || hasChild(this.props.children, 'string'),
             disabled: this.props.disabled,
 
-            //component
+            // component
             loader: this.props.defaultClasses
         };
 

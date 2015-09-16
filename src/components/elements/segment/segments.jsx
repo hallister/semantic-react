@@ -7,8 +7,13 @@ export class Segments extends Component {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
         compact: React.PropTypes.bool,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
         horizontal: React.PropTypes.bool,
+        inverted: React.PropTypes.bool,
         piled: React.PropTypes.bool,
         raised: React.PropTypes.bool,
         stacked: React.PropTypes.bool

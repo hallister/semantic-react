@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { returnTag } from '../../utilities';
 import Animator from '../../../lib/animate';
 
 module.exports.Animate = Animator.extend(class Animate extends Component {
@@ -58,10 +57,10 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
             (this.props.animation.enterState.name == 'slideDown' || this.props.animation.enterState.name == 'slideDown')) {
             this.style = {
                 height: this.getPropertyValue('height'),
-                paddingTop:  this.getPropertyValue('padding-top'),
-                paddingBottom:  this.getPropertyValue('padding-bottom'),
-                marginTop:  this.getPropertyValue('margin-top'),
-                marginBottom:  this.getPropertyValue('margin-bottom'),
+                paddingTop: this.getPropertyValue('padding-top'),
+                paddingBottom: this.getPropertyValue('padding-bottom'),
+                marginTop: this.getPropertyValue('margin-top'),
+                marginBottom: this.getPropertyValue('margin-bottom'),
                 overflow: 'hidden',
                 visibility: 'visible'
             };
@@ -70,8 +69,10 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
 
     render() {
         return (
-            <div className={this.props.className} 
-                 style={ Animator.getAnimatedStyle.call(this, this.state.animation)}>
+            <div 
+                className={this.props.className} 
+                style={Animator.getAnimatedStyle.call(this, this.state.animation)}
+            >
                 {this.state.hideComponent ? '' : this.props.children}
             </div>
         )
@@ -82,12 +83,12 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
         if (document.documentMode) {
             return document.documentMode;
         } else {
-            for (var i = 7; i > 4; i--) {
-                var div = document.createElement("div");
+            for (let i = 7; i > 4; i--) {
+                let div = document.createElement('div');
 
-                div.innerHTML = "<!--[if IE " + i + "]><span></span><![endif]-->";
+                div.innerHTML = '<!--[if IE ' + i + ']><span></span><![endif]-->';
 
-                if (div.getElementsByTagName("span").length) {
+                if (div.getElementsByTagName('span').length) {
                     div = null;
 
                     return i;
@@ -95,16 +96,16 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
             }
         }
 
-        return undefined;
+        return null;
     }
 
     /* Velocity.js */
-    getPosition(property) {
+    getPosition() {
         /* jQuery */
         function getOffsetParent() {
             let offsetParent = this.offsetParent || document;
 
-            while (offsetParent && (!offsetParent.nodeType.toLowerCase === "html" && offsetParent.style.position === "static")) {
+            while (offsetParent && (!offsetParent.nodeType.toLowerCase === 'html' && offsetParent.style.position === 'static')) {
                 offsetParent = offsetParent.offsetParent;
             }
 
@@ -115,7 +116,7 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
         let elem = this.component,
             offsetParent = getOffsetParent.apply(elem),
             offset = this.offset(),
-            parentOffset = /^(?:body|html)$/i.test(offsetParent.nodeName) ? { top: 0, left: 0 } : $(offsetParent).offset()
+            parentOffset = /^(?:body|html)$/i.test(offsetParent.nodeName) ? { top: 0, left: 0 } : ReactDOM.findDOMNode(offsetParent).offset()
 
         offset.top -= parseFloat(elem.style.marginTop) || 0;
         offset.left -= parseFloat(elem.style.marginLeft) || 0;
@@ -164,14 +165,14 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
 
         // fallback to style
         if (computedValue === '' || computedValue === null) {
-            computedValue = element.style[property];
+            computedValue = this.component.style[property];
         }
 
         // fixing auto return values
-        if (computedValue === "auto" && /^(top|right|bottom|left)$/i.test(property)) {
-            let position = this.getPropertyValue(element, "position"); 
+        if (computedValue === 'auto' && /^(top|right|bottom|left)$/i.test(property)) {
+            let position = this.getPropertyValue(this.component, 'position'); 
 
-            if (position === "fixed" || (position === "absolute" && /top|left/i.test(property))) {
+            if (position === 'fixed' || (position === 'absolute' && /top|left/i.test(property))) {
                 /* Note: jQuery strips the pixel unit from its returned values; we re-add it here to conform with computePropertyValue's behavior. */
                 computedValue = this.getPosition(property); /* GET */
             }
@@ -195,7 +196,7 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
             'fadeIn',
             {
                 opacity: 0
-            },{
+            }, {
                 opacity: 1
             }, 
             duration,
@@ -210,7 +211,7 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
             'fadeOut',
             {
                 opacity: 1
-            },{
+            }, {
                 opacity: 0
             }, 
             duration,
@@ -275,8 +276,8 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                 opacity: 0,
                 transform: 'scaleY(0)',
                 transformOrigin: 'top center',
-                'WebkitTransform': 'scaleY(0)',
-                'WebkitTransformOrigin': 'top center'
+                WebkitTransform: 'scaleY(0)',
+                WebkitTransformOrigin: 'top center'
             },
             {
                 opacity: 1,
@@ -310,15 +311,15 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                 opacity: 1,
                 transform: 'scaleY(1)',
                 transformOrigin: 'top center',
-                'WebkitTransform': 'scaleY(1)',
-                'WebkitTransformOrigin': 'top center'
+                WebkitTransform: 'scaleY(1)',
+                WebkitTransformOrigin: 'top center'
             },
             {
                 opacity: 0,
                 transform: 'scaleY(0)',
                 transformOrigin: 'top center',
-                'WebkitTransform': 'scaleY(0)',
-                'WebkitTransformOrigin': 'top center'
+                WebkitTransform: 'scaleY(0)',
+                WebkitTransformOrigin: 'top center'
             },
             duration,
             options
@@ -332,15 +333,15 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                 opacity: 0,
                 transform: 'scale(0, 0)',
                 transformOrigin: 'left top',
-                'WebkitTransform': 'scale(0, 0)',
-                'WebkitTransformOrigin': 'left top'
+                WebkitTransform: 'scale(0, 0)',
+                WebkitTransformOrigin: 'left top'
             },
             {
                 opacity: 1,
                 transform: 'scale(1, 1)',
                 transformOrigin: 'left top',
-                'WebkitTransform': 'scale(1, 1)',
-                'WebkitTransformOrigin': 'left top'
+                WebkitTransform: 'scale(1, 1)',
+                WebkitTransformOrigin: 'left top'
             },
             duration,
             options
@@ -356,15 +357,15 @@ module.exports.Animate = Animator.extend(class Animate extends Component {
                 opacity: 1,
                 transform: 'scale(1, 1)',
                 transformOrigin: 'left top',
-                'WebkitTransform': 'scale(1, 1)',
-                'WebkitTransformOrigin': 'left top'
+                WebkitTransform: 'scale(1, 1)',
+                WebkitTransformOrigin: 'left top'
             },
             {
                 opacity: 0,
                 transform: 'scale(0, 0)',
                 transformOrigin: 'left top',
-                'WebkitTransform': 'scale(0, 0)',
-                'WebkitTransformOrigin': 'left top'
+                WebkitTransform: 'scale(0, 0)',
+                WebkitTransformOrigin: 'left top'
             },
             duration,
             {

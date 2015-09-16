@@ -7,9 +7,9 @@ export class Images extends React.Component {
         bordered: React.PropTypes.bool,
         children: React.PropTypes.node,
         circular: React.PropTypes.bool,
+        className: React.PropTypes.node,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
-            React.PropTypes.func,
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
@@ -26,7 +26,7 @@ export class Images extends React.Component {
 
     render() {
         let { avatar, bordered, children, circular, defaultClasses, disabled, hidden, rounded,
-              size, tag, ...other } = this.props;
+              size, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 

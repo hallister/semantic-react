@@ -2,30 +2,37 @@ import React from 'react';
 import classNames from 'classnames';
 
 export class Card extends React.Component {
-	static defaultProps = {
-        component: 'div',
-		defaultClasses: true
-	};
-
     static propTypes = {
         centered: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
         col: React.PropTypes.string,
         color: React.PropTypes.string,
-        doubling: React.PropTypes.string,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
+        doubling: React.PropTypes.string,
         fluid: React.PropTypes.bool,
-        link: React.PropTypes.bool
+        link: React.PropTypes.bool,
+        onClick: React.PropTypes.func
+    };
+
+    static contextTypes = {
+        isCardChild: React.PropTypes.bool
     };
 
     static childContextTypes = {
         isCardChild: React.PropTypes.bool
     };
 
-	static contextTypes = {
-        isCardChild: React.PropTypes.bool
-	};
+    static defaultProps = {
+        component: 'div',
+        defaultClasses: true
+    };
 
-	constructor(props) {
+    constructor(props) {
         super(props);
     }
 

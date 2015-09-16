@@ -9,13 +9,6 @@ let validProps = {
 };
 
 export class Segment extends React.Component {
-    static defaultProps = {
-        component: 'div',
-        defaultClasses: true,
-        attached: false,
-        style: {}
-    };
-
     static propTypes = {
         aligned: React.PropTypes.oneOf(validProps.aligned),
         attached: React.PropTypes.oneOfType([
@@ -28,6 +21,11 @@ export class Segment extends React.Component {
         clearing: React.PropTypes.bool,
         color: React.PropTypes.string,
         compact: React.PropTypes.bool,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
+        container: React.PropTypes.bool,
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         floated: React.PropTypes.oneOf(validProps.floated),
@@ -44,6 +42,13 @@ export class Segment extends React.Component {
         tertiary: React.PropTypes.bool,
         vertical: React.PropTypes.bool,
         zIndex: React.PropTypes.number
+    };
+
+    static defaultProps = {
+        component: 'div',
+        defaultClasses: true,
+        attached: false,
+        style: {}
     };
 
     render() {

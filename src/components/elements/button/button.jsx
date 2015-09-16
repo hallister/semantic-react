@@ -1,6 +1,6 @@
 import React from 'react';
-import { Icon, Label } from '../../elements';
-import { hasChild, hasFirstChild, validateClassProps } from '../../utilities';
+import { Icon } from '../../elements';
+import { hasChild, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 
 let validProps = {
@@ -38,7 +38,7 @@ export class Button extends React.Component {
         focusable: React.PropTypes.bool,
         icon: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
-        labeled:  React.PropTypes.oneOfType([
+        labeled: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(validProps.labeled),
             React.PropTypes.bool
         ]),
@@ -73,7 +73,7 @@ export class Button extends React.Component {
 
         // consume props
         let { active, animated, attached, basic, children, circular, color, component, compact, className, defaultClasses, 
-            disabled, fluid, icon, inverted, label, loading, negative, positive, primary, secondary, size, social, 
+            disabled, fluid, icon, inverted, labeled, loading, negative, positive, primary, secondary, size, social, 
             ...other } = this.props;
 
         // add classnames
@@ -99,7 +99,7 @@ export class Button extends React.Component {
             // types
             animated: this.props.animated,
             basic: this.props.basic,
-            icon:  (this.props.icon || this.isIconButton()) && !this.context.isIconButtons,
+            icon: (this.props.icon || this.isIconButton()) && !this.context.isIconButtons,
             inverted: this.props.inverted,
 
             // states

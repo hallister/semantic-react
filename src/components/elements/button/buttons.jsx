@@ -47,9 +47,9 @@ export class Buttons extends React.Component {
 
     getChildContext() {
         return {
-            'isAttached': !!this.props.attached,
-            'isIconButtons': !!this.props.icon,
-            'isLabeledButtons': !!this.props.labeled
+            isAttached: !!this.props.attached,
+            isIconButtons: !!this.props.icon,
+            isLabeledButtons: !!this.props.labeled
         };
     }
 

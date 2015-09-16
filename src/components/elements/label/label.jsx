@@ -11,17 +11,12 @@ let validProps = {
 };
 
 export class Label extends React.Component {
-    static defaultProps = {
-        corner: false,
-        defaultClasses: true,
-        pointing: false,
-        ribbon: false
-    };
-
     static propTypes = {
         attached: React.PropTypes.oneOf(validProps.attached),
         basic: React.PropTypes.bool,
+        children: React.PropTypes.node,
         circular: React.PropTypes.bool,
+        className: React.PropTypes.node,
         color: React.PropTypes.string,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
@@ -34,7 +29,10 @@ export class Label extends React.Component {
         defaultClasses: React.PropTypes.bool,
         floating: React.PropTypes.bool,
         image: React.PropTypes.bool,
+        label: React.PropTypes.bool,
         left: React.PropTypes.bool,
+        link: React.PropTypes.bool,
+        onClick: React.PropTypes.func,
         pointing: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(validProps.pointing),
             React.PropTypes.bool
@@ -51,6 +49,13 @@ export class Label extends React.Component {
     // any header/subheader under a header is a subheader
     static childContextTypes = {
         isLabelChild: React.PropTypes.bool
+    };
+
+    static defaultProps = {
+        corner: false,
+        defaultClasses: true,
+        pointing: false,
+        ribbon: false
     };
 
     getChildContext() {

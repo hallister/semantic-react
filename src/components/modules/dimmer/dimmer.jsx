@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getChild, hasChild } from '../../utilities';
-import { Segment, Content, Loader } from '../../elements';
+import { Content, Loader } from '../../elements';
 import { Animate } from '../../modules';
 import classNames from 'classnames';
 
@@ -45,20 +45,15 @@ export class Dimmer extends Component {
             this.props.component,
             other, 
             [
-                <Animate className={classNames(this.getDimmerClasses())}
-                         animation={this.getAnimation()}
-                         key="animation"> 
+                <Animate 
+                    animation={this.getAnimation()}
+                    className={classNames(this.getDimmerClasses())}
+                    key="animation"
+                > 
                     {this.props.dimmed ? this.renderContent() : ''}
                 </Animate>,
                 this.renderChildren()
             ]
-        );
-
-
-        return React.createElement(
-            this.props.component,
-            other,
-            this.props.children
         );
     }
 
@@ -98,7 +93,7 @@ export class Dimmer extends Component {
                 name: 'fadeOut',
                 ease: 'cubic-out',
                 duration: 300
-            },
+            }
         };
     }
 

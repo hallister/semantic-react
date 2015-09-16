@@ -46,10 +46,8 @@ export function hasDescendant(children, component) {
     for (let child of children) {
         if (child.type && child.type == component) {
             return true;
-        } else {
-            if(React.Children.count(child.props.children) > 0) {
-                return hasDescendant(child.props.children, component);
-            }
+        } else if (React.Children.count(child.props.children) > 0) {
+            return hasDescendant(child.props.children, component);
         }
     }
 
@@ -112,9 +110,9 @@ export function spliceChildren(children, component) {
     });
 
     return {
-        'component': splicedComponent, 
-        'remaining': children,
-        'index': componentIndex
+        component: splicedComponent, 
+        remaining: children,
+        index: componentIndex
     };
 }
 

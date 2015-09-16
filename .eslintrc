@@ -1,30 +1,136 @@
 {
     "parser": "babel-eslint",
+    //
+    // Many of these rules taken from https://gist.github.com/nkbt/9efd4facb391edbf8048
+    //
     "rules": {
-        "react/jsx-quotes": [1, "single"],
-        "react/jsx-max-props-per-line": 1,
+        //
+        // Errors
+        //
+        "comma-dangle": 2, 
+        "no-cond-assign": 2, 
+        "no-console": 1, 
+        "no-constant-condition": 2, 
+        "no-control-regex": 2, 
+        "no-debugger": 2, 
+        "no-dupe-args": 2, 
+        "no-dupe-keys": 2, 
+        "no-duplicate-case": 2, 
+        "no-empty": 2, 
+        "no-empty-character-class": 2, 
+        "no-ex-assign": 2, 
+        "no-extra-boolean-cast": 2, 
+        "no-extra-parens": 0, 
+        "no-extra-semi": 2, 
+        "no-func-assign": 2, 
+        "no-inner-declarations": 2, 
+        "no-invalid-regexp": 2, 
+        "no-irregular-whitespace": 2, 
+        "no-negated-in-lhs": 2, 
+        "no-obj-calls": 2, 
+        "no-regex-spaces": 2, 
+        "no-sparse-arrays": 2, 
+        "no-unreachable": 2, 
+        "use-isnan": 2,  
+        "valid-typeof": 2,
+
+        //
+        // Variables
+        //
+        "no-catch-shadow": 2, // disallow the catch clause parameter name being the same as a variable in the outer scope (off by default in the node environment)
+        "no-delete-var": 2, // disallow deletion of variables
+        "no-label-var": 2, // disallow labels that share a name with a variable
+        "no-shadow": 2, // disallow declaration of variables already declared in the outer scope
+        "no-shadow-restricted-names": 2, // disallow shadowing of names such as arguments
+        "no-undef": 2, // disallow use of undeclared variables unless mentioned in a /*global */ block
+        "no-undef-init": 2, // disallow use of undefined when initializing variables
+        "no-undefined": 2, // disallow use of undefined variable (off by default)
+        "no-unused-vars": 2, // disallow declaration of variables that are not used in the code
+        "no-use-before-define": 2, // disallow use of variables before they are defined
+
+        //
+        // Stylistic
+        //
+        "brace-style": 1, 
+        "comma-spacing": [1, {"before": false, "after": true}],
+        "comma-style": [1, "last"],
+        "indent": [1, 4],
+        "key-spacing": [1, {"beforeColon": false, "afterColon": true}],
+        "no-lonely-if": 1,
+        "no-mixed-spaces-and-tabs": 1,
+        "no-multiple-empty-lines": [1, {"max": 2}],
+        "no-nested-ternary": 1,
+        "quote-props": [1, "as-needed"],
+        "quotes": [1, "single"],
+        "space-before-blocks": [1, "always"],
+        "space-before-function-paren": [1, {"anonymous": "always", "named": "never"}],
+        "space-after-keywords": [1, "always"], 
+        "space-before-blocks": [1, "always"],
+        "space-before-function-paren": [1, {"anonymous": "never", "named": "never"}],
+        "object-curly-spacing": [1, "always"],
+        "space-in-parens": [1, "never"],
+        "space-infix-ops": 1,
+        "space-return-throw-case": 1,
+        "space-unary-ops": [1, {"words": true, "nonwords": false}], 
+        "spaced-comment": [1, "always"],
+    
+        //
+        // ECMAScript 6
+        //
+        "no-var": 2,
+        "generator-star-spacing": [2, "before"],
+
+        //
+        // React
+        //
+        "react/jsx-quotes": [2, "double", "avoid-escape"],
+        "react/jsx-curly-spacing": [1, "never"],
+        "react/jsx-max-props-per-line": 2,
         "react/jsx-boolean-value": 1,
-        "react/jsx-no-undef": 1,
+        "react/jsx-no-undef": 2,
+        "react/jsx-no-duplicate-props": 1,
+        "react/jsx-no-literals": 1,
         "react/jsx-quotes": 1,
         "react/jsx-sort-prop-types": 1,
         "react/jsx-sort-props": 1,
-        "react/jsx-uses-react": 1,
-        "react/jsx-uses-vars": 1,
-        "react/no-did-mount-set-state": 1,
-        "react/no-did-update-set-state": 1,
+        "react/jsx-indent-props": [1, 4],
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2,
+        "react/jsx-closing-bracket-location": 1,
+        "react/no-did-mount-set-state": 2,
+        "react/no-did-update-set-state": 2,
         "react/no-multi-comp": 1,
-        "react/no-unknown-property": 1,
-        "react/prop-types": 1
+        "react/no-danger": 1,
+        "react/no-unknown-property": 2,
+        "react/prop-types": 2,
+        "react/react-in-jsx-scope": 2,
+        "react/self-closing-comp": 2,
+        "react/sort-comp": [2, {
+            order: [
+                'lifecycle',
+                '/^on.+$/',
+                'rendering',
+                'everything-else'
+            ],
+            groups: [
+                rendering: [
+                    '/^render.+$/',
+                    'render'
+                ]
+            ]
+        }],
+        "react/wrap-multilines": 2
     },
     "env": {
         "es6": true,
+        "node": true,
         "browser": true
     },
-    "extends": "eslint:recommended",
     "ecmaFeatures": {
         "jsx": true,
         "experimentalObjectRestSpread": true,
-        "modules": true
+        "modules": true,
+        "module": true
     },
     "plugins": [
         "react"

@@ -3,14 +3,15 @@ import { Item } from '../../elements';
 
 export class Option extends React.Component {
     static propTypes = {
-    	value: React.PropTypes.string.isRequired
+        children: React.PropTypes.node,
+        value: React.PropTypes.string.isRequired
     };
 
     render() {
-    	return (
-    		<Item {...this.props}>
-    			{this.props.children}
-    		</Item>
-    	);
+        return (
+            <Item {...this.props}>
+                {this.props.children}
+            </Item>
+        );
     }
 }

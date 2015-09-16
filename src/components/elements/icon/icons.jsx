@@ -8,28 +8,31 @@ let validProps = {
 };
 
 export class Icons extends React.Component {
-    static defaultProps = {
-        defaultClasses: true,
-        component: 'i'
-    };
-
     static propTypes = {
         bordered: React.PropTypes.bool,
         children: React.PropTypes.node,
         circular: React.PropTypes.bool,
+        className: React.PropTypes.node,
         color: React.PropTypes.string,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.string
         ]),
+        defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         fitted: React.PropTypes.bool,
         flipped: React.PropTypes.oneOf(validProps.flipped),
         inverted: React.PropTypes.bool,
         link: React.PropTypes.bool,
         loading: React.PropTypes.bool,
+        onClick: React.PropTypes.func,
         rotated: React.PropTypes.oneOf(validProps.rotated),
         size: React.PropTypes.string
+    };
+
+    static defaultProps = {
+        defaultClasses: true,
+        component: 'i'
     };
 
     render() {

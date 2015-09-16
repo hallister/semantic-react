@@ -18,10 +18,11 @@ export class LabeledButton extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
+        fluid: React.PropTypes.bool,
         focusable: React.PropTypes.bool,
         icon: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
-        labeled:  React.PropTypes.oneOfType([
+        labeled: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.bool
         ]),
@@ -70,7 +71,10 @@ export class LabeledButton extends React.Component {
         other.className = classNames(this.props.className, this.getClasses());
 
         let icon = (
-            <div {...other} key="icon">
+            <div 
+                {...other} 
+                key="icon"
+            >
                 {components.remaining}
             </div>
         );

@@ -11,9 +11,11 @@ export class Rail extends React.Component {
         attached: React.PropTypes.bool,
         children: React.PropTypes.node,
         className: React.PropTypes.node,
-        close: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.bool
+        close: React.PropTypes.bool,
+        closer: React.PropTypes.bool,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
         dividing: React.PropTypes.bool,

@@ -8,21 +8,17 @@ let validProps = {
 };
 
 export class Icon extends React.Component {
-    static defaultProps = {
-        component: 'i',
-        defaultClasses: true
-    };
-
     static propTypes = {
-        //aligned: React.PropTypes.string,
         bordered: React.PropTypes.bool,
         circular: React.PropTypes.bool,
+        className: React.PropTypes.node,
         color: React.PropTypes.string,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.string
         ]),
         corner: React.PropTypes.bool,
+        defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         fitted: React.PropTypes.bool,
         flipped: React.PropTypes.oneOf(validProps.flipped),
@@ -30,12 +26,18 @@ export class Icon extends React.Component {
         link: React.PropTypes.bool,
         loading: React.PropTypes.bool,
         name: React.PropTypes.string.isRequired,
+        onClick: React.PropTypes.func,
         rotated: React.PropTypes.oneOf(validProps.rotated),
         size: React.PropTypes.string
     };
 
+    static defaultProps = {
+        component: 'i',
+        defaultClasses: true
+    };
+
     render() {
-        let { aligned, bordered, circular, color, component, corner, disabled, fitted, flipped, inverted, link, 
+        let { bordered, circular, color, component, corner, disabled, fitted, flipped, inverted, link, 
               loading, name, rotated, size, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -66,7 +68,7 @@ export class Icon extends React.Component {
 
         // handle all string or mixed string/bool props
 
-        //classes[this.props.aligned] = !!this.props.aligned;
+        // classes[this.props.aligned] = !!this.props.aligned;
         classes[this.props.size] = !!this.props.size;
         classes[this.props.color] = !!this.props.color;
         classes[this.props.name] = !!this.props.name;

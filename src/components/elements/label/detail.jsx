@@ -2,12 +2,19 @@ import React from 'react';
 import classNames from 'classnames';
 
 export class Detail extends React.Component {
-    static defaultProps = {
-        defaultClasses: true
+    static propTypes = {
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
+        defaultClasses: React.PropTypes.bool,
+        onClick: React.PropTypes.func
     };
 
-    static propTypes = {
-        defaultClasses: React.PropTypes.bool
+    static defaultProps = {
+        defaultClasses: true
     };
 
     render() {

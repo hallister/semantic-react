@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { AccordionTitle, AccordionBody } from '../../modules'
-
-// can't get import working?
-var classNames = require('classnames');
+import classNames from 'classnames';
 
 export class Accordion extends Component {
-	static defaultProps = {
-		defaultClasses: true
-	};
-
     static propTypes = {
-        defaultClasses: React.PropTypes.bool
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
+        defaultClasses: React.PropTypes.bool,
+        fluid: React.PropTypes.bool,
+        inverted: React.PropTypes.bool,
+        styled: React.PropTypes.bool
+    };
+
+    static defaultProps = {
+        defaultClasses: true
     };
 
     constructor(props) {
@@ -21,8 +24,8 @@ export class Accordion extends Component {
         }
     }
 
-    _handleClick(key, e, idx) {
-        let active = undefined;
+    _handleClick(key) {
+        let active;
 
         if (key !== this.state.currentActive) {
             active = key;
@@ -38,11 +41,8 @@ export class Accordion extends Component {
         let element = null;
 
         return React.Children.map(this.props.children, function(child) {
-
-            let active = this.state.currentActive === index;
-
             if (child.type == AccordionTitle) {
-                var boundClick = this._handleClick.bind(this, index);
+                const boundClick = this._handleClick.bind(this, index);
 
                 element = React.cloneElement(child, {
                     active: this.state.currentActive === index,
@@ -63,9 +63,9 @@ export class Accordion extends Component {
     }
 
     render() {
-    	let classes = {
+        let classes = {
             // default
-        	ui: this.props.defaultClasses,
+            ui: this.props.defaultClasses,
 
             // positioning
 

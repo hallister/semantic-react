@@ -5,7 +5,7 @@ import classNames from 'classnames';
 let validProps = {
     aligned: ['top', 'middle', 'bottom'],
     floated: ['right', 'left'],
-    spaced: ['right', 'left'],
+    spaced: ['right', 'left']
 };
 
 // can't do SVG since JSX/React breaks on SVG images
@@ -48,8 +48,12 @@ export class Image extends React.Component {
     };
 
     renderComponent(other) {
-        let imageDiv = <img key="image"
-                            src={this.props.src} />;
+        let imageDiv = (
+                            <img 
+                                key="image" 
+                                src={this.props.src} 
+                            />
+                        );
 
         return React.createElement(
             this.props.component || 'div',

@@ -5,10 +5,12 @@ import classNames from 'classnames';
 export class SubHeader extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
+        className: React.PropTypes.node,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.string
-        ])
+        ]),
+        defaultClasses: React.PropTypes.bool
     };
 
     static defaultProps = {

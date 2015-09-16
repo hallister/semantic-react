@@ -1,6 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
 
+// TODO: Eventually Docs need eslinting as well
+
 module.exports = {
     devtool: 'eval',
     entry: [
@@ -25,11 +27,23 @@ module.exports = {
         }
     },
     module: {
-        loaders: [{
-            test: /\.jsx?$/,
-            loaders: ['react-hot', 'babel?optional[]=runtime&stage=0'],
-            include: path.join(__dirname, 'src')
-            //exclude: /node_modules/
-        }]
+        preLoaders: [
+            {
+                test: /\.jsx?$/,
+                exclude: [/node_modules/, /docs/, /lib/],
+                loader: "eslint-loader"
+            }
+        ],
+        loaders: [
+            {
+                test: /\.jsx?$/,
+                loaders: ['react-hot', 'babel?optional[]=runtime&stage=0'],
+                include: path.join(__dirname, 'src')
+                //exclude: /node_modules/
+            }
+        ]
+    },
+    eslint: {
+        configFile: '.eslintrc'
     }
 };
