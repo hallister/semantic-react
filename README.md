@@ -4,12 +4,8 @@
 
 Repository for my current work porting the majority of Semantic UI to React Components. 
 
-#### Issues
-
-ESLint for React is currently broken for elements created via `React.createElement` so much of the Prop-Type warnings are broken.
-
 #### Elements
-Complete but no tests and no documentation (outside of Button). Probably missing some props.
+Complete but no tests and no documentation (outside of Button).
 
 ### Views
 * Card - Complete. Needs testing and docs.
@@ -22,3 +18,7 @@ Complete but no tests and no documentation (outside of Button). Probably missing
 * Checkbox - Relatively Complete. Needs testing and docs.
 * Dimmer - Relatively Complete. Needs testing and docs.
 * Dropdown - `Select` complete, but `DropdownMenu` hasn't been implemented. Needs substantial testing and docs.
+
+[![devDependency Status](https://david-dm.org/hallister/semantic-react/dev-status.svg)](https://david-dm.org/hallister/semantic-react#info=devDependencies)
+
+[![Dependency Status](https://david-dm.org/hallister/semantic-react.svg)](https://david-dm.org/hallister/semantic-react)

@@ -20,6 +20,13 @@ module.exports = {
         }
     },
     module: {
+        preLoaders: [
+            {
+                test: /\.jsx?$/,
+                exclude: [/node_modules/, /docs/, /lib/],
+                loader: "eslint-loader"
+            }
+        ],
         loaders: [{
             test: /\.jsx?$/,
             loaders: ['babel?optional[]=runtime&stage=0'],
@@ -29,5 +36,8 @@ module.exports = {
             test: /\.json$/,
             loader: "json-loader"
         }]
+    },
+    eslint: {
+        configFile: '.eslintrc'
     }
 };
