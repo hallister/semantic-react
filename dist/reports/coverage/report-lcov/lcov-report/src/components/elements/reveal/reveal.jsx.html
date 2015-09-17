@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/elements/reveal/reveal.jsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../../prettify.css">
+    <link rel="stylesheet" href="../../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">src/components/elements/reveal/reveal.jsx</span></h1>
+    <h2>
+        Statements: <span class="metric">61.11% <small>(33 / 54)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">25% <small>(1 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">50% <small>(3 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">61.11% <small>(33 / 54)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../index.html">All files</a> &#187; <a href="index.html">src/components/elements/reveal/</a> &#187; reveal.jsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+var _reactTransformWebpackHmr2 = require('react-transform-webpack-hmr');
+&nbsp;
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
+&nbsp;
+var _reactTransformWebpackHmr3 = _interopRequireDefault(_reactTransformWebpackHmr2);
+&nbsp;
+var _react = require('react');
+&nbsp;
+var _reactTransformCatchErrors2 = require('react-transform-catch-errors');
+&nbsp;
+var _reactTransformCatchErrors3 = _interopRequireDefault(_reactTransformCatchErrors2);
+&nbsp;
+var _redboxReact = require('redbox-react');
+&nbsp;
+var _get = require('babel-runtime/helpers/get')['default'];
+&nbsp;
+var _inherits = require('babel-runtime/helpers/inherits')['default'];
+&nbsp;
+var _createClass = require('babel-runtime/helpers/create-class')['default'];
+&nbsp;
+var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
+&nbsp;
+var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
+&nbsp;
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+&nbsp;
+var _react2 = _interopRequireDefault(_react);
+&nbsp;
+var _elements = require('../../elements');
+&nbsp;
+var _utilities = require('../../utilities');
+&nbsp;
+var _classnames = require('classnames');
+&nbsp;
+var _classnames2 = _interopRequireDefault(_classnames);
+&nbsp;
+var _components = {
+    _$Reveal: {
+        displayName: 'Reveal'
+    }
+};
+&nbsp;
+var _reactComponentWrapper = (0, _reactTransformWebpackHmr3['default'])({
+    filename: '/home/justin/Projects/ReactStart/src/components/elements/reveal/reveal.jsx',
+    components: _components,
+    locals: [module],
+    imports: [_react]
+});
+&nbsp;
+var _reactComponentWrapper2 = (0, _reactTransformCatchErrors3['default'])({
+    filename: '/home/justin/Projects/ReactStart/src/components/elements/reveal/reveal.jsx',
+    components: _components,
+    locals: [],
+    imports: [_react, _redboxReact]
+});
+&nbsp;
+function _wrapComponent(uniqueId) {
+    return function (ReactClass) {
+        return _reactComponentWrapper2(_reactComponentWrapper(ReactClass, uniqueId), uniqueId);
+    };
+}
+&nbsp;
+var validProps = {
+    move: ['right', 'up', 'down'],
+    rotate: ['left']
+};
+&nbsp;
+var Reveal = (function (_Component) {
+    _inherits(Reveal, _Component);
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function Reveal() {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, _Reveal);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _get(Object.getPrototypeOf(_Reveal.prototype), 'constructor', this).apply(this, arguments);</span>
+    }
+&nbsp;
+    _createClass(Reveal, [{
+        key: 'render',
+        value: <span class="fstat-no" title="function not covered" >function render() {</span>
+<span class="cstat-no" title="statement not covered" >            var _props = this.props;</span>
+<span class="cstat-no" title="statement not covered" >            var active = _props.active;</span>
+<span class="cstat-no" title="statement not covered" >            var circular = _props.circular;</span>
+<span class="cstat-no" title="statement not covered" >            var children = _props.children;</span>
+<span class="cstat-no" title="statement not covered" >            var className = _props.className;</span>
+<span class="cstat-no" title="statement not covered" >            var defaultClasses = _props.defaultClasses;</span>
+<span class="cstat-no" title="statement not covered" >            var disabled = _props.disabled;</span>
+<span class="cstat-no" title="statement not covered" >            var fade = _props.fade;</span>
+<span class="cstat-no" title="statement not covered" >            var instant = _props.instant;</span>
+<span class="cstat-no" title="statement not covered" >            var image = _props.image;</span>
+<span class="cstat-no" title="statement not covered" >            var move = _props.move;</span>
+<span class="cstat-no" title="statement not covered" >            var rotate = _props.rotate;</span>
+<span class="cstat-no" title="statement not covered" >            var size = _props.size;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var other = _objectWithoutProperties(_props, ['active', 'circular', 'children', 'className', 'defaultClasses', 'disabled', 'fade', 'instant', 'image', 'move', 'rotate', 'size']);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            other.className = (0, _classnames2['default'])(this.props.className, this.getClasses());</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return _react2['default'].createElement(this.props.component, other, this.props.children);</span>
+        }
+    }, {
+        key: 'getClasses',
+        value: <span class="fstat-no" title="function not covered" >function getClasses() {</span>
+<span class="cstat-no" title="statement not covered" >            var classes = {</span>
+                // default
+                ui: this.props.defaultClasses,
+&nbsp;
+                // types
+                active: this.props.active,
+                circular: this.props.circular,
+                instant: this.props.instant,
+&nbsp;
+                // states
+                disabled: this.props.disabled,
+&nbsp;
+                // transitions
+                fade: this.props.fade,
+                move: this.props.move,
+                rotate: this.props.rotate,
+&nbsp;
+                // sub-defaults (order can matter?)
+                reveal: this.props.defaultClasses,
+                image: this.props.image || (0, _utilities.hasDescendant)(this.props.children, _elements.Image)
+            };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            classes[this.props.size] = !!this.props.size;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return (0, _utilities.validateClassProps)(classes, this.props, validProps);</span>
+        }
+    }], [{
+        key: 'propTypes',
+        value: {
+            active: _react2['default'].PropTypes.bool,
+            children: _react2['default'].PropTypes.node,
+            circular: _react2['default'].PropTypes.bool,
+            className: _react2['default'].PropTypes.node,
+            component: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.element, _react2['default'].PropTypes.string]),
+            defaultClasses: _react2['default'].PropTypes.bool,
+            disabled: _react2['default'].PropTypes.bool,
+            fade: _react2['default'].PropTypes.bool,
+            image: _react2['default'].PropTypes.bool,
+            instant: _react2['default'].PropTypes.bool,
+            move: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.oneOf(validProps.move), _react2['default'].PropTypes.bool]),
+            rotate: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.oneOf(validProps.rotate), _react2['default'].PropTypes.bool]),
+            // required?
+            size: _react2['default'].PropTypes.string,
+            type: _react2['default'].PropTypes.string
+        },
+        enumerable: true
+    }, {
+        key: 'defaultProps',
+        value: {
+            component: 'div',
+            defaultClasses: true,
+            image: false,
+            move: false,
+            rotate: false,
+            size: 'small'
+        },
+        enumerable: true
+    }]);
+&nbsp;
+    var _Reveal = Reveal;
+    Reveal = _wrapComponent('_$Reveal')(Reveal) || <span class="branch-1 cbranch-no" title="branch not covered" >Reveal;</span>
+    return Reveal;
+})(_react.Component);
+&nbsp;
+exports.Reveal = Reveal;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Sep 17 2015 13:58:46 GMT-0700 (PDT)</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

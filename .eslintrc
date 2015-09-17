@@ -83,14 +83,13 @@
         //
         // React
         //
-        "react/jsx-quotes": [2, "double", "avoid-escape"],
+        "jsx-quotes": [2, "prefer-double"],
         "react/jsx-curly-spacing": [1, "never"],
         "react/jsx-max-props-per-line": 2,
         "react/jsx-boolean-value": 1,
         "react/jsx-no-undef": 2,
         "react/jsx-no-duplicate-props": 1,
         "react/jsx-no-literals": 1,
-        "react/jsx-quotes": 1,
         "react/jsx-sort-prop-types": 1,
         "react/jsx-sort-props": 1,
         "react/jsx-indent-props": [1, 4],

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Header, Rail, Item } from '../../components/elements';
+import { Segment, Header, Rail, Item, Button, SocialButton } from '../../components/elements';
 import { Menu } from '../../components/views';
 import * as Types from './button/types';
 import * as Groups from './button/groups';

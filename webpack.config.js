@@ -6,8 +6,9 @@ var webpack = require('webpack');
 module.exports = {
     devtool: 'eval',
     entry: [
-        'webpack-dev-server/client?http://0.0.0.0:3000',
-        'webpack/hot/only-dev-server',
+        //'webpack-dev-server/client?http://0.0.0.0:3000',
+        //'webpack/hot/only-dev-server',
+        'webpack-hot-middleware/client',
         './src/index'
     ],
     output: {
@@ -37,7 +38,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                loaders: ['react-hot', 'babel?optional[]=runtime&stage=0'],
+                loaders: ['babel?optional[]=runtime&stage=0'],
                 include: path.join(__dirname, 'src')
                 //exclude: /node_modules/
             }

@@ -57,7 +57,6 @@ export class Button extends React.Component {
         isLabeledButtons: React.PropTypes.bool
     };
 
-
     static defaultProps = {
         animated: false,
         attached: false,
@@ -73,7 +72,7 @@ export class Button extends React.Component {
 
         // consume props
         let { active, animated, attached, basic, children, circular, color, component, compact, className, defaultClasses, 
-            disabled, fluid, icon, inverted, labeled, loading, negative, positive, primary, secondary, size, social, 
+            disabled, floated, fluid, icon, inverted, labeled, loading, negative, positive, primary, secondary, size, social, 
             ...other } = this.props;
 
         // add classnames

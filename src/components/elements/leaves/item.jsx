@@ -4,7 +4,7 @@ import classNames from 'classnames';
 export class Item extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
-        children: React.PropTypes.children,
+        children: React.PropTypes.node,
         className: React.PropTypes.node,
         color: React.PropTypes.string,
         component: React.PropTypes.oneOfType([
