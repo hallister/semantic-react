@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="4950"  lines-covered="3498"  line-rate="0.7067"  branches-valid="721"  branches-covered="146"  branch-rate="0.2025"  timestamp="1442611738733" complexity="0" version="0.1">
+<coverage lines-valid="4950"  lines-covered="3498"  line-rate="0.7067"  branches-valid="721"  branches-covered="146"  branch-rate="0.2025"  timestamp="1442612026052" complexity="0" version="0.1">
 <sources>
 	<source>/home/justin/Projects/ReactStart</source>
 </sources>
