@@ -15,11 +15,11 @@
 <div class="header high">
     <h1>Code coverage report for <span class="entity">src/components/elements/button/iconbutton.jsx</span></h1>
     <h2>
-        Statements: <span class="metric">100% <small>(11 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Branches: <span class="metric">50% <small>(1 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Functions: <span class="metric">100% <small>(1 / 1)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Lines: <span class="metric">100% <small>(11 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">96.15% <small>(25 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">85.71% <small>(12 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">75% <small>(3 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">66.67% <small>(2 / 3)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric">17 statements, 2 functions, 8 branches</span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
     <div class="path"><a href="../../../../index.html">All files</a> &#187; <a href="index.html">src/components/elements/button/</a> &#187; iconbutton.jsx</div>
 </div>
@@ -43,41 +43,12 @@
 16
 17
 18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+19</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">6</span>
-<span class="cline-any cline-yes">6</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -89,36 +60,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import { Icon, Button } from '../../elements';
 &nbsp;
-var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
-&nbsp;
-var _extends = require('babel-runtime/helpers/extends')['default'];
-&nbsp;
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-&nbsp;
-var _react = require('react');
-&nbsp;
-var _react2 = _interopRequireDefault(_react);
-&nbsp;
-var _elements = require('../../elements');
-&nbsp;
-exports.IconButton = function (props) {
-    var iconColor = props.iconColor;
-    var name = props.name;
-&nbsp;
-    var other = _objectWithoutProperties(props, ['iconColor', 'name']);
-&nbsp;
-    return _react2['default'].createElement(
-        _elements.Button,
-        _extends({}, other, {
-            icon: _react2['default'].Children.count(props.children) === 0 ? true : <span class="branch-1 cbranch-no" title="branch not covered" >false</span>
-        }),
-        _react2['default'].createElement(_elements.Icon, {
-            color: props.iconColor,
-            name: props.name
-        }),
-        props.children
+exports.IconButton = <span class="fstat-no" title="function not covered" >(props) =&gt; {</span>
+    let { iconColor, name, ...other } = props;
+<span class="cstat-no" title="statement not covered" >    return (</span>
+        &lt;Button 
+            {...other}    
+            icon={React.Children.count(props.children) === 0 ? true : false}
+        &gt;
+            &lt;Icon 
+                color={props.iconColor} 
+                name={props.name}
+            /&gt;
+                {props.children}
+        &lt;/Button&gt;
     );
 };
 &nbsp;</pre></td></tr>
@@ -126,7 +84,7 @@ exports.IconButton = function (props) {
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Sep 17 2015 13:58:46 GMT-0700 (PDT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Sep 18 2015 11:52:26 GMT-0700 (PDT)</div>
 </div>
 <script src="../../../../prettify.js"></script>
 <script>

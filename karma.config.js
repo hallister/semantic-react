@@ -2,10 +2,15 @@ var webpack = require('webpack');
 
 module.exports = function(config) {
 	config.set({
-		frameworks: ['jasmine'],
+		frameworks: ['mocha', 'chai', 'sinon'],
 	    files: [
 	      'src/app.tests.js'
 	    ],
+	    client: {
+	    	mocha: {
+	    		bail: true
+	    	}
+	    },
 	    browsers: [ 'PhantomJS' ],
 	    preprocessors: {
 	      'src/app.tests.js': ['webpack']
@@ -27,15 +32,15 @@ module.exports = function(config) {
 				resolve: {
 					extensions: ['', '.js', '.json', '.jsx']
 				},
+		        preLoaders: [{
+		            test: /\.jsx$/,
+		            exclude: /(node_modules|bower_components)/,
+		            loader: 'isparta'
+		        }],
 	        	loaders: [{
 	        		test: /\.jsx?$/, 
 	        		exclude: /(bower_components|node_modules)/,
 	          		loader: 'babel?optional[]=runtime&stage=0'
-	        	}],
-	        	postLoaders: [{
-	          		test: /\.jsx?$/, 
-	          		exclude: /(node_modules|bower_components|(.*)-test.js)/,
-	          		loader: 'istanbul-instrumenter'
 	        	}]
 	      	}
 	    },

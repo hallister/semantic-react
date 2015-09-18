@@ -54,8 +54,8 @@ export class Buttons extends React.Component {
     }
 
     render() {
-        let { attached, basic, children, className, color, compact, component, defaultClasses, equal, icon, inverted, 
-              labeled, negative, positive, primary, secondary, size, vertical, ...other } = this.props;
+        let { attached, basic, children, className, color, compact, component, defaultClasses, equal, floated, 
+              icon, inverted, labeled, negative, positive, primary, secondary, size, vertical, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -94,8 +94,10 @@ export class Buttons extends React.Component {
 
         // buttons group with >0 buttons that are all of equal width
         if (this.props.equal) {
-            if (childCount > 0  && childCount <= 12) {
+            if (childCount > 1  && childCount <= 12) {
                 classes[Numbers[childCount]] = true;
+            } else {
+                classes['fluid'] = true;
             }
         }
 

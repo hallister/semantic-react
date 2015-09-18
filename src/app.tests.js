@@ -1,4 +1,7 @@
-import 'babel-core/polyfill';
+require('babel-core/polyfill');
 
-let context = require.context('.', true, /-test\.jsx?$/);
-context.keys().forEach(context);
+const testsContext = require.context('.', true, /-test\.js?$/);
+testsContext.keys().forEach(testsContext);
+
+const componentsContext = require.context('.', true, /\.jsx$/);
+componentsContext.keys().forEach(componentsContext);

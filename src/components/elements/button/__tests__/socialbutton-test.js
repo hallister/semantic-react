@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { createElement as $ } from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
-import { SocialButton as Element, Segment } from '../../../elements';
-import { render, renderDeep, renderStateless, getNode, TestProps } from '../../../test';
+import { SocialButton as Element, Button, Icon } from '../../../elements';
+import { expect } from 'chai';
+import sd from 'skin-deep';
+
 
 let props = {
 	name: 'facebook'
 };
+
 
 let consumedProps = {
     name: 'facebook'
@@ -20,21 +23,16 @@ describe('SocialButton', () => {
 	});
 
 	it('should expect a name', () => {
-		spyOn(console, 'error');
+		sinon.test(function() {
+			let spy = sinon.stub(console, 'error');
 
-		let button = renderStateless({}, Element);
-		let icon = button.children[0];
+	        let tree = sd.shallowRender($(Element));
+	        let vdom = tree.getRenderOutput();
 
-		/*
-         * For some reason Icon's isRequired prop on name
-         * doesn't work. as a result, we have do a className 
-         * equals instead. This bug is weird as it works 
-         * flawlessly in IconButton. The prop warnings work as 
-         * normal outside of the test enviornment.
-		 */
-		 expect(icon.className).toEqual('icon');
-		// expect(console.error).toHaveBeenCalled();
+			assert(spy.called);
+		});
 	});
+
 
 	describe('should render in the DOM', () => {
 		beforeEach(function() {
@@ -43,37 +41,57 @@ describe('SocialButton', () => {
 			};
 		});
 
-		it('renders as <div>', () => {
-			let button = renderStateless(props, Element);
+		it('renders as a <Button>', () => {
+	        let tree = sd.shallowRender($(Element, props));
+	        let vdom = tree.getRenderOutput();
 
-			expect(getNode(button).className).toMatch(/ui icon button/);
+			expect(vdom.props).has.property('social', 'facebook');
+			expect(vdom.props).has.property('icon', true);
+			expect(vdom.type).to.equal(Button);
 		});
 
-		it('renders as a custom HTML element', () => {
-			props.component = 'button';
-			let button = renderStateless(props, Element);
+		it('passes the custom component to <Button>', () => {
+			props.component = 'div';
+	        let tree = sd.shallowRender($(Element, props));
+	        let vdom = tree.getRenderOutput();
+	        let instance = tree.getMountedInstance();
 
-			expect(getNode(button).nodeName).toEqual('BUTTON');
+			expect(vdom.props).has.property('component', 'div');
 		});	
 	});
 
 	it('should have a single icon child', () => {
-		let button = renderStateless(props, Element);
-		let icon = button.children[0];
+	    let tree = sd.shallowRender($(Element, props));
+	    let vdom = tree.getRenderOutput();
+		let icon = vdom.props.children[0];
 
-		expect(button.children.length).toEqual(1);
-		expect(icon.nodeName).toEqual('I');
-		expect(icon.className).toMatch(props.name);
+		expect(Object.keys(vdom.props.children)).to.have.length(1);
+		expect(icon.type).to.deep.equal(Icon);
+		expect(icon.props.name).to.equal('facebook');
 	});
 
-	it('passes unused data props', () => {
-		props['data-test'] = 'test';
-		props['dataTest'] = 'test';
+	it('should have a single icon child and a label', () => {
+	    let tree = sd.shallowRender($(Element, props, 'Facebook'));
+	    let vdom = tree.getRenderOutput();
+		let icon = vdom.props.children[0];
+		let text = vdom.props.children[1];
 
-		let button = renderDeep(props, TestProps);
-
-		expect(Object.keys(button.props).length).toEqual(3);
-		expect(button.props['data-test']).toEqual('test');
-		expect(button.props['dataTest']).toEqual('test');
+		expect(Object.keys(vdom.props.children)).to.have.length(2);
+		expect(text).to.equal('Facebook');
+		expect(icon.type).to.deep.equal(Icon);
+		expect(icon.props.name).to.equal('facebook');
 	});
+
+    it('passes unused data props', () => {
+        props['data-test'] = 'test';
+        props['dataTest'] = 'test';
+        let tree = sd.shallowRender($(Element, props));
+        let vdom = tree.getRenderOutput();
+
+        // length = parentDefaultProps + props.length + addProps(icon, social) + children
+        //      8 = 3                  + 2            + 2                      + 1
+        expect(Object.keys(vdom.props).length).to.equal(8);
+        expect(vdom.props).to.have.property('data-test', 'test');
+        expect(vdom.props).to.have.property('dataTest', 'test');
+    });
 });

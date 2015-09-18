@@ -10,7 +10,7 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-export class Button extends React.Component {
+class Button extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         animated: React.PropTypes.oneOfType([
@@ -72,8 +72,8 @@ export class Button extends React.Component {
 
         // consume props
         let { active, animated, attached, basic, children, circular, color, component, compact, className, defaultClasses, 
-            disabled, floated, fluid, icon, inverted, labeled, loading, negative, positive, primary, secondary, size, social, 
-            ...other } = this.props;
+            disabled, floated, fluid, focusable, icon, inverted, labeled, loading, negative, positive, primary, secondary, 
+            size, social, ...other } = this.props;
 
         // add classnames
         other.className = classNames(this.props.className, this.getClasses());
@@ -127,3 +127,5 @@ export class Button extends React.Component {
         return validateClassProps(classes, this.props, validProps);
     }
 }
+
+module.exports.Button = Button;

@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for docs/elements/button/states/active.jsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../../prettify.css">
+    <link rel="stylesheet" href="../../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">docs/elements/button/states/active.jsx</span></h1>
+    <h2>
+        Statements: <span class="metric">91.89% <small>(34 / 37)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">50% <small>(1 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">60% <small>(3 / 5)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">91.89% <small>(34 / 37)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../index.html">All files</a> &#187; <a href="index.html">docs/elements/button/states/</a> &#187; active.jsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+var _reactTransformWebpackHmr2 = require('react-transform-webpack-hmr');
+&nbsp;
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
+&nbsp;
+var _reactTransformWebpackHmr3 = _interopRequireDefault(_reactTransformWebpackHmr2);
+&nbsp;
+var _react = require('react');
+&nbsp;
+var _reactTransformCatchErrors2 = require('react-transform-catch-errors');
+&nbsp;
+var _reactTransformCatchErrors3 = _interopRequireDefault(_reactTransformCatchErrors2);
+&nbsp;
+var _redboxReact = require('redbox-react');
+&nbsp;
+var _get = require('babel-runtime/helpers/get')['default'];
+&nbsp;
+var _inherits = require('babel-runtime/helpers/inherits')['default'];
+&nbsp;
+var _createClass = require('babel-runtime/helpers/create-class')['default'];
+&nbsp;
+var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
+&nbsp;
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+&nbsp;
+var _react2 = _interopRequireDefault(_react);
+&nbsp;
+var _componentsElements = require('../../../../components/elements');
+&nbsp;
+var _docblock = require('../../../docblock');
+&nbsp;
+var _classnames = require('classnames');
+&nbsp;
+var _classnames2 = _interopRequireDefault(_classnames);
+&nbsp;
+var _he = require('he');
+&nbsp;
+var _he2 = _interopRequireDefault(_he);
+&nbsp;
+var _components = {
+    _$ActiveDoc: {
+        displayName: 'ActiveDoc'
+    }
+};
+&nbsp;
+var _reactComponentWrapper = (0, _reactTransformWebpackHmr3['default'])({
+    filename: '/home/justin/Projects/ReactStart/src/docs/elements/button/states/active.jsx',
+    components: _components,
+    locals: [module],
+    imports: [_react]
+});
+&nbsp;
+var _reactComponentWrapper2 = (0, _reactTransformCatchErrors3['default'])({
+    filename: '/home/justin/Projects/ReactStart/src/docs/elements/button/states/active.jsx',
+    components: _components,
+    locals: [],
+    imports: [_react, _redboxReact]
+});
+&nbsp;
+function _wrapComponent(uniqueId) {
+    return function (ReactClass) {
+        return _reactComponentWrapper2(_reactComponentWrapper(ReactClass, uniqueId), uniqueId);
+    };
+}
+&nbsp;
+var JSXExample = _he2['default'].encode('\n&lt;IconButton name="user" active&gt;\n    Follow\n&lt;/IconButton&gt;\n');
+&nbsp;
+var ActiveDoc = (function (_React$Component) {
+    _inherits(ActiveDoc, _React$Component);
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function ActiveDoc() {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, _ActiveDoc);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _get(Object.getPrototypeOf(_ActiveDoc.prototype), 'constructor', this).apply(this, arguments);</span>
+    }
+&nbsp;
+    _createClass(ActiveDoc, [{
+        key: 'render',
+        value: <span class="fstat-no" title="function not covered" >function render() {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return _react2['default'].createElement(</span>
+                _docblock.DocBlock,
+                { componentID: this.props.id,
+                    header: this.props.header,
+                    subheader: this.props.subheader,
+                    JSX: JSXExample },
+                _react2['default'].createElement(
+                    _componentsElements.IconButton,
+                    { name: 'user', active: true },
+                    'Follow'
+                )
+            );
+        }
+    }]);
+&nbsp;
+    var _ActiveDoc = ActiveDoc;
+    ActiveDoc = _wrapComponent('_$ActiveDoc')(ActiveDoc) || <span class="branch-1 cbranch-no" title="branch not covered" >ActiveDoc;</span>
+    return ActiveDoc;
+})(_react2['default'].Component);
+&nbsp;
+exports.ActiveDoc = ActiveDoc;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Sep 18 2015 14:28:58 GMT-0700 (PDT)</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

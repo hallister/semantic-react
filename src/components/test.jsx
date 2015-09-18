@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 
 // Deep rendering functions //
-export function renderStateless(props, Type) {
+export function renderStateless(props, Type, child = false) {
 	return TestUtils.renderIntoDocument(
 		<div>
-			<Type {...props} />
+			{child ? <Type {...props}>{child}</Type> : <Type {...props} /> }
 		</div>
 	).children[0];
 }
@@ -31,8 +31,12 @@ let getRenderer = (function() {
 	}
 })();
 
-export function render(props, Type) {
-	getRenderer().render(<Type {...props} />);	
+export function render(props, Type, child = false) {
+	let output = child ? <Type {...props}>{child}</Type> : <Type {...props} />;
+
+	getRenderer().render(
+		output
+	);	
 }
 
 export function className() {

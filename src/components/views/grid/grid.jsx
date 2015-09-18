@@ -31,7 +31,7 @@ export class Grid extends Component {
             // types
             mobile: this.props.mobile,
             tablet: this.props.tablet,
-            computer: this.props.computer
+            computer: this.props.computer,
 
             // positions
             left: false,

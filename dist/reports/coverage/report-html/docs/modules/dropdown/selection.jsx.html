@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for docs/modules/dropdown/selection.jsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">docs/modules/dropdown/selection.jsx</span></h1>
+    <h2>
+        Statements: <span class="metric">66.1% <small>(39 / 59)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">25% <small>(1 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">30% <small>(3 / 10)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">67.24% <small>(39 / 58)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">docs/modules/dropdown/</a> &#187; selection.jsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+var _reactTransformWebpackHmr2 = require('react-transform-webpack-hmr');
+&nbsp;
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
+&nbsp;
+var _reactTransformWebpackHmr3 = _interopRequireDefault(_reactTransformWebpackHmr2);
+&nbsp;
+var _react = require('react');
+&nbsp;
+var _reactTransformCatchErrors2 = require('react-transform-catch-errors');
+&nbsp;
+var _reactTransformCatchErrors3 = _interopRequireDefault(_reactTransformCatchErrors2);
+&nbsp;
+var _redboxReact = require('redbox-react');
+&nbsp;
+var _get = require('babel-runtime/helpers/get')['default'];
+&nbsp;
+var _inherits = require('babel-runtime/helpers/inherits')['default'];
+&nbsp;
+var _createClass = require('babel-runtime/helpers/create-class')['default'];
+&nbsp;
+var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
+&nbsp;
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+&nbsp;
+var _react2 = _interopRequireDefault(_react);
+&nbsp;
+var _reactDom = require('react-dom');
+&nbsp;
+var _reactDom2 = _interopRequireDefault(_reactDom);
+&nbsp;
+var _componentsElements = require('../../../components/elements');
+&nbsp;
+var _componentsViews = require('../../../components/views');
+&nbsp;
+var _componentsModules = require('../../../components/modules');
+&nbsp;
+var _docblock = require('../../docblock');
+&nbsp;
+var _classnames = require('classnames');
+&nbsp;
+var _classnames2 = _interopRequireDefault(_classnames);
+&nbsp;
+var _he = require('he');
+&nbsp;
+var _he2 = _interopRequireDefault(_he);
+&nbsp;
+var _components = {
+    _$SelectionExample: {
+        displayName: 'SelectionExample'
+    }
+};
+&nbsp;
+var _reactComponentWrapper = (0, _reactTransformWebpackHmr3['default'])({
+    filename: '/home/justin/Projects/ReactStart/src/docs/modules/dropdown/selection.jsx',
+    components: _components,
+    locals: [module],
+    imports: [_react]
+});
+&nbsp;
+var _reactComponentWrapper2 = (0, _reactTransformCatchErrors3['default'])({
+    filename: '/home/justin/Projects/ReactStart/src/docs/modules/dropdown/selection.jsx',
+    components: _components,
+    locals: [],
+    imports: [_react, _redboxReact]
+});
+&nbsp;
+function _wrapComponent(uniqueId) {
+    return function (ReactClass) {
+        return _reactComponentWrapper2(_reactComponentWrapper(ReactClass, uniqueId), uniqueId);
+    };
+}
+&nbsp;
+var JSExample = _he2['default'].encode('\nexport class GenderSelect extends React.Component {\n    constructor(props) {\n        super(props);\n\n        this.state = {\n            active: false,\n            selection: null\n        }\n    }\n\n    onClick(e) {\n        this.setState({\n            active: !this.state.active,\n        });\n    }\n\n    onClickItem(name, e) {\n        e.stopPropagation();\n\n        this.setState({\n            selection: name,\n            active: false\n        });\n    }\n}\n');
+&nbsp;
+var JSXExample = _he2['default'].encode('\n&lt;Dropdown active={this.state.active} \n          onChange={this.onChange.bind(this)}\n          onClick={this.onClick.bind(this)}\n          inputName="gender"\n          inputValue={this.state.selection}\n          search&gt;\n    &lt;Icon name="dropdown" /&gt;\n    &lt;Menu active={this.state.active}&gt;\n        &lt;Item onClick={this.onClickItem.bind(this, \'Male\')}\n              selected={this.state.selection === \'Male\'}&gt;\n            Male\n        &lt;/Item&gt;\n        &lt;Item onClick={this.onMenuItemClick.bind(this, \'Female\')}\n              selected={this.state.selection === \'Female\'}&gt;\n            Female\n        &lt;/Item&gt;\n    &lt;/Menu&gt;\n&lt;/Dropdown&gt;\n');
+&nbsp;
+var SelectionExample = (function (_Component) {
+    _inherits(SelectionExample, _Component);
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function SelectionExample(props) {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, _SelectionExample);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _get(Object.getPrototypeOf(_SelectionExample.prototype), 'constructor', this).call(this, props);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        this.state = {</span>
+            active: false,
+            selection: null
+        };
+    }
+&nbsp;
+    _createClass(SelectionExample, [{
+        key: 'componentDidMount',
+        value: <span class="fstat-no" title="function not covered" >function componentDidMount() {</span>
+<span class="cstat-no" title="statement not covered" >            var node = _reactDom2['default'].findDOMNode(this);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            document.addEventListener("click", (<span class="fstat-no" title="function not covered" >function (e) {</span></span>
+<span class="cstat-no" title="statement not covered" >                var target = e.target;</span>
+<span class="cstat-no" title="statement not covered" >                var found = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                while (target.parentNode) {</span>
+<span class="cstat-no" title="statement not covered" >                    found = target === node;</span>
+<span class="cstat-no" title="statement not covered" >                    target = target.parentNode;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    if (found) <span class="cstat-no" title="statement not covered" >return;</span></span>
+                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                this.onDocumentClick();</span>
+            }).bind(this));
+        }
+    }, {
+        key: 'onDocumentClick',
+        value: <span class="fstat-no" title="function not covered" >function onDocumentClick() {</span>
+<span class="cstat-no" title="statement not covered" >            this.setState({</span>
+                active: false
+            });
+        }
+    }, {
+        key: 'onClick',
+        value: <span class="fstat-no" title="function not covered" >function onClick(e) {</span>
+<span class="cstat-no" title="statement not covered" >            e.stopPropagation();</span>
+<span class="cstat-no" title="statement not covered" >            this.setState({</span>
+                active: !this.state.active
+            });
+        }
+    }, {
+        key: 'onMenuItemClick',
+        value: <span class="fstat-no" title="function not covered" >function onMenuItemClick(name, e) {</span>
+<span class="cstat-no" title="statement not covered" >            e.stopPropagation();</span>
+<span class="cstat-no" title="statement not covered" >            this.setState({</span>
+                selection: name,
+                active: false
+            });
+        }
+    }, {
+        key: 'render',
+        value: <span class="fstat-no" title="function not covered" >function render() {</span>
+<span class="cstat-no" title="statement not covered" >            var classes = {</span>
+                text: true,
+                'default': !!!this.state.name
+            };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return _react2['default'].createElement(</span>
+                _docblock.DocBlock,
+                { componentID: 'dropdown-selection-example',
+                    header: 'Selection',
+                    subheader: 'A dropdown can be used to select between choices in a form',
+                    JS: JSExample,
+                    JSX: JSXExample },
+                _react2['default'].createElement(
+                    _componentsModules.Dropdown,
+                    { active: this.state.active,
+                        'default': 'Gender',
+                        onClick: this.onClick.bind(this),
+                        inputName: 'gender',
+                        multiple: true,
+                        inputValue: this.state.selection },
+                    _react2['default'].createElement(_componentsElements.Icon, { name: 'dropdown' }),
+                    _react2['default'].createElement(
+                        'a',
+                        { className: 'ui label transition visible', 'data-value': 'css', style: { display: 'inline-block' } },
+                        'CSS',
+                        _react2['default'].createElement('i', { className: 'delete icon' })
+                    ),
+                    _react2['default'].createElement(
+                        _componentsViews.Menu,
+                        { active: this.state.active },
+                        _react2['default'].createElement(
+                            _componentsElements.Item,
+                            { onClick: this.onMenuItemClick.bind(this, 'Male'),
+                                active: this.state.selection === 'Male' },
+                            'Male'
+                        ),
+                        _react2['default'].createElement(
+                            _componentsElements.Item,
+                            { onClick: this.onMenuItemClick.bind(this, 'Female'),
+                                active: this.state.selection === 'Female' },
+                            'Female'
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+&nbsp;
+    var _SelectionExample = SelectionExample;
+    SelectionExample = _wrapComponent('_$SelectionExample')(SelectionExample) || <span class="branch-1 cbranch-no" title="branch not covered" >SelectionExample;</span>
+    return SelectionExample;
+})(_react.Component);
+&nbsp;
+exports.SelectionExample = SelectionExample;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Sep 18 2015 14:28:58 GMT-0700 (PDT)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
