@@ -1,0 +1,93 @@
+{
+  "description": "A dropdown component intended to behave exactly as the\nHTML select component.",
+  "props": {
+    "active": {
+      "type": {
+        "name": "bool"
+      },
+      "required": false,
+      "description": "True when the dropdown menu is in an active (open) state."
+    },
+    "case": {
+      "type": {
+        "name": "bool"
+      },
+      "required": false,
+      "description": "True if case matters when using searchable Selects.",
+      "defaultValue": {
+        "value": "false",
+        "computed": false
+      }
+    },
+    "children": {
+      "type": {
+        "name": "node"
+      },
+      "required": false,
+      "description": ""
+    },
+    "className": {
+      "type": {
+        "name": "node"
+      },
+      "required": false,
+      "description": ""
+    },
+    "glyphWidth": {
+      "type": {
+        "name": "number"
+      },
+      "required": false,
+      "description": "The glyphWidth setting to use when expanding the textbox as you type. Taken from Semantic.",
+      "defaultValue": {
+        "value": "1.0714",
+        "computed": false
+      }
+    },
+    "multiple": {
+      "type": {
+        "name": "bool"
+      },
+      "required": false,
+      "description": "True when multiple selections are allowed."
+    },
+    "name": {
+      "type": {
+        "name": "string"
+      },
+      "required": false,
+      "description": "The name of the hidden text field to use for form submission purposes."
+    },
+    "noResults": {
+      "type": {
+        "name": "string"
+      },
+      "required": false,
+      "description": "The string of text to use when there are no results available.",
+      "defaultValue": {
+        "value": "'No results found...'",
+        "computed": false
+      }
+    },
+    "placeholder": {
+      "type": {
+        "name": "string"
+      },
+      "required": false,
+      "description": "The string of text to use when the search box is empty"
+    },
+    "search": {
+      "type": {
+        "name": "bool"
+      },
+      "required": false,
+      "description": "True when the select box allows searching"
+    },
+    "defaultClasses": {
+      "defaultValue": {
+        "value": "true",
+        "computed": false
+      }
+    }
+  }
+}

@@ -50,7 +50,7 @@ export class Checkbox extends Component {
                 type: 'checkbox',
                 key: 'input',
                 className: 'hidden',
-                checked: this.props.active && !this.props.readOnly,
+                defaultChecked: this.props.active && !this.props.readOnly,
                 ...other
             }),
             React.DOM.label({

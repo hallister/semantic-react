@@ -1,5 +1,5 @@
 import React from 'react';
-import { Numbers, arrayToObject, validateClassProps } from '../../utilities';
+import { Numbers, validateClassProps } from '../../utilities';
 import { Animate } from '../../modules';
 import classNames from 'classnames';
 
@@ -7,14 +7,22 @@ let validProps = {
     attached: ['top', 'bottom']
 };
 
+@Animate
 export class Menu extends React.Component {
-    static defaultProps = {
-        component: 'div',
-        defaultClasses: true
-    };
-
     static propTypes = {
-
+        attached: React.PropTypes.oneOf(validProps),
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
+        component: React.PropTypes.node,
+        defaultClasses: React.PropTypes.bool,
+        even: React.PropTypes.bool,
+        pointing: React.PropTypes.bool,
+        right: React.PropTypes.bool,
+        secondary: React.PropTypes.bool,
+        style: React.PropTypes.object,
+        tabular: React.PropTypes.bool,
+        text: React.PropTypes.bool,
+        vertical: React.PropTypes.bool
     };
 
     static contextTypes = {
@@ -26,43 +34,37 @@ export class Menu extends React.Component {
         isMenuChild: React.PropTypes.bool
     };
 
+    static defaultProps = {
+        component: 'div',
+        defaultClasses: true
+    };
+
     getChildContext() {
         return {
             isMenuChild: true
         };
     }
 
-    renderAnimatedMenu(other) {
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return (
-            <Animate 
-                animation={this.props.animation}
-                {...other}
-            >
-                {this.props.children}
-            </Animate>
-        );
-    }
-
-    renderMenu(other) {
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            this.props.children
-        );
-    }
-
     render() {
         // classes[this.props.size] = !!this.props.size;
         // classes[this.props.aligned] = !!this.props.aligned;
 
-        let { defaultClasses, even, ...other } = this.props;
+        let { component, defaultClasses, even, ...other } = this.props;
 
-        return this.props.animation ? this.renderAnimatedMenu(other) : this.renderMenu(other);
+        other.className = classNames(this.props.className, this.getClasses());
+        other.style = this.props.style;
 
+        if (this.props.component == Menu) {
+            component = 'div';
+        } else{
+            component = this.props.component;
+        }
+
+        return React.createElement(
+            component,
+            other,
+            this.props.children
+        );
     }
 
     getClasses() {
@@ -73,7 +75,6 @@ export class Menu extends React.Component {
             ui: this.props.defaultClasses && !this.context.isMenuChild && !this.context.isDropdownChild,
 
             // numbers
-            ...arrayToObject(Numbers),
 
             // position
             right: this.props.right,

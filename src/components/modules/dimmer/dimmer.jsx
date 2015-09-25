@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getChild, hasChild } from '../../utilities';
-import { Content, Loader } from '../../elements';
-import { Animate } from '../../modules';
+import { Content, Loader, Segment } from '../../elements';
+import { Animations, Dimmable } from '../../modules';
 import classNames from 'classnames';
 
 export class Dimmer extends Component {
@@ -13,16 +13,54 @@ export class Dimmer extends Component {
         page: React.PropTypes.bool
     };
 
-    // we don't want the ui in these circumstances
-    // any header/subheader under a header is a subheader
+    // This forces <Content> to add a centered div below it.
     static childContextTypes = {
         isDimmerChild: React.PropTypes.bool
     };
    
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true
+        defaultClasses: true,
+        basic: true,
+        page: false
     };
+
+    constructor(props) {
+        super(props);
+
+        this.enter = {
+            ease: 'swing',
+            from: {
+                opacity: 0
+            },
+            to: {
+                opacity: 1
+            }
+        }
+
+        this.leave = {
+            ease: 'swing',
+            from: {
+                opacity: 1
+            },
+            to: {
+                opacity: 0
+            }
+        }
+    }
+
+    // IE 10+
+    componentWillMount() {
+        if (this.props.page) {
+            document.body.classList.add('dimmable');
+        }
+    }
+
+    // IE 10+
+    componentWillUnmount() {
+        if (this.props.page) {
+            document.body.classList.remove('dimmable');
+        }
+    }
 
     getChildContext() {
         return {
@@ -39,21 +77,32 @@ export class Dimmer extends Component {
     }
 
     renderDimmer() {
-        let { disabled, inverted, ...other } = this.props;
+        let { component, disabled, inverted, ...other } = this.props;
+
+        let dimmerChildren = [];
+
+        if (this.props.active) {
+            dimmerChildren.push(
+                <Dimmable
+                    enter={this.enter}
+                    key="animation"
+                    leave={this.leave}
+                    page={this.props.page}
+                >
+                    {this.renderContent()}
+                </Dimmable>
+            );
+        }
+
+        Array.prototype.push.apply(dimmerChildren, this.renderChildren());
+
+        other.className = classNames(this.getClasses());
+        other.component = Segment;
 
         return React.createElement(
-            this.props.component,
-            other, 
-            [
-                <Animate 
-                    animation={this.getAnimation()}
-                    className={classNames(this.getDimmerClasses())}
-                    key="animation"
-                > 
-                    {this.props.dimmed ? this.renderContent() : ''}
-                </Animate>,
-                this.renderChildren()
-            ]
+            Animations,
+            other,
+            dimmerChildren
         );
     }
 
@@ -61,8 +110,8 @@ export class Dimmer extends Component {
         let { disabled, inverted, ...other } = this.props;
 
         other.className = classNames(
-            this.props.className, 
-            this.props.inverted ? 'inverted' : '', 
+            this.props.className,
+            this.props.inverted ? 'inverted' : '',
             this.getDimmerClasses()
         );
 
@@ -83,7 +132,7 @@ export class Dimmer extends Component {
 
     getAnimation() {
         return {
-            state: this.props.dimmed,
+            state: this.props.active,
             enterState: {
                 name: 'fadeIn',
                 ease: 'cubic-out',
@@ -101,14 +150,13 @@ export class Dimmer extends Component {
         let classes = {
             // default
             dimmable: this.props.defaultClasses,
-            dimmed: this.props.dimmed,
+            dimmed: this.props.active,
 
             // positioning
 
             // types
             inverted: this.props.inverted,
-            blurring: this.props.blurring,
-            page: this.props.page
+            blurring: this.props.blurring
 
             // component
 

@@ -9,7 +9,9 @@ export class Option extends React.Component {
 
     render() {
         return (
-            <Item {...this.props}>
+            <Item
+                {...this.props}
+            >
                 {this.props.children}
             </Item>
         );

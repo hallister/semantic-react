@@ -2,21 +2,57 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Icon, Label } from '../../elements';
 import { Menu } from '../../views';
-import { Dropdown, Option } from '../../modules';
+import { Animations, Dropdown, Option } from '../../modules';
 import classNames from 'classnames';
 import OutsideClick from 'react-outsideclickhandler';
 
+/**
+ * A dropdown component intended to behave exactly as the
+ * HTML select component.
+ */
 export class Select extends Component {
     static propTypes = {
+        /**
+         * True when the dropdown menu is in an active (open) state.
+         */
         active: React.PropTypes.bool,
+
+        /**
+         * True if case matters when using searchable Selects.
+         */
         case: React.PropTypes.bool,
         children: React.PropTypes.node,
         className: React.PropTypes.node,
+        defaultClasses: React.PropTypes.bool,
+
+        /**
+         * The glyphWidth setting to use when expanding the textbox as you type. Taken from Semantic.
+         */
         glyphWidth: React.PropTypes.number,
+
+        /**
+         * True when multiple selections are allowed.
+         */
         multiple: React.PropTypes.bool,
+
+        /**
+         * The name of the hidden text field to use for form submission purposes.
+         */
         name: React.PropTypes.string,
+
+        /**
+         * The string of text to use when there are no results available.
+         */
         noResults: React.PropTypes.string,
+
+        /**
+         * The string of text to use when the search box is empty
+         */
         placeholder: React.PropTypes.string,
+
+        /**
+         * True when the select box allows searching
+         */
         search: React.PropTypes.bool
     };
 
@@ -30,6 +66,39 @@ export class Select extends Component {
     constructor(props) {
         super(props);
 
+        this.animation = {
+            enter: {
+                duration: 150,
+                easing: 'in-cubic',
+                from: {
+                    opacity: 0,
+                    transform: 'scaleY(0)',
+                    transformOrigin: 'top center',
+                    WebkitTransform: 'scaleY(0)',
+                    WebkitTransformOrigin: 'top center'
+                },
+                to: {
+                    opacity: 1,
+                    transform: 'scaleY(1)',
+                    transformOrigin: 'top center',
+                    WebkitTransform: 'scaleY(1)',
+                    WebkitTransformOrigin: 'top center'
+                }
+            }
+        };
+
+        this.animation.leave = {
+            duration: 150,
+            easing: 'out-cubic',
+            from: this.animation.enter.to,
+            to: this.animation.enter.from
+        };
+
+        this.start = this.animation.enter.from;
+        this.leave = this.animation.enter.to;
+        this.duration = 200;
+        this.easing = 'in-circ';
+
         this.state = {
             active: false,
             error: false,
@@ -41,6 +110,7 @@ export class Select extends Component {
     }
 
     componentWillMount() {
+        // adds all child values to the validOptions array
         React.Children.forEach(this.props.children, child => {
             this.validOptions[child.props.children] = child.props.value;     
         });
@@ -62,31 +132,50 @@ export class Select extends Component {
         return true;
     }
 
-    // clicking anywhere but component
+    onAnimationComplete() {
+        // visible state differs from active in that it
+        // cna only change after completion of the animation
+        if (!this.state.active) {
+            this.setState({
+                visible: false
+            })
+        }
+
+    }
+
     onDocumentClick() {
-        this.setState({
-            active: false
-        })
+        // clicking anywhere but component
+
+        // if the search value is non-empty and the state is active but there's no valid selection, it's an error
+        if (this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
+            this.setState({
+                error: true
+            });
+        // if the state is active and there is no error we can close it
+        } else if (this.state.active && !this.state.error) {
+            this.setState({
+                active: false
+            });
+        }
     }
 
     onClick(e) {
+        // clicking the arrow/search box or dropdown area
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
 
         this.setFocus();
 
-        this.setState({
-            active: true,
-            visible: true
-        });
+        if (!this.state.active) {
+            this.setState({
+                active: true,
+                visible: true
+            });
+        }
     }
 
-    onLabelClick(name, e) {
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation(); 
-    }
-
-    onOptionClick(name, e) {
+    onCloseOption(name, e) {
+        // pressing the x on a multiple select
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
 
@@ -95,69 +184,88 @@ export class Select extends Component {
         this.refs.search.value = '';
 
         this.setState({
-            active: false,
             selected: selected
         });
     }
 
-    // prevents this.onClick from closing when the search bar is clicked
-    onSearchInputClick(e) {
+    onLabelClick(name, e) {
+        // clicking the label of a multiple select
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+    }
+
+    onOptionClick(name, e) {
+        // click an option
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
 
-        this.setState({
-            active: !this.state.active
-        });
-    }
+        let selected = this.getSelected(name)
 
-    // for some reason this causes issues with onOptionClick if the field is blank.
-    onSearchChange() {
-        if (this.refs.search && this.refs.search.value) {
+        this.refs.search.value = '';
+
+        // if it's multiple, don't close it just set the state and refocus the element
+        if (this.props.multiple) {
             this.setState({
-                active: true,
-                visible: true
-            });   
-        }
-    }
-
-    onSearchBlur(e) {
-        let match = false;
-        let target = this.props.case ? e.target.value : e.target.value.toLowerCase();
-
-        for (let name in this.validOptions) {
-            let text = this.props.case ? name : name.toLowerCase();
-
-            if (text == target) {
-                match = name;
-                break;
-            }
-        }
-
-        if (match) {
-            if (this.props.multiple) {
-                this.refs.search.value = '';
-            }
-
-            this.setState({
-                active: true,
-                visible: true,
-                selected: this.getSelected(match)
+                selected: selected
             });
+
+            this.setFocus();
         } else {
             this.setState({
-                active: true,
-                visible: true
+                active: false,
+                selected: selected
             });
+        }
+
+    }
+
+    onSearchKeyDown(e) {
+        // pressing the enter key when a multiple select
+        if (e.which === 13 && this.props.multiple) {
+            let match = false;
+            let target = this.props.case ? e.target.value : e.target.value.toLowerCase();
+
+            for (let name in this.validOptions) {
+                let text = this.props.case ? name : name.toLowerCase();
+
+                if (text == target) {
+                    match = name;
+                    break;
+                }
+            }
+
+            // target matches a valid select
+            if (match) {
+                if (this.props.multiple) {
+                    this.refs.search.value = '';
+                }
+
+                this.setState({
+                    error: false,
+                    selected: this.getSelected(match)
+                });
+            } else {
+                this.setState({
+                    error: true
+                });
+            }
+
+        // delete
+        } else if (e.which === 8 && this.refs.search.value == '' && this.props.multiple) {
+            let selected = this.popSelected();
+
+            if (selected) {
+                this.setState({
+                    selected: selected
+                })
+            }
         }
     }
 
-    // animation is complete
-    // we could use to only set the dropdown active state after the menu animation
-    onSearchComplete() {
-        
+    onSearchChange() {
         this.setState({
-            visible: false,
-            active: false
+            active: true,
+            error: false
         });
     }
 
@@ -192,8 +300,7 @@ export class Select extends Component {
                         React.cloneElement(
                             child,
                             {
-                                ...child.props,
-                                active: this.state.selected == child.props.children && !this.props.search,
+                                 active: this.state.selected == child.props.children && !this.props.search,
                                 onClick: this.onOptionClick.bind(this, child.props.children)
                             },
                             child.props.children
@@ -214,7 +321,7 @@ export class Select extends Component {
             return this.state.selected.map(label => {
                 return (
                     <Label 
-                        component="a" 
+                        component="a"
                         key={label}
                         onClick={this.onLabelClick.bind(this, label)}
                         style={{ display: 'inline-block' }}
@@ -222,7 +329,7 @@ export class Select extends Component {
                         {label}
                         <Icon 
                             name="close"
-                            onClick={this.onOptionClick.bind(this, label)}
+                            onClick={this.onCloseOption.bind(this, label)}
                         />
                     </Label>
                 );
@@ -239,14 +346,14 @@ export class Select extends Component {
         }
 
         return this.props.search ? 
-            <input 
-                className="search" 
-                onBlur={this.onSearchBlur.bind(this)}
+            <input
+                className="search"
                 onChange={this.onSearchChange.bind(this)}
+                onKeyDown={this.onSearchKeyDown.bind(this)}
                 ref="search"
                 style={style}
-                tabIndex="0" 
-            /> 
+                tabIndex="0"
+            />
             : false;
     }
 
@@ -264,37 +371,24 @@ export class Select extends Component {
         other.className = classNames(this.props.className, this.getClasses());
         other.onClick = this.onClick.bind(this);
 
-        let animation =  {
-            state: this.state.active,
-            enterState: {
-                name: 'slideIn',
-                duration: 250,
-                options: {
-                    easing: 'cubic-in'
-                }
-            },
-            exitState: {
-                name: 'slideOut',
-                duration: 250,
-                options: {
-                    easing: 'cubic-out',
-                    onComplete: this.onSearchComplete.bind(this)
-                }
-            }
-        };
-
         let children = this.renderChildren();
 
         if (React.Children.count(children) == 0) {
-            children = <div className="message">{this.props.noResults}</div>;
+            children = (
+                <div
+                    className="message"
+                >
+                    {this.props.noResults}
+                </div>
+            );
         }
 
         return (
             <OutsideClick 
                 onOutsideClick={this.onDocumentClick.bind(this)}
             >
-                <Dropdown 
-                    {...other} 
+                <Dropdown
+                    {...other}
                     active={this.state.active} 
                     visible={this.state.visible}
                 >
@@ -305,17 +399,21 @@ export class Select extends Component {
                     />
                     <Icon 
                         name="dropdown"
-                        onClick={this.onSearchInputClick.bind(this)}
+
                     />
-                        {this.renderLabels()}
-                        {this.renderSearch()}
-                        {this.renderText()}
-                    <Menu 
+                    {this.renderLabels()}
+                    {this.renderSearch()}
+                    {this.renderText()}
+                    <Animations
                         active={this.state.active}
-                        animation={animation} 
+                        animate={this.state.active}
+                        component={Menu}
+                        end={this.animation.leave}
+                        onComplete={this.onAnimationComplete.bind(this)}
+                        start={this.animation.enter}
                     >
                         {children}
-                    </Menu>
+                    </Animations>
                 </Dropdown>
             </OutsideClick>
         ); 
@@ -337,17 +435,15 @@ export class Select extends Component {
     }
 
     getTextClasses() {
-        let classes = {
+        return {
             default: !this.state.selected || this.props.multiple,
             filtered: this.refs.search && this.refs.search.value.length > 0,
             text: true
         }
-
-        return classes;
     }
 
     getClasses() {
-        let classes = {
+        return {
             // default
             active: this.props.active,
             // positioning
@@ -364,8 +460,6 @@ export class Select extends Component {
 
             // variations
         };
-
-        return classes;
     }
 
     getSelected(name) {
@@ -383,6 +477,17 @@ export class Select extends Component {
         }
 
         return clone;
+    }
+
+    popSelected() {
+        let clone = this.state.selected.splice(0);
+
+        if (clone.length == 0 || !this.props.multiple) {
+            return false;
+        } else {
+            clone.pop();
+            return clone;
+        }
     }
 
     setFocus() {

@@ -7,7 +7,9 @@ externals.push(/^react(\/.*)?$/, /^react-dom(\/.*)?$/);
 
 module.exports = {
     entry: './src/components/semantic-react',
-    externals: externals,
+    externals: {
+        "react": "React"
+    },
     output: {
         path: path.join(__dirname, 'dist'),
         filename: package.name + '-' + package.version + '.js'

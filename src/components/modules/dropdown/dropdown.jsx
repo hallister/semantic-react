@@ -100,12 +100,18 @@ export class Dropdown extends Component {
     */
 
     render() {
-        let { disabled, inverted, multiple, ...other } = this.props;
+        let { component, disabled, inverted, multiple, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
+        if (this.props.component == Dropdown) {
+            component = 'div';
+        } else{
+            component = this.props.component;
+        }
+
         return React.createElement(
-            this.props.component,
+            component,
             other, 
             [
                 this.props.children
