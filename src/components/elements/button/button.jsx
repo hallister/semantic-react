@@ -5,8 +5,8 @@ import classNames from 'classnames';
 
 let validProps = {
     animated: ['vertical', 'fade'],
-    attached: ['left', 'right', 'bottom', 'top'],   
-    labeled: ['right', 'left'],   
+    attached: ['left', 'right', 'bottom', 'top'],
+    labeled: ['right', 'left'],
     floated: ['right', 'left']
 };
 
@@ -71,8 +71,8 @@ class Button extends React.Component {
         let Component = (this.props.attached || this.context.isAttached || this.props.animated || React.Children.count(this.props.children) > 1) ? 'div' : 'button';
 
         // consume props
-        let { active, animated, attached, basic, children, circular, color, component, compact, className, defaultClasses, 
-            disabled, floated, fluid, focusable, icon, inverted, labeled, loading, negative, positive, primary, secondary, 
+        let { active, animated, attached, basic, children, circular, color, component, compact, className, defaultClasses,
+            disabled, floated, fluid, focusable, icon, inverted, labeled, loading, negative, positive, primary, secondary,
             size, social, ...other } = this.props;
 
         // add classnames

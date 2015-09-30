@@ -46,9 +46,6 @@ export class Menu extends React.Component {
     }
 
     render() {
-        // classes[this.props.size] = !!this.props.size;
-        // classes[this.props.aligned] = !!this.props.aligned;
-
         let { component, defaultClasses, even, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -56,7 +53,7 @@ export class Menu extends React.Component {
 
         if (this.props.component == Menu) {
             component = 'div';
-        } else{
+        } else {
             component = this.props.component;
         }
 

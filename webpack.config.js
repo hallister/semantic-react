@@ -21,7 +21,7 @@ module.exports = {
         new webpack.NoErrorsPlugin()
     ],
     resolve: {
-        extensions: ['', '.js', '.jsx'],
+        extensions: ['', '.js', '.jsx', '.es6'],
         alias: {
             "react": __dirname + '/node_modules/react',
             "react/addons": __dirname + '/node_modules/react/addons'
@@ -37,7 +37,7 @@ module.exports = {
         ],
         loaders: [
             {
-                test: /\.jsx$/,
+                test: /\.(jsx|es6)$/,
                 loaders: ['babel?optional[]=runtime&stage=0'],
                 include: path.join(__dirname, 'src')
                 //exclude: /node_modules/

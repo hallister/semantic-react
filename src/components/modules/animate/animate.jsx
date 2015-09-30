@@ -104,7 +104,6 @@ export function Animate(ComposedComponent) {
         }
 
         componentWillEnter(callback) {
-            console.log(this.props.enter);
             if (this.props.enter !== false) {
                 this.start = this.parseProperties(this.props.enter.from);
                 this.end = this.parseProperties(this.props.enter.to);
@@ -118,7 +117,6 @@ export function Animate(ComposedComponent) {
         }
 
         componentWillLeave(callback) {
-            console.log(this.props.leave);
             if (this.props.leave !== false) {
                 this.start = this.parseProperties(this.props.leave.from);
                 this.end = this.parseProperties(this.props.leave.to);

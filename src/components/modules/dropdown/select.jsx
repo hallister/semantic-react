@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Icon, Label } from '../../elements';
 import { Menu } from '../../views';
@@ -10,7 +10,7 @@ import OutsideClick from 'react-outsideclickhandler';
  * A dropdown component intended to behave exactly as the
  * HTML select component.
  */
-export class Select extends Component {
+export class Select extends React.Component {
     static propTypes = {
         /**
          * True when the dropdown menu is in an active (open) state.
@@ -26,9 +26,29 @@ export class Select extends Component {
         defaultClasses: React.PropTypes.bool,
 
         /**
+         * The menu animation when it enters the DOM
+         */
+        enterAnimation: React.PropTypes.shape({
+            duration: React.PropTypes.number,
+            easing: React.PropTypes.string,
+            from: React.PropTypes.object,
+            to: React.PropTypes.object
+        }),
+
+        /**
          * The glyphWidth setting to use when expanding the textbox as you type. Taken from Semantic.
          */
         glyphWidth: React.PropTypes.number,
+
+        /**
+         * The menu animation when it enters the DOM
+         */
+        leaveAnimation: React.PropTypes.shape({
+            duration: React.PropTypes.number,
+            easing: React.PropTypes.string,
+            from: React.PropTypes.object,
+            to: React.PropTypes.object
+        }),
 
         /**
          * True when multiple selections are allowed.
@@ -66,10 +86,11 @@ export class Select extends Component {
     constructor(props) {
         super(props);
 
+        // animations should just move these to props
         this.animation = {
-            enter: {
+            enter: this.props.enterAnimation || {
                 duration: 150,
-                easing: 'in-cubic',
+                easing: 'out-circ',
                 from: {
                     opacity: 0,
                     transform: 'scaleY(0)',
@@ -87,38 +108,33 @@ export class Select extends Component {
             }
         };
 
-        this.animation.leave = {
+        this.animation.leave = this.props.leaveAnimation || {
             duration: 150,
             easing: 'out-cubic',
             from: this.animation.enter.to,
             to: this.animation.enter.from
         };
 
-        this.start = this.animation.enter.from;
-        this.leave = this.animation.enter.to;
-        this.duration = 200;
-        this.easing = 'in-circ';
+        // we don't want this modifying state
+        this.validOptions = {}
 
         this.state = {
             active: false,
             error: false,
             selected: props.multiple ? [] : null
         }
-
-        // we don't want this modifying state
-        this.validOptions = []
     }
 
     componentWillMount() {
         // adds all child values to the validOptions array
         React.Children.forEach(this.props.children, child => {
-            this.validOptions[child.props.children] = child.props.value;     
+            this.validOptions[child.props.children] = child.props.value;
         });
     }
 
     shouldComponentUpdate(props, state) {
-        // prevents duplicate states from rerendering. happens frequently with 
-        // this many onclick handlers, and the only expected prop change that 
+        // prevents duplicate states from rerendering. happens frequently with
+        // this many onclick handlers, and the only expected prop change that
         // would warrant a re-render is the child length
         if (this.state === state) {
             // children remain the same.
@@ -140,14 +156,26 @@ export class Select extends Component {
                 visible: false
             })
         }
-
     }
 
     onDocumentClick() {
-        // clicking anywhere but component
+        // this should be doing the same thing as the enter key before it closes
 
+        let match = this.isMatch();
+
+        // the text box itself is a match
+        if (match) {
+            if (this.props.multiple) {
+                this.refs.search.value = '';
+            }
+
+            this.setState({
+                active: false,
+                error: false,
+                selected: this.getSelected(match)
+            });
         // if the search value is non-empty and the state is active but there's no valid selection, it's an error
-        if (this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
+        } else if (this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
             this.setState({
                 error: true
             });
@@ -216,23 +244,12 @@ export class Select extends Component {
                 selected: selected
             });
         }
-
     }
 
     onSearchKeyDown(e) {
         // pressing the enter key when a multiple select
         if (e.which === 13 && this.props.multiple) {
-            let match = false;
-            let target = this.props.case ? e.target.value : e.target.value.toLowerCase();
-
-            for (let name in this.validOptions) {
-                let text = this.props.case ? name : name.toLowerCase();
-
-                if (text == target) {
-                    match = name;
-                    break;
-                }
-            }
+            let match = this.isMatch();
 
             // target matches a valid select
             if (match) {
@@ -245,12 +262,13 @@ export class Select extends Component {
                     selected: this.getSelected(match)
                 });
             } else {
+                // not match, error
                 this.setState({
                     error: true
                 });
             }
 
-        // delete
+        // pressing delete when there is an empty search box using a multiple select
         } else if (e.which === 8 && this.refs.search.value == '' && this.props.multiple) {
             let selected = this.popSelected();
 
@@ -263,19 +281,19 @@ export class Select extends Component {
     }
 
     onSearchChange() {
+        // anytime we modify the text box, remove the error
         this.setState({
-            active: true,
             error: false
         });
     }
 
     renderChildren() {
-        let children = React.Children.toArray(this.props.children);
         let search = this.refs.search ? this.refs.search.value : null;
         let flags = this.props.case ? 'g' : 'gi';
         let newChildren = [];
 
-        children.forEach(child => {
+        // we can't map children because we need to know when length is zero
+        React.Children.forEach(this.props.children, child => {
             if (child.type === Option) {
                 let match = true;
                 let selected = false;
@@ -289,7 +307,9 @@ export class Select extends Component {
                     }
                 }
 
+                // check if this child is in the selection array
                 if (this.props.multiple) {
+                    // is this value in the selected array of a multiple select
                     if (this.state.selected.indexOf(child.props.children) > -1) {
                         selected = true;
                     }
@@ -300,7 +320,8 @@ export class Select extends Component {
                         React.cloneElement(
                             child,
                             {
-                                 active: this.state.selected == child.props.children && !this.props.search,
+                                key: child.props.children,
+                                active: this.state.selected == child.props.children && !this.props.search,
                                 onClick: this.onOptionClick.bind(this, child.props.children)
                             },
                             child.props.children
@@ -314,20 +335,19 @@ export class Select extends Component {
         return newChildren;
     }
 
-    // there isn't a very clean way to animate this since Semantics CSS isn't TransitionGroup 
-    // friendly.
     renderLabels() {
+        // can't animate while ReactTransitionGroup
         if (this.props.multiple) {
             return this.state.selected.map(label => {
                 return (
-                    <Label 
+                    <Label
                         component="a"
                         key={label}
                         onClick={this.onLabelClick.bind(this, label)}
                         style={{ display: 'inline-block' }}
                     >
                         {label}
-                        <Icon 
+                        <Icon
                             name="close"
                             onClick={this.onCloseOption.bind(this, label)}
                         />
@@ -339,13 +359,16 @@ export class Select extends Component {
 
     renderSearch() {
         let style = {};
+
+        // expand the width of the search box as you type. no max?
         let width = this.refs.search ? this.refs.search.value.length * this.props.glyphWidth : null;
+
 
         if (width) {
             style.width = width + 'em';
         }
 
-        return this.props.search ? 
+        return this.props.search ?
             <input
                 className="search"
                 onChange={this.onSearchChange.bind(this)}
@@ -384,22 +407,21 @@ export class Select extends Component {
         }
 
         return (
-            <OutsideClick 
+            <OutsideClick
                 onOutsideClick={this.onDocumentClick.bind(this)}
             >
                 <Dropdown
                     {...other}
-                    active={this.state.active} 
+                    active={this.state.active}
                     visible={this.state.visible}
                 >
-                    <input 
+                    <input
                         name={this.props.name}
                         type="hidden"
                         value={this.formatValue()}
                     />
-                    <Icon 
+                    <Icon
                         name="dropdown"
-
                     />
                     {this.renderLabels()}
                     {this.renderSearch()}
@@ -416,16 +438,17 @@ export class Select extends Component {
                     </Animations>
                 </Dropdown>
             </OutsideClick>
-        ); 
+        );
     }
 
+    // value formating for the hidden input box
     formatValue() {
         if (this.props.multiple) {
-            // return this.state.selected.join(', ');
             let selected = [];
 
+            // maybe just string and slice it instead of allocating an array
             this.state.selected.forEach(item => {
-                selected.push(this.validOptions[item]);       
+                selected.push(this.validOptions[item]);
             });
 
             return selected.join(', ');
@@ -473,10 +496,26 @@ export class Select extends Component {
                 clone.splice(index, 1);
             } else {
                 clone.push(name);
-            }       
+            }
         }
 
         return clone;
+    }
+
+    isMatch() {
+        let match = false;
+        let target = this.props.case ? this.refs.search.value : this.refs.search.value.toLowerCase();
+
+        for (let name in this.validOptions) {
+            let text = this.props.case ? name : name.toLowerCase();
+
+            if (text == target) {
+                match = name;
+                break;
+            }
+        }
+
+        return match;
     }
 
     popSelected() {
