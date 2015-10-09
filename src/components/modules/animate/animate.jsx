@@ -105,9 +105,17 @@ export function Animate(ComposedComponent) {
 
         componentWillEnter(callback) {
             if (this.props.enter !== false) {
+                let duration;
+
+                if (typeof this.props.enter.duration === 'number') {
+                    duration = this.props.enter.duration;
+                } else {
+                    duration = this.props.duration;
+                }
+
                 this.start = this.parseProperties(this.props.enter.from);
                 this.end = this.parseProperties(this.props.enter.to);
-                this.duration = this.props.enter.duration || this.props.duration;
+                this.duration = duration;
                 this.ease = this.props.enter.ease || this.props.ease;
                 this.callback = callback;
                 this.animatingDOM = true;
@@ -187,6 +195,10 @@ export function Animate(ComposedComponent) {
 
         animate() {
             this.animating = true;
+
+            if (this.duration === 0) {
+                this.onComplete();
+            }
 
             this.startTime = (new Date).getTime();
             this.animation = raf(this.animator.bind(this));

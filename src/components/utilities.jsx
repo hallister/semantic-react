@@ -1,19 +1,19 @@
 // DFS for recursive seaarching of a specific child component
 import React from 'react';
 
-exports.Numbers = ['zero', 'one', 'two', 'three', 'four', 
-                   'five', 'six', 'seven', 'eight', 'nine', 
-                   'ten', 'eleven', 'twelve', 'thirteen', 
+exports.Numbers = ['zero', 'one', 'two', 'three', 'four',
+                   'five', 'six', 'seven', 'eight', 'nine',
+                   'ten', 'eleven', 'twelve', 'thirteen',
                    'fourteen', 'fifteen', 'sixteen'];
 
-exports.Social = ['facebook', 'twitter', 'google plus', 'vk', 
+exports.Social = ['facebook', 'twitter', 'google plus', 'vk',
                   'linkedin', 'instagram', 'youtube'];
 
-exports.Colors = ['red', 'orange', 'yellow', 'olive', 'green', 
+exports.Colors = ['red', 'orange', 'yellow', 'olive', 'green',
                   'teal', 'blue', 'violet', 'purple', 'pink',
                   'brown', 'grey', 'black'];
 
-exports.Sizes = ['mini', 'tiny', 'small', 'medium', 'large', 
+exports.Sizes = ['mini', 'tiny', 'small', 'medium', 'large',
                  'big', 'huge', 'massive'];
 
 export function arrayToObject(array, value = false) {
@@ -85,7 +85,7 @@ export function validateClassProps(classes, props, validator) {
     for (let propName of Object.keys(validator)) {
         if (!!props[propName] === true) {
             classes[propName] = false;
-            
+
             if (typeof props[propName] === 'string') {
                 classes[props[propName] + ' ' + propName] = true;
             } else {
@@ -110,7 +110,7 @@ export function spliceChildren(children, component) {
     });
 
     return {
-        component: splicedComponent, 
+        component: splicedComponent,
         remaining: children,
         index: componentIndex
     };

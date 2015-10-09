@@ -14,3 +14,7 @@ export * from './modules/dropdown/option';
 export * from './modules/modal/actions';
 export * from './modules/modal/modal';
 export * from './modules/modal/modalbody';
+export * from './modules/popup/popup';
+export * from './modules/popup/popupplacer';
+export * from './modules/popup/popupelement';
+export * from './modules/popup/portal';

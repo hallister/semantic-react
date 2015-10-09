@@ -42,7 +42,7 @@ export class Animations extends React.Component {
                 );
             }
 
-            if (props.enter === false && props.leave === false) {
+            if (props.enter === false && props.leave === false || child.props.noAnimate === true) {
                 return child;
             } else {
                 return React.cloneElement(
