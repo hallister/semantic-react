@@ -28,8 +28,9 @@ export class Divider extends React.Component {
     };
 
     render() {
-        let { children, className, clearing, defaultClasses, fitted, header, hidden, 
-              horizontal, inverted, section, vertical, ...other } = this.props;
+        let { children, className, clearing, component, defaultClasses, fitted,
+              header, hidden, horizontal, inverted, section, vertical,
+              ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 

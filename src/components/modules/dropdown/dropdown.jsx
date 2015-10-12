@@ -42,7 +42,8 @@ export class Dropdown extends React.Component {
     }
 
     render() {
-        let { component, disabled, inverted, multiple, ...other } = this.props;
+        let { active, component, defaultClasses, disabled, inverted,
+              multiple, ...other } = this.props;
         other.className = classNames(this.props.className, this.getClasses());
 
         if (this.props.component == Dropdown) {

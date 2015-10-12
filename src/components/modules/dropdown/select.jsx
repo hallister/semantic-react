@@ -12,72 +12,33 @@ import OutsideClick from 'react-outsideclickhandler';
  */
 export class Select extends React.Component {
     static propTypes = {
-        /**
-         * True when the dropdown menu is in an active (open) state.
-         */
         active: React.PropTypes.bool,
-
-        /**
-         * True if case matters when using searchable Selects.
-         */
-        case: React.PropTypes.bool,
         children: React.PropTypes.node,
         className: React.PropTypes.node,
         defaultClasses: React.PropTypes.bool,
-
-        /**
-         * The menu animation when it enters the DOM
-         */
         enterAnimation: React.PropTypes.shape({
             duration: React.PropTypes.number,
             easing: React.PropTypes.string,
             from: React.PropTypes.object,
             to: React.PropTypes.object
         }),
-
-        /**
-         * The glyphWidth setting to use when expanding the textbox as you type. Taken from Semantic.
-         */
         glyphWidth: React.PropTypes.number,
-
-        /**
-         * The menu animation when it enters the DOM
-         */
+        ignoreCase: React.PropTypes.bool,
         leaveAnimation: React.PropTypes.shape({
             duration: React.PropTypes.number,
             easing: React.PropTypes.string,
             from: React.PropTypes.object,
             to: React.PropTypes.object
         }),
-
-        /**
-         * True when multiple selections are allowed.
-         */
         multiple: React.PropTypes.bool,
-
-        /**
-         * The name of the hidden text field to use for form submission purposes.
-         */
         name: React.PropTypes.string,
-
-        /**
-         * The string of text to use when there are no results available.
-         */
         noResults: React.PropTypes.string,
-
-        /**
-         * The string of text to use when the search box is empty
-         */
         placeholder: React.PropTypes.string,
-
-        /**
-         * True when the select box allows searching
-         */
         search: React.PropTypes.bool
     };
 
     static defaultProps = {
-        case: false,
+        ignoreCase: true,
         defaultClasses: true,
         glyphWidth: 1.0714,
         noResults: 'No results found...'
@@ -289,7 +250,7 @@ export class Select extends React.Component {
 
     renderChildren() {
         let search = this.refs.search ? this.refs.search.value : null;
-        let flags = this.props.case ? 'g' : 'gi';
+        let flags = this.props.ignoreCase ? 'gi' : 'g';
         let newChildren = [];
 
         // we can't map children because we need to know when length is zero
@@ -389,7 +350,8 @@ export class Select extends React.Component {
     }
 
     render() {
-        let { active, multiple, search, ...other } = this.props;
+        let { active, multiple, search, ignoreCase, name, placeholder,
+              glyphWidth, defaultClasses, noResults, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
         other.onClick = this.onClick.bind(this);
@@ -504,10 +466,10 @@ export class Select extends React.Component {
 
     isMatch() {
         let match = false;
-        let target = this.props.case ? this.refs.search.value : this.refs.search.value.toLowerCase();
+        let target = this.props.ignoreCase ? this.refs.search.value.toLowerCase() : this.refs.search.value;
 
         for (let name in this.validOptions) {
-            let text = this.props.case ? name : name.toLowerCase();
+            let text = this.props.ignoreCase ? name.toLowerCase() : name;
 
             if (text == target) {
                 match = name;

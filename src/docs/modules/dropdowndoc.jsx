@@ -13,13 +13,13 @@ import classNames from 'classnames';
                 <DropdownExample />
                 <SelectionExample />
                 <SearchExample />
-                <MultipleSelectionDoc />   
+                <MultipleSelectionDoc />
 */
 export class DropdownDoc extends Component {
     render() {
     	return (
     		<Segment basic className="example">
-                <Header dividing tag="h1">
+                <Header dividing component="h1">
                     Types
                 </Header>
 

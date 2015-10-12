@@ -10,15 +10,34 @@ let validProps = {
 @Animate
 export class Menu extends React.Component {
     static propTypes = {
+        active: React.PropTypes.bool,
         attached: React.PropTypes.oneOf(validProps),
-        children: React.PropTypes.node,
+        children: React.PropTypes.oneOfType([
+            React.PropTypes.array,
+            React.PropTypes.node
+        ]),
         className: React.PropTypes.node,
-        component: React.PropTypes.node,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
+        end: React.PropTypes.shape({
+            duration: React.PropTypes.number,
+            easing: React.PropTypes.string,
+            from: React.PropTypes.object,
+            to: React.PropTypes.object
+        }),
         even: React.PropTypes.bool,
         pointing: React.PropTypes.bool,
         right: React.PropTypes.bool,
         secondary: React.PropTypes.bool,
+        start: React.PropTypes.shape({
+            duration: React.PropTypes.number,
+            easing: React.PropTypes.string,
+            from: React.PropTypes.object,
+            to: React.PropTypes.object
+        }),
         style: React.PropTypes.object,
         tabular: React.PropTypes.bool,
         text: React.PropTypes.bool,
@@ -46,7 +65,7 @@ export class Menu extends React.Component {
     }
 
     render() {
-        let { component, defaultClasses, even, ...other } = this.props;
+        let { active, start, end, component, defaultClasses, even, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
         other.style = this.props.style;
