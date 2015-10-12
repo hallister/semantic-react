@@ -6,7 +6,7 @@ import classNames from 'classnames';
 let validProps = {
     aligned: ['right', 'left', 'justified', 'center'],
     attached: ['bottom', 'top'],
-    floated: ['right', 'left']  
+    floated: ['right', 'left']
 };
 
 export class Header extends React.Component {
@@ -32,7 +32,7 @@ export class Header extends React.Component {
         floated: React.PropTypes.oneOf(validProps.floated),
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
-        onClick: React.PropTypes.func,           
+        onClick: React.PropTypes.func,
         size: React.PropTypes.string
     };
 
@@ -63,9 +63,9 @@ export class Header extends React.Component {
     render() {
         let Component = this.props.onClick ? 'a' : 'div';
 
-        let { aligned, attached, block, children, className, color, defaultClasses, 
-              disabled, divider, dividing, element, floated, horizontal, inverted, 
-              size, ...other } = this.props;
+        let { aligned, attached, block, children, component, className, color,
+              defaultClasses, disabled, divider, dividing, element, floated,
+              horizontal, inverted, size, ...other } = this.props;
 
         // add classnames
         other.className = classNames(this.props.className, this.getClasses());
@@ -102,7 +102,7 @@ export class Header extends React.Component {
             // component
             header: this.props.defaultClasses
         };
-       
+
         classes[this.props.color] = !!this.props.color;
         classes[this.props.size] = !!this.props.size;
 

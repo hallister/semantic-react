@@ -1,11 +1,6 @@
 import React from 'react';
-import logger from 'js-logger';
 import { $ } from '../../modules';
 import classNames from 'classnames';
-
-logger.useDefaults();
-let ctx = 'PopupPlacer';
-let log = logger.get(ctx);
 
 let validProps = {
     position: ['top left', 'top center', 'top right', 'right center', 'bottom right', 'bottom center', 'bottom left', 'left center']
@@ -33,103 +28,76 @@ export class PopupPlacer extends React.Component {
         active: false,
         component: 'div',
         defaultClasses: true,
-        distanceAway: 0,
-        jitter: 1.5,
+        distanceAway: 10,
+        jitter: 2,
         offset: 0,
         position: 'top left'
     };
 
     constructor(props) {
         super(props);
-        log.debug('Creating component');
 
         this.initialRender = true;
-        this.failed = [];
-
-        if (props.autoPosition) {
-            this.positionIndex = validProps.position.indexOf(props.startPosition);
-        } else {
-            this.positionIndex = validProps.position.indexOf(props.position);
-        }
     }
 
     componentDidMount() {
-        log.debug('Component mounted');
-        log.debug(' setting calculations.');
+        // calculate various positions on the screen
         this.setCalculations();
-        log.debug(' forcing update for new calculations.');
+
+        // if we don't force an update, the position won't change
         this.forceUpdate();
     }
 
-    componentWillReceiveProps(props) {
-        log.debug('Component will receive props');
-        log.debug(' new position is', props.position);
-        log.debug(' old position is', this.props.position);
-
+    componentWillReceiveProps() {
+        // no need to recalculate on the initial render
         if (!this.initialRender) {
-            log.debug(' calculations already set.');
             this.setCalculations();
-        } else {
-            log.debug(' setting calculations.');
         }
     }
 
     shouldComponentUpdate(props) {
-        log.debug('Determining if component will update');
+        // only update of it's active AND the position has changed
         if (props.active === true && props.position !== this.props.position) {
-            log.debug(' updating');
             return true;
-        } else if (props.position == this.props.position) {
-            log.debug(' this position has already failed');
-            return false;
         }
 
-        log.debug(' update not required.');
         return false;
     }
 
     componentWillUpdate(props) {
-        log.debug('Component will update');
 
+        // popup is inactive, make the style object empty
         if (props.active == false) {
-            log.debug(' component is inactive, unset style.')
             this.style = {}
+        // active popup, generate the styles
         } else {
-            log.debug(' component is active, set style');
             this.style = this.generateStyle();
-            log.debug(' top:' + this.style.top, 'left:' + this.style.left, 'right:' + this.style.right, 'bottom:' + this.style.bottom);
         }
     }
 
+    // verify if the position is valid (doesn't hit a boundary)
     componentDidUpdate() {
-        log.debug('Component updated')
         let distance = this.getBoundaryDistance();
-        let postioned = false;
+        let intersects = false;
 
-        log.debug(' top:' + distance.top, 'left:' + distance.left, 'right:' + distance.right, 'bottom:' + distance.bottom);
-
-        log.debug(' checking component distance from boundary.')
-        postioned = Object.keys(distance).some(dist => {
+        // test if the boundary intersects with the popup, allowing for this.props.jitter
+        intersects = Object.keys(distance).some(dist => {
             if (distance[dist] < -this.props.jitter) {
-                log.debug(' component is too far from boundary');
                 return true;
             }
         });
 
-        this.failed.push(this.props.position);
-
-        !postioned ?
+        !intersects ?
             this.props.onPositioned(true, this.props.position, this.style, this.getClasses()) :
-            this.props.onPositioned(false, this.getNextPosition());
+            this.props.onPositioned(false, this.props.position, this.style, this.getClasses(), this.getNextPosition());
     }
 
     render() {
-        log.debug('Rendering ' + this.props.position);
-        if (this.initialRender) log.debug(' this is the first render');
         let { component, defaultClasses, offset, ...other } = this.props;
         other.className = classNames(this.props.className, this.getClasses());
         other.style = this.style || {};
-        // other.style.opacity = 0;
+
+        // as soon as we render once, we start doing calculations at every position change
         this.initialRender = false;
 
         return React.createElement(
@@ -254,14 +222,16 @@ export class PopupPlacer extends React.Component {
         return classes;
     }
 
+    // the popup didn't fit so we get the next position
+    // this can cycle forever, it's the responsibility of the parent
+    // to know when to stop
     getNextPosition() {
         let last = validProps.position.length - 1;
         let current = validProps.position.indexOf(this.props.position);
-        let start = this.positionIndex;
 
         if (current == last) {
             return validProps.position[0];
-        } else if ((current == start && !this.reposition) || (current !== start)) {
+        } else {
             return validProps.position[current + 1]
         }
     }

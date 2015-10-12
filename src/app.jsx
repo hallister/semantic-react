@@ -12,7 +12,7 @@ export default class App extends Component {
     render() {
         return (
             <div>
-                <ModuleDocs.PopupDoc/>
+                <ModuleDocs.ModalDoc/>
             </div>
         );
     }

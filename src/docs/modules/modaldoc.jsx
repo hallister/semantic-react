@@ -43,11 +43,10 @@ export class ModalDoc extends Component {
         return (
             <Segment
                 basic
-                dividing
             >
                 <Header
                     dividing
-                    tag="h1"
+                    component="h1"
                 >
                     Types
                 </Header>

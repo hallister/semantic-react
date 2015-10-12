@@ -83,6 +83,7 @@
     "redbox-react": "^1.1.1",
     "sinon": "^1.17.0",
     "skin-deep": "^0.8.1",
+    "strip-loader": "^0.1.0",
     "uglify-js": "^2.4.24",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",

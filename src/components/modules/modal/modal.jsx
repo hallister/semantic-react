@@ -13,7 +13,7 @@ export class Modal extends React.Component {
             React.PropTypes.string
         ]),
         disabled: React.PropTypes.bool,
-        endAnimation: React.PropTypes.shape({
+        enterAnimation: React.PropTypes.shape({
             duration: React.PropTypes.number,
             easing: React.PropTypes.string,
             from: React.PropTypes.object,
@@ -21,23 +21,37 @@ export class Modal extends React.Component {
         }),
         fullscreen: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
+        leaveAnimation: React.PropTypes.shape({
+            duration: React.PropTypes.number,
+            easing: React.PropTypes.string,
+            from: React.PropTypes.object,
+            to: React.PropTypes.object
+        }),
         offset: React.PropTypes.number,
         onComplete: React.PropTypes.func,
         outsideClickClose: React.PropTypes.bool,
         padding: React.PropTypes.number,
         page: React.PropTypes.bool,
-        size: React.PropTypes.string,
-        startAnimation: React.PropTypes.shape({
-            duration: React.PropTypes.number,
-            easing: React.PropTypes.string,
-            from: React.PropTypes.object,
-            to: React.PropTypes.object
-        })
+        size: React.PropTypes.string
     };
 
     static defaultProps = {
         component: 'div',
-        endAnimation: {
+        enterAnimation: {
+            duration: 500,
+            easing: 'in-ease',
+            from: {
+                opacity: 0,
+                transform: 'scale(0,0)',
+                WebkitTransform: 'scale(0,0)'
+            },
+            to: {
+                opacity: 1,
+                transform: 'scale(1,1)',
+                WebkitTransform: 'scale(1,1)'
+            }
+        },
+        leaveAnimation: {
             duration: 500,
             easing: 'in-ease',
             from: {
@@ -53,21 +67,7 @@ export class Modal extends React.Component {
         },
         onComplete: function noop() {},
         outsideClickClose: true,
-        page: true,
-        startAnimation: {
-            duration: 500,
-            easing: 'in-ease',
-            from: {
-                opacity: 0,
-                transform: 'scale(0,0)',
-                WebkitTransform: 'scale(0,0)'
-            },
-            to: {
-                opacity: 1,
-                transform: 'scale(1,1)',
-                WebkitTransform: 'scale(1,1)'
-            }
-        }
+        page: true
     };
 
     constructor(props) {
@@ -124,13 +124,13 @@ export class Modal extends React.Component {
     }
 
     renderModalBody() {
-        let { blurring, component, disabled, endAnimation, inverted, outsideClickClose, page, startAnimation, ...other } = this.props;
+        let { blurring, component, disabled, leaveAnimation, inverted, outsideClickClose, page, enterAnimation, ...other } = this.props;
 
         let props = Object.assign(other, {
             animate: this.state.active,
             active: this.state.visible,
-            start: this.props.startAnimation,
-            end: this.props.endAnimation,
+            start: this.props.enterAnimation,
+            end: this.props.leaveAnimation,
             onComplete: this.onAnimationComplete.bind(this)
         });
 
@@ -154,7 +154,7 @@ export class Modal extends React.Component {
     }
 
     render() {
-        let { basic, children, component, endAnimation, fullscreen, offset, outsideClickClose, padding, size, startAnimation, ...other } = this.props;
+        let { basic, children, component, leaveAnimation, fullscreen, offset, outsideClickClose, padding, size, enterAnimation, ...other } = this.props;
         other.active = this.state.active;
 
         return React.createElement(

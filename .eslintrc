@@ -9,7 +9,7 @@
         //
         "comma-dangle": 2,
         "no-cond-assign": 2,
-        "no-console": 1,
+        "no-console": 1,  // disabled, will remove through webpack job
         "no-constant-condition": 2,
         "no-control-regex": 2,
         "no-debugger": 2,

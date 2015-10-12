@@ -45,7 +45,8 @@ export class Content extends React.Component {
     render() {
         let children = this.context.isDimmerChild ? this.renderDimmerChild() : this.props.children;
 
-        let { aligned, component, extra, floated, hidden, meta, visible, ...other } = this.props;
+        let { aligned, component, defaultClasses, extra, floated, hidden, meta,
+              visible, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -60,7 +61,7 @@ export class Content extends React.Component {
         let classes = {
             // default
             content: this.props.defaultClasses,
-            
+
             // variations
             active: this.props.active,
             aligned: this.props.aligned,

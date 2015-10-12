@@ -19,7 +19,7 @@ export class Actions extends React.Component {
     };
 
     render() {
-        let { defaultClasses, ...other } = this.props;
+        let { defaultClasses, className, children, component, ...other } = this.props;
         other.className = classNames(this.props.className, this.getClasses());
 
         return React.createElement(

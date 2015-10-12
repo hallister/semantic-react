@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Animate, JQL } from '../../modules';
+import { Animate, $ } from '../../modules';
 import classNames from 'classnames';
 
 @Animate
@@ -15,10 +14,22 @@ export class ModalBody extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
+        end: React.PropTypes.shape({
+            duration: React.PropTypes.number,
+            easing: React.PropTypes.string,
+            from: React.PropTypes.object,
+            to: React.PropTypes.object
+        }),
         fullscreen: React.PropTypes.bool,
         offset: React.PropTypes.number,
         padding: React.PropTypes.number,
         size: React.PropTypes.string,
+        start: React.PropTypes.shape({
+            duration: React.PropTypes.number,
+            easing: React.PropTypes.string,
+            from: React.PropTypes.object,
+            to: React.PropTypes.object
+        }),
         style: React.PropTypes.object
     };
 
@@ -32,45 +43,28 @@ export class ModalBody extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            active: true
-        }
     }
 
     componentDidMount() {
         if (!this.sizes || !this.sizes.height) {
-            let component = new JQL(ReactDOM.findDOMNode(this));
+            let component = $(this);
 
             this.sizes = {
-                pageHeight: window.outerHeight,
-                height: component.property('outerHeight') + this.props.offset,
-                contextHeight: window.outerHeight
+                pageHeight: $(window).height(),
+                height: component.height() + this.props.offset,
+                contextHeight: $(window).height()
             };
 
-            /* this is a unique situation in that we need the active state to be
-            changed after calculating the properties. We have to set the state here (but
-            only once) */
-            /* eslint-disable react/no-did-mount-set-state */
-            this.setState({
-                active: false
-            });
-        }
-    }
-
-    componentWillReceiveProps(props) {
-        if (props.active != this.props.active) {
-            this.setState({
-                active: props.active
-            });
+            this.forceUpdate();
         }
     }
 
     render() {
-        let { component, defaultClasses, style, ...other } = this.props;
+        let { active, basic, children, className, component, defaultClasses,
+              fullscreen, offset, padding, size, style, start, end, ...other } = this.props;
         other.className = classNames(this.props.className, this.getClasses());
 
-        if (this.modalFits() && this.state.active) {
+        if (this.modalFits() && this.props.active) {
             other.style = Object.assign(
                 this.props.style,
                 {
@@ -107,8 +101,8 @@ export class ModalBody extends React.Component {
             ui: this.props.defaultClasses,
 
             // visibility
-            visible: this.state.active,
-            active: this.state.active,
+            visible: this.props.active,
+            active: this.props.active,
 
             // variations
             basic: this.props.basic,

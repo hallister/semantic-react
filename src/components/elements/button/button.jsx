@@ -71,9 +71,10 @@ class Button extends React.Component {
         let Component = (this.props.attached || this.context.isAttached || this.props.animated || React.Children.count(this.props.children) > 1) ? 'div' : 'button';
 
         // consume props
-        let { active, animated, attached, basic, children, circular, color, component, compact, className, defaultClasses,
-            disabled, floated, fluid, focusable, icon, inverted, labeled, loading, negative, positive, primary, secondary,
-            size, social, ...other } = this.props;
+        let { active, animated, attached, basic, children, circular, color,
+              component, compact, className, defaultClasses, disabled, floated,
+              fluid, focusable, icon, inverted, labeled, loading, negative,
+              positive, primary, secondary, size, social, ...other } = this.props;
 
         // add classnames
         other.className = classNames(this.props.className, this.getClasses());

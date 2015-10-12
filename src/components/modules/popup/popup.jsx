@@ -1,11 +1,6 @@
 import React from 'react';
-import logger from 'js-logger';
 import { Animations } from '../../modules';
 import { PopupPlacer, PopupElement } from '../../modules';
-
-logger.useDefaults();
-let ctx = 'Popup';
-let log = logger.get(ctx);
 
 export class Popup extends React.Component {
     static propTypes = {
@@ -60,45 +55,34 @@ export class Popup extends React.Component {
 
     constructor(props) {
         super(props);
-        log.debug('Creating component');
 
         this.position = this.start = this.props.position;
+        this.lastPosition = false;
         this.ready = false;
     }
 
-    onPositioned(success, position, style, classes) {
-        log.debug('Checking position');
-        if (success) {
-            log.debug(' ' + position + ' position successful')
+    onPositioned(success, position, style, classes, nextPosition) {
+        // if the position is good OR if we have tried every position unsuccessfully
+        if (success || (this.position == this.start && this.lastPosition)) {
             this.ready = true;
             this.position = position;
             this.style = style;
             this.classes = classes;
-            if (this.incrementer !== 10) {
-                this.forceUpdate();
-                this.incrementer = this.incrementer + 1 || 1;
-            }
+            this.forceUpdate();
         } else {
-            log.debug(' position failed, checking ' + position);
             this.ready = false;
-            this.lastPosition = this.position;
-            this.position = position;
-
-            if (this.incrementer !== 10) {
-                this.forceUpdate();
-                this.incrementer = this.incrementer + 1 || 1;
-            }
+            this.lastPosition = position;
+            this.position = nextPosition;
+            this.forceUpdate();
         }
     }
 
     render() {
-        log.debug('Rendering component');
+        let { active, children, position, startAnimation, endAnimation, ...other } = this.props;
         let popup;
 
-        let { active, position, startAnimation, endAnimation, ...other } = this.props;
-
+        // popup is not placed, but is active
         if (!this.ready && this.props.active) {
-            log.debug(' attempting to render at position ' + this.position);
             popup = (
                 <PopupPlacer
                     active
@@ -111,21 +95,23 @@ export class Popup extends React.Component {
                     {this.props.children}
                 </PopupPlacer>
             );
+        // popup is inactive
         } else if (!this.props.active) {
             popup = <noscript/>;
+        // popup is active and read (display calculated position)
         } else {
-            let children = this.props.active ? this.props.children : null;
+            let child = this.props.active ? this.props.children : null;
             popup = (
                 <PopupElement
                     {...this.props}
                     classes={this.classes}
                     enter={this.props.startAnimation}
-                    key="pelementAnimation"
+                    key="popupAnimation"
                     leave={this.props.endAnimation}
                     pStyle={this.style}
                     position={this.position}
                 >
-                    {children}
+                    {child}
                 </PopupElement>
             );
         }

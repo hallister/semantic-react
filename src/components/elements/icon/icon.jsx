@@ -37,8 +37,9 @@ export class Icon extends React.Component {
     };
 
     render() {
-        let { bordered, circular, color, component, corner, disabled, fitted, flipped, inverted, link, 
-              loading, name, rotated, size, ...other } = this.props;
+        let { bordered, circular, color, component, corner, defaultClasses,
+              disabled, fitted, flipped, inverted, link, loading, name, rotated,
+              size, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 

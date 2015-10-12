@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-var package = require('./package.json');
+var pack = require('./package.json');
 
 var externals = [];
 externals.push(/^react(\/.*)?$/, /^react-dom(\/.*)?$/);
@@ -12,7 +12,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: package.name + '-' + package.version + '.js'
+        filename: pack.name + '-' + pack.version + '.js'
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
