@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export class Grid extends Component {
 	static defaultProps = {
-		defaultClasses: true
+        defaultClasses: true
 	};
 
     static propTypes = {
@@ -55,14 +55,14 @@ export class Grid extends Component {
         classes[this.props.size] = !!this.props.size;
         classes[this.props.aligned] = !!this.props.aligned;
 
-        let Tag = returnTag(this.props.tag || React.DOM.div);   
+        let Tag = returnTag(this.props.tag || React.DOM.div);
 
         let { defaultClasses, size, celled, container, aligned, even, ...other } = this.props;
 
         return Tag({
             className: classNames(this.props.className, classes),
             ...other
-            }, 
+            },
             this.props.children
         );
     }

@@ -6,12 +6,16 @@ export class Checkbox extends Component {
     static propTypes = {
         active: React.PropTypes.bool,
         checked: React.PropTypes.bool,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
+        name: React.PropTypes.string,
         radio: React.PropTypes.bool,
         readOnly: React.PropTypes.bool,
         slider: React.PropTypes.bool,
-        tag: React.PropTypes.func,
         toggle: React.PropTypes.bool
     };
 
@@ -20,18 +24,19 @@ export class Checkbox extends Component {
     };
 
     static defaultProps = {
-        defaultClasses: true,
-        tag: React.DOM.div
+        component: 'div',
+        defaultClasses: true
     };
 
-    constructor(props) {
-        super(props);
-    }
+    renderCheckbox() {
+        let { active, component, defaultClasses, name, ...other } = this.props;
+        other.className = classNames(this.props.className, this.getClasses());
 
-    renderCheckbox(classes) {
-        return this.props.tag({
-            className: classNames(this.props.className, classes)
-        }, this.renderChildren());
+        return React.createElement(
+            this.props.component,
+            other,
+            this.renderChildren()
+        );
     }
 
     renderCheckboxes() {
@@ -41,21 +46,23 @@ export class Checkbox extends Component {
     }
 
     renderChildren() {
-        let { active, children, defaultClasses, className, onClick, 
-              radio, slider, toggle, tag, readOnly, checked, 
-              disabled,  ...other } = this.props;
+        let { active, children, defaultClasses, className, onClick,
+              radio, slider, toggle, component, readOnly, checked,
+              disabled, ...other } = this.props;
+
+        checked = this.props.active && !this.props.readOnly;
 
         let childElements = [
             React.DOM.input({
                 type: 'checkbox',
                 key: 'input',
                 className: 'hidden',
-                defaultChecked: this.props.active && !this.props.readOnly,
+                checked: this.props.active,
+                readOnly: true,
                 ...other
             }),
             React.DOM.label({
-                key: 'label',
-                onClick: this.props.onClick
+                key: 'label'
             }, this.props.children)
         ];
 
@@ -63,9 +70,14 @@ export class Checkbox extends Component {
     }
 
     render() {
-        let classes = {
+        return this.context.isCheckboxesChild ? this.renderCheckbox() : this.renderCheckboxes();
+    }
+
+    getClasses() {
+        return {
             // default
             ui: this.props.defaultClasses,
+            checkbox: this.props.defaultClasses,
 
             // positioning
 
@@ -80,12 +92,7 @@ export class Checkbox extends Component {
             'read-only': this.props.readOnly,
             checked: this.props.active && !this.props.readOnly,
             disabled: this.props.disabled,
-            indeterminate: this.props.indeterminate,
-
-            // component
-            checkbox: this.props.defaultClasses
+            indeterminate: this.props.indeterminate
         };
-
-        return this.context.isCheckboxesChild ? this.renderCheckbox(classes) : this.renderCheckboxes();
     }
 }

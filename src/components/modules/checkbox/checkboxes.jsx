@@ -4,19 +4,32 @@ import classNames from 'classnames';
 
 export class Checkboxes extends Component {
     static propTypes = {
+        children: React.PropTypes.oneOfType([
+            React.PropTypes.array,
+            React.PropTypes.node
+        ]),
+        className: React.PropTypes.node,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
+        disabled: React.PropTypes.bool,
         grouped: React.PropTypes.bool,
         inline: React.PropTypes.bool,
-        tag: React.PropTypes.func
-    };
-    
-    static defaultProps = {
-        defaultClasses: true,
-        tag: React.DOM.div
+        name: React.PropTypes.string,
+        onClick: React.PropTypes.func,
+        radio: React.PropTypes.bool,
+        readOnly: React.PropTypes.bool
     };
 
     static childContextTypes = {
         isCheckboxesChild: React.PropTypes.bool
+    };
+
+    static defaultProps = {
+        component: 'div',
+        defaultClasses: true
     };
 
     constructor(props) {
@@ -25,7 +38,7 @@ export class Checkboxes extends Component {
         let active = this.props.radio ? '' : [];
 
         this.state = {
-            currentActive: active
+            active: active
         };
     }
 
@@ -37,11 +50,11 @@ export class Checkboxes extends Component {
 
     onClick(key)  {
         // don't remove radio buttons if you click them twice
-        if (key === this.state.currentActive && this.props.radio) {
+        if (key === this.state.active && this.props.radio) {
             return;
         // but do remove for everything else
         } else {
-            this.setCurrentActive(key);
+            this.setActive(key);
         }
     }
 
@@ -50,11 +63,11 @@ export class Checkboxes extends Component {
         let element = null;
 
         if (React.Children.count(this.props.children) === 1) {
-            return this.cloneChild(index, 
+            return this.cloneChild(index,
                 React.Children.only(this.props.children)
             );
         } else {
-            return React.Children.map(this.props.children, function(child) {
+            return React.Children.map(this.props.children, child => {
                 if (child.type == Checkbox) {
                     element = this.cloneChild(index, child);
 
@@ -69,12 +82,40 @@ export class Checkboxes extends Component {
                 }
 
                 return element;
-            }.bind(this));  
+            });
         }
     }
 
     render() {
-        let classes = {
+        let { component, defaultClasses, name, ...other } = this.props;
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            this.renderChildren()
+        );
+    }
+
+    // clone a chid and update the props
+    cloneChild(index, child) {
+        let boundClick = this.onClick.bind(this, index);
+
+        let { children, component, defaultClasses, grouped,
+              inline, onClick, ...other } = this.props;
+
+        return React.cloneElement(child, {
+            key: index,
+            active: this.getActive(index),
+            onClick: boundClick,
+            radio: this.props.radio,
+            readOnly: this.props.readOnly || this.props.disabled,
+            ...other
+        });
+    }
+
+    getClasses() {
+        return {
             // default
             checkboxes: true,
 
@@ -89,31 +130,10 @@ export class Checkboxes extends Component {
             inline: this.props.inline,
             fields: React.Children.count(this.props.children) > 1
         };
-
-        return this.props.tag({
-            className: classNames(this.props.className, classes)
-        }, this.renderChildren());
     }
 
-    // clone a chid and update the props
-    cloneChild(index, child) {
-        let boundClick = this.onClick.bind(this, index);
-
-        let { children, defaultClasses, tag, grouped, 
-              inline, onClick, ...other } = this.props;
-
-        return React.cloneElement(child, {
-            key: index,
-            active: this.getCurrentActive(index),
-            onClick: boundClick,
-            radio: this.props.radio,
-            readOnly: this.props.readOnly || this.props.disabled,
-            ...other
-        });
-    }
-
-    getCurrentActive(index) {
-        let state = this.state.currentActive;
+    getActive(index) {
+        let state = this.state.active;
         let active = false;
 
         if (Array.isArray(state)) {
@@ -125,8 +145,10 @@ export class Checkboxes extends Component {
         return active;
     }
 
-    setCurrentActive(index) {
-        let state = this.state.currentActive;
+    setActive(index) {
+        if (this.props.readOnly || this.props.disabled) return;
+
+        let state = this.state.active;
 
         // should only be an array if it's checkbox, not radio
         // IE 9+ for indexOf
@@ -142,7 +164,7 @@ export class Checkboxes extends Component {
         }
 
         this.setState({
-            currentActive: state
+            active: state
         });
     }
 }
