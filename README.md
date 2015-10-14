@@ -49,7 +49,7 @@ There are no well-written docs as of yet.
 * Modal - Complete.
 * Nag - Not started. Semantic rewrite in-progress.
 * Popup - Complete.
-* Progress - Complete. Notable Chrome bug #4.
+* Progress - Complete. [Notable Chrome bug](https://github.com/hallister/semantic-react/issues/4).
 * Rating - Complete.
 * Search - Not started. Low priority.
 * Shape - Not started. Very low priority.
