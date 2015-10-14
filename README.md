@@ -13,7 +13,7 @@ There are no well-written docs as of yet.
 * Flag - Complete.
 * Header - Complete.
 * Icon - Complete.
-* Image - Mostly Complete (SVG Support). Very low priority.
+* Image - Mostly Complete (No SVG Support). Very low priority.
 * Input - Complete.
 * Label - Complete.
 * List - Complete.
