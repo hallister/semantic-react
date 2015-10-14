@@ -7,7 +7,7 @@ Status of various components are listed below. Testing is not implemented unless
 There are no well-written docs as of yet.
 
 #### Elements
-* Button - Complete. Testing Complete.
+* Button - Complete. Testing complete.
 * Container - Won't Implement. Probably just add a `container` prop to a grid.
 * Divider - Complete.
 * Flag - Complete.
@@ -49,7 +49,7 @@ There are no well-written docs as of yet.
 * Modal - Complete.
 * Nag - Not started. Semantic rewrite in-progress.
 * Popup - Complete.
-* Progress - Complete. Needs testing and docs. Notable Chrome bug.
+* Progress - Complete. Notable Chrome bug #4.
 * Rating - Complete.
 * Search - Not started. Low priority.
 * Shape - Not started. Very low priority.
