@@ -86,7 +86,7 @@ export function Animate(ComposedComponent) {
         }
 
         componentWillReceiveProps(props) {
-            if (!this.animating && props.animate !== this.props.animate) {
+            if (!this.animating && (props.animate !== this.props.animate) || (props.start && !props.end)) {
                 if (props.animate && props.start != false) {
                     this.start = this.parseProperties(props.start.from);
                     this.end = this.parseProperties(props.start.to);
@@ -148,19 +148,26 @@ export function Animate(ComposedComponent) {
         render() {
             let { animate, cancel, cancelDuration, duration, endState, enter, leave, onComplete, startState, ease,
                   ...other } = this.props;
+            let style = this.state.style;
+
+            if (!this.start && !this.end) {
+                style = {};
+            }
 
             return (
                 <ComposedComponent
                     {...other}
-                    style={this.state.style}
+                    style={style}
                 />
             );
         }
 
         stringifyProperties(anim) {
             Object.keys(anim).forEach(prop => {
-                if (typeof anim[prop] === 'object') {
+                if (typeof anim[prop] === 'object' && this.start[prop].type == 'function') {
                     anim[prop] = anim[prop].name + '(' + anim[prop].params.join(',') + ')';
+                } else if  (typeof anim[prop] === 'object' && this.start[prop].type == 'unit') {
+                    anim[prop] = anim[prop].value + anim[prop].units;
                 }
             });
 
@@ -174,7 +181,9 @@ export function Animate(ComposedComponent) {
                 let value = anim[prop];
                 let func = re.exec(value);
 
-                if (func) {
+                if (typeof anim[prop] === 'object' && anim[prop].units) {
+                    anim[prop].type = 'unit'
+                } else if (func) {
                     let name = func[1];
                     let params = func[2].split(',');
 
@@ -226,6 +235,10 @@ export function Animate(ComposedComponent) {
                     deltaState[prop].params = this.start[prop].params.map((item, index) => {
                         return item + (this.end[prop].params[index] - item) * ease(delta);
                     });
+
+                } else if (typeof this.start[prop] === 'object' && this.start[prop].type == 'unit') {
+                    deltaState[prop] = Object.assign({}, this.start[prop]);
+                    deltaState[prop].value =  this.start[prop].value + (this.end[prop].value - this.start[prop].value) * ease(delta);
 
                 } else if (typeof this.start[prop] !== 'string') {
                     deltaState[prop] = this.start[prop] + (this.end[prop] - this.start[prop]) * ease(delta);

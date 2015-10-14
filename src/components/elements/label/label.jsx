@@ -46,6 +46,10 @@ export class Label extends React.Component {
         tag: React.PropTypes.bool
     };
 
+    static contextTypes = {
+        isProgressChild: React.PropTypes.bool
+    }
+
     // any header/subheader under a header is a subheader
     static childContextTypes = {
         isLabelChild: React.PropTypes.bool
@@ -69,7 +73,7 @@ export class Label extends React.Component {
 
         let Component = this.props.onClick ? 'a' : 'div';
 
-        let { defaultClasses, left, right, corner, label, attached, image, color, pointing, ribbon, tag, 
+        let { defaultClasses, left, right, corner, label, attached, image, color, pointing, ribbon, tag,
               link, circular, size, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -84,7 +88,7 @@ export class Label extends React.Component {
     getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses,
+            ui: this.props.defaultClasses && !this.context.isProgressChild,
 
             // types
             attached: this.props.attached,
@@ -99,7 +103,7 @@ export class Label extends React.Component {
             // variations
             circular: this.props.circular,
 
-            // component 
+            // component
             label: this.props.defaultClasses
         };
 
