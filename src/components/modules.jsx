@@ -20,3 +20,4 @@ export * from './modules/popup/popupelement';
 export * from './modules/popup/portal';
 export * from './modules/progress/bar';
 export * from './modules/progress/progress';
+export * from './modules/rating/rating';

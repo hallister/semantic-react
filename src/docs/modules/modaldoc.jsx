@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Segment, Header, Content, Button, Icon, Label } from '../../components/elements';
-import { ModalBody, Modal, Dimmer, Actions, Progress } from '../../components/modules';
+import { ModalBody, Modal, Dimmer, Actions, Rating } from '../../components/modules';
 import OutsideClick from 'react-outsideclickhandler';
 
 export class ModalDoc extends Component {
@@ -77,12 +77,8 @@ export class ModalDoc extends Component {
                     </Actions>
                 </Modal>
 
-                <Button onClick={this.onProgress.bind(this)}>Increase</Button>
-                <Button onClick={this.onProgress2.bind(this)}>Decrease</Button>
                 <Segment>
-                    <Progress progress={this.progress} active indicating showPercentage>
-                        <Label>test</Label>
-                    </Progress>
+                    <Rating max={10}/>
                 </Segment>
             </Segment>
         );
