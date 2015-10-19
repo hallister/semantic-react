@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "build": "webpack --colors --progress --display-modules  --config webpack-production.config.js",
-    "test": "./node_modules/karma/bin/karma start --single-run --no-auto-watch karma.config.js",
-    "test-watch": "./node_modules/karma/bin/karma start --auto-watch --no-single-run karma.config.js"
+    "test": "NODE_ENV=test ./node_modules/karma/bin/karma start --single-run --no-auto-watch karma.config.js",
+    "test-watch": "NODE_ENV=test ./node_modules/karma/bin/karma start --auto-watch --no-single-run karma.config.js"
   },
   "keywords": [
     "react",

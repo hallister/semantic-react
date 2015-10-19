@@ -1,5 +1,9 @@
 import ReactDOM from 'react-dom';
 
+// this is a minimalist implementation of Zepto. We are only using $ functions
+// that are neccesary to implement Semantic UI. None of these functions allow
+// for SETTING properties.
+
 let rQuery = (function() {
     let rquery = {}, $, emptyArray = [], uniq, filter = emptyArray.filter, camelize, class2type = {}, rootNodeRE = /^(?:body|html)$/i;
 

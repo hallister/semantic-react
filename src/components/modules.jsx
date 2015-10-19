@@ -3,7 +3,7 @@ export * from './modules/accordion/accordionbody';
 export * from './modules/accordion/accordiontitle';
 export * from './modules/animate/animate';
 export * from './modules/animate/animations';
-export * from './modules/animate/jql';
+export * from './modules/animate/rquery';
 export * from './modules/checkbox/checkbox';
 export * from './modules/checkbox/checkboxes';
 export * from './modules/dimmer/dimmer';
