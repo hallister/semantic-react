@@ -11,5 +11,5 @@ pids
 # Modules
 node_modules
 
-# Delete me eventually
-themes
+# webstorm
+.idea

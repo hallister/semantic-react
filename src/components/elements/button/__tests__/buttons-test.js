@@ -57,8 +57,8 @@ describe('Buttons', () => {
             let tree = sd.shallowRender($(Element, props, buttonsChildren));
             let vdom = tree.getRenderOutput();
 
-            expect(vdom.type).to.equal('span')    
-        }); 
+            expect(vdom.type).to.equal('span')
+        });
     });
 
     it('should position a group of buttons', () => {
@@ -70,7 +70,7 @@ describe('Buttons', () => {
         });
 
         expect(Object.keys(vdom.props.children)).to.have.length(2);
-    }); 
+    });
 
     it('should position a group of buttons vertically', () => {
         props.vertical = true;
@@ -79,7 +79,7 @@ describe('Buttons', () => {
 
         expect(vdom.props.className).to.match(/vertical/);
         expect(Object.keys(vdom.props.children)).to.have.length(2);
-    }); 
+    });
 
     it('should position a group of icon buttons', () => {
         props.vertical = true;

@@ -1,7 +1,5 @@
 import React, { createElement as $ } from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
-import { Button as Element, Segment, Icon } from '../../../elements';
+import { Button as Element, Icon } from '../../../elements';
 import { expect } from 'chai';
 import sd from 'skin-deep';
 
@@ -39,6 +37,7 @@ describe('Button', () => {
     });
 
     describe('should render in the DOM', () => {
+
         it('renders as <button>', () => {
             let tree = sd.shallowRender($(Element, props));
             let vdom = tree.getRenderOutput();
@@ -53,7 +52,7 @@ describe('Button', () => {
             let vdom = tree.getRenderOutput();
 
             expect(vdom.type).to.equal('div');
-        }); 
+        });
     })
 
     describe('should have color variations', () => {
@@ -288,7 +287,8 @@ describe('Button', () => {
 
         it('consumes all used props', () => {
             expect(Object.keys(vdom.props)).to.have.length(2);
-            expect(vdom.props).to.have.property('children', undefined);
+            expect(vdom.props).to.have.property('children');
+            expect(vdom.props.children).to.be.an('undefined');
             expect(vdom.props).to.have.property('className');
         });
 
@@ -300,14 +300,13 @@ describe('Button', () => {
             props['data-test'] = 'test';
             props['dataTest'] = 'test';
 
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
+            let dom = sd.shallowRender($(Element, props)).getRenderOutput();
 
             // length = props.length + className + children
             //      4 = 2            + 1         + 1
-            expect(Object.keys(vdom.props).length).to.equal(4);
-            expect(vdom.props).to.have.property('data-test', 'test');
-            expect(vdom.props).to.have.property('dataTest', 'test');
+            expect(Object.keys(dom.props).length).to.equal(4);
+            expect(dom.props).to.have.property('data-test', 'test');
+            expect(dom.props).to.have.property('dataTest', 'test');
         });
     });
 });

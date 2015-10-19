@@ -55,7 +55,7 @@ describe('IconButton', () => {
 	        let instance = tree.getMountedInstance();
 
 			expect(vdom.props).has.property('component', 'div');
-		});	
+		});
 	});
 
 	it('should have a single icon child', () => {

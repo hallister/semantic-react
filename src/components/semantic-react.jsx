@@ -8,3 +8,4 @@ exports.elements = elements;
 exports.modules = modules;
 exports.utilites = utilites;
 exports.views = views;
+exports.collections = collections;

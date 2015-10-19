@@ -39,8 +39,7 @@ module.exports = function(config) {
                     exclude: /(bower_components|node_modules)/,
                     loader: 'babel?optional[]=runtime&stage=0'
                 }]
-            },
-            plugins: new webpack.IgnorePlugin(/react-dom/)
+            }
         },
         webpackMiddleware: { noInfo: true }
     });

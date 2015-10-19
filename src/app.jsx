@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-// import * as ElementDocs from './docs/elements';
-// import * as ViewDocs from './docs/views';
+import * as ElementDocs from './docs/elements';
+import * as ViewDocs from './docs/views';
 import * as ModuleDocs from './docs/modules';
 
 export default class App extends Component {
@@ -12,7 +12,7 @@ export default class App extends Component {
     render() {
         return (
             <div>
-                <ModuleDocs.ModalDoc/>
+                <ElementDocs.ButtonDoc/>
             </div>
         );
     }
