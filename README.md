@@ -6,6 +6,9 @@ Repository for my current work porting the majority of Semantic UI to React Comp
 Status of various components are listed below. Testing is not implemented unless specified.
 There are no well-written docs as of yet.
 
+All elements/collections/views need to be converted to stateless functional components. Eventually there
+will be performance improvements using this style.
+
 #### Elements
 * Button - Complete. Testing complete.
 * Container - Complete.
@@ -28,7 +31,7 @@ There are no well-written docs as of yet.
 * Form - Not started. Needs review for priority.
 * Grid - Complete.
 * Menu - Complete.
-* Message - Not started. High priority.
+* Message - Complete (Stateless).
 * Table - Not started. High priority.
 
 ### Views

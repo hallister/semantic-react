@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Segment, Header, Content, Button, Icon, Label } from '../../components/elements';
 import { ModalBody, Modal, Dimmer, Actions, Rating } from '../../components/modules';
-import { Grid, Column, Row, Device, Computer } from '../../components/collections';
+import { Message } from '../../components/collections';
 import OutsideClick from 'react-outsideclickhandler';
 
 export class ModalDoc extends Component {
@@ -82,17 +82,9 @@ export class ModalDoc extends Component {
                     <Rating max={10}/>
                 </Segment>
 
-                <Grid columns={3} stackable>
-                    <Column visible="large screen">
-                        <Segment>1</Segment>
-                    </Column>
-                    <Column>
-                        <Segment>1</Segment>
-                    </Column>
-                    <Column>
-                        <Segment>1</Segment>
-                    </Column>
-                </Grid>
+                <Message>
+                Test
+                </Message>
             </Segment>
         );
     }

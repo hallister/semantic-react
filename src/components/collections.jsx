@@ -5,3 +5,4 @@ export * from './collections/grid/device';
 export * from './collections/grid/column';
 export * from './collections/grid/row';
 export * from './collections/grid/grid';
+export * from './collections/message/message';
