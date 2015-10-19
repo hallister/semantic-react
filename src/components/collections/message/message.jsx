@@ -8,8 +8,8 @@ let validProps = {
 };
 
 let message = (
-        { className, component, compact, defaultClasses, floating, hidden, icon,
-          visible, type, state, color, size, children, ...other }
+        { children, className, color, compact, component, defaultClasses,
+          floating, hidden, icon, size, state, type, visible, ...other }
     ) => {
 
     let classes = {
