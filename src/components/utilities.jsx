@@ -81,13 +81,19 @@ export function getChild(children, component, equal = true) {
     }.bind(this));
 }
 
-export function validateClassProps(classes, props, validator) {
+export function validateClassProps(classes, props, validator, sub) {
     for (let propName of Object.keys(validator)) {
         if (!!props[propName] === true) {
+            let realProp = propName;
+
+            if (sub && sub[propName]) {
+                realProp = sub[propName];
+            }
+
             classes[propName] = false;
 
             if (typeof props[propName] === 'string') {
-                classes[props[propName] + ' ' + propName] = true;
+                classes[props[propName] + ' ' + realProp] = true;
             } else {
                 classes[propName] = true;
             }

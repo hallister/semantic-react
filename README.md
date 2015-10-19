@@ -26,7 +26,7 @@ There are no well-written docs as of yet.
 ### Collections
 * Breadcrumb - Not started. This feels tied to a router. [Existing option for react-router](https://github.com/svenanders/react-breadcrumbs).
 * Form - Not started. Needs review for priority.
-* Grid - Needs rewrite. Very high priority.
+* Grid - Complete.
 * Menu - Complete.
 * Message - Not started. High priority.
 * Table - Not started. High priority.
