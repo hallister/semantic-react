@@ -8,7 +8,7 @@ There are no well-written docs as of yet.
 
 #### Elements
 * Button - Complete. Testing complete.
-* Container - Won't Implement. Probably just add a `container` prop to a grid.
+* Container - Complete.
 * Divider - Complete.
 * Flag - Complete.
 * Header - Complete.
