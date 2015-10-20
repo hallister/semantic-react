@@ -1,4 +1,5 @@
 import React from 'react';
+import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 
 let validProps = {
@@ -7,35 +8,38 @@ let validProps = {
     state: ['success', 'error']
 };
 
-let message = (
-        { children, className, color, compact, component, defaultClasses,
-          floating, hidden, icon, size, state, type, visible, ...other }
-    ) => {
-
+function getClasses(props) {
     let classes = {
-        ui: defaultClasses,
+        ui: props.defaultClasses,
 
-        compact: compact,
-        floating: floating,
-        hidden: hidden,
-        icon: icon,
-        visible: visible,
+        compact: props.compact,
+        floating: props.floating,
+        hidden: props.hidden,
+        icon: props.icon,
+        visible: props.visible,
 
-        info: type === 'info' && !state,
-        warning: type === 'warning' && !state,
-        positive: type === 'positive' && !state,
-        negative: type === 'negative' && !state,
+        info: props.type === 'info' && !props.state,
+        warning: props.type === 'warning' && !props.state,
+        positive: props.type === 'positive' && !props.state,
+        negative: props.type === 'negative' && !props.state,
 
-        success: state === 'success',
-        error: state === 'error',
+        success: props.state === 'success',
+        error: props.state === 'error',
 
-        message: defaultClasses
+        message: props.defaultClasses
     }
 
-    classes[color] = !!color;
-    classes[size] = !!size;
+    classes[props.color] = !!props.color;
+    classes[props.size] = !!props.size;
+    return validateClassProps(classes, props, validProps);
+}
 
-    other.className = classNames(className, classes);
+let message = (props) => {
+    let { attached, children, className, color, compact, component,
+          defaultClasses, floating, hidden, icon, size, state, type, visible,
+          ...other } = props;
+
+    other.className = classNames(className, getClasses(props));
 
     return React.createElement(
         component,

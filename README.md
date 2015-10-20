@@ -28,11 +28,11 @@ will be performance improvements using this style.
 
 ### Collections
 * Breadcrumb - Not started. This feels tied to a router. [Existing option for react-router](https://github.com/svenanders/react-breadcrumbs).
-* Form - Not started. Needs review for priority.
+* Form - Not started. High priority.
 * Grid - Complete.
 * Menu - Complete.
 * Message - Complete (Stateless).
-* Table - Not started. High priority.
+* Table - Complete (Stateless). Usefulness of `Td` and `Tr` components are debatable.
 
 ### Views
 * Advertisement - Not started. Very low priority.
