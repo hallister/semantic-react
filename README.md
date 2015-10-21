@@ -6,8 +6,17 @@ Repository for my current work porting the majority of Semantic UI to React Comp
 Status of various components are listed below. Testing is not implemented unless specified.
 There are no well-written docs as of yet.
 
-All elements/collections/views need to be converted to stateless functional components. Eventually there
-will be performance improvements using this style.
+There are some notable issues with Semantic UI using a ton of descendant selectors and `:only-child`
+selectors. As a resulta few components look "different" than SUI has them, in other cases (`Statistic`)
+the markup is completely unusable in React. The most direct way of fixing this problem is to fork Semantic
+and build inline styles into components, leaving the CSS for uses cases where descendant selectors
+are an absolute must (a grid that is a child of a grid).
+
+However, forking and maintaining a 35k CSS library is a little outside the scope of this project.
+
+#### General Todo's
+* Convert all stateless components to functional components (See `Message` and `Table`).
+* Remove `@Animate` from any non-module component. Use Composed Components in modules.
 
 #### Elements
 * Button - Complete. Testing complete.
@@ -30,7 +39,7 @@ will be performance improvements using this style.
 * Breadcrumb - Not started. This feels tied to a router. [Existing option for react-router](https://github.com/svenanders/react-breadcrumbs).
 * Form - Not started. High priority.
 * Grid - Complete.
-* Menu - Complete.
+* Menu - Complete. Minor rework: Make AnimatedMenu component for the `@Animate` decorator in modules. We can then convert collections to stateless.
 * Message - Complete (Stateless).
 * Table - Complete (Stateless). Usefulness of `Td` and `Tr` components are debatable.
 
@@ -40,7 +49,7 @@ will be performance improvements using this style.
 * Comment - Not started. Mid priority.
 * Feed - Not started. Low priority.
 * Item - Needs modification. Currently implemented as an element. Mid priority.
-* Statistic - Not started. High priority.
+* Statistic - *Can't implement*. [Currently not feasible](https://github.com/hallister/semantic-react/issues/6).
 
 ### Modules
 * Accordion - Needs rewrite. Mid Priority.

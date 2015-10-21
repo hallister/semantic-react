@@ -43,7 +43,8 @@ export class Label extends React.Component {
         ]),
         right: React.PropTypes.bool,
         size: React.PropTypes.string,
-        tag: React.PropTypes.bool
+        tag: React.PropTypes.bool,
+        uiClass: React.PropTypes.bool
     };
 
     static contextTypes = {
@@ -59,7 +60,8 @@ export class Label extends React.Component {
         corner: false,
         defaultClasses: true,
         pointing: false,
-        ribbon: false
+        ribbon: false,
+        uiClass: true
     };
 
     getChildContext() {
@@ -88,7 +90,7 @@ export class Label extends React.Component {
     getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses && !this.context.isProgressChild,
+            ui: this.props.defaultClasses && this.props.uiClass && !this.context.isProgressChild,
 
             // types
             attached: this.props.attached,

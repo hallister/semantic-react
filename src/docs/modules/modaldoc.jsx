@@ -82,13 +82,7 @@ export class ModalDoc extends Component {
                     <Rating max={10}/>
                 </Segment>
 
-                <Table>
-                    <tbody>
-                        <Tr type="warning">
-                            <Td>Test</Td>
-                        </Tr>
-                    </tbody>
-                </Table>
+
             </Segment>
         );
     }
