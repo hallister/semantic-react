@@ -16,7 +16,8 @@ function getClasses(props) {
 }
 
 let comments = (props) => {
-    let { children, className, component, defaultClasses, ...other } = props;
+    let { children, className, collapsed, component, defaultClasses, minimal,
+          threaded, ...other } = props;
 
     other.className = classNames(className, getClasses(props));
 
@@ -28,6 +29,7 @@ let comments = (props) => {
 };
 
 comments.propTypes = {
+    children: React.PropTypes.node,
     className: React.PropTypes.any,
     collapsed: React.PropTypes.bool,
     component: React.PropTypes.oneOfType([

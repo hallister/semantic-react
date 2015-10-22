@@ -2,14 +2,6 @@ import React from 'react';
 import { Image, Content } from '../../elements';
 import classNames from 'classnames';
 
-function getClasses(props) {
-    let classes = {
-        comment: props.defaultClasses
-    }
-
-    return classes;
-}
-
 function renderChildren(children) {
     let commentChildren = [];
     let contentChildren = [];
@@ -22,6 +14,7 @@ function renderChildren(children) {
                     child,
                     {
                         component: 'a',
+                        avatar: true,
                         key: 'commentAvatar',
                         defaultClasses: false
                     },
@@ -42,10 +35,8 @@ function renderChildren(children) {
     return commentChildren;
 }
 
-let comment = (props) => {
-    let { children, className, component, defaultClasses, ...other } = props;
-
-    other.className = classNames(className, getClasses(props));
+let Comment = ({ children, className, component, ...other }) => {
+    other.className = classNames(className, { comment: true });
 
     return React.createElement(
         component,
@@ -54,18 +45,17 @@ let comment = (props) => {
     );
 };
 
-comment.propTypes = {
+Comment.propTypes = {
+    children: React.PropTypes.node,
     className: React.PropTypes.any,
     component: React.PropTypes.oneOfType([
         React.PropTypes.element,
         React.PropTypes.string
-    ]),
-    defaultClasses: React.PropTypes.bool
+    ])
 }
 
-comment.defaultProps = {
-    component: 'div',
-    defaultClasses: true
+Comment.defaultProps = {
+    component: 'div'
 }
 
-exports.Comment = comment;
+exports.Comment = Comment;

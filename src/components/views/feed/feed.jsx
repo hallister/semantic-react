@@ -3,14 +3,19 @@ import classNames from 'classnames';
 
 function getClasses(props) {
     let classes = {
-        actions: props.defaultClasses
+        ui: props.defaultClasses,
+
+        feed: props.defaultClasses
     }
+
+    classes[props.size] = !!props.size;
 
     return classes;
 }
 
-let actions = (props) => {
-    let { children, className, component, defaultClasses, ...other } = props;
+let Feed = (props) => {
+    let { children, className, component, defaultClasses, size,
+          ...other } = props;
 
     other.className = classNames(className, getClasses(props));
 
@@ -21,18 +26,20 @@ let actions = (props) => {
     );
 };
 
-actions.propTypes = {
+Feed.propTypes = {
+    children: React.PropTypes.node,
     className: React.PropTypes.any,
     component: React.PropTypes.oneOfType([
         React.PropTypes.element,
         React.PropTypes.string
     ]),
-    defaultClasses: React.PropTypes.bool
+    defaultClasses: React.PropTypes.bool,
+    size: React.PropTypes.string
 }
 
-actions.defaultProps = {
+Feed.defaultProps = {
     component: 'div',
     defaultClasses: true
 }
 
-exports.Actions = actions;
+exports.Feed = Feed;

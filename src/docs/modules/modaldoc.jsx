@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Segment, Header, Content, Button, Icon, Label, Image } from '../../components/elements';
 import { ModalBody, Modal, Dimmer, Rating } from '../../components/modules';
-import { Comments, Comment, Actions, Author, Meta, Text } from '../../components/views';
+import { Comments, Comment, Actions, Author, Meta, Text, Feed, Event, Summary } from '../../components/views';
 import OutsideClick from 'react-outsideclickhandler';
 
 export class ModalDoc extends Component {
@@ -81,6 +81,45 @@ export class ModalDoc extends Component {
                 <Segment>
                     <Rating max={10}/>
                 </Segment>
+
+                <Segment basic>
+                    <Comments>
+                        <Header dividing>Comments</Header>
+                        <Comment>
+                        <Image src="http://semantic-ui.com/images/avatar/small/matt.jpg" />
+                            <Author>Test</Author>
+                            <Meta>2 hours ago</Meta>
+                            <Text>Test</Text>
+                            <Actions>
+                                <a>Reply</a>
+                            </Actions>
+                        </Comment>
+                        <Comment>
+                            <Author>Test</Author>
+                            <Meta>
+                                <div>Test</div>
+                            </Meta>
+                            <Text>Test</Text>
+                            <Actions>
+                                <a>Reply</a>
+                            </Actions>
+                        </Comment>
+                    </Comments>
+                </Segment>
+
+                <Feed>
+                    <Event>
+                        <Image src="http://semantic-ui.com/images/avatar/small/matt.jpg" />
+                    </Event>
+
+                </Feed>
+
+                <Feed>
+                    <Event>
+                        <Icon name="pencil" />
+                    </Event>
+
+                </Feed>
 
             </Segment>
         );

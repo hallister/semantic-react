@@ -33,6 +33,7 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 * Rail - Complete.
 * Reveal - Complete.
 * Segment - Complete.
+* Simple - Complete. Set of simple elements (Actions, Author, Date, etc).
 * Step - Not started. Low priority.
 
 ### Collections
@@ -47,7 +48,7 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 * Advertisement - Not started. Very low priority.
 * Card - Complete.
 * Comment - Complete (Stateless).
-* Feed - Not started. Low priority.
+* Feed - Complete (Stateless).
 * Item - Needs modification. Currently implemented as an element. Mid priority.
 * Statistic - *Can't implement*. [Currently not feasible](https://github.com/hallister/semantic-react/issues/6).
 
