@@ -40,7 +40,7 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 * Breadcrumb - Not started. This feels tied to a router. [Existing option for react-router](https://github.com/svenanders/react-breadcrumbs).
 * Form - Complete (Stateless).
 * Grid - Complete.
-* Menu - Complete. Minor rework: Make AnimatedMenu component for the `@Animate` decorator in modules. We can then convert collections to stateless.
+* Menu - Complete. Remove `@Animate`. See Dropdown.
 * Message - Complete (Stateless).
 * Table - Complete (Stateless). Usefulness of `Td` and `Tr` components are debatable.
 
@@ -57,7 +57,7 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 * Animate - Complete.
 * Checkbox - Needs modification. Doesn't work well with forms.
 * Dimmer - Complete.
-* Dropdown - `Select` complete, but `DropdownMenu` hasn't been implemented. High priority.
+* Dropdown - Partial complete. Need `DropdownMenu` and `AnimatedMenu`.
 * Embed - Not started. Low priority.
 * Modal - Complete.
 * Nag - Not started. Semantic rewrite in-progress.
