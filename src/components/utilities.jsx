@@ -26,6 +26,18 @@ export function arrayToObject(array, value = false) {
     return returnObject;
 }
 
+export function countChildren(children, component) {
+    let count = 0;
+
+    React.Children.forEach(children, child => {
+        if (child.type === component) {
+            count++;
+        }
+    });
+
+    return count;
+}
+
 export function hasChild(children, component) {
     children = React.Children.toArray(children);
 

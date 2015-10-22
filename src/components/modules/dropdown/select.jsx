@@ -22,6 +22,7 @@ export class Select extends React.Component {
             from: React.PropTypes.object,
             to: React.PropTypes.object
         }),
+        fluid: React.PropTypes.bool,
         glyphWidth: React.PropTypes.number,
         ignoreCase: React.PropTypes.bool,
         leaveAnimation: React.PropTypes.shape({
@@ -437,6 +438,7 @@ export class Select extends React.Component {
             // types
             selection: true,
             search: this.props.search,
+            fluid: this.props.fluid,
 
             // state
             error: this.state.error,

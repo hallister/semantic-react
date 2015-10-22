@@ -38,7 +38,7 @@ export class Bar extends React.Component {
 
               // add classnames
         other.className = classNames(this.props.className, this.getClasses());
-        other.style = { width: progress + '%', 'transition-duration': this.props.duration + 'ms' }
+        other.style = { width: progress + '%', transitionDuration: this.props.duration + 'ms' }
 
         return React.createElement(
             this.props.component,

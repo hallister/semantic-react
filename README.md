@@ -38,7 +38,7 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 
 ### Collections
 * Breadcrumb - Not started. This feels tied to a router. [Existing option for react-router](https://github.com/svenanders/react-breadcrumbs).
-* Form - Not started. High priority.
+* Form - Complete (Stateless).
 * Grid - Complete.
 * Menu - Complete. Minor rework: Make AnimatedMenu component for the `@Animate` decorator in modules. We can then convert collections to stateless.
 * Message - Complete (Stateless).
@@ -55,7 +55,7 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 ### Modules
 * Accordion - Needs rewrite. Mid Priority.
 * Animate - Complete.
-* Checkbox - Complete.
+* Checkbox - Needs modification. Doesn't work well with forms.
 * Dimmer - Complete.
 * Dropdown - `Select` complete, but `DropdownMenu` hasn't been implemented. High priority.
 * Embed - Not started. Low priority.

@@ -9,6 +9,7 @@ let validProps = {
 export class Device extends React.Component {
     static propTypes = {
         callback: React.PropTypes.func,
+        children: React.PropTypes.node,
         reversed: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(validProps.reversed)
         ]),

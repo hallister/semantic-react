@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import * as ElementDocs from './docs/elements';
 import * as ViewDocs from './docs/views';
 import * as ModuleDocs from './docs/modules';
-import { Segment, Button } from '../src/components/elements';
-import { Progress } from '../src/components/modules';
+import { Segment, Button, Input } from '../src/components/elements';
+import { Checkbox, Checkboxes } from '../src/components/modules';
+import { Form, Fields, Field } from '../src/components/collections';
 
 export default class App extends Component {
     constructor(props) {
@@ -24,8 +25,18 @@ export default class App extends Component {
     render() {
         return (
             <Segment>
-                <Button onClick={this.onClick.bind(this)}>Increase</Button>
-                <Progress progress={this.state.progress} />
+                <Form
+                    success
+                >
+                    <Field
+                        label="Test"
+                    >
+                        <Checkboxes>
+                            <Checkbox>Test</Checkbox>
+                            <Checkbox>Test</Checkbox>
+                        </Checkboxes>
+                    </Field>
+                </Form>
             </Segment>
         );
     }

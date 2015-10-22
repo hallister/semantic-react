@@ -43,8 +43,6 @@ function getClasses(props) {
     classes[props.color] = !!props.color;
     classes[props.size] = !!props.size;
 
-
-
     if (props.columns !== false) {
         if (props.columns > 0 && props.columns <= 16) {
             classes[Numbers[props.columns] + ' column'] = true;

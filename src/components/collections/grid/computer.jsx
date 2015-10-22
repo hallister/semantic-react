@@ -1,7 +1,7 @@
 import React from 'react';
 import { Device } from './device';
 
-exports.Computer = (props) => {
+let Computer = (props) => {
     return (
         <Device
             {...props}
@@ -11,3 +11,9 @@ exports.Computer = (props) => {
         </Device>
     );
 };
+
+Computer.propTypes = {
+    children: React.PropTypes.node
+}
+
+exports.Computer = Computer;
