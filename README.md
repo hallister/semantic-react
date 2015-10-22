@@ -62,7 +62,7 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 * Modal - Complete.
 * Nag - Not started. Semantic rewrite in-progress.
 * Popup - Complete.
-* Progress - Complete. [Notable Chrome bug](https://github.com/hallister/semantic-react/issues/4).
+* Progress - Complete.
 * Rating - Complete.
 * Search - Not started. Low priority.
 * Shape - Not started. Very low priority.
