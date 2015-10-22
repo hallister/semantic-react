@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="0"  lines-covered="0"  line-rate="1"  branches-valid="0"  branches-covered="0"  branch-rate="1"  timestamp="1445285883829" complexity="0" version="0.1">
+<coverage lines-valid="0"  lines-covered="0"  line-rate="1"  branches-valid="0"  branches-covered="0"  branch-rate="1"  timestamp="1445541680717" complexity="0" version="0.1">
 <sources>
 	<source>/home/justin/Projects/semantic-react</source>
 </sources>

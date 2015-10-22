@@ -82,7 +82,7 @@
     "react-transform-hmr": "^1.0.0",
     "redbox-react": "^1.1.1",
     "sinon": "^1.17.0",
-    "skin-deep": "^0.8.1",
+    "skin-deep": "^0.11.0",
     "strip-loader": "^0.1.0",
     "uglify-js": "^2.4.24",
     "webpack": "^1.12.2",
