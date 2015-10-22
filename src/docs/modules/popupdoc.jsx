@@ -34,6 +34,7 @@ export class PopupDoc extends Component {
                 >
                     Types
                 </Header>
+                <br/><br/>
                 <Button
                     onMouseEnter={this.onMouseEnter.bind(this)}
                     onMouseLeave={this.onMouseLeave.bind(this)}

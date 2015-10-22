@@ -28,7 +28,7 @@ export class PopupPlacer extends React.Component {
         active: false,
         component: 'div',
         defaultClasses: true,
-        distanceAway: 10,
+        distanceAway: 0,
         jitter: 2,
         offset: 0,
         position: 'top left'

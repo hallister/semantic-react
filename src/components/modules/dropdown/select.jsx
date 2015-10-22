@@ -82,7 +82,8 @@ export class Select extends React.Component {
         this.state = {
             active: false,
             error: false,
-            selected: props.multiple ? [] : null
+            selected: props.multiple ? [] : null,
+            visible: false
         }
     }
 

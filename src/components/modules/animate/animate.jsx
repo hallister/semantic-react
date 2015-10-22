@@ -86,13 +86,16 @@ export function Animate(ComposedComponent) {
         }
 
         componentWillReceiveProps(props) {
+            // if the animate state has change OR this isn't a stateful animation (props.start && !props.end)
             if (!this.animating && (props.animate !== this.props.animate) || (props.start && !props.end)) {
-                if (props.animate && props.start != false) {
+                // non-stateful animations (such as progress) current use this. It's not very clear on
+                // how this works. Probably need to handle this as a different use case.
+                if (props.animate && props.start !== false) {
                     this.start = this.parseProperties(props.start.from);
                     this.end = this.parseProperties(props.start.to);
                     this.duration = props.start.duration || this.props.duration;
                     this.ease = props.start.ease || props.ease;
-                } else if (!props.animate && props.end != false) {
+                } else if (!props.animate && props.end !== false) {
                     this.start = this.parseProperties(props.end.from);
                     this.end = this.parseProperties(props.end.to);
                     this.duration = props.end.duration || this.props.duration;
@@ -107,6 +110,7 @@ export function Animate(ComposedComponent) {
             if (this.props.enter !== false) {
                 let duration;
 
+                // duration can be a prop or a value in the animation object
                 if (typeof this.props.enter.duration === 'number') {
                     duration = this.props.enter.duration;
                 } else {
@@ -141,6 +145,8 @@ export function Animate(ComposedComponent) {
             this.animating = false;
 
             this.animatingDOM = false;
+
+            // this.callback handles onComplete for ReactTranssitionGroup, onComplete() is the user defined callback
             this.props.onComplete();
             this.callback();
         }
@@ -150,9 +156,11 @@ export function Animate(ComposedComponent) {
                   ...other } = this.props;
             let style = this.state.style;
 
-            if (!this.start && !this.end) {
-                style = {};
-            }
+            // I think this was legacy from the original popup code, bu tis
+            // no longer neccesary. It breaks dropdowns.
+            // if (!this.start && !this.end) {
+            //    style = {};
+            // }
 
             return (
                 <ComposedComponent
@@ -164,8 +172,10 @@ export function Animate(ComposedComponent) {
 
         stringifyProperties(anim) {
             Object.keys(anim).forEach(prop => {
+                // handle function properties: translateX(3)
                 if (typeof anim[prop] === 'object' && this.start[prop].type == 'function') {
                     anim[prop] = anim[prop].name + '(' + anim[prop].params.join(',') + ')';
+                // handle units: { value: 0, units: '%'}
                 } else if  (typeof anim[prop] === 'object' && this.start[prop].type == 'unit') {
                     anim[prop] = anim[prop].value + anim[prop].units;
                 }
@@ -181,8 +191,21 @@ export function Animate(ComposedComponent) {
                 let value = anim[prop];
                 let func = re.exec(value);
 
+                /*
+                    handles use-cases where units aren't standard
+                    {
+                        value: 0,
+                        units: %
+                    }
+                */
                 if (typeof anim[prop] === 'object' && anim[prop].units) {
                     anim[prop].type = 'unit'
+                /*
+                    handles case where the value is a CSS function
+                    {
+                        width: transformX(3)
+                    }
+                */
                 } else if (func) {
                     let name = func[1];
                     let params = func[2].split(',');
@@ -219,8 +242,10 @@ export function Animate(ComposedComponent) {
             let delta = (time - this.startTime) / (this.duration || this.props.duration);
             let deltaState = {};
 
+            // linear, swing and spring are seperate functions
             if (this.ease == 'linear' || this.ease == 'swing' || this.ease == 'spring') {
                 ease = easings[this.ease];
+            // otherwise use the curve generator
             } else {
                 ease = bezier.apply(this, easings[this.ease]);
             }
@@ -229,6 +254,7 @@ export function Animate(ComposedComponent) {
 
             Object.keys(this.start).forEach(prop => {
 
+                // handle function values: translateX(3)
                 if (typeof this.start[prop] === 'object' && this.start[prop].type == 'function') {
                     deltaState[prop] = Object.assign({}, this.start[prop]);
 
@@ -236,12 +262,16 @@ export function Animate(ComposedComponent) {
                         return item + (this.end[prop].params[index] - item) * ease(delta);
                     });
 
+                // handles unit values: width: { value: 0, units: '%' }
                 } else if (typeof this.start[prop] === 'object' && this.start[prop].type == 'unit') {
                     deltaState[prop] = Object.assign({}, this.start[prop]);
                     deltaState[prop].value =  this.start[prop].value + (this.end[prop].value - this.start[prop].value) * ease(delta);
 
+                // handles numeric values { width: 0 }
                 } else if (typeof this.start[prop] !== 'string') {
                     deltaState[prop] = this.start[prop] + (this.end[prop] - this.start[prop]) * ease(delta);
+
+                // anything else we just leave alone
                 } else {
                     deltaState[prop] = this.start[prop];
                 }
