@@ -11,7 +11,6 @@ export * from './modules/dimmer/dimmable';
 export * from './modules/dropdown/dropdown';
 export * from './modules/dropdown/select';
 export * from './modules/dropdown/option';
-export * from './modules/modal/actions';
 export * from './modules/modal/modal';
 export * from './modules/modal/modalbody';
 export * from './modules/popup/popup';

@@ -46,7 +46,7 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 ### Views
 * Advertisement - Not started. Very low priority.
 * Card - Complete.
-* Comment - Not started. Mid priority.
+* Comment - Complete (Stateless).
 * Feed - Not started. Low priority.
 * Item - Needs modification. Currently implemented as an element. Mid priority.
 * Statistic - *Can't implement*. [Currently not feasible](https://github.com/hallister/semantic-react/issues/6).

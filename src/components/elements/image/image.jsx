@@ -28,6 +28,7 @@ export class Image extends React.Component {
         floated: React.PropTypes.oneOf(validProps.floated),
         fluid: React.PropTypes.bool,
         hidden: React.PropTypes.bool,
+        isCommentsChild: React.PropTypes.bool,
         rounded: React.PropTypes.bool,
         size: React.PropTypes.string,
         spaced: React.PropTypes.oneOfType([
@@ -44,14 +45,15 @@ export class Image extends React.Component {
 
     // we don't want the ui in these circumstances
     static contextTypes = {
-        isLabelChild: React.PropTypes.bool
+        isLabelChild: React.PropTypes.bool,
+        isCommentsChild: React.PropTypes.bool
     };
 
     renderComponent(other) {
         let imageDiv = (
-                            <img 
-                                key="image" 
-                                src={this.props.src} 
+                            <img
+                                key="image"
+                                src={this.props.src}
                             />
                         );
 
@@ -64,7 +66,7 @@ export class Image extends React.Component {
 
     renderImg(other) {
         return (
-            <img src={this.props.src} 
+            <img src={this.props.src}
                 {...other}
             />
         );
@@ -72,15 +74,15 @@ export class Image extends React.Component {
 
     render() {
         let { aligned, avatar, bordered, centered, children, circular, className, content,
-              defaultClasses, disabled, floated, fluid, hidden, rounded, size, spaced, 
+              defaultClasses, disabled, floated, fluid, hidden, rounded, size, spaced,
               src, visible, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
         // if a custom tag or a child is passed, it will always render
         // a custom tag/div
-        return React.Children.count(this.props.children) > 0 || this.props.component 
-             ? this.renderComponent(other) 
+        return React.Children.count(this.props.children) > 0 || this.props.component || this.props.avatar
+             ? this.renderComponent(other)
              : this.renderImg(other);
     }
 
@@ -101,8 +103,8 @@ export class Image extends React.Component {
             // variations
             aligned: this.props.aligned,
             avatar: this.props.avatar,
-            bordered: this.props.bordered,       
-            centered: this.props.centered,                
+            bordered: this.props.bordered,
+            centered: this.props.centered,
             circular: this.props.circular,
             floated: this.props.floated,
             fluid: this.props.fluid,
@@ -110,7 +112,7 @@ export class Image extends React.Component {
             spaced: this.props.spaced,
 
             // component
-            image: this.props.defaultClasses && !this.props.content
+            image: this.props.defaultClasses && !this.props.content && this.context.isCommentsChild !== true
 
         };
 

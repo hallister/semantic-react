@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Segment, Header, Content, Button, Icon, Label } from '../../components/elements';
-import { ModalBody, Modal, Dimmer, Actions, Rating } from '../../components/modules';
-import { Table, Td, Tr } from '../../components/collections';
+import { Segment, Header, Content, Button, Icon, Label, Image } from '../../components/elements';
+import { ModalBody, Modal, Dimmer, Rating } from '../../components/modules';
+import { Comments, Comment, Actions, Author, Meta, Text } from '../../components/views';
 import OutsideClick from 'react-outsideclickhandler';
 
 export class ModalDoc extends Component {
@@ -81,7 +81,6 @@ export class ModalDoc extends Component {
                 <Segment>
                     <Rating max={10}/>
                 </Segment>
-
 
             </Segment>
         );
