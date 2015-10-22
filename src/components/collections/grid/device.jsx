@@ -1,6 +1,5 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
-import classNames from 'classnames';
 
 let validProps = {
     reversed: ['vertically']
