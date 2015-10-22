@@ -6,13 +6,17 @@ export class Checkbox extends Component {
     static propTypes = {
         active: React.PropTypes.bool,
         checked: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.any,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
+        indeterminate: React.PropTypes.bool,
         name: React.PropTypes.string,
+        onClick: React.PropTypes.func,
         radio: React.PropTypes.bool,
         readOnly: React.PropTypes.bool,
         slider: React.PropTypes.bool,

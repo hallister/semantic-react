@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Images, Icon, Label } from '../../elements';
+import { Image, Images, Icon } from '../../elements';
 import classNames from 'classnames';
 
 function renderContent(children) {

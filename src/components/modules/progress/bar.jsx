@@ -1,8 +1,6 @@
 import React from 'react';
-import { Animate } from '../../modules';
 import classNames from 'classnames';
 
-@Animate
 export class Bar extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
@@ -12,6 +10,7 @@ export class Bar extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
+        duration: React.PropTypes.number,
         progress: React.PropTypes.number,
         showPercentage: React.PropTypes.bool,
         style: React.PropTypes.object
@@ -39,7 +38,7 @@ export class Bar extends React.Component {
 
               // add classnames
         other.className = classNames(this.props.className, this.getClasses());
-        other.style = Object.keys(this.props.style).length > 0 ? this.props.style : { width: this.props.progress + '%' }
+        other.style = { width: progress + '%', 'transition-duration': this.props.duration + 'ms' }
 
         return React.createElement(
             this.props.component,

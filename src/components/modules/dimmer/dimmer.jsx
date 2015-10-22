@@ -6,7 +6,14 @@ import classNames from 'classnames';
 
 export class Dimmer extends Component {
     static propTypes = {
+        active: React.PropTypes.bool,
         blurring: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.any,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
@@ -17,7 +24,7 @@ export class Dimmer extends Component {
     static childContextTypes = {
         isDimmerChild: React.PropTypes.bool
     };
-   
+
     static defaultProps = {
         defaultClasses: true,
         basic: true,
@@ -48,6 +55,12 @@ export class Dimmer extends Component {
         }
     }
 
+    getChildContext() {
+        return {
+            isDimmerChild: true
+        };
+    }
+
     // IE 10+
     componentWillMount() {
         if (this.props.page) {
@@ -60,12 +73,6 @@ export class Dimmer extends Component {
         if (this.props.page) {
             document.body.classList.remove('dimmable');
         }
-    }
-
-    getChildContext() {
-        return {
-            isDimmerChild: true
-        };
     }
 
     renderChildren() {
@@ -122,7 +129,7 @@ export class Dimmer extends Component {
         );
     }
 
-    render() { 
+    render() {
         if (hasChild(this.props.children, Loader)) {
             return this.renderLoader();
         } else {

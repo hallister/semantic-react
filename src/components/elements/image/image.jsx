@@ -36,17 +36,17 @@ export class Image extends React.Component {
             React.PropTypes.bool
         ]),
         src: React.PropTypes.string.isRequired,
-        visibile: React.PropTypes.bool
-    };
-
-    static defaultProps = {
-        defaultClasses: true
+        visible: React.PropTypes.bool
     };
 
     // we don't want the ui in these circumstances
     static contextTypes = {
         isLabelChild: React.PropTypes.bool,
         isCommentsChild: React.PropTypes.bool
+    };
+
+    static defaultProps = {
+        defaultClasses: true
     };
 
     renderComponent(other) {

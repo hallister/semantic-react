@@ -1,27 +1,16 @@
 import React from 'react';
-import { Icon, Button } from '../../elements';
+import { IconButton } from '../../elements';
 
-exports.SocialButton = (props) => {
-    let { name, ...other } = props;
-    let children = [];
-
-    children.push(
-        <Icon
-            key="icon"
-            name={props.name}
-        />
-    );
-
-    React.Children.forEach(props.children, child => {
-        children.push(child);
-    });
-
+let SocialButton = ({ children, name, ...other }) => {
     return (
-        <Button {...other} 
-            icon={React.Children.count(props.children) === 0 ? true : false}
-            social={props.name} 
+        <IconButton {...other}
+            icon={React.Children.count(children) === 0 ? true : false}
+            name={name}
+            social
         >
             {children}
-        </Button>
-    );   
-}
+        </IconButton>
+    );
+};
+
+exports.SocialButton = SocialButton;

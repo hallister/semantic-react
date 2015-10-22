@@ -156,12 +156,6 @@ export function Animate(ComposedComponent) {
                   ...other } = this.props;
             let style = this.state.style;
 
-            // I think this was legacy from the original popup code, bu tis
-            // no longer neccesary. It breaks dropdowns.
-            // if (!this.start && !this.end) {
-            //    style = {};
-            // }
-
             return (
                 <ComposedComponent
                     {...other}

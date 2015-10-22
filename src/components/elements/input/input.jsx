@@ -4,13 +4,23 @@ import classNames from 'classnames';
 
 export class Input extends React.Component {
     static propTypes = {
-        children: React.PropTypes.node, 
-        className: React.PropTypes.node, 
+        action: React.PropTypes.bool,
+        children: React.PropTypes.node,
+        className: React.PropTypes.node,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
         defaultClasses: React.PropTypes.bool,
+        disabled: React.PropTypes.bool,
+        error: React.PropTypes.bool,
+        fluid: React.PropTypes.bool,
+        focus: React.PropTypes.bool,
         icon: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.bool
         ]),
+        inverted: React.PropTypes.bool,
         labeled: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.bool
@@ -18,11 +28,13 @@ export class Input extends React.Component {
         loading: React.PropTypes.bool,
         name: React.PropTypes.string,
         placeholder: React.PropTypes.string,
+        size: React.PropTypes.string,
         tag: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.func,
             React.PropTypes.string
         ]),
+        transparent: React.PropTypes.bool,
         type: React.PropTypes.string.isRequired
     };
 
@@ -31,7 +43,7 @@ export class Input extends React.Component {
         defaultClasses: true,
         loading: false,
         placeholder: 'Search...'
-    }; 
+    };
 
     renderCheckbox() {
         // consume the type and create a checkbox
@@ -43,14 +55,14 @@ export class Input extends React.Component {
     renderText() {
         // see if icon and label are children
         this.processChildren();
-        
-        let { children, className, defaultClasses, icon, labeled, loading, name, 
+
+        let { children, className, defaultClasses, icon, labeled, loading, name,
               placeholder, tag, type, ...other } = this.props;
 
         other.className = classNames(
-            this.props.className, 
-            this.getLabelClasses(), 
-            this.getIconClasses(), 
+            this.props.className,
+            this.getLabelClasses(),
+            this.getIconClasses(),
             this.getClasses()
         );
 
@@ -141,11 +153,11 @@ export class Input extends React.Component {
         let input = [];
 
         // the actual input element
-        let inputHTML = ( 
-                            <input 
-                                key="input" 
-                                placeholder={this.props.placeholder} 
-                                type={this.props.type} 
+        let inputHTML = (
+                            <input
+                                key="input"
+                                placeholder={this.props.placeholder}
+                                type={this.props.type}
                             />
                         );
 
@@ -166,7 +178,7 @@ export class Input extends React.Component {
         }
 
         return input;
-    }  
+    }
 
 
     // checks if Icon and Label are children of this Input

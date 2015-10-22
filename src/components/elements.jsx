@@ -4,8 +4,6 @@ export * from './elements/button/labeledbutton';
 export * from './elements/button/iconbutton';
 export * from './elements/button/socialbutton';
 
-export * from './elements/container/container';
-
 export * from './elements/divider/divider';
 
 export * from './elements/flag/flag';
@@ -42,6 +40,7 @@ export * from './elements/leaves/item';
 
 export * from './elements/simple/actions';
 export * from './elements/simple/author';
+export * from './elements/simple/container';
 export * from './elements/simple/date';
 export * from './elements/simple/meta';
 export * from './elements/simple/summary';

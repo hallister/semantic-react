@@ -10,12 +10,6 @@ let validProps = {
 export class Progress extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
-        animation: React.PropTypes.shape({
-            duration: React.PropTypes.number,
-            easing: React.PropTypes.string,
-            from: React.PropTypes.object,
-            to: React.PropTypes.object
-        }),
         attached: React.PropTypes.oneOf(validProps),
         children: React.PropTypes.node,
         className: React.PropTypes.any,
@@ -41,49 +35,15 @@ export class Progress extends React.Component {
     };
 
     static defaultProps = {
-        animation: {
-            duration: 300,
-            ease: 'in-ease',
-            from: {
-                opacity: 0,
-                width: {
-                    units: '%'
-                }
-            },
-            to: {
-                opacity: 1,
-                width: {
-                    units: '%'
-                }
-            }
-        },
         component: 'div',
-        defaultClasses: true
+        defaultClasses: true,
+        duration: 300
     };
-
-    constructor(props) {
-        super(props);
-        this.animate = false;
-        this.animation = this.props.animation;
-        this.animation.from.width.value = this.animation.to.width.value = this.getProgress(this.props.progress);
-    }
 
     getChildContext() {
         return {
             isProgressChild: true
         };
-    }
-
-    componentWillReceiveProps(props) {
-        if (props.progress !== this.props.progress) {
-            this.animate = true;
-            this.animation.from.width.value = this.getProgress(this.props.progress);
-            this.animation.to.width.value = this.getProgress(props.progress);
-        }
-    }
-
-    onAnimationComplete() {
-        this.animate = false;
     }
 
     renderBar() {
@@ -94,11 +54,8 @@ export class Progress extends React.Component {
 
         return (
             <Bar
+                key="progressBar"
                 {...other}
-                animate={this.animate}
-                key="pBarBar"
-                onComplete={this.onAnimationComplete.bind(this)}
-                start={this.animation}
             />
         );
     }

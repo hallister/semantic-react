@@ -1,28 +1,45 @@
 import React from 'react';
 import { Icon, Button } from '../../elements';
 
-exports.IconButton = (props) => {
-    let { iconColor, name, ...other } = props;
-    let children = [];
+function renderChildren(children, name, social, iconColor) {
+    let componentChildren = [];
 
-    children.push(
+    componentChildren.push(
         <Icon
-            color={props.iconColor}
+            color={social ? null : iconColor}
             key="icon"
-            name={props.name}
+            name={name}
         />
     );
 
-    React.Children.forEach(props.children, child => {
-        children.push(child);
+    React.Children.forEach(children, child => {
+        componentChildren.push(child);
     });
 
+    return componentChildren;
+}
+
+let IconButton = ({ children, iconColor, name, social, ...other }) => {
+
     return (
-        <Button 
-            {...other}    
-            icon={React.Children.count(props.children) === 0 ? true : false}
+        <Button
+            {...other}
+            icon={React.Children.count(children) === 0 ? true : false}
+            social={social ? name : ''}
         >
-            {children}
+            {renderChildren(children, name, social, iconColor)}
         </Button>
     );
 };
+
+IconButton.propTypes = {
+    children: React.PropTypes.node,
+    iconColor: React.PropTypes.oneOfType([
+        React.PropTypes.bool,
+        React.PropTypes.string
+    ]),
+    name: React.PropTypes.string,
+    social: React.PropTypes.bool
+}
+
+exports.IconButton = IconButton;
