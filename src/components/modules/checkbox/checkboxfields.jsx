@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Checkbox } from '../../modules';
 import classNames from 'classnames';
 
-export class Checkboxes extends Component {
+export class CheckboxFields extends Component {
     static propTypes = {
         children: React.PropTypes.oneOfType([
             React.PropTypes.array,
@@ -15,16 +15,14 @@ export class Checkboxes extends Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-        grouped: React.PropTypes.bool,
-        inline: React.PropTypes.bool,
-        name: React.PropTypes.string,
+        name: React.PropTypes.string.isRequired,
         onClick: React.PropTypes.func,
         radio: React.PropTypes.bool,
-        readOnly: React.PropTypes.bool
-    };
-
-    static childContextTypes = {
-        isCheckboxesChild: React.PropTypes.bool
+        readOnly: React.PropTypes.bool,
+        type: React.PropTypes.oneOf([
+            'grouped',
+            'inline'
+        ]).isRequired
     };
 
     static defaultProps = {
@@ -35,16 +33,10 @@ export class Checkboxes extends Component {
     constructor(props) {
         super(props);
 
-        let active = this.props.radio ? '' : [];
+        let active = this.props.radio ? -1 : [];
 
         this.state = {
             active: active
-        };
-    }
-
-    getChildContext() {
-        return {
-            isCheckboxesChild: true
         };
     }
 
@@ -77,6 +69,10 @@ export class Checkboxes extends Component {
                     }, element);
 
                     index++;
+                } else if (typeof child === 'string') {
+                    return (
+                        <label htmlFor={this.props.name}>{child}</label>
+                    );
                 } else {
                     element = child;
                 }
@@ -101,12 +97,12 @@ export class Checkboxes extends Component {
     cloneChild(index, child) {
         let boundClick = this.onClick.bind(this, index);
 
-        let { children, component, defaultClasses, grouped,
-              inline, onClick, ...other } = this.props;
+        let { children, component, defaultClasses, onClick, type,
+              ...other } = this.props;
 
         return React.cloneElement(child, {
             key: index,
-            active: this.getActive(index),
+            checked: this.getActive(index),
             onClick: boundClick,
             radio: this.props.radio,
             readOnly: this.props.readOnly || this.props.disabled,
@@ -115,9 +111,8 @@ export class Checkboxes extends Component {
     }
 
     getClasses() {
-        return {
+        let classes = {
             // default
-            checkboxes: true,
 
             // positioning
 
@@ -126,10 +121,12 @@ export class Checkboxes extends Component {
             // component
 
             // variations
-            grouped: this.props.grouped,
-            inline: this.props.inline,
             fields: React.Children.count(this.props.children) > 1
         };
+
+        classes[this.props.type] = !!this.props.type;
+
+        return classes;
     }
 
     getActive(index) {
@@ -153,11 +150,14 @@ export class Checkboxes extends Component {
         // should only be an array if it's checkbox, not radio
         // IE 9+ for indexOf
         if (Array.isArray(state)) {
-            if (state.indexOf(index) > -1) {
-                state.splice(index, 1);
+            let position = state.indexOf(index);
+
+            if (position > -1) {
+                state.splice(position, 1);
             } else {
                 state.push(index);
             }
+
         // it's a radio
         } else {
             state = index;

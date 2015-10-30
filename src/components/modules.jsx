@@ -5,7 +5,7 @@ export * from './modules/animate/animate';
 export * from './modules/animate/animations';
 export * from './modules/animate/rquery';
 export * from './modules/checkbox/checkbox';
-export * from './modules/checkbox/checkboxes';
+export * from './modules/checkbox/checkboxfields';
 export * from './modules/dimmer/dimmer';
 export * from './modules/dimmer/dimmable';
 export * from './modules/dropdown/dropdown';
