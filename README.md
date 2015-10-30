@@ -38,18 +38,18 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 
 ### Collections
 * Breadcrumb - Not started. This feels tied to a router. [Existing option for react-router](https://github.com/svenanders/react-breadcrumbs).
-* Form - Complete (Stateless).
+* Form - Complete (Functional).
 * Grid - Complete.
 * Menu - Complete. Remove `@Animate`. See Dropdown.
-* Message - Complete (Stateless).
-* Table - Complete (Stateless). Usefulness of `Td` and `Tr` components are debatable.
+* Message - Complete (Functional).
+* Table - Complete (Functional).
 
 ### Views
 * Advertisement - Not started. Very low priority.
 * Card - Complete.
-* Comment - Complete (Stateless).
-* Feed - Complete (Stateless).
-* Item - Needs modification. Currently implemented as an element. Mid priority.
+* Comment - Complete (Functional).
+* Feed - Complete (Functional).
+* Item - Complete.
 * Statistic - *Can't implement*. [Currently not feasible](https://github.com/hallister/semantic-react/issues/6).
 
 ### Modules
