@@ -67,7 +67,7 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 * Search - Not started. Low priority.
 * Shape - Not started. Very low priority.
 * Sticky - Not started. Very low priority. [react-sticky](https://github.com/captivationsoftware/react-sticky) is a substitute.
-* Tab - Not started. High priority.
+* Tab - Complete.
 * Transition - Won't implement. Very "jQuery" way of handling things. Use Animate.
 
 [![devDependency Status](https://david-dm.org/hallister/semantic-react/dev-status.svg)](https://david-dm.org/hallister/semantic-react#info=devDependencies)

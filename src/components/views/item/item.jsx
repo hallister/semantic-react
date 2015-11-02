@@ -5,7 +5,10 @@ export class Item extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         children: React.PropTypes.node,
-        className: React.PropTypes.node,
+        className: React.PropTypes.oneOfType([
+            React.PropTypes.node,
+            React.PropTypes.object
+        ]),
         color: React.PropTypes.string,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
