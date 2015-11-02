@@ -55,12 +55,12 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 ### Modules
 * Accordion - Needs rewrite. Mid Priority.
 * Animate - Complete.
-* Checkbox - Needs modification. Doesn't work well with forms.
+* Checkbox - Complete.
 * Dimmer - Complete.
 * Dropdown - Partial complete. Need `DropdownMenu` and `AnimatedMenu`.
 * Embed - Not started. Low priority.
 * Modal - Complete.
-* Nag - Not started. Semantic rewrite in-progress.
+* Nag - *Can't implement*. Semantic rewrite in-progress.
 * Popup - Complete.
 * Progress - Complete.
 * Rating - Complete.
