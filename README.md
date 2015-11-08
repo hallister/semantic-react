@@ -64,7 +64,7 @@ However, forking and maintaining a 35k CSS library is a little outside the scope
 * Popup - Complete.
 * Progress - Complete.
 * Rating - Complete.
-* Search - Not started. Low priority.
+* Search - Complete.
 * Shape - Not started. Very low priority.
 * Sticky - Not started. Very low priority. [react-sticky](https://github.com/captivationsoftware/react-sticky) is a substitute.
 * Tab - Complete.

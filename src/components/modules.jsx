@@ -29,6 +29,9 @@ export * from './modules/progress/progress';
 
 export * from './modules/rating/rating';
 
+export * from './modules/search/results';
+export * from './modules/search/search';
+
 export * from './modules/tab/tab';
 export * from './modules/tab/tabs';
 export * from './modules/tab/tabtitle';
