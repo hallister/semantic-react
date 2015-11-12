@@ -8,35 +8,35 @@ externals.push(/^react(\/.*)?$/, /^react-dom(\/.*)?$/);
 module.exports = {
     entry: './src/components/semantic-react',
     externals: {
-        "react": "React"
+        react: 'React'
     },
     output: {
         path: path.join(__dirname, 'dist'),
         filename: pack.name + '-' + pack.version + '.js'
     },
     resolve: {
-        extensions: ['', '.js', '.jsx'],
+        extensions: ['', '.js', '.jsx', '.es6'],
         alias: {
-            "react": __dirname + '/node_modules/react',
-            "react/addons": __dirname + '/node_modules/react/addons'
+            react: __dirname + '/node_modules/react',
+            'react/addons': __dirname + '/node_modules/react/addons'
         }
     },
     module: {
         preLoaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.(jsx?|es6)$/,
                 exclude: [/node_modules/, /docs/, /lib/],
-                loader: "eslint-loader"
+                loader: 'eslint-loader'
             }
         ],
         loaders: [{
-            test: /\.jsx?$/,
+            test: /\.(jsx?|es6)?$/,
             loaders: ['babel?optional[]=runtime&stage=0'],
             include: path.join(__dirname, 'src'),
             exclude: /node_modules/
-        },{
+        }, {
             test: /\.json$/,
-            loader: "json-loader"
+            loader: 'json-loader'
         }]
     },
     eslint: {

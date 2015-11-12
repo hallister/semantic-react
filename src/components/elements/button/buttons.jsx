@@ -10,27 +10,90 @@ let validProps = {
 
 export class Buttons extends React.Component {
     static propTypes = {
-        attached: React.PropTypes.oneOf(validProps.attached),
+        /**
+         * It's attached to some other attachable component.
+         */
+        attached: React.PropTypes.oneOf(['bottom', 'top']),
+
+        /**
+         * Adds simple styling to the component.
+         */
         basic: React.PropTypes.bool,
+
+        /**
+         * The child nodes of the component.
+         */
         children: React.PropTypes.node,
+
+        /**
+         * Adds additional classes to the component.
+         */
         className: React.PropTypes.node,
+
+        /**
+         * Adds a SemanticUI color class.
+         */
         color: React.PropTypes.string,
+
+        /**
+         * Reduces the padding on the component.
+         */
         compact: React.PropTypes.bool,
+
+        /**
+         * Overrides the component with a custom component string ('div') or ReactElement.
+         */
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.string
         ]),
+
+        /**
+         * Adds the default classes for the component.
+         */
         defaultClasses: React.PropTypes.bool,
+
+        /**
+         * Forces all children to an equal width.
+         */
         equal: React.PropTypes.bool,
-        floated: React.PropTypes.oneOf(validProps.floated),
+
+        /**
+         * Forces to component to float left or right.
+         */
+        floated: React.PropTypes.oneOf(['right', 'left']),
+
+        /**
+         * Overrides default behavior and adds the icon class to the component.
+         */
         icon: React.PropTypes.bool,
+
+        /**
+         * Styles the component for a dark background.
+         */
         inverted: React.PropTypes.bool,
+
+        /**
+         * Overrides default behavior and adds the labeled class to the component.
+         */
         labeled: React.PropTypes.bool,
+
+        /**
+         *  Several of the following are deprecated.
+         */
         negative: React.PropTypes.bool,
         positive: React.PropTypes.bool,
         primary: React.PropTypes.bool,
         secondary: React.PropTypes.bool,
+
+        /**
+         * Adds a SemanticUI size class.
+         */
         size: React.PropTypes.string,
+
+        /**
+         * Forces child components to render vertically.
+         */
         vertical: React.PropTypes.bool
     };
 
@@ -54,7 +117,7 @@ export class Buttons extends React.Component {
     }
 
     render() {
-        let { attached, basic, children, className, color, compact, component, defaultClasses, equal, floated, 
+        let { attached, basic, children, className, color, compact, component, defaultClasses, equal, floated,
               icon, inverted, labeled, negative, positive, primary, secondary, size, vertical, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());

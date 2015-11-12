@@ -29,6 +29,7 @@ export class Menu extends React.Component {
             to: React.PropTypes.object
         }),
         even: React.PropTypes.bool,
+        inverted: React.PropTypes.bool,
         pointing: React.PropTypes.bool,
         right: React.PropTypes.bool,
         secondary: React.PropTypes.bool,
@@ -100,6 +101,7 @@ export class Menu extends React.Component {
             // variations
             item: this.props.even && childCount > 0,
             attached: this.props.attached,
+            inverted: this.props.inverted,
             pointing: this.props.pointing,
             secondary: this.props.secondary,
             tabular: this.props.tabular,

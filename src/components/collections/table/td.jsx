@@ -3,7 +3,7 @@ import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 
 let validProps = {
-    aligned: ['right', 'left', 'center']
+    aligned: ['right', 'left', 'center', 'top', 'bottom']
 };
 
 function getClasses(props) {

@@ -17,7 +17,7 @@ export class Segment extends React.Component {
         ]),
         basic: React.PropTypes.bool,
         blurring: React.PropTypes.bool,
-        children: React.PropTypes.node,
+        children: React.PropTypes.any,
         className: React.PropTypes.node,
         clearing: React.PropTypes.bool,
         color: React.PropTypes.string,
@@ -54,7 +54,7 @@ export class Segment extends React.Component {
 
     render() {
         let { aligned, component, attached, basic, blurring, children, className, clearing, color, compact,
-              defaultClasses, disabled, floated, index, inverted, loading, padded, piled, 
+              defaultClasses, disabled, floated, index, inverted, loading, padded, piled,
               primary, raised, secondary, stacked, tertiary, vertical, zIndex, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());

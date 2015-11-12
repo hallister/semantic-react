@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export class Item extends React.Component {
+export class Items extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
@@ -16,6 +16,7 @@ export class Item extends React.Component {
     };
 
     static defaultProps = {
+        component: 'div',
         defaultClasses: true
     };
 

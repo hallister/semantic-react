@@ -23,6 +23,7 @@ export class Column extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         floated: React.PropTypes.oneOf(validProps.floated),
+        style: React.PropTypes.any,
         valigned: React.PropTypes.oneOf(validProps.valigned),
         visible: React.PropTypes.oneOf(validProps.visible),
         width: React.PropTypes.number

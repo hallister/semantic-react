@@ -83,7 +83,7 @@ export class Tabs extends React.Component {
                     React.createElement(
                         Item,
                         props,
-                        child.props.title
+                        child.props.header
                     )
                 );
             }

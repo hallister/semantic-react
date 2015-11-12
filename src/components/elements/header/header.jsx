@@ -32,6 +32,7 @@ export class Header extends React.Component {
         floated: React.PropTypes.oneOf(validProps.floated),
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
+        item: React.PropTypes.bool,
         onClick: React.PropTypes.func,
         size: React.PropTypes.string
     };
@@ -51,7 +52,8 @@ export class Header extends React.Component {
 
     static defaultProps = {
         attached: false,
-        defaultClasses: true
+        defaultClasses: true,
+        item: true // handles
     };
 
     getChildContext() {
@@ -84,7 +86,7 @@ export class Header extends React.Component {
 
             // types
             icon: hasChild(this.props.children, Icon) && this.props.aligned == 'center',
-            item: this.context.isMenuChild,
+            item: this.context.isMenuChild && this.props.item,
 
             // states
             disabled: this.props.disabled,

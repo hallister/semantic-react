@@ -13,4 +13,16 @@ let SocialButton = ({ children, name, ...other }) => {
     );
 };
 
+SocialButton.propTypes = {
+    /**
+     * The child nodes of the component.
+     */
+    children: React.PropTypes.node,
+
+    /**
+     * Adds a SemanticUI name class to the icon.
+     */
+    name: React.PropTypes.string
+}
+
 exports.SocialButton = SocialButton;

@@ -23,10 +23,6 @@ export default class App extends Component {
         this.forceUpdate();
     }
 
-    onObjectChange(e) {
-        console.log(e);
-    }
-
     onChange(e) {
         this.results = this.defaultResults;
         let results = [];

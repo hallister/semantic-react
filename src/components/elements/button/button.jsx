@@ -12,42 +12,124 @@ let validProps = {
 
 class Button extends React.Component {
     static propTypes = {
+        /**
+         * Indicates the button is currently active.
+         */
         active: React.PropTypes.bool,
+
+        /**
+         * Adds a fade or slide animation on hover.
+         */
         animated: React.PropTypes.oneOfType([
-            React.PropTypes.string,
+            React.PropTypes.oneOf(['fade', 'vertical']),
             React.PropTypes.bool
         ]),
+
+        /**
+         * It's attached to some other attachable component.
+         */
         attached: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.attached),
+            React.PropTypes.oneOf(['left', 'right', 'bottom', 'top']),
             React.PropTypes.bool
         ]),
+
+        /**
+         * Adds simple styling to the component.
+         */
         basic: React.PropTypes.bool,
+
+        /**
+         * The child nodes of the component.
+         */
         children: React.PropTypes.node,
+
+        /**
+         * Gives a circular shape to the component.
+         */
         circular: React.PropTypes.bool,
+
+        /**
+         * Adds additional classes to the component.
+         */
         className: React.PropTypes.any,
+
+        /**
+         * Adds a SemanticUI color class.
+         */
         color: React.PropTypes.string,
+
+        /**
+         * Reduces the padding on the component.
+         */
         compact: React.PropTypes.bool,
+
+        /**
+         * Overrides the component with a custom component string ('div') or ReactElement.
+         */
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.string
         ]),
+
+        /**
+         * Adds the default classes for the component.
+         */
         defaultClasses: React.PropTypes.bool,
+
+        /**
+         * Disallows interaction with the component.
+         */
         disabled: React.PropTypes.bool,
-        floated: React.PropTypes.oneOf(validProps.floated),
+
+        /**
+         * Forces to component to float left or right.
+         */
+        floated: React.PropTypes.oneOf(['right', 'left']),
+
+        /**
+         * The component fills the parent components horizontal space.
+         */
         fluid: React.PropTypes.bool,
-        focusable: React.PropTypes.bool,
+
+        /**
+         * Overrides default behavior and adds the icon class to the component.
+         */
         icon: React.PropTypes.bool,
+
+        /**
+         * Styles the component for a dark background.
+         */
         inverted: React.PropTypes.bool,
+
+        /**
+         * Defines whether the label is to the right or left of the component (LabeledButton).
+         */
         labeled: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.labeled),
+            React.PropTypes.oneOf(['right', 'left']),
             React.PropTypes.bool
         ]),
+
+        /**
+         * Displays a loading indicator on the component.
+         */
         loading: React.PropTypes.bool,
+
+        /**
+         *  Several of the following are deprecated.
+         */
         negative: React.PropTypes.bool,
         positive: React.PropTypes.bool,
         primary: React.PropTypes.bool,
         secondary: React.PropTypes.bool,
+
+        /**
+         * Adds a SemanticUI size class.
+         */
         size: React.PropTypes.string,
+
+        /**
+         * Adds a SemanticUI social class (SocialButton).
+         */
         social: React.PropTypes.string
     };
 
@@ -73,7 +155,7 @@ class Button extends React.Component {
         // consume props
         let { active, animated, attached, basic, children, circular, color,
               component, compact, className, defaultClasses, disabled, floated,
-              fluid, focusable, icon, inverted, labeled, loading, negative,
+              fluid, icon, inverted, labeled, loading, negative,
               positive, primary, secondary, size, social, ...other } = this.props;
 
         // add classnames

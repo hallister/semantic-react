@@ -33,12 +33,24 @@ let IconButton = ({ children, iconColor, name, social, ...other }) => {
 };
 
 IconButton.propTypes = {
+    /**
+     * The child nodes of the component.
+     */
     children: React.PropTypes.node,
-    iconColor: React.PropTypes.oneOfType([
-        React.PropTypes.bool,
-        React.PropTypes.string
-    ]),
+
+    /**
+     * Adds a SemanticUI color class to the icon.
+     */
+    iconColor: React.PropTypes.string,
+
+    /**
+     * Adds a SemanticUI name class to the icon.
+     */
     name: React.PropTypes.string,
+
+    /**
+     * Renders as a social button if true (see SocialButton);
+     */
     social: React.PropTypes.bool
 }
 
