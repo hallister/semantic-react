@@ -9,7 +9,7 @@ export class LabeledButton extends React.Component {
         basic: React.PropTypes.bool,
         children: React.PropTypes.node,
         circular: React.PropTypes.bool,
-        className: React.PropTypes.any,
+        className: React.PropTypes.node,
         color: React.PropTypes.string,
         compact: React.PropTypes.bool,
         component: React.PropTypes.oneOfType([
@@ -64,15 +64,15 @@ export class LabeledButton extends React.Component {
 
         // split children into Label and not Label arrays
         let components = spliceChildren(this.props.children, Label);
-        
+
         // labeled is consumed by the parent button
         let { labeled, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
         let icon = (
-            <div 
-                {...other} 
+            <div
+                {...other}
                 key="icon"
             >
                 {components.remaining}
@@ -85,7 +85,7 @@ export class LabeledButton extends React.Component {
             children.push(icon);
         // otherwise last
         } else {
-            children.push(icon); 
+            children.push(icon);
             children.push(components.component);
         }
 
@@ -99,7 +99,7 @@ export class LabeledButton extends React.Component {
         }
 
         // most button props are consumed by the child
-        let { active, basic, color, circular, compact, fluid, negative, positive, primary, secondary, 
+        let { active, basic, color, circular, compact, fluid, negative, positive, primary, secondary,
               inverted, size, ...other } = this.props;
 
         other.className = classNames(other.className);

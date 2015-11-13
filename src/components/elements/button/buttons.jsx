@@ -41,7 +41,8 @@ export class Buttons extends React.Component {
         compact: React.PropTypes.bool,
 
         /**
-         * Overrides the component with a custom component string ('div') or ReactElement.
+         * Overrides the component with a custom component string ('div') or
+         * ReactElement.
          */
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
@@ -74,7 +75,8 @@ export class Buttons extends React.Component {
         inverted: React.PropTypes.bool,
 
         /**
-         * Overrides default behavior and adds the labeled class to the component.
+         * Overrides default behavior and adds the labeled class to the
+         * component.
          */
         labeled: React.PropTypes.bool,
 

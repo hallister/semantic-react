@@ -7,6 +7,41 @@ import DocBlock from '../docblock';
 import { Segment, Label } from '../../../src/components/elements';
 import Examples from './examples';
 
+let TEXTDEMOS = {};
+
+function generateExamples(component, props, children, name) {
+    if (!component || (!component.type && !component.name)) return;
+
+    let ignore = ['key', 'style', 'className'];
+    let example = `<${component.type || component.name}`;
+
+    Object.keys(props || {}).forEach(prop => {
+        if (ignore.indexOf(prop) > -1) return;
+        example += typeof props[prop] === 'string' ? ` ${prop}="${props[prop]}"` : ` ${prop}=${props[prop]}`;
+    });
+
+    if (!children) {
+        example += '/>\n';
+    } else {
+        example += '>';
+
+        if (typeof children !== 'string') {
+            Object.keys(children).forEach(child => {
+                example += child;
+            });
+        } else {
+            example += children;
+        }
+
+        example += `</${component.type || component.name}>\n`;
+    }
+
+    if (!TEXTDEMOS[name]) TEXTDEMOS[name] = '';
+    TEXTDEMOS[name] += example || '';
+    return;
+
+}
+
 function parseProps(props, value) {
     let newProps = {};
 
@@ -39,49 +74,6 @@ function parseChildren(children, value) {
     }
 }
 
-function generateExample(components) {
-    let example = '';
-
-
-    components.forEach(component => {
-        // console.log(component.type.defaultProps);
-
-        example += '<' + component.type.displayName;
-
-        Object.keys(component.props).forEach(prop => {
-            if (component.props[prop] && prop !== 'style' && prop !== 'children') {
-                if ((component.type.defaultProps[prop] && component.type.defaultProps[prop] !== component.props[prop]) || !component.type.defaultProps[prop]) {
-                    let newProp;
-                    if (component.props[prop] === true || component.props[prop] === false) {
-                        newProp = '{' + component.props[prop] + '}';
-                    } else {
-                        newProp = '"' + component.props[prop] + '"';
-                    }
-
-                    example += ' ' + prop + '=' + newProp;
-                }
-            }
-        })
-
-        if (React.Children.toArray(component.props.children).length > 0) {
-            // do kids
-            example += '>';
-
-            if (typeof component.props.children == 'string') {
-                example += component.props.children;
-            } else {
-                example += generateExample(components.props.children);
-            }
-
-            example += '</' + component.type.displayName + '>\n';
-        } else {
-            example += '/>\n\n';
-        }
-    });
-
-    return example;
-}
-
 function cloneElement(component, props, children) {
     return React.createElement(
         component,
@@ -90,22 +82,50 @@ function cloneElement(component, props, children) {
     );
 }
 
-function exampleParser(examples) {
+function createComponent(component, props, children, name, index = 0) {
+    let element = cloneElement(component, Object.assign({ key: name + index }, props), children);
+
+    generateExamples(component, props, children, name);
+
+    return element;
+}
+
+function createManyComponents(example, name) {
+    let clones = [];
+
+    example.each.forEach(attr => {
+        let props = parseProps(example.do.props, attr);
+        let children = parseChildren(example.do.children, attr);
+
+        clones.push(createComponent(example.component, props, children, name));
+    });
+
+    return clones;
+}
+
+function createMultipleComponents(example, name) {
+    let clones = [];
+
+    example.forEach((demo, index) => {
+        clones.push(createComponent(demo.component, demo.props, demo.children, name, index));
+    });
+
+    return clones;
+}
+
+function exampleParser(exampleConfig) {
     let clones = {};
 
-    Object.keys(examples).forEach(demo => {
-        let example = examples[demo];
-        clones[demo] = [];
+    Object.keys(exampleConfig).forEach(example => {
+        let demo = exampleConfig[example];
 
-        if (!example.each) {
-            clones[demo].push(cloneElement(example.component, example.props, example.children));
+        if (Array.isArray(demo)) {
+            clones[example] = createMultipleComponents(demo, example);
+        } else if (demo.each) {
+            clones[example] = createManyComponents(demo, example);
         } else {
-            example.each.forEach(name => {
-                let props = parseProps(example.do.props, name);
-                let children = parseChildren(example.do.children, name);
-
-                clones[demo].push(cloneElement(example.component, props, children));
-            });
+            if (!clones[example]) clones[example] = [];
+            clones[example].push(createComponent(demo.component, demo.props, demo.children, example));
         }
     });
 
@@ -113,6 +133,7 @@ function exampleParser(examples) {
 }
 
 let ButtonDoc = (props) => {
+    TEXTDEMOS = {}
     let { children, ...other } = props;
 
     let exampleObject = (exampleParser(Examples));
@@ -134,7 +155,7 @@ let ButtonDoc = (props) => {
                     >
                         Code
                     </Label>
-                    <pre><code className="html">{generateExample(exampleObject[example])}</code></pre>
+                    <pre><code className="html">{TEXTDEMOS[example]}</code></pre>
                 </Segment>
             </div>
         )

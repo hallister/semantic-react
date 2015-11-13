@@ -51,7 +51,7 @@ class Button extends React.Component {
         /**
          * Adds additional classes to the component.
          */
-        className: React.PropTypes.any,
+        className: React.PropTypes.node,
 
         /**
          * Adds a SemanticUI color class.
@@ -115,14 +115,6 @@ class Button extends React.Component {
         loading: React.PropTypes.bool,
 
         /**
-         *  Several of the following are deprecated.
-         */
-        negative: React.PropTypes.bool,
-        positive: React.PropTypes.bool,
-        primary: React.PropTypes.bool,
-        secondary: React.PropTypes.bool,
-
-        /**
          * Adds a SemanticUI size class.
          */
         size: React.PropTypes.string,
@@ -155,8 +147,8 @@ class Button extends React.Component {
         // consume props
         let { active, animated, attached, basic, children, circular, color,
               component, compact, className, defaultClasses, disabled, floated,
-              fluid, icon, inverted, labeled, loading, negative,
-              positive, primary, secondary, size, social, ...other } = this.props;
+              fluid, icon, inverted, labeled, loading, size, social,
+              ...other } = this.props;
 
         // add classnames
         other.className = classNames(this.props.className, this.getClasses());
@@ -193,10 +185,6 @@ class Button extends React.Component {
             circular: this.props.circular,
             compact: this.props.compact,
             fluid: this.props.fluid,
-            negative: this.props.negative,
-            positive: this.props.positive,
-            primary: this.props.primary,
-            secondary: this.props.secondary,
 
             // component
             button: this.props.defaultClasses

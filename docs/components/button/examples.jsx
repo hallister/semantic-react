@@ -1,13 +1,10 @@
 import { Colors } from '../../utilities';
-import { Button } from '../../../src/components/elements';
+import { Button, PrimaryButton, SuccessButton, WarningButton, DangerButton } from '../../../src/components/elements';
 
 export default {
     default: {
         component: Button,
-        children: 'Button',
-        props: {
-            key: 'default'
-        }
+        children: 'Button'
     },
     color: {
         component: Button,
@@ -17,10 +14,23 @@ export default {
             props: {
                 color: true,
                 key: true,
-                style: { 
+                style: {
                     marginTop: 5
                 }
             }
         }
-    }
+    },
+    emphasis: [{
+        component: PrimaryButton,
+        children: 'Primary'
+    }, {
+        component: SuccessButton,
+        children: 'Success'
+    }, {
+        component: WarningButton,
+        children: 'Warning'
+    }, {
+        component: DangerButton,
+        children: 'Danger'
+    }]
 };

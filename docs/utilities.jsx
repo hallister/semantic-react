@@ -1,6 +1,7 @@
 exports.Props = {
     default: 'Default',
-    color: 'Color'
+    color: 'Color',
+    emphasis: 'Emphasis'
 }
 
 exports.Colors = ['red', 'orange', 'yellow', 'olive', 'green',
