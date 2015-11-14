@@ -11,7 +11,7 @@ export function Animate(ComposedComponent) {
 
         static displayName = ComposedComponent.displayName || ComposedComponent.name;
 
-        static proptypes = {
+        static propTypes = {
             animate: React.PropTypes.bool,
             cancel: React.PropTypes.bool,
             cancelDuration: React.PropTypes.number,
@@ -19,6 +19,7 @@ export function Animate(ComposedComponent) {
                 React.PropTypes.element,
                 React.PropTypes.string
             ]),
+            duration: React.PropTypes.number,
             ease: React.PropTypes.string,
             end: React.PropTypes.oneOfType([
                 React.PropTypes.bool,
@@ -56,7 +57,8 @@ export function Animate(ComposedComponent) {
                     from: React.PropTypes.object,
                     to: React.PropTypes.object
                 })
-            ])
+            ]),
+            style: React.PropTypes.object
         };
 
         static defaultProps = {
@@ -152,7 +154,7 @@ export function Animate(ComposedComponent) {
         }
 
         render() {
-            let { animate, cancel, cancelDuration, duration, endState, enter, end, leave, onComplete, start, startState, ease,
+            let { animate, cancel, cancelDuration, duration, enter, end, leave, onComplete, start, ease,
                   ...other } = this.props;
             let style = Object.assign({}, this.state.style, this.props.style);
 

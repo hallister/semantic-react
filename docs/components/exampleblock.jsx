@@ -1,8 +1,8 @@
 import React from 'react';
 import { Tabs, Tab } from '../../src/components/modules';
 
-function renderChildren(props) {
-    return props.children.map(child => {
+function renderChildren(children) {
+    return children.map(child => {
         return (
             <Tab
                 header={child.key || 'Default'}
@@ -15,12 +15,12 @@ function renderChildren(props) {
     });
 }
 
-let ExampleBlock = (props) => {
-    let { children, ...other } = props;
-    let propList = renderChildren(props);
+let ExampleBlock = ({ children, ...other }) => {
+    let propList = renderChildren(children);
 
     let tabs = (
         <Tabs
+            {...other}
             segment={false}
             type="menu"
         >
@@ -30,5 +30,9 @@ let ExampleBlock = (props) => {
 
     return tabs;
 };
+
+ExampleBlock.propTypes = {
+    children: React.PropTypes.node
+}
 
 export default ExampleBlock;
