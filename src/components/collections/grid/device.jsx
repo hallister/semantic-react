@@ -9,6 +9,7 @@ export class Device extends React.Component {
     static propTypes = {
         callback: React.PropTypes.func,
         children: React.PropTypes.node,
+        only: React.PropTypes.bool,
         reversed: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(validProps.reversed)
         ]),
@@ -34,7 +35,12 @@ export class Device extends React.Component {
             }
         }
 
-        classes[this.props.type] = true;
+        if (this.props.only) {
+            classes[this.props.type + ' only'] = true;
+        } else {
+            classes[this.props.type] = true;
+        }
+
 
         classes = validateClassProps(classes, this.props, validProps);
 

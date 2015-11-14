@@ -1,12 +1,11 @@
 import React from 'react';
 import { Tabs, Tab } from '../../src/components/modules';
-import { Props } from '../utilities';
 
 function renderChildren(props) {
     return props.children.map(child => {
         return (
             <Tab
-                header={Props[child.key] || 'Default'}
+                header={child.key || 'Default'}
                 key={child.key || 'default'}
                 segment={false}
             >
@@ -16,7 +15,7 @@ function renderChildren(props) {
     });
 }
 
-let ExampleGen = (props) => {
+let ExampleBlock = (props) => {
     let { children, ...other } = props;
     let propList = renderChildren(props);
 
@@ -32,4 +31,4 @@ let ExampleGen = (props) => {
     return tabs;
 };
 
-export default ExampleGen;
+export default ExampleBlock;

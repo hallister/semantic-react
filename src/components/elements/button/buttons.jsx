@@ -81,14 +81,6 @@ export class Buttons extends React.Component {
         labeled: React.PropTypes.bool,
 
         /**
-         *  Several of the following are deprecated.
-         */
-        negative: React.PropTypes.bool,
-        positive: React.PropTypes.bool,
-        primary: React.PropTypes.bool,
-        secondary: React.PropTypes.bool,
-
-        /**
          * Adds a SemanticUI size class.
          */
         size: React.PropTypes.string,
@@ -120,7 +112,7 @@ export class Buttons extends React.Component {
 
     render() {
         let { attached, basic, children, className, color, compact, component, defaultClasses, equal, floated,
-              icon, inverted, labeled, negative, positive, primary, secondary, size, vertical, ...other } = this.props;
+              icon, inverted, labeled, size, vertical, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -145,10 +137,6 @@ export class Buttons extends React.Component {
             // variations
             attached: this.props.attached,
             compact: this.props.compact,
-            negative: this.props.negative,
-            positive: this.props.positive,
-            primary: this.props.primary,
-            secondary: this.props.secondary,
             vertical: this.props.vertical,
 
             // component

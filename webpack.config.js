@@ -1,3 +1,4 @@
+/* eslint-disable */
 var path = require('path');
 var webpack = require('webpack');
 
@@ -16,7 +17,8 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new webpack.IgnorePlugin(/react\/lib\/ReactContext/)
     ],
     resolve: {
         extensions: ['', '.js', '.jsx', '.es6', '.json'],
@@ -55,3 +57,4 @@ module.exports = {
         configFile: '.eslintrc'
     }
 };
+/* eslint-enable */

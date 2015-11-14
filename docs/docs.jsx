@@ -5,9 +5,9 @@ import { Router, Route, Link } from 'react-router';
 
 import { Header } from '../src/components/elements';
 import { Menu, Item } from '../src/components/views';
-import { Grid, Column, Row } from '../src/components/collections';
+import { Grid, Column, Row, Computer } from '../src/components/collections';
 
-import ButtonDoc from './components/button/buttondoc';
+import * as Doc from './components/exports.es6';
 
 const components = {
     elements: [
@@ -66,7 +66,7 @@ class Docs extends React.Component {
 
     renderComponents(header) {
         const comp = components[header.toLowerCase()].map(item => {
-            let link = '/' + header.toLowerCase() + '/' + item;
+            let link = header.toLowerCase() + '/' + item.toLowerCase();
             return <Item key={item}><Link to={link}>{item}</Link></Item>;
         });
 
@@ -85,16 +85,18 @@ class Docs extends React.Component {
 
         return (
             <Grid
-                padded
                 style={{ padding: 0, margin: 0 }}
             >
-                <Row>
+                <Row style={{ paddingTop: 0 }}>
                     <Column
                         color="black"
-                        style={{ paddingLeft: 0, paddingTop: 0 }}
-                        width={3}
+                        style={{ paddingLeft: 0 }}
+                        width={2}
                     >
-                        <Menu inverted
+                        <Computer only />
+                        <Menu
+                            inverted
+                            style={{ marginTop: 0 }}
                             vertical
                         >
                             {this.renderComponents('Elements')}
@@ -103,15 +105,21 @@ class Docs extends React.Component {
                             {this.renderComponents('Modules')}
                         </Menu>
                     </Column>
-                    <Column width={10}>
+                    <Column width={16}>
+                        <Computer width={12} />
                         {this.props.children}
                     </Column>
                 </Row>
             </Grid>
         );
     }
-
 }
+
+function getComponent(location, callback) {
+    let include = Doc[location.pathname.split('/').pop()];
+    callback(null, include);
+}
+
 
 ReactDOM.render((
     <Router>
@@ -120,7 +128,7 @@ ReactDOM.render((
             path="/"
         >
             <Route
-                component={ButtonDoc}
+                getComponent={getComponent}
                 path=":type/:component"
             />
         </Route>

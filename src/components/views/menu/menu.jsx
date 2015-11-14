@@ -12,6 +12,7 @@ export class Menu extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         attached: React.PropTypes.oneOf(validProps),
+        borderless: React.PropTypes.bool,
         children: React.PropTypes.oneOfType([
             React.PropTypes.array,
             React.PropTypes.node
@@ -100,6 +101,7 @@ export class Menu extends React.Component {
 
             // variations
             item: this.props.even && childCount > 0,
+            borderless: this.props.borderless,
             attached: this.props.attached,
             inverted: this.props.inverted,
             pointing: this.props.pointing,

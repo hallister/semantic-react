@@ -19,7 +19,7 @@ function handleUnion(value) {
     });
 }
 
-let PropTable = (props) => {
+let PropTableBlock = (props) => {
     let { ...other } = props;
 
     let typeName = [];
@@ -57,9 +57,9 @@ let PropTable = (props) => {
     /* eslint-enable */
 };
 
-PropTable.propTypes = {
+PropTableBlock.propTypes = {
     description: React.PropTypes.object,
     name: React.PropTypes.string
 }
 
-export default PropTable;
+export default PropTableBlock;

@@ -19,7 +19,7 @@ export default class DocBlock extends React.Component {
                 <Header component="h1"
                     dividing
                 >
-                    {this.props.title}
+                    {this.props.title.charAt(0).toUpperCase() + this.props.title.slice(1)}
                 </Header>
                 <Segment basic>
                     <Header>Examples</Header>

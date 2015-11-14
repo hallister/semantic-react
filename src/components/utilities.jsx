@@ -77,8 +77,6 @@ export function hasFirstChild(children, component) {
     } else {
         return (children[0].type === component);
     }
-
-    return false;
 }
 
 export function getChild(children, component, equal = true) {

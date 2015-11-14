@@ -1,3 +1,4 @@
+/* eslint-disable */
 var path = require('path');
 var webpack = require('webpack');
 var pack = require('./package.json');
@@ -6,20 +7,22 @@ var externals = [];
 externals.push(/^react(\/.*)?$/, /^react-dom(\/.*)?$/);
 
 module.exports = {
+    'dev-tool': 'source-map',
     entry: './src/components/semantic-react',
     externals: {
-        react: 'React'
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        'react/lib/ReactTransitionGroup': 'React.addons.ReactTransitionGroup'
     },
+    plugins: [
+        new webpack.IgnorePlugin(/ReactContext/)
+    ],
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: pack.name + '-' + pack.version + '.js'
+        filename: pack.name + '.js'
     },
     resolve: {
-        extensions: ['', '.js', '.jsx', '.es6'],
-        alias: {
-            react: __dirname + '/node_modules/react',
-            'react/addons': __dirname + '/node_modules/react/addons'
-        }
+        extensions: ['', '.js', '.jsx', '.es6']
     },
     module: {
         preLoaders: [
@@ -43,3 +46,4 @@ module.exports = {
         configFile: '.eslintrc'
     }
 };
+/* eslint-enable */

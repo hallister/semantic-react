@@ -2,9 +2,9 @@ import React from 'react';
 import { Table } from '../../src/components/collections';
 import { Tabs, Tab } from '../../src/components/modules';
 import { Components } from '../utilities';
-import PropTable from './proptable';
+import PropTableBlock from './proptableblock';
 
-let PropGen = (props) => {
+let PropBlock = (props) => {
     let { children, ...other } = props;
     let propList = [];
 
@@ -20,12 +20,11 @@ let PropGen = (props) => {
     Object.keys(props.propList).map(component => {
         if (!props.propList[component].props) return null;
 
-
         let propDefs = Object.keys(props.propList[component].props).map(property => {
             let description = props.propList[component].props[property];
 
             return (
-                <PropTable
+                <PropTableBlock
                     description={description}
                     key={property}
                     name={property}
@@ -51,8 +50,8 @@ let PropGen = (props) => {
     return tabs;
 };
 
-PropGen.propTypes = {
+PropBlock.propTypes = {
     propList: React.PropTypes.object
 }
 
-export default PropGen;
+export default PropBlock;

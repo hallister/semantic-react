@@ -67,7 +67,7 @@ export class PopupPlacer extends React.Component {
     componentWillUpdate(props) {
 
         // popup is inactive, make the style object empty
-        if (props.active == false) {
+        if (props.active === false) {
             this.style = {}
         // active popup, generate the styles
         } else {

@@ -98,7 +98,7 @@ exports.button = {
         },
         "className": {
             "type": {
-                "name": "any"
+                "name": "node"
             },
             "required": false,
             "description": "Adds additional classes to the component."
@@ -220,34 +220,6 @@ exports.button = {
             "required": false,
             "description": "Displays a loading indicator on the component."
         },
-        "negative": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "Several of the following are deprecated."
-        },
-        "positive": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "primary": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "secondary": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "size": {
             "type": {
                 "name": "string"
@@ -334,7 +306,7 @@ exports.buttons = {
                 ]
             },
             "required": false,
-            "description": "Overrides the component with a custom component string ('div') or ReactElement.",
+            "description": "Overrides the component with a custom component string ('div') or\r\nReactElement.",
             "defaultValue": {
                 "value": "'div'",
                 "computed": false
@@ -394,35 +366,7 @@ exports.buttons = {
                 "name": "bool"
             },
             "required": false,
-            "description": "Overrides default behavior and adds the labeled class to the component."
-        },
-        "negative": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "Several of the following are deprecated."
-        },
-        "positive": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "primary": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "secondary": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
+            "description": "Overrides default behavior and adds the labeled class to the\r\ncomponent."
         },
         "size": {
             "type": {
@@ -510,7 +454,7 @@ exports.labeledbutton = {
         },
         "className": {
             "type": {
-                "name": "any"
+                "name": "node"
             },
             "required": false,
             "description": ""

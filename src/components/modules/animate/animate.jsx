@@ -154,7 +154,7 @@ export function Animate(ComposedComponent) {
         render() {
             let { animate, cancel, cancelDuration, duration, endState, enter, end, leave, onComplete, start, startState, ease,
                   ...other } = this.props;
-            let style = this.state.style;
+            let style = Object.assign({}, this.state.style, this.props.style);
 
             return (
                 <ComposedComponent

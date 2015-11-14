@@ -1,3 +1,4 @@
+/* eslint-disable */
 var webpack = require('webpack');
 
 module.exports = function(config) {
@@ -44,3 +45,4 @@ module.exports = function(config) {
         webpackMiddleware: { noInfo: true }
     });
 }
+/* eslint-enable */

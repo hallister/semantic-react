@@ -99,8 +99,8 @@ export class LabeledButton extends React.Component {
         }
 
         // most button props are consumed by the child
-        let { active, basic, color, circular, compact, fluid, negative, positive, primary, secondary,
-              inverted, size, ...other } = this.props;
+        let { active, basic, color, circular, compact, fluid,  inverted,
+              size, ...other } = this.props;
 
         other.className = classNames(other.className);
 
@@ -138,10 +138,6 @@ export class LabeledButton extends React.Component {
             circular: this.props.circular,
             compact: this.props.compact,
             fluid: false,
-            negative: this.props.negative,
-            positive: this.props.positive,
-            primary: this.props.primary,
-            secondary: this.props.secondary,
 
             // component
             button: this.props.defaultClasses

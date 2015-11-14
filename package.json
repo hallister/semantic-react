@@ -4,10 +4,11 @@
   "description": "React components for Semantic UI.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "build": "webpack --colors --progress --display-modules  --config webpack-production.config.js",
-    "test": "NODE_ENV=test ./node_modules/karma/bin/karma start --single-run --no-auto-watch karma.config.js",
-    "test-watch": "NODE_ENV=test ./node_modules/karma/bin/karma start --auto-watch --no-single-run karma.config.js"
+    "start": "node scripts/exec.js start",
+    "build": "node scripts/exec.js build",
+    "build:min": "node scripts/exec.js build:min",
+    "test": "node scripts/exec.js test",
+    "test:watch": "node scripts/exec.js test:watch"
   },
   "keywords": [
     "react",
@@ -18,29 +19,16 @@
     "type": "git",
     "url": "https://github.com/hallister/semantic-react.git"
   },
-  "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "setupEnvScriptFile": "<rootDir>/jestenv.js",
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-dom"
-    ],
-    "testFileExtensions": [
-      "es6",
-      "js"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ]
-  },
   "author": "Justin Hall <justin@hallister.me>",
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.1.3",
     "raf": "^3.1.0",
-    "react-addons-transition-group": "^0.14.0",
     "react-outsideclickhandler": "^0.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=0.14.0",
+    "react-dom": ">=0.14.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",
@@ -55,6 +43,7 @@
     "eslint-loader": "^1.0.0",
     "eslint-plugin-react": "^3.4.2",
     "express": "^4.13.3",
+    "he": "^0.5.0",
     "history": "^1.13.0",
     "istanbul-react": "^1.1.0",
     "json-loader": "^0.5.3",
@@ -70,11 +59,10 @@
     "mocha": "^2.3.3",
     "phantomjs": "^1.9.18",
     "phantomjs-polyfill": "0.0.1",
-    "react": "^0.14.0",
     "react-addons-test-utils": "^0.14.0",
+    "react-addons-transition-group": "^0.14.0",
     "react-codemirror": "^0.2.0",
     "react-docgen": "^2.4.0",
-    "react-dom": "^0.14.0",
     "react-router": "^1.0.0-rc4",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.0",
