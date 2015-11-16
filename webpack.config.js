@@ -18,7 +18,7 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        new webpack.IgnorePlugin(/react\/lib\/ReactContext/)
+        new webpack.IgnorePlugin(/(.*ReactContext.*)/)
     ],
     resolve: {
         extensions: ['', '.js', '.jsx', '.es6', '.json'],

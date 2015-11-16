@@ -99,7 +99,7 @@ class Docs extends React.Component {
                     <Column
                         color="black"
                         style={{ paddingLeft: 0 }}
-                        width={3}
+                        width={2}
                     >
                         <Menu
                             inverted

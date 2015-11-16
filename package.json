@@ -71,7 +71,7 @@
     "redbox-react": "^1.1.1",
     "sinon": "^1.17.2",
     "skin-deep": "^0.13.0",
-    "uglify-js": "^2.6.0",
+    "uglify-js": "^2.6.1",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.5.0"

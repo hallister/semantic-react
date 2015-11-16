@@ -195,8 +195,24 @@ exports.image = {
         "visible": {
             "type": {
                 "name": "union",
-                "computed": true,
-                "value": "React.PropTypes.oneOf(['hidden', 'visible'])"
+                "value": [
+                    {
+                        "name": "enum",
+                        "value": [
+                            {
+                                "value": "'hidden'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'visible'",
+                                "computed": false
+                            }
+                        ]
+                    },
+                    {
+                        "name": "bool"
+                    }
+                ]
             },
             "required": false,
             "description": ""

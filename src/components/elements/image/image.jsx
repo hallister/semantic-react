@@ -35,10 +35,10 @@ export class Image extends React.Component {
             React.PropTypes.bool
         ]),
         src: React.PropTypes.string.isRequired,
-        visible: React.PropTypes.oneOfType(
+        visible: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['hidden', 'visible']),
             React.PropTypes.bool
-        )
+        ])
     };
 
     // we don't want the ui in these circumstances
