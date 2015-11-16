@@ -1,3 +1,5 @@
+/* eslint-env node, mocha */
+
 import React, { createElement as $ } from 'react';
 import { Button as Element, Icon } from '../../../elements';
 import { expect } from 'chai';

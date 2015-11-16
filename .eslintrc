@@ -95,7 +95,7 @@
         "react/jsx-indent-props": [1, 4],
         "react/jsx-uses-react": 2,
         "react/jsx-uses-vars": 2,
-        "react/jsx-closing-bracket-location": 1,
+        "react/jsx-closing-bracket-location": [1, { "nonEmpty": "tag-aligned", "selfClosing": "after-props"}],
         "react/no-did-mount-set-state": 2,
         "react/no-did-update-set-state": 2,
         "react/no-multi-comp": [1, { "ignoreStateless": true }],

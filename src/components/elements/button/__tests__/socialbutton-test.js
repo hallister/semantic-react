@@ -1,3 +1,5 @@
+/* eslint-env node, mocha */
+/* global sinon, assert */
 import { createElement as $ } from 'react';
 import { SocialButton as Element, Button, Icon } from '../../../elements';
 import { expect } from 'chai';
@@ -5,11 +7,6 @@ import sd from 'skin-deep';
 
 
 let props = {
-    name: 'facebook'
-};
-
-
-let consumedProps = {
     name: 'facebook'
 };
 
@@ -24,8 +21,7 @@ describe('SocialButton', () => {
         sinon.test(function() {
             let spy = sinon.stub(console, 'error');
 
-            let tree = sd.shallowRender($(Element));
-            let vdom = tree.getRenderOutput();
+            sd.shallowRender($(Element));
 
             assert(spy.called);
         });
@@ -52,7 +48,6 @@ describe('SocialButton', () => {
             props.component = 'div';
             let tree = sd.shallowRender($(Element, props));
             let vdom = tree.getRenderOutput();
-            let instance = tree.getMountedInstance();
 
             expect(vdom.props).has.property('component', 'div');
         });

@@ -1,19 +1,22 @@
+/* eslint-env node, mocha */
+
 import React, { createElement as $ } from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
-import { Buttons as Element, Button, Icon, IconButton } from '../../../elements';
+import { Buttons as Element, Button, IconButton } from '../../../elements';
 import { expect } from 'chai';
 import sd from 'skin-deep';
 
-let renderer = TestUtils.createRenderer();
 let buttonsChildren = [
     <Button key="1">Button 1</Button>,
     <Button key="2">Button 2</Button>
 ];
 
 let iconButtonsChildren = [
-    <IconButton key="1" name="cloud" />,
-    <IconButton key="2" name="arrow" />
+    <IconButton
+        key="1"
+        name="cloud" />,
+    <IconButton
+        key="2"
+        name="arrow" />
 ];
 
 let props = {};
@@ -122,7 +125,7 @@ describe('Buttons', () => {
 
         it('consumes all used props', () => {
             expect(Object.keys(vdom.props)).to.have.length(2);
-            expect(vdom.props).to.have.property('children', undefined);
+            expect(vdom.props.children).to.be.an('undefined');
             expect(vdom.props).to.have.property('className');
         });
 
@@ -134,14 +137,14 @@ describe('Buttons', () => {
             props['data-test'] = 'test';
             props['dataTest'] = 'test';
 
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
+            let unusedTree = sd.shallowRender($(Element, props));
+            let unusedVdom = unusedTree.getRenderOutput();
 
             // length = props.length + className + children
             //      4 = 2            + 1         + 1
-            expect(Object.keys(vdom.props).length).to.equal(4);
-            expect(vdom.props).to.have.property('data-test', 'test');
-            expect(vdom.props).to.have.property('dataTest', 'test');
+            expect(Object.keys(unusedVdom.props).length).to.equal(4);
+            expect(unusedVdom.props).to.have.property('data-test', 'test');
+            expect(unusedVdom.props).to.have.property('dataTest', 'test');
         });
     });
 });

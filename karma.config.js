@@ -29,6 +29,9 @@ module.exports = function(config) {
             resolve: {
                 extensions: ['', '.js', '.json', '.jsx', '.es6']
             },
+            plugins: [
+                new webpack.IgnorePlugin(/react\/lib\/ReactContext/)
+            ],
             module: {
                 preLoaders: [{
                     test: /\.(jsx?|es6)$/,
