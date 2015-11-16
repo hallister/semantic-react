@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 export class Divider extends React.Component {
     static propTypes = {
+        aligned: React.PropTypes.oneOf(['horizontal', 'vertical']),
         children: React.PropTypes.node,
         className: React.PropTypes.node,
         clearing: React.PropTypes.bool,
@@ -13,13 +14,10 @@ export class Divider extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
-        fitted: React.PropTypes.bool,
         header: React.PropTypes.bool,
         hidden: React.PropTypes.bool,
-        horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
-        section: React.PropTypes.bool,
-        vertical: React.PropTypes.bool
+        spacing: React.PropTypes.oneOf(['fitted', 'padded'])
     };
 
     static defaultProps = {
@@ -28,9 +26,8 @@ export class Divider extends React.Component {
     };
 
     render() {
-        let { children, className, clearing, component, defaultClasses, fitted,
-              header, hidden, horizontal, inverted, section, vertical,
-              ...other } = this.props;
+        let { aligned, children, className, clearing, component, defaultClasses,
+              header, hidden, inverted, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -48,15 +45,15 @@ export class Divider extends React.Component {
 
             // types
             header: this.props.header,
-            horizontal: this.props.horizontal,
-            vertical: this.props.vertical,
+            horizontal: this.props.aligned === 'horizontal',
+            vertical: this.props.aligned === 'vertical',
 
             // variations
             clearing: this.props.clearing,
-            fitted: this.props.fitted,
+            fitted: this.props.spacing === 'fitted',
             hidden: this.props.hidden,
             inverted: this.props.inverted,
-            section: this.props.section,
+            section: this.props.spacing === 'padded',
 
             // component
             divider: this.props.defaultClasses

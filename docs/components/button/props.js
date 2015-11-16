@@ -2,13 +2,6 @@
 exports.button = {
     "description": "",
     "props": {
-        "active": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "Indicates the button is currently active."
-        },
         "animated": {
             "type": {
                 "name": "union",
@@ -233,6 +226,23 @@ exports.button = {
             },
             "required": false,
             "description": "Adds a SemanticUI social class (SocialButton)."
+        },
+        "state": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'active'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'disabled'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Indicates whether the button is currently highlighted or disabled."
         }
     }
 }

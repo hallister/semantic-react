@@ -21,6 +21,7 @@ let PropBlock = (props) => {
         if (!props.propList[component].props) return null;
 
         let propDefs = Object.keys(props.propList[component].props).map(property => {
+
             let description = props.propList[component].props[property];
 
             return (
@@ -34,7 +35,7 @@ let PropBlock = (props) => {
 
         propList.push(
             <Tab
-                header={Components[component]}
+                header={Components[component] || component}
                 key={component}
                 segment={false}
             >

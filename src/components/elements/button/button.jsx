@@ -13,11 +13,6 @@ let validProps = {
 class Button extends React.Component {
     static propTypes = {
         /**
-         * Indicates the button is currently active.
-         */
-        active: React.PropTypes.bool,
-
-        /**
          * Adds a fade or slide animation on hover.
          */
         animated: React.PropTypes.oneOfType([
@@ -77,11 +72,6 @@ class Button extends React.Component {
         defaultClasses: React.PropTypes.bool,
 
         /**
-         * Disallows interaction with the component.
-         */
-        disabled: React.PropTypes.bool,
-
-        /**
          * Forces to component to float left or right.
          */
         floated: React.PropTypes.oneOf(['right', 'left']),
@@ -122,7 +112,12 @@ class Button extends React.Component {
         /**
          * Adds a SemanticUI social class (SocialButton).
          */
-        social: React.PropTypes.string
+        social: React.PropTypes.string,
+
+        /**
+         * Indicates whether the button is currently highlighted or disabled.
+         */
+        state: React.PropTypes.oneOf(['active', 'disabled'])
     };
 
     static contextTypes = {
@@ -138,15 +133,15 @@ class Button extends React.Component {
     };
 
     isIconButton() {
-        return hasChild(this.props.children, Icon) && React.Children.count(this.props.children) === 1 ? true : false;
+        return hasChild(this.props.children, Icon) && (React.Children.count(this.props.children) === 1 ? true : false);
     }
 
     render() {
         let Component = (this.props.attached || this.context.isAttached || this.props.animated || React.Children.count(this.props.children) > 1) ? 'div' : 'button';
 
         // consume props
-        let { active, animated, attached, basic, children, circular, color,
-              component, compact, className, defaultClasses, disabled, floated,
+        let { animated, attached, basic, children, circular, color,
+              component, compact, className, defaultClasses, floated,
               fluid, icon, inverted, labeled, loading, size, social,
               ...other } = this.props;
 
@@ -177,8 +172,8 @@ class Button extends React.Component {
             inverted: this.props.inverted,
 
             // states
-            active: this.props.active,
-            disabled: this.props.disabled,
+            active: this.props.state === 'active',
+            disabled: this.props.state === 'disabled',
             loading: this.props.loading,
 
             // variations

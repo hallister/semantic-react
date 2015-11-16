@@ -2,6 +2,23 @@
 exports.divider = {
     "description": "",
     "props": {
+        "aligned": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'horizontal'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'vertical'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": ""
+        },
         "children": {
             "type": {
                 "name": "node"
@@ -53,13 +70,6 @@ exports.divider = {
                 "computed": false
             }
         },
-        "fitted": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "header": {
             "type": {
                 "name": "bool"
@@ -74,13 +84,6 @@ exports.divider = {
             "required": false,
             "description": ""
         },
-        "horizontal": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "inverted": {
             "type": {
                 "name": "bool"
@@ -88,16 +91,19 @@ exports.divider = {
             "required": false,
             "description": ""
         },
-        "section": {
+        "type": {
             "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "vertical": {
-            "type": {
-                "name": "bool"
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'fitted'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'padded'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""

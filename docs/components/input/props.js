@@ -53,20 +53,6 @@ exports.input = {
                 "computed": false
             }
         },
-        "disabled": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "error": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "fluid": {
             "type": {
                 "name": "bool"
@@ -154,18 +140,17 @@ exports.input = {
             "required": false,
             "description": ""
         },
-        "tag": {
+        "state": {
             "type": {
-                "name": "union",
+                "name": "enum",
                 "value": [
                     {
-                        "name": "element"
+                        "value": "'disabled'",
+                        "computed": false
                     },
                     {
-                        "name": "func"
-                    },
-                    {
-                        "name": "string"
+                        "value": "'error'",
+                        "computed": false
                     }
                 ]
             },

@@ -7,6 +7,7 @@
     "start": "node scripts/exec.js start",
     "build": "node scripts/exec.js build",
     "build:min": "node scripts/exec.js build:min",
+    "docs:gen": "node scripts/exec.js docs:gen",
     "test": "node scripts/exec.js test",
     "test:watch": "node scripts/exec.js test:watch"
   },
@@ -43,6 +44,7 @@
     "eslint-loader": "^1.1.1",
     "eslint-plugin-react": "^3.8.0",
     "express": "^4.13.3",
+    "glob": "^6.0.1",
     "he": "^0.5.0",
     "history": "^1.13.0",
     "istanbul-react": "^1.1.0",

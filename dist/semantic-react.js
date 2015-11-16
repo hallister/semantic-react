@@ -596,7 +596,7 @@
 	        _createClass(Button, [{
 	                key: 'isIconButton',
 	                value: function isIconButton() {
-	                        return (0, _utilities.hasChild)(this.props.children, _elements.Icon) && _react2['default'].Children.count(this.props.children) === 1 ? true : false;
+	                        return (0, _utilities.hasChild)(this.props.children, _elements.Icon) && (_react2['default'].Children.count(this.props.children) === 1 ? true : false);
 	                }
 	        }, {
 	                key: 'render',
@@ -1241,8 +1241,6 @@
 	    } else {
 	        return children[0].type === component;
 	    }
-
-	    return false;
 	}
 
 	function getChild(children, component) {
@@ -6091,12 +6089,13 @@
 	            value: ComposedComponent.displayName || ComposedComponent.name,
 	            enumerable: true
 	        }, {
-	            key: 'proptypes',
+	            key: 'propTypes',
 	            value: {
 	                animate: _react2['default'].PropTypes.bool,
 	                cancel: _react2['default'].PropTypes.bool,
 	                cancelDuration: _react2['default'].PropTypes.number,
 	                component: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.element, _react2['default'].PropTypes.string]),
+	                duration: _react2['default'].PropTypes.number,
 	                ease: _react2['default'].PropTypes.string,
 	                end: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.bool, _react2['default'].PropTypes.shape({
 	                    ease: _react2['default'].PropTypes.string,
@@ -6122,7 +6121,8 @@
 	                    duration: _react2['default'].PropTypes.number,
 	                    from: _react2['default'].PropTypes.object,
 	                    to: _react2['default'].PropTypes.object
-	                })])
+	                })]),
+	                style: _react2['default'].PropTypes.object
 	            },
 	            enumerable: true
 	        }, {
@@ -6235,16 +6235,14 @@
 	                var cancel = _props.cancel;
 	                var cancelDuration = _props.cancelDuration;
 	                var duration = _props.duration;
-	                var endState = _props.endState;
 	                var enter = _props.enter;
 	                var end = _props.end;
 	                var leave = _props.leave;
 	                var onComplete = _props.onComplete;
 	                var start = _props.start;
-	                var startState = _props.startState;
 	                var ease = _props.ease;
 
-	                var other = _objectWithoutProperties(_props, ['animate', 'cancel', 'cancelDuration', 'duration', 'endState', 'enter', 'end', 'leave', 'onComplete', 'start', 'startState', 'ease']);
+	                var other = _objectWithoutProperties(_props, ['animate', 'cancel', 'cancelDuration', 'duration', 'enter', 'end', 'leave', 'onComplete', 'start', 'ease']);
 
 	                var style = _Object$assign({}, this.state.style, this.props.style);
 
@@ -10519,7 +10517,7 @@
 	        value: function componentWillUpdate(props) {
 
 	            // popup is inactive, make the style object empty
-	            if (props.active == false) {
+	            if (props.active === false) {
 	                this.style = {};
 	                // active popup, generate the styles
 	            } else {

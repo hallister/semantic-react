@@ -11,12 +11,11 @@ let validProps = {
 // can't do SVG since JSX/React breaks on SVG images
 export class Image extends React.Component {
     static propTypes = {
-        aligned: React.PropTypes.oneOf(validProps.aligned),
+        aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
         avatar: React.PropTypes.bool,
         bordered: React.PropTypes.bool,
         centered: React.PropTypes.bool,
         children: React.PropTypes.node,
-        circular: React.PropTypes.bool,
         className: React.PropTypes.node,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
@@ -25,18 +24,21 @@ export class Image extends React.Component {
         content: React.PropTypes.bool,
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-        floated: React.PropTypes.oneOf(validProps.floated),
+        floated: React.PropTypes.oneOf(['right', 'left']),
         fluid: React.PropTypes.bool,
         hidden: React.PropTypes.bool,
         isCommentsChild: React.PropTypes.bool,
-        rounded: React.PropTypes.bool,
+        shape: React.PropTypes.oneOf(['circular', 'rounded']),
         size: React.PropTypes.string,
         spaced: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.spaced),
+            React.PropTypes.oneOf(['right', 'left']),
             React.PropTypes.bool
         ]),
         src: React.PropTypes.string.isRequired,
-        visible: React.PropTypes.bool
+        visible: React.PropTypes.oneOfType(
+            React.PropTypes.oneOf(['hidden', 'visible']),
+            React.PropTypes.bool
+        )
     };
 
     // we don't want the ui in these circumstances
@@ -73,8 +75,8 @@ export class Image extends React.Component {
     }
 
     render() {
-        let { aligned, avatar, bordered, centered, children, circular, className, content,
-              defaultClasses, disabled, floated, fluid, hidden, rounded, size, spaced,
+        let { aligned, avatar, bordered, centered, children, className, content,
+              defaultClasses, disabled, floated, fluid, hidden, size, spaced,
               src, visible, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -98,17 +100,17 @@ export class Image extends React.Component {
             // states
             disabled: this.props.disabled,
             hidden: this.props.hidden,
-            visible: this.props.visible,
+            visible: this.props.visible === 'visible' || this.props.visible === true,
 
             // variations
             aligned: this.props.aligned,
             avatar: this.props.avatar,
             bordered: this.props.bordered,
             centered: this.props.centered,
-            circular: this.props.circular,
+            circular: this.props.shape === 'circular',
             floated: this.props.floated,
             fluid: this.props.fluid,
-            rounded: this.props.rounded,
+            rounded: this.props.shape === 'rounded',
             spaced: this.props.spaced,
 
             // component

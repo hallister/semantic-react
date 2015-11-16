@@ -11,12 +11,11 @@ let validProps = {
 
 export class Header extends React.Component {
     static propTypes = {
-        aligned: React.PropTypes.oneOf(validProps.aligned),
+        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
         attached: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.attached),
+            React.PropTypes.oneOf(['bottom', 'top']),
             React.PropTypes.bool
         ]),
-        block: React.PropTypes.bool,
         children: React.PropTypes.node,
         className: React.PropTypes.node,
         color: React.PropTypes.string,
@@ -26,10 +25,9 @@ export class Header extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-        divider: React.PropTypes.bool,
-        dividing: React.PropTypes.bool,
         element: React.PropTypes.string,
-        floated: React.PropTypes.oneOf(validProps.floated),
+        emphasis: React.PropTypes.oneOf(['dividing', 'block']),
+        floated: React.PropTypes.oneOf(['right', 'left']),
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         item: React.PropTypes.bool,
@@ -65,8 +63,8 @@ export class Header extends React.Component {
     render() {
         let Component = this.props.onClick ? 'a' : 'div';
 
-        let { aligned, attached, block, children, component, className, color,
-              defaultClasses, disabled, divider, dividing, element, floated,
+        let { aligned, attached, children, component, className, color,
+              defaultClasses, disabled, element, floated,
               horizontal, inverted, size, ...other } = this.props;
 
         // add classnames
@@ -94,9 +92,8 @@ export class Header extends React.Component {
             // variations
             aligned: this.props.aligned && this.props.aligned !== 'justified',
             attached: this.props.attached,
-            block: this.props.block,
-            divider: this.props.divider,
-            dividing: this.props.dividing,
+            block: this.props.emphasis == 'block',
+            dividing: this.props.emphasis == 'dividing',
             floated: this.props.floated,
             horizontal: this.props.horizontal,
             inverted: this.props.inverted,

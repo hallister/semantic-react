@@ -10,9 +10,9 @@ let validProps = {
 
 export class Segment extends React.Component {
     static propTypes = {
-        aligned: React.PropTypes.oneOf(validProps.aligned),
+        aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
         attached: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.attached),
+            React.PropTypes.oneOf(['bottom', 'top']),
             React.PropTypes.bool
         ]),
         basic: React.PropTypes.bool,
@@ -21,7 +21,6 @@ export class Segment extends React.Component {
         className: React.PropTypes.node,
         clearing: React.PropTypes.bool,
         color: React.PropTypes.string,
-        compact: React.PropTypes.bool,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.string
@@ -29,18 +28,14 @@ export class Segment extends React.Component {
         container: React.PropTypes.bool,
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-        floated: React.PropTypes.oneOf(validProps.floated),
+        emphasis: React.PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
+        floated: React.PropTypes.oneOf(['right', 'left']),
         index: React.PropTypes.number,
         inverted: React.PropTypes.bool,
         loading: React.PropTypes.bool,
-        padded: React.PropTypes.bool,
-        piled: React.PropTypes.bool,
-        primary: React.PropTypes.bool,
-        raised: React.PropTypes.bool,
-        secondary: React.PropTypes.bool,
-        stacked: React.PropTypes.bool,
+        spacing: React.PropTypes.oneOf(['fitted', 'padded']),
         style: React.PropTypes.object,
-        tertiary: React.PropTypes.bool,
+        type: React.PropTypes.oneOf(['raised', 'stacked', 'piled']),
         vertical: React.PropTypes.bool,
         zIndex: React.PropTypes.number
     };
@@ -53,9 +48,10 @@ export class Segment extends React.Component {
     };
 
     render() {
-        let { aligned, component, attached, basic, blurring, children, className, clearing, color, compact,
-              defaultClasses, disabled, floated, index, inverted, loading, padded, piled,
-              primary, raised, secondary, stacked, tertiary, vertical, zIndex, ...other } = this.props;
+        let { aligned, component, attached, basic, blurring, children,
+              className, clearing, color, defaultClasses, disabled,
+              emphasis, floated, index, inverted, loading, vertical,
+              zIndex, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
         other.style = this.getStyle();
@@ -86,9 +82,9 @@ export class Segment extends React.Component {
             bottom: false,
 
             // types
-            raised: this.props.raised,
-            stacked: this.props.stacked,
-            piled: this.props.piled,
+            raised: this.props.type === 'raised',
+            stacked: this.props.type === 'stacked',
+            piled: this.props.type === 'piled',
             vertical: this.props.vertical,
 
             // states
@@ -101,14 +97,14 @@ export class Segment extends React.Component {
             basic: this.props.basic,
             blurring: this.props.blurring,
             clearing: this.props.clearing,
-            compact: this.props.compact,
+            compact: this.props.spacing === 'fitted',
             container: this.props.container,
             floated: this.props.floated,
             inverted: this.props.inverted,
-            padded: this.props.padded,
-            primary: this.props.primary,
-            secondary: this.props.secondary,
-            tertiary: this.props.tertiary,
+            padded: this.props.spacing === 'padded',
+            primary: this.props.emphasis === 'primary',
+            secondary: this.props.emphasis === 'secondary',
+            tertiary: this.props.emphasis === 'tertiary',
 
             // component
             segment: this.props.defaultClasses
@@ -122,7 +118,7 @@ export class Segment extends React.Component {
     getStyle() {
         let style = this.props.style;
 
-        if (this.props.piled && !style.zIndex) {
+        if (this.props.type === 'piled' && !style.zIndex) {
             style.zIndex = this.props.zIndex || 0;
         }
 

@@ -6,7 +6,6 @@ export class Images extends React.Component {
         avatar: React.PropTypes.bool,
         bordered: React.PropTypes.bool,
         children: React.PropTypes.node,
-        circular: React.PropTypes.bool,
         className: React.PropTypes.node,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
@@ -15,17 +14,17 @@ export class Images extends React.Component {
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         hidden: React.PropTypes.bool,
-        rounded: React.PropTypes.bool,
+        shape: React.PropTypes.oneOf(['circular', 'rounded']),
         size: React.PropTypes.string
     };
 
     static defaultProps = {
         component: 'div',
         defaultClasses: true
-    };    
+    };
 
     render() {
-        let { avatar, bordered, children, circular, defaultClasses, disabled, hidden, rounded,
+        let { avatar, bordered, children, defaultClasses, disabled, hidden,
               size, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -51,10 +50,10 @@ export class Images extends React.Component {
             // variations
             avatar: this.props.avatar,
             bordered: this.props.bordered,
-            circular: this.props.circular,
-            rounded: this.props.rounded,
+            circular: this.props.shape === 'circular',
+            rounded: this.props.shape === 'rounded',
 
-            // component 
+            // component
             images: this.props.defaultClasses
         };
 

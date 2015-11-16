@@ -5,9 +5,9 @@ import { Router, Route, Link } from 'react-router';
 
 import { Header } from '../src/components/elements';
 import { Menu, Item } from '../src/components/views';
-import { Grid, Column, Row, Computer } from '../src/components/collections';
+import { Grid, Column, Row } from '../src/components/collections';
 
-import * as Doc from './components/exports.es6';
+import ComponentDoc from './componentdoc';
 
 const components = {
     elements: [
@@ -91,9 +91,8 @@ class Docs extends React.Component {
                     <Column
                         color="black"
                         style={{ paddingLeft: 0 }}
-                        width={2}
+                        width={3}
                     >
-                        <Computer only />
                         <Menu
                             inverted
                             style={{ marginTop: 0 }}
@@ -105,8 +104,7 @@ class Docs extends React.Component {
                             {this.renderComponents('Modules')}
                         </Menu>
                     </Column>
-                    <Column width={16}>
-                        <Computer width={12} />
+                    <Column width={12}>
                         {this.props.children}
                     </Column>
                 </Row>
@@ -115,12 +113,6 @@ class Docs extends React.Component {
     }
 }
 
-function getComponent(location, callback) {
-    let include = Doc[location.pathname.split('/').pop()];
-    callback(null, include);
-}
-
-
 ReactDOM.render((
     <Router>
         <Route
@@ -128,7 +120,7 @@ ReactDOM.render((
             path="/"
         >
             <Route
-                getComponent={getComponent}
+                component={ComponentDoc}
                 path=":type/:component"
             />
         </Route>

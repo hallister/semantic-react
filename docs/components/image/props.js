@@ -5,8 +5,20 @@ exports.image = {
         "aligned": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.aligned"
+                "value": [
+                    {
+                        "value": "'top'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'middle'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -35,13 +47,6 @@ exports.image = {
         "children": {
             "type": {
                 "name": "node"
-            },
-            "required": false,
-            "description": ""
-        },
-        "circular": {
-            "type": {
-                "name": "bool"
             },
             "required": false,
             "description": ""
@@ -96,8 +101,16 @@ exports.image = {
         "floated": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.floated"
+                "value": [
+                    {
+                        "value": "'right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'left'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -123,9 +136,19 @@ exports.image = {
             "required": false,
             "description": ""
         },
-        "rounded": {
+        "shape": {
             "type": {
-                "name": "bool"
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'circular'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'rounded'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -143,8 +166,16 @@ exports.image = {
                 "value": [
                     {
                         "name": "enum",
-                        "computed": true,
-                        "value": "validProps.spaced"
+                        "value": [
+                            {
+                                "value": "'right'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'left'",
+                                "computed": false
+                            }
+                        ]
                     },
                     {
                         "name": "bool"
@@ -163,7 +194,9 @@ exports.image = {
         },
         "visible": {
             "type": {
-                "name": "bool"
+                "name": "union",
+                "computed": true,
+                "value": "React.PropTypes.oneOf(['hidden', 'visible'])"
             },
             "required": false,
             "description": ""
@@ -192,13 +225,6 @@ exports.images = {
         "children": {
             "type": {
                 "name": "node"
-            },
-            "required": false,
-            "description": ""
-        },
-        "circular": {
-            "type": {
-                "name": "bool"
             },
             "required": false,
             "description": ""
@@ -254,9 +280,19 @@ exports.images = {
             "required": false,
             "description": ""
         },
-        "rounded": {
+        "shape": {
             "type": {
-                "name": "bool"
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'circular'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'rounded'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""

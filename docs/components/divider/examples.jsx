@@ -1,4 +1,4 @@
-import { Divider, Header, Icon, Content } from '../../../src/components/elements';
+import { Divider, Header, Icon, Content, Segment } from '../../../src/components/elements';
 
 export default {
     Default: {
@@ -20,24 +20,37 @@ export default {
             children: 'Description'
         }]
     },
-    Fitted: [
-        'Section One',
+    Type: [
         {
-            component: Divider,
+            component: Segment,
             props: {
-                fitted: true
-            }
-        },
-        'Section Two'
-    ],
-    Section: [
-        'Section One',
-        {
-            component: Divider,
+                basic: true
+            },
+            children: [
+                'Section One',
+                {
+                    component: Divider,
+                    props: {
+                        type: 'fitted'
+                    }
+                },
+                'Section Two'
+            ]
+        }, {
+            component: Segment,
             props: {
-                section: true
-            }
-        },
-        'Section Two'
+                basic: true
+            },
+            children: [
+                'Section One',
+                {
+                    component: Divider,
+                    props: {
+                        type: 'padded'
+                    }
+                },
+                'Section Two'
+            ]
+        }
     ]
 };

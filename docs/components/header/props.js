@@ -5,8 +5,24 @@ exports.header = {
         "aligned": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.aligned"
+                "value": [
+                    {
+                        "value": "'right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'left'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'justified'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'center'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -17,8 +33,16 @@ exports.header = {
                 "value": [
                     {
                         "name": "enum",
-                        "computed": true,
-                        "value": "validProps.attached"
+                        "value": [
+                            {
+                                "value": "'bottom'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'top'",
+                                "computed": false
+                            }
+                        ]
                     },
                     {
                         "name": "bool"
@@ -31,13 +55,6 @@ exports.header = {
                 "value": "false",
                 "computed": false
             }
-        },
-        "block": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
         },
         "children": {
             "type": {
@@ -93,20 +110,6 @@ exports.header = {
             "required": false,
             "description": ""
         },
-        "divider": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "dividing": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "element": {
             "type": {
                 "name": "string"
@@ -114,11 +117,36 @@ exports.header = {
             "required": false,
             "description": ""
         },
+        "emphasis": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'dividing'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'block'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": ""
+        },
         "floated": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.floated"
+                "value": [
+                    {
+                        "value": "'right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'left'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""

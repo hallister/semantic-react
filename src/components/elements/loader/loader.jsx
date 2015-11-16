@@ -4,7 +4,6 @@ import classNames from 'classnames';
 
 export class Loader extends Component {
     static propTypes = {
-        active: React.PropTypes.bool,
         centered: React.PropTypes.bool,
         children: React.PropTypes.node,
         className: React.PropTypes.node,
@@ -13,11 +12,12 @@ export class Loader extends Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
-        indeterminate: React.PropTypes.bool,
         inline: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         size: React.PropTypes.string,
+        state: React.PropTypes.oneOf([
+            'active', 'indeterminate', 'disabled'
+        ]),
         text: React.PropTypes.bool
     };
 
@@ -42,13 +42,13 @@ export class Loader extends Component {
         let classes = {
             ui: this.props.defaultClasses,
 
-            active: this.props.active,
+            active: this.props.state === 'active',
             centered: this.props.centered,
-            indeterminate: this.props.indeterminate,
+            indeterminate: this.props.state === 'indeterminate',
             inline: this.props.inline,
             inverted: this.props.inverted,
             text: this.props.text || hasChild(this.props.children, 'string'),
-            disabled: this.props.disabled,
+            disabled: this.props.state === 'disabled',
 
             // component
             loader: this.props.defaultClasses

@@ -190,5 +190,41 @@ export default {
                 name: 'fork'
             }
         }]
+    }],
+    State: [{
+        component: Button,
+        props: {
+            state: 'active'
+        },
+        children: 'Active'
+    }, {
+        component: Button,
+        children: 'Normal'
+    }, {
+        component: Button,
+        props: {
+            state: 'disabled'
+        },
+        children: 'Disabled'
+    }, {
+        component: Button,
+        props: {
+            color: 'blue',
+            state: 'active'
+        },
+        children: 'Active'
+    }, {
+        component: Button,
+        props: {
+            color: 'blue'
+        },
+        children: 'Normal'
+    }, {
+        component: Button,
+        props: {
+            color: 'blue', 
+            state: 'disabled'
+        },
+        children: 'Disabled'
     }]
 };

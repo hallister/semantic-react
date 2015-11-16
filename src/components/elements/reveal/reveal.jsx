@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 let validProps = {
     move: ['right', 'up', 'down'],
-    rotate: ['left']  
+    rotate: ['left']
 };
 
 export class Reveal extends Component {
@@ -24,11 +24,11 @@ export class Reveal extends Component {
         image: React.PropTypes.bool,
         instant: React.PropTypes.bool,
         move: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.move),
+            React.PropTypes.oneOf(['right', 'up', 'down']),
             React.PropTypes.bool
         ]),
         rotate: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.rotate),
+            React.PropTypes.oneOf(['left']),
             React.PropTypes.bool
         ]),
         // required?

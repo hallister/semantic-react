@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
-
 export class Segments extends Component {
     static propTypes = {
         children: React.PropTypes.node,

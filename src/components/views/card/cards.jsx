@@ -11,7 +11,7 @@ export class Cards extends Component {
     };
 
     static childContextTypes = {
-        DisableUIClass: React.PropTypes.bool
+        isCardsChild: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -24,7 +24,7 @@ export class Cards extends Component {
 
     getChildContext() {
         return {
-            DisableUIClass: true
+            isCardsChild: true
         }
     }
 

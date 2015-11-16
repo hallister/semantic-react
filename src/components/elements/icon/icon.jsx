@@ -21,13 +21,13 @@ export class Icon extends React.Component {
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         fitted: React.PropTypes.bool,
-        flipped: React.PropTypes.oneOf(validProps.flipped),
+        flipped: React.PropTypes.oneOf(['horizontally', 'vertically']),
         inverted: React.PropTypes.bool,
         link: React.PropTypes.bool,
         loading: React.PropTypes.bool,
         name: React.PropTypes.string.isRequired,
         onClick: React.PropTypes.func,
-        rotated: React.PropTypes.oneOf(validProps.rotated),
+        rotated: React.PropTypes.oneOf(['clockwise', 'counterclockwise']),
         size: React.PropTypes.string
     };
 

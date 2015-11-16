@@ -1,5 +1,3 @@
-#!/usr/bin/env babel-node
-
 import fs from 'fs';
 import path from 'path';
 
@@ -31,18 +29,10 @@ function buildDocs(raw) {
         }
     }
 
-    fs.openSync('./docs/components/exports.es6', 'w');
-
     Object.keys(expor).forEach(component => {
         let file = expor[component].join('\n');
 
         fs.writeFileSync('./docs/components/' + component + '/props.js', file);
-        fs.appendFileSync('./docs/components/exports.es6', `import ${component} from './${component}/componentdoc';` + '\n');
-        fs.createReadStream('./docs/componentdoc.jsx').pipe(fs.createWriteStream('./docs/components/' + component + '/componentdoc.jsx'));
-    });
-
-    Object.keys(expor).forEach(component => {
-        fs.appendFileSync('./docs/components/exports.es6', '\n' + `exports.${component} = ${component};`);
     });
 
 }

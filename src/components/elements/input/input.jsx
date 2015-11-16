@@ -12,8 +12,6 @@ export class Input extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
-        error: React.PropTypes.bool,
         fluid: React.PropTypes.bool,
         focus: React.PropTypes.bool,
         icon: React.PropTypes.oneOfType([
@@ -29,11 +27,7 @@ export class Input extends React.Component {
         name: React.PropTypes.string,
         placeholder: React.PropTypes.string,
         size: React.PropTypes.string,
-        tag: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.func,
-            React.PropTypes.string
-        ]),
+        state: React.PropTypes.oneOf(['disabled', 'error']),
         transparent: React.PropTypes.bool,
         type: React.PropTypes.string.isRequired
     };
@@ -57,7 +51,7 @@ export class Input extends React.Component {
         this.processChildren();
 
         let { children, className, defaultClasses, icon, labeled, loading, name,
-              placeholder, tag, type, ...other } = this.props;
+              placeholder, type, ...other } = this.props;
 
         other.className = classNames(
             this.props.className,
@@ -91,8 +85,8 @@ export class Input extends React.Component {
             input: this.props.defaultClasses,
 
             // states
-            disabled: this.props.disabled,
-            error: this.props.error,
+            disabled: this.props.state === 'disabled',
+            error: this.props.state === 'error',
             focus: this.props.focus,
             loading: this.props.loading,
 

@@ -9,10 +9,12 @@ let validProps = {
 
 export class List extends React.Component {
     static propTypes = {
-        aligned: React.PropTypes.oneOf(validProps.aligned),
+        aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
         animated: React.PropTypes.bool,
-        bulleted: React.PropTypes.bool,
-        celled: React.PropTypes.bool,
+        celled: React.PropTypes.oneOfType([
+            React.PropTypes.oneOf(['divided']),
+            React.PropTypes.bool
+        ]),
         children: React.PropTypes.node,
         className: React.PropTypes.node,
         component: React.PropTypes.oneOfType([
@@ -20,15 +22,14 @@ export class List extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
-        divided: React.PropTypes.bool,
-        floated: React.PropTypes.oneOf(validProps.floated),
+        floated: React.PropTypes.oneOf(['right', 'left']),
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         link: React.PropTypes.bool,
-        ordered: React.PropTypes.bool,
         relaxed: React.PropTypes.bool,
         selection: React.PropTypes.bool,
-        size: React.PropTypes.string
+        size: React.PropTypes.string,
+        type: React.PropTypes.oneOf(['bulleted', 'ordered'])
     };
 
     static childContextTypes = {
@@ -47,8 +48,9 @@ export class List extends React.Component {
     }
 
     render() {
-        let { aligned, animated, celled, bulleted, defaultClasses, divided, horizontal, 
-              inverted, link, ordered, relaxed, selection, size, ...other } = this.props;
+        let { aligned, animated, celled, defaultClasses, horizontal,
+              inverted, link, relaxed, selection, size, type,
+              ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -65,15 +67,15 @@ export class List extends React.Component {
             ui: this.props.defaultClasses,
 
             // types
-            bulleted: this.props.bulleted,
+            bulleted: this.props.type === 'bulleted',
             horizontal: this.props.horizontal,
             link: this.props.link,
-            ordered: this.props.ordered,
+            ordered: this.props.type === 'ordered',
 
             // variations
             animated: this.props.animated,
-            celled: this.props.celled,
-            divided: this.props.divided,
+            celled: this.props.celled && this.props.celled !== 'divided',
+            divided: this.props.celled === 'divided',
             inverted: this.props.inverted,
             relaxed: this.props.relaxed,
             selection: this.props.selection,

@@ -12,7 +12,7 @@ let validProps = {
 
 export class Label extends React.Component {
     static propTypes = {
-        attached: React.PropTypes.oneOf(validProps.attached),
+        attached: React.PropTypes.oneOf(['top', 'bottom', 'top right', 'top left', 'bottom left', 'bottom right']),
         basic: React.PropTypes.bool,
         children: React.PropTypes.node,
         circular: React.PropTypes.bool,
@@ -23,7 +23,7 @@ export class Label extends React.Component {
             React.PropTypes.string
         ]),
         corner: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.corner),
+            React.PropTypes.oneOf(['left', 'right']),
             React.PropTypes.bool
         ]),
         defaultClasses: React.PropTypes.bool,
@@ -34,20 +34,20 @@ export class Label extends React.Component {
         link: React.PropTypes.bool,
         onClick: React.PropTypes.func,
         pointing: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.pointing),
+            React.PropTypes.oneOf(['below', 'left', 'right']),
             React.PropTypes.bool
         ]),
         ribbon: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.ribbon),
+            React.PropTypes.oneOf(['right']),
             React.PropTypes.bool
         ]),
         right: React.PropTypes.bool,
         size: React.PropTypes.string,
-        tag: React.PropTypes.bool,
-        uiClass: React.PropTypes.bool
+        tag: React.PropTypes.bool
     };
 
     static contextTypes = {
+        isCardsChild: React.PropTypes.bool,
         isProgressChild: React.PropTypes.bool
     }
 
@@ -60,8 +60,7 @@ export class Label extends React.Component {
         corner: false,
         defaultClasses: true,
         pointing: false,
-        ribbon: false,
-        uiClass: true
+        ribbon: false
     };
 
     getChildContext() {
@@ -90,7 +89,7 @@ export class Label extends React.Component {
     getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses && this.props.uiClass && !this.context.isProgressChild,
+            ui: this.props.defaultClasses && !this.context.isCardsChild && !this.context.isProgressChild,
 
             // types
             attached: this.props.attached,

@@ -1,14 +1,16 @@
 import React from 'react';
-import * as propList from './props';
-import Examples from './examples';
-import ExampleBlock from '../exampleblock';
-import PropBlock from '../propblock';
-import DocBlock from '../docblock';
-import ExampleContentBlock from '../examplecontentblock';
+import DocBlock from './components/docblock';
+import ExampleBlock from './components/exampleblock';
+import PropBlock from './components/propblock';
+import ExampleContentBlock from './components/examplecontentblock';
 
-import { configParser } from '../../utilities';
+import { configParser } from './utilities';
 
 let ComponentDoc = (props) => {
+    /* eslint-disable quotes */
+    let propList = require("./components/" + props.params.component + "/props.js");
+    let Examples = require("./components/" + props.params.component + "/examples.jsx");
+    /* eslint-enable-quotes */
     let { children, ...other } = props;
 
     let exampleObject = configParser(Examples);
