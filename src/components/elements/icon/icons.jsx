@@ -21,12 +21,12 @@ export class Icons extends React.Component {
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         fitted: React.PropTypes.bool,
-        flipped: React.PropTypes.oneOf(validProps.flipped),
+        flipped: React.PropTypes.oneOf(['horizontally', 'vertically']),
         inverted: React.PropTypes.bool,
         link: React.PropTypes.bool,
         loading: React.PropTypes.bool,
         onClick: React.PropTypes.func,
-        rotated: React.PropTypes.oneOf(validProps.rotated),
+        rotated: React.PropTypes.oneOf(['clockwise', 'counterclockwise']),
         size: React.PropTypes.string
     };
 

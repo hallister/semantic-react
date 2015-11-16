@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 export class Rating extends React.Component {
     static propTypes = {
+        children: React.PropTypes.node,
         className: React.PropTypes.any,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,

@@ -5,8 +5,20 @@ exports.segment = {
         "aligned": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.aligned"
+                "value": [
+                    {
+                        "value": "'right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'left'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'center'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -17,8 +29,16 @@ exports.segment = {
                 "value": [
                     {
                         "name": "enum",
-                        "computed": true,
-                        "value": "validProps.attached"
+                        "value": [
+                            {
+                                "value": "'bottom'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'top'",
+                                "computed": false
+                            }
+                        ]
                     },
                     {
                         "name": "bool"
@@ -74,13 +94,6 @@ exports.segment = {
             "required": false,
             "description": ""
         },
-        "compact": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "component": {
             "type": {
                 "name": "union",
@@ -125,11 +138,40 @@ exports.segment = {
             "required": false,
             "description": ""
         },
+        "emphasis": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'primary'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'secondary'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'tertiary'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": ""
+        },
         "floated": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.floated"
+                "value": [
+                    {
+                        "value": "'right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'left'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -155,44 +197,19 @@ exports.segment = {
             "required": false,
             "description": ""
         },
-        "padded": {
+        "spacing": {
             "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "piled": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "primary": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "raised": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "secondary": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "stacked": {
-            "type": {
-                "name": "bool"
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'fitted'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'padded'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -208,9 +225,23 @@ exports.segment = {
                 "computed": false
             }
         },
-        "tertiary": {
+        "type": {
             "type": {
-                "name": "bool"
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'raised'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'stacked'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'piled'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""

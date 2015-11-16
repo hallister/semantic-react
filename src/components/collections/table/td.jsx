@@ -41,7 +41,7 @@ let td = (props) => {
 };
 
 td.propTypes = {
-    aligned: React.PropTypes.oneOf(validProps.aligned),
+    aligned: React.PropTypes.oneOf(['right', 'left', 'center', 'top', 'bottom']),
     className: React.PropTypes.any,
     collapsing: React.PropTypes.bool,
     component: React.PropTypes.oneOfType([

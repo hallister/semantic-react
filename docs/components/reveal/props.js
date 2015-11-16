@@ -98,8 +98,20 @@ exports.reveal = {
                 "value": [
                     {
                         "name": "enum",
-                        "computed": true,
-                        "value": "validProps.move"
+                        "value": [
+                            {
+                                "value": "'right'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'up'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'down'",
+                                "computed": false
+                            }
+                        ]
                     },
                     {
                         "name": "bool"
@@ -119,8 +131,12 @@ exports.reveal = {
                 "value": [
                     {
                         "name": "enum",
-                        "computed": true,
-                        "value": "validProps.rotate"
+                        "value": [
+                            {
+                                "value": "'left'",
+                                "computed": false
+                            }
+                        ]
                     },
                     {
                         "name": "bool"

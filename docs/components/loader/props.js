@@ -2,13 +2,6 @@
 exports.loader = {
     "description": "",
     "props": {
-        "active": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "centered": {
             "type": {
                 "name": "bool"
@@ -60,20 +53,6 @@ exports.loader = {
                 "computed": false
             }
         },
-        "disabled": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "indeterminate": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "inline": {
             "type": {
                 "name": "bool"
@@ -91,6 +70,27 @@ exports.loader = {
         "size": {
             "type": {
                 "name": "string"
+            },
+            "required": false,
+            "description": ""
+        },
+        "state": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'active'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'indeterminate'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'disabled'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""

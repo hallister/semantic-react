@@ -25,6 +25,7 @@ export class Header extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
+        divider: React.PropTypes.bool,
         element: React.PropTypes.string,
         emphasis: React.PropTypes.oneOf(['dividing', 'block']),
         floated: React.PropTypes.oneOf(['right', 'left']),
@@ -94,6 +95,7 @@ export class Header extends React.Component {
             attached: this.props.attached,
             block: this.props.emphasis == 'block',
             dividing: this.props.emphasis == 'dividing',
+            divider: this.props.divider, // makes a header that is also a divider
             floated: this.props.floated,
             horizontal: this.props.horizontal,
             inverted: this.props.inverted,

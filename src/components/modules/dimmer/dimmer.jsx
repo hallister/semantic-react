@@ -7,6 +7,7 @@ import classNames from 'classnames';
 export class Dimmer extends Component {
     static propTypes = {
         active: React.PropTypes.bool,
+        basic: React.PropTypes.bool,
         blurring: React.PropTypes.bool,
         children: React.PropTypes.node,
         className: React.PropTypes.any,

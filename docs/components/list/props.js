@@ -5,8 +5,20 @@ exports.list = {
         "aligned": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.aligned"
+                "value": [
+                    {
+                        "value": "'top'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'middle'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -18,16 +30,23 @@ exports.list = {
             "required": false,
             "description": ""
         },
-        "bulleted": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "celled": {
             "type": {
-                "name": "bool"
+                "name": "union",
+                "value": [
+                    {
+                        "name": "enum",
+                        "value": [
+                            {
+                                "value": "'divided'",
+                                "computed": false
+                            }
+                        ]
+                    },
+                    {
+                        "name": "bool"
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -76,18 +95,19 @@ exports.list = {
                 "computed": false
             }
         },
-        "divided": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "floated": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.floated"
+                "value": [
+                    {
+                        "value": "'right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'left'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -113,13 +133,6 @@ exports.list = {
             "required": false,
             "description": ""
         },
-        "ordered": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "relaxed": {
             "type": {
                 "name": "bool"
@@ -137,6 +150,23 @@ exports.list = {
         "size": {
             "type": {
                 "name": "string"
+            },
+            "required": false,
+            "description": ""
+        },
+        "type": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'bulleted'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'ordered'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""

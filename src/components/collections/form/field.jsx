@@ -53,6 +53,7 @@ Field.propTypes = {
         React.PropTypes.element,
         React.PropTypes.string
     ]),
+    defaultClasses: React.PropTypes.bool,
     grouped: React.PropTypes.bool,
     inline: React.PropTypes.bool,
     label: React.PropTypes.string,

@@ -91,7 +91,7 @@ exports.divider = {
             "required": false,
             "description": ""
         },
-        "type": {
+        "spacing": {
             "type": {
                 "name": "enum",
                 "value": [

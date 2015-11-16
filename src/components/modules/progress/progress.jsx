@@ -10,7 +10,7 @@ let validProps = {
 export class Progress extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
-        attached: React.PropTypes.oneOf(validProps),
+        attached: React.PropTypes.oneOf(['top', 'bottom']),
         children: React.PropTypes.node,
         className: React.PropTypes.any,
         color: React.PropTypes.string,

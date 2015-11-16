@@ -136,13 +136,6 @@ exports.button = {
                 "computed": false
             }
         },
-        "disabled": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "Disallows interaction with the component."
-        },
         "floated": {
             "type": {
                 "name": "enum",

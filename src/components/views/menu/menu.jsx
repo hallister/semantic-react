@@ -11,7 +11,7 @@ let validProps = {
 export class Menu extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
-        attached: React.PropTypes.oneOf(validProps),
+        attached: React.PropTypes.oneOf(['top', 'bottom']),
         borderless: React.PropTypes.bool,
         children: React.PropTypes.oneOfType([
             React.PropTypes.array,

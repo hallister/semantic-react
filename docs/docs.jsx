@@ -67,7 +67,15 @@ class Docs extends React.Component {
     renderComponents(header) {
         const comp = components[header.toLowerCase()].map(item => {
             let link = header.toLowerCase() + '/' + item.toLowerCase();
-            return <Item key={item}><Link to={link}>{item}</Link></Item>;
+            return (
+                <Link activeClassName="active"
+                    className="item"
+                    key={item}
+                    to={link}
+                >
+                    {item}
+                </Link>
+            );
         });
 
         return (

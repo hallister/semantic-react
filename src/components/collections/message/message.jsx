@@ -50,7 +50,7 @@ let message = (props) => {
 
 message.propTypes = {
     attached: React.PropTypes.oneOfType([
-        React.PropTypes.oneOf(validProps.attached),
+        React.PropTypes.oneOf(['bottom', 'top']),
         React.PropTypes.bool
     ]),
     className: React.PropTypes.any,
@@ -65,8 +65,8 @@ message.propTypes = {
     hidden: React.PropTypes.bool,
     icon: React.PropTypes.bool,
     size: React.PropTypes.string,
-    state: React.PropTypes.oneOf(validProps.state),
-    type: React.PropTypes.oneOf(validProps.type),
+    state: React.PropTypes.oneOf(['success', 'error']),
+    type: React.PropTypes.oneOf(['info', 'warning', 'positive', 'negative']),
     visible: React.PropTypes.bool
 }
 

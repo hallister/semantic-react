@@ -246,8 +246,16 @@ exports.icons = {
         "flipped": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.flipped"
+                "value": [
+                    {
+                        "value": "'horizontally'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'vertically'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -283,8 +291,16 @@ exports.icons = {
         "rotated": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.rotated"
+                "value": [
+                    {
+                        "value": "'clockwise'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'counterclockwise'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""

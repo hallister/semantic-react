@@ -20,7 +20,10 @@ export class PopupPlacer extends React.Component {
         jitter: React.PropTypes.number,
         offset: React.PropTypes.number,
         onPositioned: React.PropTypes.func,
-        position: React.PropTypes.oneOf(validProps.position),
+        position: React.PropTypes.oneOf(
+            ['top left', 'top center', 'top right', 'right center',
+             'bottom right', 'bottom center', 'bottom left', 'left center']
+        ),
         target: React.PropTypes.array
     };
 

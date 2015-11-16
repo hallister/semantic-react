@@ -79,9 +79,9 @@ let table = (props) => {
 };
 
 table.propTypes = {
-    aligned: React.PropTypes.oneOf(validProps.aligned),
+    aligned: React.PropTypes.oneOf(['top', 'bottom']),
     basic: React.PropTypes.oneOfType([
-        React.PropTypes.oneOf(validProps.basic),
+        React.PropTypes.oneOf(['very']),
         React.PropTypes.bool
     ]),
     celled: React.PropTypes.bool,
@@ -99,7 +99,7 @@ table.propTypes = {
     fixed: React.PropTypes.bool,
     inverted: React.PropTypes.bool,
     padded: React.PropTypes.oneOfType([
-        React.PropTypes.oneOf(validProps.padded),
+        React.PropTypes.oneOf(['very']),
         React.PropTypes.bool
     ]),
     selectable: React.PropTypes.bool,
@@ -117,7 +117,7 @@ table.propTypes = {
         mobile: React.PropTypes.bool,
         tablet: React.PropTypes.bool
     }),
-    valigned: React.PropTypes.oneOf(validProps.valigned),
+    valigned: React.PropTypes.oneOf(['center', 'right']),
     width: React.PropTypes.number
 }
 

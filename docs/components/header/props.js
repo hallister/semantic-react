@@ -110,6 +110,13 @@ exports.header = {
             "required": false,
             "description": ""
         },
+        "divider": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "element": {
             "type": {
                 "name": "string"

@@ -12,6 +12,7 @@ export class TabContent extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         loading: React.PropTypes.bool,
+        position: React.PropTypes.oneOf(['top', 'bottom']),
         segment: React.PropTypes.bool,
         type: React.PropTypes.oneOf([
             'tab',

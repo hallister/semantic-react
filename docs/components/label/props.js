@@ -59,8 +59,32 @@ exports.label = {
         "attached": {
             "type": {
                 "name": "enum",
-                "computed": true,
-                "value": "validProps.attached"
+                "value": [
+                    {
+                        "value": "'top'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'top right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'top left'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom left'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom right'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -121,8 +145,16 @@ exports.label = {
                 "value": [
                     {
                         "name": "enum",
-                        "computed": true,
-                        "value": "validProps.corner"
+                        "value": [
+                            {
+                                "value": "'left'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'right'",
+                                "computed": false
+                            }
+                        ]
                     },
                     {
                         "name": "bool"
@@ -195,8 +227,20 @@ exports.label = {
                 "value": [
                     {
                         "name": "enum",
-                        "computed": true,
-                        "value": "validProps.pointing"
+                        "value": [
+                            {
+                                "value": "'below'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'left'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'right'",
+                                "computed": false
+                            }
+                        ]
                     },
                     {
                         "name": "bool"
@@ -216,8 +260,12 @@ exports.label = {
                 "value": [
                     {
                         "name": "enum",
-                        "computed": true,
-                        "value": "validProps.ribbon"
+                        "value": [
+                            {
+                                "value": "'right'",
+                                "computed": false
+                            }
+                        ]
                     },
                     {
                         "name": "bool"
@@ -251,17 +299,6 @@ exports.label = {
             },
             "required": false,
             "description": ""
-        },
-        "uiClass": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "true",
-                "computed": false
-            }
         }
     }
 }

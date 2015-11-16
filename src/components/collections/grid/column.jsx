@@ -13,7 +13,7 @@ let validProps = {
 
 export class Column extends React.Component {
     static propTypes = {
-        aligned: React.PropTypes.oneOf(validProps.aligned),
+        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
         children: React.PropTypes.node,
         className: React.PropTypes.any,
         color: React.PropTypes.string,
@@ -22,10 +22,10 @@ export class Column extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
-        floated: React.PropTypes.oneOf(validProps.floated),
+        floated: React.PropTypes.oneOf(['right', 'left']),
         style: React.PropTypes.any,
-        valigned: React.PropTypes.oneOf(validProps.valigned),
-        visible: React.PropTypes.oneOf(validProps.visible),
+        valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
+        visible: React.PropTypes.oneOf(['large screen', 'wide screen', 'computer', 'mobile', 'tablet']),
         width: React.PropTypes.number
     };
 

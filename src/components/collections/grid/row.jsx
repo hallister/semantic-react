@@ -10,7 +10,7 @@ let validProps = {
 
 export class Row extends React.Component {
     static propTypes = {
-        aligned: React.PropTypes.oneOf(validProps.aligned),
+        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
         children: React.PropTypes.node,
         className: React.PropTypes.any,
         color: React.PropTypes.string,
@@ -21,8 +21,8 @@ export class Row extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         stretched: React.PropTypes.bool,
-        valigned: React.PropTypes.oneOf(validProps.valigned),
-        visible: React.PropTypes.oneOf(validProps.visible)
+        valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
+        visible: React.PropTypes.oneOf(['large screen', 'wide screen', 'computer', 'mobile', 'tablet'])
     };
 
     static defaultProps = {

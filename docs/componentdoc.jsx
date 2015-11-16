@@ -1,8 +1,8 @@
 import React from 'react';
-import DocBlock from './components/docblock';
-import ExampleBlock from './components/exampleblock';
-import PropBlock from './components/propblock';
-import ExampleContentBlock from './components/examplecontentblock';
+import DocBlock from './blocks/docblock';
+import ExampleBlock from './blocks/exampleblock';
+import PropBlock from './blocks/propblock';
+import ExampleContentBlock from './blocks/examplecontentblock';
 
 import { configParser } from './utilities';
 

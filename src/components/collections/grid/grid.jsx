@@ -9,15 +9,14 @@ let validProps = {
     divided: ['vertically'],
     padded: ['horizontally', 'vertically'],
     relaxed: ['very'],
-    reverse: ['vertically'],
     valigned: ['top', 'middle', 'bottom']
 };
 
 export class Grid extends React.Component {
     static propTypes = {
-        aligned: React.PropTypes.oneOf(validProps.aligned),
+        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
         celled: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.celled),
+            React.PropTypes.oneOf(['internally']),
             React.PropTypes.bool
         ]),
         centered: React.PropTypes.bool,
@@ -31,21 +30,21 @@ export class Grid extends React.Component {
         container: React.PropTypes.bool,
         defaultClasses: React.PropTypes.bool,
         divided: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.divided),
+            React.PropTypes.oneOf(['vertically']),
             React.PropTypes.bool
         ]),
         doubling: React.PropTypes.bool,
         equal: React.PropTypes.bool,
         padded: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.padded),
+            React.PropTypes.oneOf(['horizontally', 'vertically']),
             React.PropTypes.bool
         ]),
         relaxed: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.relaxed),
+            React.PropTypes.oneOf(['very']),
             React.PropTypes.bool
         ]),
         stackable: React.PropTypes.bool,
-        valigned: React.PropTypes.oneOf(validProps.valigned)
+        valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
     };
 
     static defaultProps = {

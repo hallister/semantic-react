@@ -11,7 +11,7 @@ export class Device extends React.Component {
         children: React.PropTypes.node,
         only: React.PropTypes.bool,
         reversed: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(validProps.reversed)
+            React.PropTypes.oneOf(['vertically'])
         ]),
         type: React.PropTypes.oneOf([
             'mobile',
