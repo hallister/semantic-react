@@ -134,6 +134,8 @@ describe('Buttons', () => {
             props['data-test'] = 'test';
             props['dataTest'] = 'test';
 
+            vdom = sd.shallowRender($(Element, props)).getRenderOutput();
+
             expect(vdom.props).to.have.property('data-test', 'test');
             expect(vdom.props).to.have.property('dataTest', 'test');
         });
