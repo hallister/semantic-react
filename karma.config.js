@@ -16,7 +16,7 @@ module.exports = function(config) {
         browsers: [ 'PhantomJS' ],
         preprocessors: {
            'src/app.tests.js': ['webpack'],
-           'src/components/**/*.jsx': ['coverage']
+           'src/components/semantic-react.jsx': ['coverage']
         },
         reporters: [ 'spec', 'coverage' ],
         coverageReporter: {
@@ -33,7 +33,7 @@ module.exports = function(config) {
         },
         webpack: {
             resolve: {
-                extensions: ['', '.js', '.json', '.jsx', '.es6']
+                extensions: ['', '.js', '.jsx', '.es6']
             },
             plugins: [
                 new webpack.IgnorePlugin(/react\/lib\/ReactContext/)
@@ -41,12 +41,12 @@ module.exports = function(config) {
             module: {
                 preLoaders: [{
                     test: /\.(jsx?|es6)$/,
-                    exclude: [/node_modules/, /docs/, /lib/],
+                    exclude: /node_modules/,
                     loader: 'eslint-loader'
                 }],
                 loaders: [{
                     test: /\.(jsx?|es6)$/,
-                    exclude: /(bower_components|node_modules)/,
+                    exclude: /node_modules/,
                     loader: 'babel?optional[]=runtime&stage=0'
                 }]
             }
