@@ -161,8 +161,7 @@ export function Animate(ComposedComponent) {
             return (
                 <ComposedComponent
                     {...other}
-                    style={style}
-                />
+                    style={style} />
             );
         }
 

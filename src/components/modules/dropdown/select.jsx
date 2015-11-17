@@ -312,8 +312,7 @@ export class Select extends React.Component {
                         {label}
                         <Icon
                             name="close"
-                            onClick={this.onCloseOption.bind(this, label)}
-                        />
+                            onClick={this.onCloseOption.bind(this, label)} />
                     </Label>
                 );
             });
@@ -338,9 +337,7 @@ export class Select extends React.Component {
                 onKeyDown={this.onSearchKeyDown.bind(this)}
                 ref="search"
                 style={style}
-                tabIndex="0"
-            />
-            : false;
+                tabIndex="0" /> : false;
     }
 
     renderText() {
@@ -382,11 +379,9 @@ export class Select extends React.Component {
                     <input
                         name={this.props.name}
                         type="hidden"
-                        value={this.formatValue()}
-                    />
+                        value={this.formatValue()} />
                     <Icon
-                        name="dropdown"
-                    />
+                        name="dropdown" />
                     {this.renderLabels()}
                     {this.renderSearch()}
                     {this.renderText()}

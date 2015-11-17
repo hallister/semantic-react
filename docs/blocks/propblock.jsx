@@ -28,8 +28,7 @@ let PropBlock = (props) => {
                     component={component}
                     description={description}
                     key={property}
-                    name={property}
-                />
+                    name={property} />
             );
         });
 

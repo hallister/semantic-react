@@ -1,5 +1,6 @@
 /* eslint-disable */
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = function(config) {
     config.set({
@@ -14,11 +15,16 @@ module.exports = function(config) {
         },
         browsers: [ 'PhantomJS' ],
         preprocessors: {
-          'src/app.tests.js': ['webpack']
+           'src/app.tests.js': ['webpack'],
+           'src/components/**/*.jsx': ['coverage']
         },
         reporters: [ 'spec', 'coverage' ],
         coverageReporter: {
-            dir: 'dist/reports/coverage',
+            instrumenters: { isparta : require('isparta') },
+            instrumenter: {
+              '**/*.js': 'isparta'
+          },
+            dir: 'dist/coverage',
             reporters: [
                 { type: 'html', subdir: 'report-html' },
                 { type: 'lcov', subdir: 'report-lcov' },

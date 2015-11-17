@@ -53,11 +53,10 @@ export class Image extends React.Component {
 
     renderComponent(other) {
         let imageDiv = (
-                            <img
-                                key="image"
-                                src={this.props.src}
-                            />
-                        );
+            <img
+                key="image"
+                src={this.props.src} />
+        );
 
         return React.createElement(
             this.props.component || 'div',
@@ -69,8 +68,7 @@ export class Image extends React.Component {
     renderImg(other) {
         return (
             <img src={this.props.src}
-                {...other}
-            />
+                {...other} />
         );
     }
 

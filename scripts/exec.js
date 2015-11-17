@@ -1,4 +1,11 @@
 /* eslint-disable */
+
+/* The intent of this script is a cross-platfrom way to run node scrips.
+ * it suffers from a number of bugs. The version below works, but exec buffers
+ * so it eventually overflows. Spawn should be used, but the time required to
+ * get it to work is probably not worth it.
+ */
+
 var exec = require('child_process').exec;
 var path = require('path');
 var glob = require('glob');
@@ -11,7 +18,7 @@ function execute(command_line, environ) {
         command_line = 'NODE_ENV=' + environ + ' ' + command_line;
     }
 
-    var command = exec(command_line);
+    var command = exec(command_line, { maxBuffer: 4*1024 });
 
     command.stdout.on('data', function(data) {
         process.stdout.write(data);
@@ -21,6 +28,10 @@ function execute(command_line, environ) {
     });
     command.on('error', function(err) {
         process.stderr.write(err);
+    });
+
+    command.on('close', function(code) {
+        process.stderr.write('exited with code:', code);
     });
 }
 
@@ -38,7 +49,6 @@ case 'build':
 case 'docs:gen':
     // node can't expand globs, so we have to do it manually. This is far more effecient that just react-docgening each file one at a time
     glob(path.normalize('./src/components/**/*.jsx'), function(stuff, files) {
-        console.log(files);
         command_line = path.normalize('./node_modules/.bin/react-docgen') + ' ' + files.join(' ') + ' -x jsx | ' + path.normalize('./node_modules/.bin/babel-node') + ' ./docs/generate.es6';
         environ = 'development';
         execute(command_line, environ);

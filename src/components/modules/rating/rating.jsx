@@ -57,8 +57,7 @@ export class Rating extends React.Component {
                 <i
                     className={classNames(classes)}
                     key={i}
-                    onClick={this.onIconClick.bind(this, i)}
-                />
+                    onClick={this.onIconClick.bind(this, i)} />
             )
         }
 

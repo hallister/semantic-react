@@ -176,8 +176,7 @@ export class Search extends React.Component {
                 onFocus={this.onFocus.bind(this)}
                 placeholder={this.props.placeholder}
                 ref={(ref) => this.searchInput = ref}
-                type="text"
-            />
+                type="text" />
         );
     }
 

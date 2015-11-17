@@ -25,11 +25,7 @@ exports.button = {
                 ]
             },
             "required": false,
-            "description": "Adds a fade or slide animation on hover.",
-            "defaultValue": {
-                "value": "false",
-                "computed": false
-            }
+            "description": "Adds a fade or slide animation on hover."
         },
         "attached": {
             "type": {
@@ -62,11 +58,7 @@ exports.button = {
                 ]
             },
             "required": false,
-            "description": "It's attached to some other attachable component.",
-            "defaultValue": {
-                "value": "false",
-                "computed": false
-            }
+            "description": "It's attached to some other attachable component."
         },
         "basic": {
             "type": {

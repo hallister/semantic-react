@@ -148,12 +148,10 @@ export class Input extends React.Component {
 
         // the actual input element
         let inputHTML = (
-                            <input
-                                key="input"
-                                placeholder={this.props.placeholder}
-                                type={this.props.type}
-                            />
-                        );
+            <input
+                key="input"
+                placeholder={this.props.placeholder} />
+        );
 
         if (labelClasses.corner) {
             input.push(inputHTML);

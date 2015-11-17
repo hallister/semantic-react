@@ -6,8 +6,8 @@ import { expect } from 'chai';
 import sd from 'skin-deep';
 
 let props = {};
+
 let consumedProps = {
-    active: true,
     animated: true,
     attached: true,
     basic: true,
@@ -17,20 +17,15 @@ let consumedProps = {
     compact: true,
     component: 'div',
     defaultClasses: true,
-    disabled: true,
     floated: 'right',
     fluid: true,
-    focusable: true,
     icon: true,
     inverted: true,
     labeled: true,
     loading: true,
-    negative: true,
-    positive: true,
-    primary: true,
-    secondary: true,
     size: 'small',
-    social: 'facebook'
+    social: 'facebook',
+    state: 'active'
 };
 
 describe('Button', () => {
@@ -56,48 +51,6 @@ describe('Button', () => {
             expect(vdom.type).to.equal('div');
         });
     })
-
-    describe('should have color variations', () => {
-        beforeEach(function() {
-            props = {};
-        });
-
-        describe('should emphasize prominence', () => {
-            it('has primary emphasis', () => {
-                props.primary = true;
-                let tree = sd.shallowRender($(Element, props));
-                let vdom = tree.getRenderOutput();
-
-                expect(vdom.props.className).to.match(/primary/);
-            });
-
-            it('has secondary emphasis', () => {
-                props.secondary = true;
-                let tree = sd.shallowRender($(Element, props));
-                let vdom = tree.getRenderOutput();
-
-                expect(vdom.props.className).to.match(/secondary/);
-            });
-        });
-
-        describe('should emphasize consequence', () => {
-            it('has positive consequence', () => {
-                props.positive = true;
-                let tree = sd.shallowRender($(Element, props));
-                let vdom = tree.getRenderOutput();
-
-                expect(vdom.props.className).to.match(/positive/);
-            });
-
-            it('has negative consequence', () => {
-                props.negative = true;
-                let tree = sd.shallowRender($(Element, props));
-                let vdom = tree.getRenderOutput();
-
-                expect(vdom.props.className).to.match(/negative/);
-            });
-        });
-    });
 
     describe('should animate', () => {
         it('animates horizontally', () => {
@@ -127,11 +80,12 @@ describe('Button', () => {
 
     describe('should be stateful', () => {
         beforeEach(function() {
-            props = {};
+            props = {
+                state: 'active'
+            };
         });
 
         it('has an active state', () => {
-            props.active = true;
             let tree = sd.shallowRender($(Element, props));
             let vdom = tree.getRenderOutput();
 
@@ -139,7 +93,7 @@ describe('Button', () => {
         });
 
         it('has a disabled state', () => {
-            props.disabled = true;
+            props.state = 'disabled';
             let tree = sd.shallowRender($(Element, props));
             let vdom = tree.getRenderOutput();
 
@@ -245,7 +199,6 @@ describe('Button', () => {
         expect(vdom.props.className).not.to.match(/color/);
     });
 
-
     it('should be compact', () => {
         props.compact = true;
         let tree = sd.shallowRender($(Element, props));
@@ -294,6 +247,7 @@ describe('Button', () => {
             expect(vdom.props).to.have.property('className');
         });
 
+
         it('passes the className prop', () => {
             expect(vdom.props.className).to.match(regex);
         });
@@ -302,13 +256,10 @@ describe('Button', () => {
             props['data-test'] = 'test';
             props['dataTest'] = 'test';
 
-            let dom = sd.shallowRender($(Element, props)).getRenderOutput();
+            vdom = sd.shallowRender($(Element, props)).getRenderOutput();
 
-            // length = props.length + className + children
-            //      4 = 2            + 1         + 1
-            expect(Object.keys(dom.props).length).to.equal(4);
-            expect(dom.props).to.have.property('data-test', 'test');
-            expect(dom.props).to.have.property('dataTest', 'test');
+            expect(vdom.props).to.have.property('data-test', 'test');
+            expect(vdom.props).to.have.property('dataTest', 'test');
         });
     });
 });

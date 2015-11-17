@@ -55,8 +55,7 @@ export class Progress extends React.Component {
         return (
             <Bar
                 key="progressBar"
-                {...other}
-            />
+                {...other} />
         );
     }
 

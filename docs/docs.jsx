@@ -129,8 +129,7 @@ ReactDOM.render((
         >
             <Route
                 component={ComponentDoc}
-                path=":type/:component"
-            />
+                path=":type/:component" />
         </Route>
     </Router>
 ), document.getElementById('app'));

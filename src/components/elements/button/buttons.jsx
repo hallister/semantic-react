@@ -111,8 +111,9 @@ export class Buttons extends React.Component {
     }
 
     render() {
-        let { attached, basic, children, className, color, compact, component, defaultClasses, equal, floated,
-              icon, inverted, labeled, size, vertical, ...other } = this.props;
+        let { attached, basic, children, className, color, compact, component,
+              defaultClasses, equal, floated, icon, inverted, labeled, size,
+              vertical, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 

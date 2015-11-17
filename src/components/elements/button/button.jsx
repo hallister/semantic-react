@@ -127,8 +127,6 @@ class Button extends React.Component {
     };
 
     static defaultProps = {
-        animated: false,
-        attached: false,
         defaultClasses: true
     };
 
@@ -140,9 +138,9 @@ class Button extends React.Component {
         let Component = (this.props.attached || this.context.isAttached || this.props.animated || React.Children.count(this.props.children) > 1) ? 'div' : 'button';
 
         // consume props
-        let { animated, attached, basic, children, circular, color,
-              component, compact, className, defaultClasses, floated,
-              fluid, icon, inverted, labeled, loading, size, social,
+        let { animated, attached, basic, children, circular, color, component,
+              compact, className, defaultClasses, floated, fluid, icon,
+              inverted, labeled, loading, size, social, state,
               ...other } = this.props;
 
         // add classnames

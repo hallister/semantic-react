@@ -3,10 +3,9 @@ import { Icon } from '../../elements';
 
 exports.Flag = (props) => {
     return (
-        <Icon 
-            className="flag" 
-            defaultClasses={false} 
-            {...props} 
-        />
+        <Icon
+            className="flag"
+            defaultClasses={false}
+            {...props} />
     );
 };

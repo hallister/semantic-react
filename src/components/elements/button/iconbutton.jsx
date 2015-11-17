@@ -8,8 +8,7 @@ function renderChildren(children, name, social, iconColor) {
         <Icon
             color={social ? null : iconColor}
             key="icon"
-            name={name}
-        />
+            name={name} />
     );
 
     React.Children.forEach(children, child => {

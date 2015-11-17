@@ -33,10 +33,6 @@ let consumedProps = {
     icon: true,
     inverted: true,
     labeled: true,
-    negative: true,
-    positive: true,
-    primary: true,
-    secondary: true,
     size: 'small',
     vertical: true
 };
@@ -125,6 +121,7 @@ describe('Buttons', () => {
 
         it('consumes all used props', () => {
             expect(Object.keys(vdom.props)).to.have.length(2);
+            expect(vdom.props).to.have.property('children');
             expect(vdom.props.children).to.be.an('undefined');
             expect(vdom.props).to.have.property('className');
         });
@@ -137,14 +134,8 @@ describe('Buttons', () => {
             props['data-test'] = 'test';
             props['dataTest'] = 'test';
 
-            let unusedTree = sd.shallowRender($(Element, props));
-            let unusedVdom = unusedTree.getRenderOutput();
-
-            // length = props.length + className + children
-            //      4 = 2            + 1         + 1
-            expect(Object.keys(unusedVdom.props).length).to.equal(4);
-            expect(unusedVdom.props).to.have.property('data-test', 'test');
-            expect(unusedVdom.props).to.have.property('dataTest', 'test');
+            expect(vdom.props).to.have.property('data-test', 'test');
+            expect(vdom.props).to.have.property('dataTest', 'test');
         });
     });
 });

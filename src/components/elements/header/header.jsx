@@ -26,13 +26,11 @@ export class Header extends React.Component {
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         divider: React.PropTypes.bool,
-        element: React.PropTypes.string,
         emphasis: React.PropTypes.oneOf(['dividing', 'block']),
         floated: React.PropTypes.oneOf(['right', 'left']),
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         item: React.PropTypes.bool,
-        onClick: React.PropTypes.func,
         size: React.PropTypes.string
     };
 
@@ -64,9 +62,10 @@ export class Header extends React.Component {
     render() {
         let Component = this.props.onClick ? 'a' : 'div';
 
-        let { aligned, attached, children, component, className, color,
-              defaultClasses, disabled, element, floated,
-              horizontal, inverted, size, ...other } = this.props;
+        let { aligned, attached, children, className, color, component,
+              defaultClasses, disabled, divider, emphasis, floated,
+              horizontal, inverted, item, size,
+              ...other } = this.props;
 
         // add classnames
         other.className = classNames(this.props.className, this.getClasses());

@@ -55,8 +55,8 @@ describe('IconButton', () => {
         let vdom = tree.getRenderOutput();
         let icon = vdom.props.children[0];
 
-        expect(Object.keys(vdom.props.children)).to.have.length(1);
-        expect(icon.type).to.deep.equal(Icon);
+        expect(vdom.props.children).to.have.length(1);
+        expect(icon.type).to.equal(Icon);
         expect(icon.props.name).to.equal('cloud');
     });
 
@@ -66,7 +66,7 @@ describe('IconButton', () => {
         let icon = vdom.props.children[0];
         let text = vdom.props.children[1];
 
-        expect(Object.keys(vdom.props.children)).to.have.length(2);
+        expect(vdom.props.children).to.have.length(2);
         expect(text).to.equal('Label');
         expect(icon.type).to.deep.equal(Icon);
         expect(icon.props.name).to.equal('cloud');
@@ -92,12 +92,10 @@ describe('IconButton', () => {
     it('passes unused data props', () => {
         props['data-test'] = 'test';
         props['dataTest'] = 'test';
+
         let tree = sd.shallowRender($(Element, props));
         let vdom = tree.getRenderOutput();
 
-        // length = parentDefaultProps + props.length + addProps(icon) + children
-        //      7 = 3                  + 2            + 1              + 1
-        expect(Object.keys(vdom.props).length).to.equal(7);
         expect(vdom.props).to.have.property('data-test', 'test');
         expect(vdom.props).to.have.property('dataTest', 'test');
     });

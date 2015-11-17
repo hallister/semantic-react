@@ -23,8 +23,7 @@ let ComponentDoc = (props) => {
                 example={example}
                 exampleCode={exampleCode}
                 exampleObject={exampleObject}
-                key={example}
-            />
+                key={example} />
         )
     });
 

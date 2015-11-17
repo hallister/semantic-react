@@ -4,12 +4,14 @@
   "description": "React components for Semantic UI.",
   "main": "server.js",
   "scripts": {
-    "start": "node scripts/exec.js start",
+    "start": "NODE_ENV=development && node scripts/exec.js docs:gen && node server.js",
+    "start:win": "set NODE_ENV=development&& node scripts/exec.js docs:gen&& node server.js",
     "build": "node scripts/exec.js build",
     "build:min": "node scripts/exec.js build:min",
     "docs:gen": "node scripts/exec.js docs:gen",
     "test": "node scripts/exec.js test",
-    "test:watch": "node scripts/exec.js test:watch"
+    "test:watch": "NODE_ENV=test ./node_modules/.bin/karma start --auto-watch --no-single-run karma.config.js",
+    "test:watch:win": "set NODE_ENV=test&& node_modules\\.bin\\karma start --auto-watch --no-single-run karma.config.js"
   },
   "keywords": [
     "react",
@@ -40,6 +42,7 @@
     "babel-runtime": "^5.8.25",
     "chai": "^3.3.0",
     "command-line-args": "^2.1.0",
+    "cross-spawn": "^2.0.0",
     "eslint": "^1.9.0",
     "eslint-loader": "^1.1.1",
     "eslint-plugin-react": "^3.8.0",
@@ -47,6 +50,8 @@
     "glob": "^6.0.1",
     "he": "^0.5.0",
     "history": "^1.13.0",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.0",
     "istanbul-react": "^1.1.0",
     "json-loader": "^0.5.3",
     "karma": "^0.13.15",
