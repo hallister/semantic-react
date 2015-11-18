@@ -41,7 +41,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.(jsx|es6)$/,
-                loaders: ['babel?optional[]=runtime&stage=0'],
+                loaders: ['babel'],
                 include: [
                     path.join(__dirname, 'docs'),
                     path.join(__dirname, 'src')

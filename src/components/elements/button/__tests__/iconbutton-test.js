@@ -5,7 +5,6 @@ import { IconButton as Element, Button, Icon } from '../../../elements';
 import { expect } from 'chai';
 import sd from 'skin-deep';
 
-
 let props = {
     name: 'cloud'
 };

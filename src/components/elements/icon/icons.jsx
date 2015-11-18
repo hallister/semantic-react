@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon } from './icon';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 
@@ -10,7 +11,12 @@ let validProps = {
 export class Icons extends React.Component {
     static propTypes = {
         bordered: React.PropTypes.bool,
-        children: React.PropTypes.node,
+        children: React.PropTypes.oneOfType([
+            React.PropTypes.instanceOf(Icon),
+            React.PropTypes.arrayOf(
+                React.PropTypes.instanceOf(Icon)
+            )
+        ]),
         circular: React.PropTypes.bool,
         className: React.PropTypes.node,
         color: React.PropTypes.string,
@@ -25,7 +31,6 @@ export class Icons extends React.Component {
         inverted: React.PropTypes.bool,
         link: React.PropTypes.bool,
         loading: React.PropTypes.bool,
-        onClick: React.PropTypes.func,
         rotated: React.PropTypes.oneOf(['clockwise', 'counterclockwise']),
         size: React.PropTypes.string
     };
@@ -36,7 +41,9 @@ export class Icons extends React.Component {
     };
 
     render() {
-        let { children, className, component, size, ...other } = this.props;
+        let { bordered, children, circular, className, color, component,
+              defaultClasses, disabled, fitted, flipped, inverted, link,
+              loading, rotated, size, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 

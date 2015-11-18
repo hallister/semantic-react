@@ -29,10 +29,6 @@ function execute(command_line, environ) {
     command.on('error', function(err) {
         process.stderr.write(err);
     });
-
-    command.on('close', function(code) {
-        process.stderr.write('exited with code:', code);
-    });
 }
 
 switch (process.argv[2]) {

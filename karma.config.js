@@ -4,7 +4,7 @@ var path = require('path');
 
 module.exports = function(config) {
     config.set({
-        frameworks: ['mocha', 'chai', 'sinon'],
+        frameworks: ['mocha', 'sinon-chai'],
         files: [
           'src/app.tests.js'
         ],
@@ -13,7 +13,7 @@ module.exports = function(config) {
                 bail: true
             }
         },
-        browsers: [ 'PhantomJS' ],
+        browsers: [ 'Chrome' ],
         preprocessors: {
            'src/app.tests.js': ['webpack'],
            'src/components/semantic-react.jsx': ['coverage']
@@ -47,7 +47,7 @@ module.exports = function(config) {
                 loaders: [{
                     test: /\.(jsx?|es6)$/,
                     exclude: /node_modules/,
-                    loader: 'babel?optional[]=runtime&stage=0'
+                    loader: 'babel'
                 }]
             }
         },
