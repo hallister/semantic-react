@@ -1,11 +1,15 @@
 import React from 'react';
 import { Icon } from '../../elements';
 
-exports.Flag = (props) => {
-    return (
-        <Icon
-            className="flag"
-            defaultClasses={false}
-            {...props} />
+let Flag = (props) => {
+    let other = Object.assign({}, props);
+    other.className = 'flag';
+    other.defaultClasses = false;
+
+    return React.createElement(
+        Icon,
+        other
     );
 };
+
+exports.Flag = Flag;
