@@ -1,4 +1,5 @@
 import React from 'react';
+import { Content } from '../../src/components/elements';
 import { Table } from '../../src/components/collections';
 import { Tabs, Tab } from '../../src/components/modules';
 import { Components } from '../utilities';
@@ -17,7 +18,7 @@ let PropBlock = (props) => {
         </Tabs>
     )
 
-    Object.keys(props.propList).map(component => {
+    let propTable = Object.keys(props.propList).map(component => {
         if (!props.propList[component].props) return null;
 
         let propDefs = Object.keys(props.propList[component].props).map(property => {
@@ -45,9 +46,23 @@ let PropBlock = (props) => {
                 </Table>
             </Tab>
         );
+
+        return propDefs;
     });
 
-    return tabs;
+    if (propList.length === 0) {
+        return <Content>No public properties.</Content>;
+    } else if (propList.length === 1) {
+        return (
+            <Table definition>
+                <tbody>
+                    {propTable}
+                </tbody>
+            </Table>
+        );
+    } else {
+        return tabs;
+    }
 };
 
 PropBlock.propTypes = {

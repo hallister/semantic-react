@@ -12,4 +12,11 @@ let Flag = (props) => {
     );
 };
 
+Flag.propTypes = {
+    /**
+     * The country code, name or alias of the flag
+     */
+    name: React.PropTypes.string.isRequired
+}
+
 exports.Flag = Flag;

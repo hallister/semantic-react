@@ -122,20 +122,6 @@ exports.image = {
             "required": false,
             "description": ""
         },
-        "hidden": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "isCommentsChild": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "shape": {
             "type": {
                 "name": "enum",
@@ -289,13 +275,6 @@ exports.images = {
             "required": false,
             "description": ""
         },
-        "hidden": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "shape": {
             "type": {
                 "name": "enum",
@@ -316,6 +295,31 @@ exports.images = {
         "size": {
             "type": {
                 "name": "string"
+            },
+            "required": false,
+            "description": ""
+        },
+        "visible": {
+            "type": {
+                "name": "union",
+                "value": [
+                    {
+                        "name": "enum",
+                        "value": [
+                            {
+                                "value": "'hidden'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'visible'",
+                                "computed": false
+                            }
+                        ]
+                    },
+                    {
+                        "name": "bool"
+                    }
+                ]
             },
             "required": false,
             "description": ""
