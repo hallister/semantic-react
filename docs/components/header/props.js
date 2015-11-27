@@ -117,13 +117,6 @@ exports.header = {
             "required": false,
             "description": ""
         },
-        "element": {
-            "type": {
-                "name": "string"
-            },
-            "required": false,
-            "description": ""
-        },
         "emphasis": {
             "type": {
                 "name": "enum",
@@ -182,13 +175,6 @@ exports.header = {
                 "value": "true",
                 "computed": false
             }
-        },
-        "onClick": {
-            "type": {
-                "name": "func"
-            },
-            "required": false,
-            "description": ""
         },
         "size": {
             "type": {

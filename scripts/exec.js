@@ -45,7 +45,16 @@ case 'build':
 case 'docs:gen':
     // node can't expand globs, so we have to do it manually. This is far more effecient that just react-docgening each file one at a time
     glob(path.normalize('./src/components/**/*.jsx'), function(stuff, files) {
-        command_line = path.normalize('./node_modules/.bin/react-docgen') + ' ' + files.join(' ') + ' -x jsx | ' + path.normalize('./node_modules/.bin/babel-node') + ' ./docs/generate.es6';
+        var components = [];
+
+        // we ignore any top-level src/components file AND anything in animate.
+        for (var index = 0; index < files.length; ++index) {
+            if (path.dirname(files[index]) !== 'src/components' && path.dirname(files[index]) !== 'src/components/modules/animate') {
+                components.push(files[index]);
+            }
+        }
+
+        command_line = path.normalize('./node_modules/.bin/react-docgen') + ' ' + components.join(' ') + ' -x jsx | ' + path.normalize('./node_modules/.bin/babel-node') + ' ./docs/generate.es6';
         environ = 'development';
         execute(command_line, environ);
     });

@@ -173,7 +173,20 @@ exports.icons = {
         },
         "children": {
             "type": {
-                "name": "node"
+                "name": "union",
+                "value": [
+                    {
+                        "name": "instanceOf",
+                        "value": "Icon"
+                    },
+                    {
+                        "name": "arrayOf",
+                        "value": {
+                            "name": "instanceOf",
+                            "value": "Icon"
+                        }
+                    }
+                ]
             },
             "required": false,
             "description": ""
@@ -277,13 +290,6 @@ exports.icons = {
         "loading": {
             "type": {
                 "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "onClick": {
-            "type": {
-                "name": "func"
             },
             "required": false,
             "description": ""
