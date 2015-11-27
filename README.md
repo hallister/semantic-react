@@ -8,11 +8,10 @@ The project is currently in its infancy, however, much of the porting is complet
 ### Installation
 ```
 npm install
-npm run docs:gen
 npm start
 ```
 
-**NOTE:** If you are using Windows you'll need to `npm start:win` due to Windows syntax for setting environmental variables.
+**NOTE:** If you are using Windows you'll need to `npm run start:win` due to Windows syntax for setting environmental variables.
 
 This will launch the development documentation. Any modifications to components requires that you re-run `npm run docs:gen`. This is an automated tool that generates props documentation.
 
