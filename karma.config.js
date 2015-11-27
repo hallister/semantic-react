@@ -13,7 +13,7 @@ module.exports = function(config) {
                 bail: true
             }
         },
-        browsers: [ 'Chrome' ],
+        browsers: [ 'jsdom' ],
         preprocessors: {
            'src/app.tests.js': ['webpack'],
            'src/components/semantic-react.jsx': ['coverage']
