@@ -26,8 +26,6 @@ export class Image extends React.Component {
         disabled: React.PropTypes.bool,
         floated: React.PropTypes.oneOf(['right', 'left']),
         fluid: React.PropTypes.bool,
-        hidden: React.PropTypes.bool,
-        isCommentsChild: React.PropTypes.bool,
         shape: React.PropTypes.oneOf(['circular', 'rounded']),
         size: React.PropTypes.string,
         spaced: React.PropTypes.oneOfType([
@@ -73,9 +71,9 @@ export class Image extends React.Component {
     }
 
     render() {
-        let { aligned, avatar, bordered, centered, children, className, content,
-              defaultClasses, disabled, floated, fluid, hidden, size, spaced,
-              src, visible, ...other } = this.props;
+        let { aligned, avatar, bordered, centered, children, className,
+              component, content, defaultClasses, disabled, floated, fluid,
+              shape, size, spaced, src, visible, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -97,7 +95,7 @@ export class Image extends React.Component {
 
             // states
             disabled: this.props.disabled,
-            hidden: this.props.hidden,
+            hidden: this.props.visible === 'hidden' || this.props.visible === false,
             visible: this.props.visible === 'visible' || this.props.visible === true,
 
             // variations

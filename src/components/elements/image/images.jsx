@@ -13,9 +13,12 @@ export class Images extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-        hidden: React.PropTypes.bool,
         shape: React.PropTypes.oneOf(['circular', 'rounded']),
-        size: React.PropTypes.string
+        size: React.PropTypes.string,
+        visible: React.PropTypes.oneOfType([
+            React.PropTypes.oneOf(['hidden', 'visible']),
+            React.PropTypes.bool
+        ])
     };
 
     static defaultProps = {
@@ -24,8 +27,8 @@ export class Images extends React.Component {
     };
 
     render() {
-        let { avatar, bordered, children, defaultClasses, disabled, hidden,
-              size, ...other } = this.props;
+        let { avatar, bordered, children, className, component, defaultClasses,
+              disabled, shape, size, visible, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -44,7 +47,7 @@ export class Images extends React.Component {
             // types
 
             // states
-            hidden: this.props.hidden,
+            hidden: this.props.visible === 'hidden' || this.props.visible === false,
             disabled: this.props.disabled,
 
             // variations
