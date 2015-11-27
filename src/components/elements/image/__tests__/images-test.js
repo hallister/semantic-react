@@ -1,5 +1,4 @@
 /* eslint-env node, mocha */
-/* global sinon */
 import React, { createElement as $ } from 'react';
 import { Images as Element, Image } from '../../../elements';
 import { expect } from 'chai';

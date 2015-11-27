@@ -133,7 +133,7 @@ describe('Image', () => {
     });
 
     it('should have content', () => {
-        console.log('Not currently functioning');
+        // console.log('Not currently functioning');
     });
 
     it('should appear disabled', () => {
