@@ -37,26 +37,12 @@ export class Tabs extends React.Component {
     }
 
     componentDidMount() {
-        React.Children.forEach(this.props.children, (child, index) => {
-            if (child.type === Tab && child.props.active) {
-                /* eslint-disable react/no-did-mount-set-state */
-                this.setState({
-                    active: index
-                })
-            }
-        });
+        this.setActiveChild();
     }
 
     componentWillReceiveProps() {
-        React.Children.forEach(this.props.children, (child, index) => {
-            if (child.type === Tab && child.props.active) {
-                this.setState({
-                    active: index
-                })
-            }
-        });
+        this.setActiveChild();
     }
-
 
     onItemClick(index) {
         this.setState({
@@ -124,4 +110,13 @@ export class Tabs extends React.Component {
         );
     }
 
+    setActiveChild() {
+        React.Children.forEach(this.props.children, (child, index) => {
+            if (child.type === Tab && child.props.active) {
+                this.setState({
+                    active: index
+                })
+            }
+        });
+    }
 }
