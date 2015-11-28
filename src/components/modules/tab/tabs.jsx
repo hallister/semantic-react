@@ -47,6 +47,17 @@ export class Tabs extends React.Component {
         });
     }
 
+    componentWillReceiveProps() {
+        React.Children.forEach(this.props.children, (child, index) => {
+            if (child.type === Tab && child.props.active) {
+                this.setState({
+                    active: index
+                })
+            }
+        });
+    }
+
+
     onItemClick(index) {
         this.setState({
             active: index

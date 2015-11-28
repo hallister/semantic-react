@@ -5,6 +5,7 @@ function renderChildren(children) {
     return children.map(child => {
         return (
             <Tab
+                active={child === children[0]}
                 header={child.key || 'Default'}
                 key={child.key || 'default'}
                 segment={false}
