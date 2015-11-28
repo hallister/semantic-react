@@ -9,7 +9,7 @@ let validProps = {
 };
 
 // can't do SVG since JSX/React breaks on SVG images
-export class Image extends React.Component {
+export default class Image extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
         avatar: React.PropTypes.bool,
@@ -87,7 +87,7 @@ export class Image extends React.Component {
     getClasses() {
         let classes = {
             // default
-            // is there a usecase for an image to be content and still have the ui/image classes?
+            // is there a use-case for an image to be content and still have the ui/image classes?
             ui: this.props.defaultClasses && !this.props.content,
 
             // types
@@ -118,5 +118,4 @@ export class Image extends React.Component {
 
         return validateClassProps(classes, this.props, validProps);
     }
-
 }

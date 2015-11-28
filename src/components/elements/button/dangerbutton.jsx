@@ -16,6 +16,6 @@ DangerButton.propTypes = {
      * The child nodes of the component.
      */
     children: React.PropTypes.node
-}
+};
 
-exports.DangerButton = DangerButton;
+export default DangerButton;

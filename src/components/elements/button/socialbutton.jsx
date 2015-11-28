@@ -4,7 +4,7 @@ import { IconButton } from '../../elements';
 let SocialButton = ({ children, name, ...other }) => {
     return (
         <IconButton {...other}
-            icon={React.Children.count(children) === 0 ? true : false}
+            icon={React.Children.count(children) === 0}
             name={name}
             social
         >
@@ -23,6 +23,6 @@ SocialButton.propTypes = {
      * Adds a SemanticUI name class to the icon.
      */
     name: React.PropTypes.string
-}
+};
 
-exports.SocialButton = SocialButton;
+export default SocialButton;

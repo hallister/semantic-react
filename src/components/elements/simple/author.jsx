@@ -18,10 +18,10 @@ Author.propTypes = {
         React.PropTypes.element,
         React.PropTypes.string
     ])
-}
+};
 
 Author.defaultProps = {
     component: 'a'
-}
+};
 
-exports.Author = Author;
+export default Author;

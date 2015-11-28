@@ -8,7 +8,7 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-export class Segment extends React.Component {
+export default class Segment extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
         attached: React.PropTypes.oneOfType([
@@ -91,7 +91,7 @@ export class Segment extends React.Component {
             disabled: this.props.disabled,
             loading: this.props.loading,
 
-            // varigations
+            // variations
             aligned: this.props.aligned,
             attached: this.props.attached,
             basic: this.props.basic,

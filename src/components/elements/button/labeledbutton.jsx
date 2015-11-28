@@ -3,7 +3,7 @@ import { Icon, Label, Button } from '../../elements';
 import { hasChild, hasFirstChild, spliceChildren } from '../../utilities';
 import classNames from 'classnames';
 
-export class LabeledButton extends React.Component {
+export default class LabeledButton extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         basic: React.PropTypes.bool,
@@ -19,7 +19,6 @@ export class LabeledButton extends React.Component {
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         fluid: React.PropTypes.bool,
-        focusable: React.PropTypes.bool,
         icon: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         labeled: React.PropTypes.oneOfType([
@@ -60,7 +59,7 @@ export class LabeledButton extends React.Component {
      *  Wraps any non-label component(s) in a div with
      */
     renderChildren() {
-        let children = []
+        let children = [];
 
         // split children into Label and not Label arrays
         let components = spliceChildren(this.props.children, Label);

@@ -1,50 +1,50 @@
-export * from './elements/button/button';
-export * from './elements/button/buttons';
-export * from './elements/button/labeledbutton';
-export * from './elements/button/iconbutton';
-export * from './elements/button/socialbutton';
+export { default as Button } from './elements/button/button';
+export { default as Buttons } from './elements/button/buttons';
+export { default as LabeledButton } from './elements/button/labeledbutton';
+export { default as IconButton } from './elements/button/iconbutton';
+export { default as SocialButton } from './elements/button/socialbutton';
 
-export * from './elements/button/primarybutton';
-export * from './elements/button/successbutton';
-export * from './elements/button/warningbutton';
-export * from './elements/button/dangerbutton';
+export { default as PrimaryButton } from './elements/button/primarybutton';
+export { default as SuccessButton } from './elements/button/successbutton';
+export { default as WarningButton }  from './elements/button/warningbutton';
+export { default as DangerButton } from './elements/button/dangerbutton';
 
-export * from './elements/divider/divider';
+export { default as Divider } from './elements/divider/divider';
 
-export * from './elements/flag/flag';
+export { default as Flag } from './elements/flag/flag';
 
-export * from './elements/header/header';
-export * from './elements/header/subheader';
+export { default as Header } from './elements/header/header';
+export { default as SubHeader } from './elements/header/subheader';
 
-export * from './elements/icon/icon';
-export * from './elements/icon/icons';
+export { default as Icon } from './elements/icon/icon';
+export { default as Icons } from './elements/icon/icons';
 
-export * from './elements/image/image';
-export * from './elements/image/images';
+export { default as Image } from './elements/image/image';
+export { default as Images } from './elements/image/images';
 
-export * from './elements/input/input';
+export { default as Input } from './elements/input/input';
 
-export * from './elements/label/detail';
-export * from './elements/label/label';
-export * from './elements/label/labels';
+export { default as Detail } from './elements/label/detail';
+export { default as Label } from './elements/label/label';
+export { default as Labels } from './elements/label/labels';
 
-export * from './elements/list/list';
+export { default as List } from './elements/list/list';
 
-export * from './elements/loader/loader';
+export { default as Loader } from './elements/loader/loader';
 
-export * from './elements/rail/rail';
+export { default as Rail } from './elements/rail/rail';
 
-export * from './elements/reveal/reveal';
+export { default as Reveal }  from './elements/reveal/reveal';
 
-export * from './elements/segment/segment';
-export * from './elements/segment/segments';
+export { default as Segment } from './elements/segment/segment';
+export { default as Segments } from './elements/segment/segments';
 
-export * from './elements/simple/actions';
-export * from './elements/simple/author';
-export * from './elements/simple/container';
-export * from './elements/simple/content';
-export * from './elements/simple/date';
-export * from './elements/simple/description';
-export * from './elements/simple/meta';
-export * from './elements/simple/summary';
-export * from './elements/simple/text';
+export { default as Actions } from './elements/simple/actions';
+export { default as Author } from './elements/simple/author';
+export { default as Container } from './elements/simple/container';
+export { default as Content } from './elements/simple/content';
+export { default as Date } from './elements/simple/date';
+export { default as Description } from './elements/simple/description';
+export { default as Meta } from './elements/simple/meta';
+export { default as Summary } from './elements/simple/summary';
+export { default as Text } from './elements/simple/text';

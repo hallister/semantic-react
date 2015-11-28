@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export class Rail extends React.Component {
+export default class Rail extends React.Component {
     static propTypes = {
         attached: React.PropTypes.bool,
         children: React.PropTypes.any,

@@ -6,9 +6,9 @@ import classNames from 'classnames';
 let validProps = {
     attached: ['bottom', 'top'],
     floated: ['right', 'left']
-}
+};
 
-export class Buttons extends React.Component {
+export default class Buttons extends React.Component {
     static propTypes = {
         /**
          * It's attached to some other attachable component.

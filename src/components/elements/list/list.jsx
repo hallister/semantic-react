@@ -7,7 +7,7 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-export class List extends React.Component {
+export default class List extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
         animated: React.PropTypes.bool,

@@ -2,15 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 
 function getClasses(props) {
-    let classes = {
+    return {
         ui: props.defaultClasses,
 
         extra: props.extra,
 
         text: props.defaultClasses
-    }
-
-    return classes;
+    };
 }
 
 let Text = (props) => {
@@ -35,11 +33,11 @@ Text.propTypes = {
     ]),
     defaultClasses: React.PropTypes.bool,
     extra: React.PropTypes.bool
-}
+};
 
 Text.defaultProps = {
     component: 'div',
     defaultClasses: true
-}
+};
 
-exports.Text = Text;
+export default Text;

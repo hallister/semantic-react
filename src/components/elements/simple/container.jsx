@@ -18,10 +18,10 @@ Container.propTypes = {
         React.PropTypes.element,
         React.PropTypes.string
     ])
-}
+};
 
 Container.defaultProps = {
     component: 'div'
-}
+};
 
-exports.Container = Container;
+export default Container;

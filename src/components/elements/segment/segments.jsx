@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
-export class Segments extends Component {
+export default class Segments extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
@@ -37,7 +37,7 @@ export class Segments extends Component {
     }
 
     getClasses() {
-        let classes = {
+        return {
             ui: this.props.defaultClasses,
             segments: this.props.defaultClasses,
             horizontal: this.props.horizontal,
@@ -47,7 +47,5 @@ export class Segments extends Component {
             compact: this.props.compact,
             inverted: this.props.inverted
         };
-
-        return classes;
     }
 }

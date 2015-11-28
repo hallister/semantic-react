@@ -10,7 +10,7 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-class Button extends React.Component {
+export default class Button extends React.Component {
     static propTypes = {
         /**
          * Adds a fade or slide animation on hover.
@@ -131,7 +131,7 @@ class Button extends React.Component {
     };
 
     isIconButton() {
-        return hasChild(this.props.children, Icon) && (React.Children.count(this.props.children) === 1 ? true : false);
+        return hasChild(this.props.children, Icon) && React.Children.count(this.props.children) === 1;
     }
 
     render() {
@@ -143,7 +143,7 @@ class Button extends React.Component {
               inverted, labeled, loading, size, social, state,
               ...other } = this.props;
 
-        // add classnames
+        // add class names
         other.className = classNames(this.props.className, this.getClasses());
 
         return React.createElement(
@@ -191,5 +191,3 @@ class Button extends React.Component {
         return validateClassProps(classes, this.props, validProps);
     }
 }
-
-module.exports.Button = Button;

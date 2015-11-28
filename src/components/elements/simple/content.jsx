@@ -7,7 +7,7 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-export class Content extends React.Component {
+export default class Content extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         aligned: React.PropTypes.string,

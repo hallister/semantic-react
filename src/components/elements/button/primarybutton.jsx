@@ -16,6 +16,6 @@ PrimaryButton.propTypes = {
      * The child nodes of the component.
      */
     children: React.PropTypes.node
-}
+};
 
-exports.PrimaryButton = PrimaryButton;
+export default PrimaryButton;

@@ -18,10 +18,10 @@ Summary.propTypes = {
         React.PropTypes.element,
         React.PropTypes.string
     ])
-}
+};
 
 Summary.defaultProps = {
     component: 'div'
-}
+};
 
-exports.Summary = Summary;
+export default Summary;

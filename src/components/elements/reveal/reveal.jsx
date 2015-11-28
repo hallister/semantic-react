@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Image } from '../../elements';
 import { hasDescendant, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
@@ -8,7 +8,7 @@ let validProps = {
     rotate: ['left']
 };
 
-export class Reveal extends Component {
+export default class Reveal extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         children: React.PropTypes.node,

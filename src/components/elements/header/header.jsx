@@ -9,7 +9,7 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-export class Header extends React.Component {
+export default class Header extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
         attached: React.PropTypes.oneOfType([
@@ -42,7 +42,7 @@ export class Header extends React.Component {
         isMenuChild: React.PropTypes.bool
     };
 
-    // any header/subheader under a header is a subheader
+    // any header/sub header under a header is a sub header
     static childContextTypes = {
         isHeaderChild: React.PropTypes.bool
     };
@@ -67,7 +67,7 @@ export class Header extends React.Component {
               horizontal, inverted, item, size,
               ...other } = this.props;
 
-        // add classnames
+        // add class names
         other.className = classNames(this.props.className, this.getClasses());
 
         return React.createElement(

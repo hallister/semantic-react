@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { hasChild } from '../../utilities';
 import classNames from 'classnames';
 
-export class Loader extends Component {
+export default class Loader extends React.Component {
     static propTypes = {
         centered: React.PropTypes.bool,
         children: React.PropTypes.node,

@@ -2,7 +2,7 @@ import React from 'react';
 import { Header } from '../../elements';
 import classNames from 'classnames';
 
-export class SubHeader extends React.Component {
+export default class SubHeader extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
@@ -32,11 +32,9 @@ export class SubHeader extends React.Component {
     }
 
     getClasses() {
-        let classes = {
+        return {
             // default
             sub: this.props.defaultClasses
-        }
-
-        return classes;
+        };
     }
 }

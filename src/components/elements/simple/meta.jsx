@@ -18,10 +18,10 @@ Meta.propTypes = {
         React.PropTypes.element,
         React.PropTypes.string
     ])
-}
+};
 
 Meta.defaultProps = {
     component: 'div'
-}
+};
 
-exports.Meta = Meta;
+export default Meta;

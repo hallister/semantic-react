@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export class Labels extends React.Component {
+export default class Labels extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         circular: React.PropTypes.bool,

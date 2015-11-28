@@ -16,6 +16,6 @@ WarningButton.propTypes = {
      * The child nodes of the component.
      */
     children: React.PropTypes.node
-}
+};
 
-exports.WarningButton = WarningButton;
+export default WarningButton;

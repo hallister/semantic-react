@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export class Images extends React.Component {
+export default class Images extends React.Component {
     static propTypes = {
         avatar: React.PropTypes.bool,
         bordered: React.PropTypes.bool,
@@ -64,5 +64,4 @@ export class Images extends React.Component {
 
         return classes;
     }
-
 }

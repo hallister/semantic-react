@@ -7,7 +7,7 @@ let validProps = {
     rotated: ['clockwise', 'counterclockwise']
 };
 
-export class Icon extends React.Component {
+export default class Icon extends React.Component {
     static propTypes = {
         bordered: React.PropTypes.bool,
         circular: React.PropTypes.bool,
@@ -76,5 +76,4 @@ export class Icon extends React.Component {
 
         return validateClassProps(classes, this.props, validProps);
     }
-
 }

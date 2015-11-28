@@ -10,7 +10,7 @@ let validProps = {
     ribbon: ['right']
 };
 
-export class Label extends React.Component {
+export default class Label extends React.Component {
     static propTypes = {
         attached: React.PropTypes.oneOf(['top', 'bottom', 'top right', 'top left', 'bottom left', 'bottom right']),
         basic: React.PropTypes.bool,
@@ -49,9 +49,9 @@ export class Label extends React.Component {
     static contextTypes = {
         isCardsChild: React.PropTypes.bool,
         isProgressChild: React.PropTypes.bool
-    }
+    };
 
-    // any header/subheader under a header is a subheader
+    // any header/sub header under a header is a sub header
     static childContextTypes = {
         isLabelChild: React.PropTypes.bool
     };

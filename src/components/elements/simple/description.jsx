@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export class Description extends React.Component {
+export default class Description extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
@@ -32,7 +32,7 @@ export class Description extends React.Component {
     }
 
     getClasses() {
-        let classes = {
+        return {
             // default
             description: this.props.defaultClasses,
 
@@ -40,7 +40,5 @@ export class Description extends React.Component {
             visible: this.props.visible,
             hidden: this.props.hidden
         };
-
-        return classes;
     }
 }

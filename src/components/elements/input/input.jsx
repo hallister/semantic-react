@@ -1,8 +1,8 @@
 import React from 'react';
-import { Icon, Label, Checkbox } from '../../elements';
+import { Icon, Label } from '../../elements';
 import classNames from 'classnames';
 
-export class Input extends React.Component {
+export default class Input extends React.Component {
     static propTypes = {
         action: React.PropTypes.bool,
         children: React.PropTypes.node,
@@ -28,8 +28,7 @@ export class Input extends React.Component {
         placeholder: React.PropTypes.string,
         size: React.PropTypes.string,
         state: React.PropTypes.oneOf(['disabled', 'error']),
-        transparent: React.PropTypes.bool,
-        type: React.PropTypes.string.isRequired
+        transparent: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -39,19 +38,12 @@ export class Input extends React.Component {
         placeholder: 'Search...'
     };
 
-    renderCheckbox() {
-        // consume the type and create a checkbox
-        let { type, ...other } = this.props;
-
-        return (<Checkbox {...other} />);
-    }
-
     renderText() {
         // see if icon and label are children
         this.processChildren();
 
         let { children, className, defaultClasses, icon, labeled, loading, name,
-              placeholder, type, ...other } = this.props;
+              placeholder, ...other } = this.props;
 
         other.className = classNames(
             this.props.className,
@@ -67,13 +59,9 @@ export class Input extends React.Component {
         );
     }
 
+    // potential for types other than text
     render() {
-        if (this.props.type == 'checkbox') {
-            return this.renderCheckbox();
-        } else {
-            return this.renderText();
-        }
-
+        return this.renderText();
     }
 
     getClasses() {

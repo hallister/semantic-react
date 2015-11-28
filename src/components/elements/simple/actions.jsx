@@ -18,10 +18,10 @@ Actions.propTypes = {
         React.PropTypes.element,
         React.PropTypes.string
     ])
-}
+};
 
 Actions.defaultProps = {
     component: 'div'
-}
+};
 
-exports.Actions = Actions;
+export default Actions;

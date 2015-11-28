@@ -18,10 +18,10 @@ Date.propTypes = {
         React.PropTypes.element,
         React.PropTypes.string
     ])
-}
+};
 
 Date.defaultProps = {
     component: 'div'
-}
+};
 
-exports.Date = Date;
+export default Date;

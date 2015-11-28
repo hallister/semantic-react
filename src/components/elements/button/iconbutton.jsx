@@ -23,7 +23,7 @@ let IconButton = ({ children, iconColor, name, social, ...other }) => {
     return (
         <Button
             {...other}
-            icon={React.Children.count(children) === 0 ? true : false}
+            icon={React.Children.count(children) === 0}
             social={social ? name : ''}
         >
             {renderChildren(children, name, social, iconColor)}
@@ -51,6 +51,6 @@ IconButton.propTypes = {
      * Renders as a social button if true (see SocialButton);
      */
     social: React.PropTypes.bool
-}
+};
 
-exports.IconButton = IconButton;
+export default IconButton;

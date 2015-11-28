@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export class Detail extends React.Component {
+export default class Detail extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
@@ -31,11 +31,9 @@ export class Detail extends React.Component {
     }
 
     getClasses() {
-        let classes = {
+        return {
             // default
             detail: this.props.defaultClasses
         };
-
-        return classes;
     }
 }

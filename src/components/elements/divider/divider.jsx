@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 // Currently header/dividers are only headers. Maybe do both?
 
-export class Divider extends React.Component {
+export default class Divider extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['horizontal', 'vertical']),
         children: React.PropTypes.node,
@@ -39,7 +39,7 @@ export class Divider extends React.Component {
     }
 
     getClasses() {
-        let classes = {
+        return {
             // default
             ui: this.props.defaultClasses,
 
@@ -58,7 +58,5 @@ export class Divider extends React.Component {
             // component
             divider: this.props.defaultClasses
         };
-
-        return classes;
     }
 }

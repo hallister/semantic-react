@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from './icon';
+import Icon from './icon';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 
@@ -8,7 +8,7 @@ let validProps = {
     rotated: ['clockwise', 'counterclockwise']
 };
 
-export class Icons extends React.Component {
+export default class Icons extends React.Component {
     static propTypes = {
         bordered: React.PropTypes.bool,
         children: React.PropTypes.oneOfType([
@@ -81,5 +81,4 @@ export class Icons extends React.Component {
 
         return validateClassProps(classes, this.props, validProps);
     }
-
 }
