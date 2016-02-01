@@ -12,9 +12,7 @@ export * from './modules/checkbox/checkboxfields';
 export * from './modules/dimmer/dimmer';
 export * from './modules/dimmer/dimmable';
 
-export * from './modules/dropdown/dropdown';
-export * from './modules/dropdown/select';
-export * from './modules/dropdown/option';
+export { default as Dropdown } from './modules/dropdown';
 
 export * from './modules/modal/modal';
 export * from './modules/modal/modalbody';
