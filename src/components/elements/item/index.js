@@ -3,9 +3,9 @@ import classNames from 'classnames';
 
 export default class Item extends React.Component {
     static propTypes = {
-        defaultClass: React.PropTypes.boolean,
-        active: React.PropTypes.boolean,
-        selected: React.PropTypes.boolean
+        defaultClass: React.PropTypes.bool,
+        active: React.PropTypes.bool,
+        selected: React.PropTypes.bool
     };
 
     render() {
