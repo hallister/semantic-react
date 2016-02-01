@@ -9,13 +9,12 @@ export default class Dropdown extends React.Component {
     static propTypes = {
         onChange:  React.PropTypes.func,
         list:  React.PropTypes.array,
-        value: React.PropTypes.string,
         placeholder:  React.PropTypes.string,
 
-        defaultClass: React.PropTypes.boolean,
+        defaultClass: React.PropTypes.bool,
 
-        fluid: React.PropTypes.boolean,
-        selection: React.PropTypes.boolean
+        fluid: React.PropTypes.bool,
+        selection: React.PropTypes.bool
     };
 
     constructor(props) {
@@ -48,6 +47,12 @@ export default class Dropdown extends React.Component {
         });
     }
 
+    handleClickItem(value, e) {
+        e.preventDefault();
+
+        this.props.onChange(value)
+    }
+
     findElement(value) {
         if (!this.props.list.length) return null;
 
@@ -70,7 +75,7 @@ export default class Dropdown extends React.Component {
 
                         {this.renderMenu()}
                 </div>
-            <OutsideClickHandler />
+            </OutsideClickHandler>
         );
     }
 
@@ -132,17 +137,18 @@ export default class Dropdown extends React.Component {
 
         return (
             <div className={className}>
-                {this.props.list.map(this.renderOption)}
+                {this.props.list.map(this.renderOption, this)}
             </div>
         );
     }
 
-    renderOption(item) {
+    renderOption(item, index) {
         var className="item",
             isActive = item.id == this.props.value;
 
         return (
             <Item active={isActive} selected={isActive}
+                key={index}
                 onClick={this.handleClickItem.bind(this, item.id)}>
 
                 {item.title}
@@ -153,7 +159,6 @@ export default class Dropdown extends React.Component {
 
 Dropdown.defaultProps = {
     placeholder: '',
-    value: '',
     list: [],
 
     defaultClass: true,
