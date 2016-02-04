@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react/lib/ReactTransitionGroup"), require("react-dom"));
+		module.exports = factory(require("React"), require("React.addons.ReactTransitionGroup"), require("ReactDOM"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react/lib/ReactTransitionGroup", "react-dom"], factory);
+		define(["React", "React.addons.ReactTransitionGroup", "ReactDOM"], factory);
 	else if(typeof exports === 'object')
-		exports["SemanticReact"] = factory(require("react"), require("react/lib/ReactTransitionGroup"), require("react-dom"));
+		exports["SemanticReact"] = factory(require("React"), require("React.addons.ReactTransitionGroup"), require("ReactDOM"));
 	else
 		root["SemanticReact"] = factory(root["React"], root["React.addons.ReactTransitionGroup"], root["ReactDOM"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_53__, __WEBPACK_EXTERNAL_MODULE_55__) {
@@ -56,14 +56,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopExportWildcard(obj, defaults) { var newObj = defaults({}, obj); delete newObj['default']; return newObj; }
-
-	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
-
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
 	var _elements = __webpack_require__(1);
@@ -91,16 +83,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.utilites = utilites;
 	exports.views = views;
 	exports.collections = collections;
-
-	_defaults(exports, _interopExportWildcard(_elements, _defaults));
-
-	_defaults(exports, _interopExportWildcard(_modules, _defaults));
-
-	_defaults(exports, _interopExportWildcard(_utilities, _defaults));
-
-	_defaults(exports, _interopExportWildcard(_views, _defaults));
-
-	_defaults(exports, _interopExportWildcard(_collections, _defaults));
 
 /***/ },
 /* 1 */
