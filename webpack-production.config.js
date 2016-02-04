@@ -19,7 +19,9 @@ module.exports = {
     ],
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: pack.name + '.js'
+        filename: pack.name + '.js',
+        library: 'SemanticReact',
+        libraryTarget: 'umd'
     },
     resolve: {
         extensions: ['', '.js', '.jsx', '.es6']

@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("React"), require("React.addons.ReactTransitionGroup"), require("ReactDOM"));
+	else if(typeof define === 'function' && define.amd)
+		define(["React", "React.addons.ReactTransitionGroup", "ReactDOM"], factory);
+	else if(typeof exports === 'object')
+		exports["SemanticReact"] = factory(require("React"), require("React.addons.ReactTransitionGroup"), require("ReactDOM"));
+	else
+		root["SemanticReact"] = factory(root["React"], root["React.addons.ReactTransitionGroup"], root["ReactDOM"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_53__, __WEBPACK_EXTERNAL_MODULE_55__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -483,7 +493,7 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	module.exports = React;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ },
 /* 4 */
@@ -5999,7 +6009,7 @@
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = React.addons.ReactTransitionGroup;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_53__;
 
 /***/ },
 /* 54 */
@@ -6242,7 +6252,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = ReactDOM;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_55__;
 
 /***/ },
 /* 56 */
@@ -12552,4 +12562,6 @@
 	exports.Field = Field;
 
 /***/ }
-/******/ ]);
+/******/ ])
+});
+;
