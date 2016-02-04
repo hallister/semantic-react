@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=development && node scripts/exec.js docs:gen && node server.js",
     "start:win": "set NODE_ENV=development&& node scripts/exec.js docs:gen&& node server.js",
-    "build": "node scripts/exec.js build",
+    "build": "set NODE_ENV=production && node scripts/exec.js build",
     "build:min": "node scripts/exec.js build:min",
     "docs:gen": "node scripts/exec.js docs:gen",
     "test": "node scripts/exec.js test",
@@ -27,6 +27,8 @@
   "dependencies": {
     "classnames": "^2.2.0",
     "raf": "^3.1.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
     "react-outsideclickhandler": "^0.1.0"
   },
   "peerDependencies": {
