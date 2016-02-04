@@ -10,9 +10,24 @@ module.exports = {
     devtool: 'source-map',
     entry: './src/components/semantic-react',
     externals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        'react/lib/ReactTransitionGroup': 'React.addons.ReactTransitionGroup'
+        'react': {
+            root: 'React',
+            commonjs2: 'react',
+            commonjs: 'react',
+            amd: 'react'
+        },
+        'react-dom': {
+            root: 'ReactDOM',
+            commonjs2: 'react-dom',
+            commonjs: 'react-dom',
+            amd: 'react-dom'
+        },
+        'react/lib/ReactTransitionGroup': {
+            root: 'React.addons.ReactTransitionGroup',
+            commonjs2: 'react/lib/ReactTransitionGroup',
+            commonjs: 'react/lib/ReactTransitionGroup',
+            amd: 'react/lib/ReactTransitionGroup'
+        }
     },
     plugins: [
         new webpack.IgnorePlugin(/ReactContext/)
