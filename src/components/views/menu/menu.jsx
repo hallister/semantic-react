@@ -4,7 +4,8 @@ import { Animate } from '../../modules';
 import classNames from 'classnames';
 
 let validProps = {
-    attached: ['top', 'bottom']
+    attached: ['top', 'bottom'],
+    fitted: ['horizontally', 'vertically']
 };
 
 @Animate
@@ -30,6 +31,11 @@ export class Menu extends React.Component {
             to: React.PropTypes.object
         }),
         even: React.PropTypes.bool,
+        fitted: React.PropTypes.oneOfType([
+            React.PropTypes.bool,
+            React.PropTypes.oneOf(['horizontally', 'vertically'])
+        ]),
+        fixed: React.PropTypes.bool,
         fluid: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         pointing: React.PropTypes.bool,
@@ -110,6 +116,8 @@ export class Menu extends React.Component {
             tabular: this.props.tabular,
             vertical: this.props.vertical,
             fluid: this.props.fluid,
+            fixed: this.props.fixed,
+            fitted: this.props.fitted,
             text: this.props.text,
 
             // dropdown
