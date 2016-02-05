@@ -6,6 +6,7 @@ export class Dropdown extends React.Component {
         active: React.PropTypes.bool,
         children: React.PropTypes.node,
         className: React.PropTypes.node,
+        compact: React.PropTypes.bool,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
             React.PropTypes.string
@@ -14,9 +15,11 @@ export class Dropdown extends React.Component {
         disabled: React.PropTypes.bool,
         error: React.PropTypes.bool,
         fluid: React.PropTypes.bool,
+        inline: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         labeled: React.PropTypes.bool,
         multiple: React.PropTypes.bool,
+        scrolling: React.PropTypes.bool,
         search: React.PropTypes.bool,
         selection: React.PropTypes.bool,
         visible: React.PropTypes.bool
@@ -69,6 +72,9 @@ export class Dropdown extends React.Component {
             // positioning
 
             // types
+            inline: this.props.inline,
+            compact: this.props.compact,
+            scrolling: this.props.scrolling,
             selection: this.props.selection,
             fluid: this.props.fluid,
             labeled: this.props.labeled,
