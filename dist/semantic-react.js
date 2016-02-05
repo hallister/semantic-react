@@ -7055,14 +7055,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	            active: _react2['default'].PropTypes.bool,
 	            children: _react2['default'].PropTypes.node,
 	            className: _react2['default'].PropTypes.node,
+	            compact: _react2['default'].PropTypes.bool,
 	            component: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.element, _react2['default'].PropTypes.string]),
 	            defaultClasses: _react2['default'].PropTypes.bool,
 	            disabled: _react2['default'].PropTypes.bool,
 	            error: _react2['default'].PropTypes.bool,
 	            fluid: _react2['default'].PropTypes.bool,
+	            inline: _react2['default'].PropTypes.bool,
 	            inverted: _react2['default'].PropTypes.bool,
 	            labeled: _react2['default'].PropTypes.bool,
 	            multiple: _react2['default'].PropTypes.bool,
+	            scrolling: _react2['default'].PropTypes.bool,
 	            search: _react2['default'].PropTypes.bool,
 	            selection: _react2['default'].PropTypes.bool,
 	            visible: _react2['default'].PropTypes.bool
@@ -7129,6 +7132,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // positioning
 
 	                // types
+	                inline: this.props.inline,
+	                compact: this.props.compact,
+	                scrolling: this.props.scrolling,
 	                selection: this.props.selection,
 	                fluid: this.props.fluid,
 	                labeled: this.props.labeled,
