@@ -508,13 +508,6 @@ exports.labeledbutton = {
             "required": false,
             "description": ""
         },
-        "focusable": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
         "icon": {
             "type": {
                 "name": "bool"
