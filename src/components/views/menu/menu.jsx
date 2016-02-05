@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 let validProps = {
     attached: ['top', 'bottom'],
+    fitted: ['horizontally', 'vertically'],
     floated: ['right', 'left']
 };
 
@@ -31,6 +32,11 @@ export class Menu extends React.Component {
             to: React.PropTypes.object
         }),
         even: React.PropTypes.bool,
+        fitted: React.PropTypes.oneOfType([
+            React.PropTypes.bool,
+            React.PropTypes.oneOf(['horizontally', 'vertically'])
+        ]),
+        fixed: React.PropTypes.bool,
         fluid: React.PropTypes.bool,
         floated: React.PropTypes.oneOf(['right', 'left']),
         inverted: React.PropTypes.bool,
@@ -113,6 +119,8 @@ export class Menu extends React.Component {
             tabular: this.props.tabular,
             vertical: this.props.vertical,
             fluid: this.props.fluid,
+            fixed: this.props.fixed,
+            fitted: this.props.fitted,
             text: this.props.text,
 
             // dropdown
