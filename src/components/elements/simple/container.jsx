@@ -19,7 +19,7 @@ function getClasses(props) {
 }
 
 let Container = ({ children, className, component, ...other }) => {
-    other.className = classNames(className, getClasses());
+    other.className = classNames(className, getClasses(other));
 
     return React.createElement(
         component,

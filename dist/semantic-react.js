@@ -4109,7 +4109,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var other = _objectWithoutProperties(_ref, ['children', 'className', 'component']);
 
-	    other.className = (0, _classnames2['default'])(className, getClasses());
+	    other.className = (0, _classnames2['default'])(className, getClasses(other));
 
 	    return _react2['default'].createElement(component, other, children);
 	};
