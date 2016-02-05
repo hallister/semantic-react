@@ -117,6 +117,13 @@ exports.menu = {
             "required": false,
             "description": ""
         },
+        "fluid": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "inverted": {
             "type": {
                 "name": "bool"

@@ -31,6 +31,7 @@ export class Menu extends React.Component {
             to: React.PropTypes.object
         }),
         even: React.PropTypes.bool,
+        fluid: React.PropTypes.bool,
         floated: React.PropTypes.oneOf(['right', 'left']),
         inverted: React.PropTypes.bool,
         pointing: React.PropTypes.bool,
@@ -111,6 +112,7 @@ export class Menu extends React.Component {
             secondary: this.props.secondary,
             tabular: this.props.tabular,
             vertical: this.props.vertical,
+            fluid: this.props.fluid,
             text: this.props.text,
 
             // dropdown

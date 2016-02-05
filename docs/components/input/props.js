@@ -163,13 +163,6 @@ exports.input = {
             },
             "required": false,
             "description": ""
-        },
-        "type": {
-            "type": {
-                "name": "string"
-            },
-            "required": true,
-            "description": ""
         }
     }
 }
