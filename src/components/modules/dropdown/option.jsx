@@ -1,5 +1,5 @@
 import React from 'react';
-import { Item } from '../../elements';
+import { Item } from '../../views';
 
 export class Option extends React.Component {
     static propTypes = {

@@ -4,13 +4,13 @@ import { Icon, Label } from '../../elements';
 import { Menu } from '../../views';
 import { Animations, Dropdown, Option } from '../../modules';
 import classNames from 'classnames';
-import OutsideClick from 'react-outsideclickhandler';
+import ListensToClickOutside from 'react-onclickoutside/decorator';
 
 /**
  * A dropdown component intended to behave exactly as the
  * HTML select component.
  */
-export class Select extends React.Component {
+class Select extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         children: React.PropTypes.node,
@@ -121,34 +121,6 @@ export class Select extends React.Component {
         }
     }
 
-    onDocumentClick() {
-        // this should be doing the same thing as the enter key before it closes
-
-        let match = this.isMatch();
-
-        // the text box itself is a match
-        if (match) {
-            if (this.props.multiple) {
-                this.refs.search.value = '';
-            }
-
-            this.setState({
-                active: false,
-                error: false,
-                selected: this.getSelected(match)
-            });
-        // if the search value is non-empty and the state is active but there's no valid selection, it's an error
-        } else if (this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
-            this.setState({
-                error: true
-            });
-        // if the state is active and there is no error we can close it
-        } else if (this.state.active && !this.state.error) {
-            this.setState({
-                active: false
-            });
-        }
-    }
 
     onClick(e) {
         // clicking the arrow/search box or dropdown area
@@ -231,7 +203,7 @@ export class Select extends React.Component {
                 });
             }
 
-        // pressing delete when there is an empty search box using a multiple select
+            // pressing delete when there is an empty search box using a multiple select
         } else if (e.which === 8 && this.refs.search.value == '' && this.props.multiple) {
             let selected = this.popSelected();
 
@@ -248,6 +220,35 @@ export class Select extends React.Component {
         this.setState({
             error: false
         });
+    }
+
+    handleClickOutside() {
+        // this should be doing the same thing as the enter key before it closes
+
+        let match = this.isMatch();
+
+        // the text box itself is a match
+        if (match) {
+            if (this.props.multiple) {
+                this.refs.search.value = '';
+            }
+
+            this.setState({
+                active: false,
+                error: false,
+                selected: this.getSelected(match)
+            });
+            // if the search value is non-empty and the state is active but there's no valid selection, it's an error
+        } else if (this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
+            this.setState({
+                error: true
+            });
+            // if the state is active and there is no error we can close it
+        } else if (this.state.active && !this.state.error) {
+            this.setState({
+                active: false
+            });
+        }
     }
 
     renderChildren() {
@@ -312,7 +313,7 @@ export class Select extends React.Component {
                         {label}
                         <Icon
                             name="close"
-                            onClick={this.onCloseOption.bind(this, label)} />
+                            onClick={this.onCloseOption.bind(this, label)}/>
                     </Label>
                 );
             });
@@ -337,7 +338,7 @@ export class Select extends React.Component {
                 onKeyDown={this.onSearchKeyDown.bind(this)}
                 ref="search"
                 style={style}
-                tabIndex="0" /> : false;
+                tabIndex="0"/> : false;
     }
 
     renderText() {
@@ -349,8 +350,10 @@ export class Select extends React.Component {
     }
 
     render() {
-        let { active, multiple, search, ignoreCase, name, placeholder,
-              glyphWidth, defaultClasses, noResults, ...other } = this.props;
+        let {
+            active, multiple, search, ignoreCase, name, placeholder,
+            glyphWidth, defaultClasses, noResults, ...other
+        } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());
         other.onClick = this.onClick.bind(this);
@@ -368,35 +371,31 @@ export class Select extends React.Component {
         }
 
         return (
-            <OutsideClick
-                onOutsideClick={this.onDocumentClick.bind(this)}
+            <Dropdown
+                {...other}
+                active={this.state.active}
+                visible={this.state.visible}
             >
-                <Dropdown
-                    {...other}
+                <input
+                    name={this.props.name}
+                    type="hidden"
+                    value={this.formatValue()}/>
+                <Icon
+                    name="dropdown"/>
+                {this.renderLabels()}
+                {this.renderSearch()}
+                {this.renderText()}
+                <Animations
                     active={this.state.active}
-                    visible={this.state.visible}
+                    animate={this.state.active}
+                    component={Menu}
+                    end={this.animation.leave}
+                    onComplete={this.onAnimationComplete.bind(this)}
+                    start={this.animation.enter}
                 >
-                    <input
-                        name={this.props.name}
-                        type="hidden"
-                        value={this.formatValue()} />
-                    <Icon
-                        name="dropdown" />
-                    {this.renderLabels()}
-                    {this.renderSearch()}
-                    {this.renderText()}
-                    <Animations
-                        active={this.state.active}
-                        animate={this.state.active}
-                        component={Menu}
-                        end={this.animation.leave}
-                        onComplete={this.onAnimationComplete.bind(this)}
-                        start={this.animation.enter}
-                    >
-                        {children}
-                    </Animations>
-                </Dropdown>
-            </OutsideClick>
+                    {children}
+                </Animations>
+            </Dropdown>
         );
     }
 
@@ -495,3 +494,7 @@ export class Select extends React.Component {
         }
     }
 }
+
+// Need this trick for react-docgen
+Select = ListensToClickOutside(Select);
+export { Select };
