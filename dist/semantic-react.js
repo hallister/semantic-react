@@ -12762,6 +12762,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children: _react2['default'].PropTypes.node,
 	    className: _react2['default'].PropTypes.any,
 	    component: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.element, _react2['default'].PropTypes.string]),
+	    defaultClasses: _react2['default'].PropTypes.bool,
 	    equalWidth: _react2['default'].PropTypes.bool,
 	    fluid: _react2['default'].PropTypes.bool,
 	    grouped: _react2['default'].PropTypes.bool,

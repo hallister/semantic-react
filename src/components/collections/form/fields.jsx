@@ -44,6 +44,7 @@ Fields.propTypes = {
         React.PropTypes.element,
         React.PropTypes.string
     ]),
+    defaultClasses: React.PropTypes.bool,
     equalWidth: React.PropTypes.bool,
     fluid: React.PropTypes.bool,
     grouped: React.PropTypes.bool,
