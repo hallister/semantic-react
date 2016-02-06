@@ -103,6 +103,6 @@ export class Column extends React.Component {
             }
         }
 
-        return validateClassProps(classes, this.props, validProps, { visible: 'only' });
+        return validateClassProps(classes, this.props, validProps, { visible: 'only', valigned: 'aligned' });
     }
 }
