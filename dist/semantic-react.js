@@ -12661,6 +12661,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        form: props.defaultClasses
 	    };
 	
+	    if (props.equalWidth) {
+	        classes['equal width'] = true;
+	    }
+	
 	    classes[props.size] = !!props.size;
 	
 	    return classes;
@@ -12683,6 +12687,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    className: _react2['default'].PropTypes.any,
 	    component: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.element, _react2['default'].PropTypes.string]),
 	    defaultClasses: _react2['default'].PropTypes.bool,
+	    equalWidth: _react2['default'].PropTypes.bool,
 	    inverted: _react2['default'].PropTypes.bool,
 	    loading: _react2['default'].PropTypes.bool,
 	    size: _react2['default'].PropTypes.string,
@@ -12719,7 +12724,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
 	function getClasses(props) {
-	    var classes = {};
+	    var classes = {
+	        grouped: props.grouped,
+	        inline: props.inline
+	    };
 	
 	    if (props.fluid) {
 	        var childCount = (0, _utilities.countChildren)(props.children, _field.Field);
@@ -12727,6 +12735,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (childCount > 0 && childCount <= 12) {
 	            classes[_utilities.Numbers[childCount]] = true;
 	        }
+	    }
+	
+	    if (props.equalWidth) {
+	        classes['equal width'] = true;
 	    }
 	
 	    classes.fields = props.defaultClasses;
@@ -12750,11 +12762,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children: _react2['default'].PropTypes.node,
 	    className: _react2['default'].PropTypes.any,
 	    component: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.element, _react2['default'].PropTypes.string]),
-	    fluid: _react2['default'].PropTypes.bool
+	    equalWidth: _react2['default'].PropTypes.bool,
+	    fluid: _react2['default'].PropTypes.bool,
+	    grouped: _react2['default'].PropTypes.bool,
+	    inline: _react2['default'].PropTypes.bool
 	};
 	
 	Fields.defaultProps = {
-	    component: 'div'
+	    component: 'div',
+	    defaultClasses: true
 	};
 	
 	exports.Fields = Fields;
