@@ -4,7 +4,10 @@ import { Field } from './field';
 import classNames from 'classnames';
 
 function getClasses(props) {
-    let classes = {};
+    let classes = {
+        grouped: props.grouped,
+        inline: props.inline
+    };
 
     if (props.fluid) {
         let childCount = countChildren(props.children, Field)
@@ -12,6 +15,10 @@ function getClasses(props) {
         if (childCount > 0  && childCount <= 12) {
             classes[Numbers[childCount]] = true;
         }
+    }
+
+    if (props.equalWidth) {
+        classes['equal width'] = true;
     }
 
     classes.fields = props.defaultClasses;
@@ -37,7 +44,10 @@ Fields.propTypes = {
         React.PropTypes.element,
         React.PropTypes.string
     ]),
-    fluid: React.PropTypes.bool
+    equalWidth: React.PropTypes.bool,
+    fluid: React.PropTypes.bool,
+    grouped: React.PropTypes.bool,
+    inline: React.PropTypes.bool
 }
 
 Fields.defaultProps = {
