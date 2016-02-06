@@ -41,7 +41,8 @@ Fields.propTypes = {
 }
 
 Fields.defaultProps = {
-    component: 'div'
+    component: 'div',
+    defaultClasses: true
 }
 
 exports.Fields = Fields;
