@@ -163,6 +163,13 @@ exports.menu = {
             "required": false,
             "description": ""
         },
+        "pagination": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "pointing": {
             "type": {
                 "name": "bool"
