@@ -138,6 +138,17 @@ exports.fields = {
                 "computed": false
             }
         },
+        "defaultClasses": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
         "equalWidth": {
             "type": {
                 "name": "bool"
@@ -165,12 +176,6 @@ exports.fields = {
             },
             "required": false,
             "description": ""
-        },
-        "defaultClasses": {
-            "defaultValue": {
-                "value": "true",
-                "computed": false
-            }
         }
     }
 }
