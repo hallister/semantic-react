@@ -144,7 +144,9 @@ class Select extends React.Component {
 
         let selected = this.getSelected(name)
 
-        this.refs.search.value = '';
+        if (this.refs.search) {
+            this.refs.search.value = '';
+        }
 
         this.setState({
             selected: selected
@@ -164,7 +166,9 @@ class Select extends React.Component {
 
         let selected = this.getSelected(name)
 
-        this.refs.search.value = '';
+        if (this.refs.search) {
+            this.refs.search.value = '';
+        }
 
         // if it's multiple, don't close it just set the state and refocus the element
         if (this.props.multiple) {
@@ -239,7 +243,7 @@ class Select extends React.Component {
                 selected: this.getSelected(match)
             });
             // if the search value is non-empty and the state is active but there's no valid selection, it's an error
-        } else if (this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
+        } else if (this.refs.search && this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
             this.setState({
                 error: true
             });
@@ -463,14 +467,16 @@ class Select extends React.Component {
 
     isMatch() {
         let match = false;
-        let target = this.props.ignoreCase ? this.refs.search.value.toLowerCase() : this.refs.search.value;
+        if (this.refs.search) {
+            let target = this.props.ignoreCase ? this.refs.search.value.toLowerCase() : this.refs.search.value;
 
-        for (let name in this.validOptions) {
-            let text = this.props.ignoreCase ? name.toLowerCase() : name;
+            for (let name in this.validOptions) {
+                let text = this.props.ignoreCase ? name.toLowerCase() : name;
 
-            if (text == target) {
-                match = name;
-                break;
+                if (text == target) {
+                    match = name;
+                    break;
+                }
             }
         }
 

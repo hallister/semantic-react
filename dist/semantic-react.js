@@ -7364,7 +7364,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	            var selected = this.getSelected(name);
 	
-	            this.refs.search.value = '';
+	            if (this.refs.search) {
+	                this.refs.search.value = '';
+	            }
 	
 	            this.setState({
 	                selected: selected
@@ -7386,7 +7388,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	            var selected = this.getSelected(name);
 	
-	            this.refs.search.value = '';
+	            if (this.refs.search) {
+	                this.refs.search.value = '';
+	            }
 	
 	            // if it's multiple, don't close it just set the state and refocus the element
 	            if (this.props.multiple) {
@@ -7464,7 +7468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    selected: this.getSelected(match)
 	                });
 	                // if the search value is non-empty and the state is active but there's no valid selection, it's an error
-	            } else if (this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
+	            } else if (this.refs.search && this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
 	                    this.setState({
 	                        error: true
 	                    });
@@ -7711,14 +7715,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: 'isMatch',
 	        value: function isMatch() {
 	            var match = false;
-	            var target = this.props.ignoreCase ? this.refs.search.value.toLowerCase() : this.refs.search.value;
+	            if (this.refs.search) {
+	                var _target = this.props.ignoreCase ? this.refs.search.value.toLowerCase() : this.refs.search.value;
 	
-	            for (var _name in this.validOptions) {
-	                var text = this.props.ignoreCase ? _name.toLowerCase() : _name;
+	                for (var _name in this.validOptions) {
+	                    var text = this.props.ignoreCase ? _name.toLowerCase() : _name;
 	
-	                if (text == target) {
-	                    match = _name;
-	                    break;
+	                    if (text == _target) {
+	                        match = _name;
+	                        break;
+	                    }
 	                }
 	            }
 	
