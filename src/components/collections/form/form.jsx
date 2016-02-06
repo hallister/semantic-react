@@ -16,6 +16,10 @@ function getClasses(props) {
         form: props.defaultClasses
     }
 
+    if (props.equalWidth) {
+        classes['equal width'] = true;
+    }
+
     classes[props.size] = !!props.size;
 
     return classes;
@@ -40,6 +44,7 @@ Form.propTypes = {
         React.PropTypes.string
     ]),
     defaultClasses: React.PropTypes.bool,
+    equalWidth: React.PropTypes.bool,
     inverted: React.PropTypes.bool,
     loading: React.PropTypes.bool,
     size: React.PropTypes.string,
