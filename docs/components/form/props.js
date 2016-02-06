@@ -138,12 +138,39 @@ exports.fields = {
                 "computed": false
             }
         },
+        "equalWidth": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "fluid": {
             "type": {
                 "name": "bool"
             },
             "required": false,
             "description": ""
+        },
+        "grouped": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
+        "inline": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
+        "defaultClasses": {
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
         }
     }
 }
@@ -195,6 +222,13 @@ exports.form = {
                 "value": "true",
                 "computed": false
             }
+        },
+        "equalWidth": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
         },
         "inverted": {
             "type": {
