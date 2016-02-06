@@ -11940,7 +11940,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	
-	            return (0, _utilities.validateClassProps)(classes, this.props, validProps, { visible: 'only' });
+	            return (0, _utilities.validateClassProps)(classes, this.props, validProps, { visible: 'only', valigned: 'aligned' });
 	        }
 	    }]);
 	
