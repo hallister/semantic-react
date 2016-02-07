@@ -6336,6 +6336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            component: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.element, _react2['default'].PropTypes.string]),
 	            defaultClasses: _react2['default'].PropTypes.bool,
 	            disabled: _react2['default'].PropTypes.bool,
+	            fitted: _react2['default'].PropTypes.bool,
 	            indeterminate: _react2['default'].PropTypes.bool,
 	            name: _react2['default'].PropTypes.string,
 	            onClick: _react2['default'].PropTypes.func,
@@ -6432,6 +6433,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                radio: this.props.radio,
 	
 	                // variations
+	                fitted: this.props.fitted,
 	                slider: this.props.slider,
 	                toggle: this.props.toggle,
 	
