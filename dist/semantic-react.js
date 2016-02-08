@@ -12044,6 +12044,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                row: this.props.defaultClasses
 	            });
 	
+	            if (this.props.equal) {
+	                classes['equal width'] = true;
+	            }
+	
 	            if (this.props.columns !== false) {
 	                if (this.props.columns > 0 && this.props.columns <= 16) {
 	                    classes[_utilities.Numbers[this.props.columns] + ' column'] = true;
@@ -12064,6 +12068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            columns: _react2['default'].PropTypes.number,
 	            component: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.element, _react2['default'].PropTypes.string]),
 	            defaultClasses: _react2['default'].PropTypes.bool,
+	            equal: _react2['default'].PropTypes.bool,
 	            stretched: _react2['default'].PropTypes.bool,
 	            valigned: _react2['default'].PropTypes.oneOf(['top', 'middle', 'bottom']),
 	            visible: _react2['default'].PropTypes.oneOf(['large screen', 'wide screen', 'computer', 'mobile', 'tablet'])
@@ -12253,6 +12258,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                grid: this.props.defaultClasses
 	            });
+	
+	            if (this.props.equal) {
+	                classes['equal width'] = true;
+	            }
 	
 	            if (this.props.columns !== false) {
 	                if (this.props.columns > 0 && this.props.columns <= 16) {
