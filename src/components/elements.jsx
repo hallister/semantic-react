@@ -16,6 +16,8 @@ export { default as Flag } from './elements/flag/flag';
 export { default as Header } from './elements/header/header';
 export { default as SubHeader } from './elements/header/subheader';
 
+export { default as Item } from './elements/item';
+
 export { default as Icon } from './elements/icon/icon';
 export { default as Icons } from './elements/icon/icons';
 

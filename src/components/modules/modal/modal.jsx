@@ -1,6 +1,6 @@
 import React from 'react';
 import { ModalBody, Dimmer } from '../../modules';
-import OutsideClick from 'react-outsideclickhandler';
+import OutsideClick from '../outside-click-handler';
 
 export class Modal extends React.Component {
     static propTypes = {
