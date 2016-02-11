@@ -10,54 +10,45 @@ export default class Rating extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
-        heart: React.PropTypes.bool,
         max: React.PropTypes.number,
         size: React.PropTypes.string,
-        star: React.PropTypes.bool
+        heart: React.PropTypes.bool,
+        star: React.PropTypes.bool,
+        value: React.PropTypes.number,
+        onChange: React.PropTypes.func
     };
 
     static defaultProps = {
         children: null,
         component: 'div',
         defaultClasses: true,
-        max: 5
+        max: 5,
+        value: 0
     };
 
-    constructor(props) {
-        super(props);
+    handleChange(index) {
+        if (index === this.props.active) {
+            this.props.onChange(0);
+            return;
+        }
 
-        this.state = {
-            active: null
-        };
-    }
-
-    onIconClick(index) {
-        // no need to reset it when it hasn't changed
-        if (index === this.state.active) return;
-        this.setState({
-            active: index
-        })
+        this.props.onChange(index);
     }
 
     renderChildren() {
         let children = [];
         let classes = {
-            icon: true,
-            active: false
+            icon: true
         }
 
-        for (let i = 0; i < this.props.max; i++) {
-            if (this.state.active !== null && this.state.active >= i) {
-                classes.active = true;
-            } else {
-                classes.active = false;
-            }
+        for (let i = 1; i <= this.props.max; i++) {
+            classes.active = this.props.value >= i;
 
             children.push(
                 <i
                     className={classNames(classes)}
                     key={i}
-                    onClick={this.onIconClick.bind(this, i)} />
+                    onClick={this.handleChange.bind(this, i)} />
             )
         }
 
@@ -79,19 +70,12 @@ export default class Rating extends React.Component {
     }
 
     getClasses() {
-        let classes = {
+        return {
             ui: this.props.defaultClasses,
-
-            size: React.PropTypes.string,
-
-            // variations
+            [this.props.size]: !!this.props.size,
             star: this.props.star,
             heart: this.props.heart,
-
             rating: this.props.defaultClasses
         }
-
-        classes[this.props.size] = !!this.props.size;
-        return classes;
     }
 }
