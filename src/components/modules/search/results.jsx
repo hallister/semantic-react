@@ -50,7 +50,7 @@ export class Results extends React.Component {
     renderArray() {
         let results = arguments[0] || this.props.results;
 
-        return results.map(child => {
+        return results.map((child, key) => {
             let description = null;
             let title = typeof child === 'object' ? child.title : child;
 
@@ -66,6 +66,7 @@ export class Results extends React.Component {
             return (
                 <a className="result"
                     onMouseDown={this.onClick.bind(this, title)}
+                    key={key}
                 >
                     <Content>
                         <div className="title">
