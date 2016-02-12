@@ -44,12 +44,21 @@ export class Rating extends React.Component {
         for (let i = 1; i <= this.props.max; i++) {
             classes.active = this.props.value >= i;
 
-            children.push(
-                <i
-                    className={classNames(classes)}
-                    key={i}
-                    onClick={this.handleChange.bind(this, i)} />
-            )
+            if (this.props.onChange) {
+                children.push(
+                    <i
+                        className={classNames(classes)}
+                        key={i}
+                        onClick={this.handleChange.bind(this, i)} />
+                )
+            } else {
+                children.push(
+                    <i
+                        className={classNames(classes)}
+                        key={i} />
+                )
+            }
+
         }
 
         return children;
