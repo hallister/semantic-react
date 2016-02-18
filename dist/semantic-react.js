@@ -12852,7 +12852,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    other.className = (0, _classnames2['default'])(className, getClasses(props));
 	
-	    return _react2['default'].createElement(component, other, [(0, _utilities.hasFirstChild)(children, _modules.Checkbox) || (0, _utilities.hasFirstChild)(children, _modules.Checkboxes) || label == '' ? '' : renderLabel(props.label), children]);
+	    return _react2['default'].createElement(component, other, [(0, _utilities.hasFirstChild)(children, _modules.Checkbox) || (0, _utilities.hasFirstChild)(children, _modules.Checkboxes) || !label || label == '' ? null : renderLabel(props.label), children]);
 	};
 	
 	Field.propTypes = {
