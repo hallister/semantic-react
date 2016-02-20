@@ -9364,14 +9364,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	            var newChildren = [];
 	
-	            // we can't map children because we need to know when length is zero
 	            _react2['default'].Children.forEach(this.props.children, function (child) {
-	                if (child.type === _views.Item) {
-	                    newChildren.push(_react2['default'].cloneElement(child, {
-	                        key: child.props.children,
-	                        onClick: _this.onMenuItemClick.bind(_this)
-	                    }, child.props.children));
-	                }
+	                newChildren.push(_react2['default'].cloneElement(child, {
+	                    key: child.props.children,
+	                    onClick: _this.onMenuItemClick.bind(_this)
+	                }, child.props.children));
 	            });
 	
 	            return newChildren;

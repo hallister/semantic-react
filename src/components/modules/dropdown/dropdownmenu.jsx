@@ -1,7 +1,7 @@
 import React from 'react';
 import { Animations, Dropdown } from '../../modules';
 import { Icon, Text } from '../../elements';
-import { Menu, Item } from '../../views';
+import { Menu } from '../../views';
 import ListensToClickOutside from 'react-onclickoutside/decorator';
 
 
@@ -202,20 +202,17 @@ export class DropdownMenu extends React.Component {
     renderChildren() {
         let newChildren = [];
 
-        // we can't map children because we need to know when length is zero
         React.Children.forEach(this.props.children, child => {
-            if (child.type === Item) {
-                newChildren.push(
-                    React.cloneElement(
-                        child,
-                        {
-                            key: child.props.children,
-                            onClick: this.onMenuItemClick.bind(this)
-                        },
-                        child.props.children
-                    )
-                );
-            }
+            newChildren.push(
+                React.cloneElement(
+                    child,
+                    {
+                        key: child.props.children,
+                        onClick: this.onMenuItemClick.bind(this)
+                    },
+                    child.props.children
+                )
+            );
         });
 
         return newChildren;
