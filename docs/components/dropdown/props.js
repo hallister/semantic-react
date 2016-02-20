@@ -77,6 +77,13 @@ exports.dropdown = {
             "required": false,
             "description": ""
         },
+        "floating": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "fluid": {
             "type": {
                 "name": "bool"
