@@ -209,6 +209,7 @@ export class DropdownMenu extends React.Component {
                     React.cloneElement(
                         child,
                         {
+                            key: child.props.children,
                             onClick: this.onMenuItemClick.bind(this)
                         },
                         child.props.children

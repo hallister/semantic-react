@@ -8620,7 +8620,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            children: _react2['default'].PropTypes.node,
 	            className: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.node, _react2['default'].PropTypes.object]),
 	            color: _react2['default'].PropTypes.string,
-	            component: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.element, _react2['default'].PropTypes.string]),
+	            component: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.element, _react2['default'].PropTypes.string, _react2['default'].PropTypes.func]),
 	            defaultClasses: _react2['default'].PropTypes.bool,
 	            link: _react2['default'].PropTypes.bool,
 	            name: _react2['default'].PropTypes.string,
@@ -9368,6 +9368,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2['default'].Children.forEach(this.props.children, function (child) {
 	                if (child.type === _views.Item) {
 	                    newChildren.push(_react2['default'].cloneElement(child, {
+	                        key: child.props.children,
 	                        onClick: _this.onMenuItemClick.bind(_this)
 	                    }, child.props.children));
 	                }

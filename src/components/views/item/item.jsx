@@ -12,7 +12,8 @@ export class Item extends React.Component {
         color: React.PropTypes.string,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
-            React.PropTypes.string
+            React.PropTypes.string,
+            React.PropTypes.func
         ]),
         defaultClasses: React.PropTypes.bool,
         link: React.PropTypes.bool,
