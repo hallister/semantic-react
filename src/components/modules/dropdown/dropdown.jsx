@@ -1,5 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
+import { validateClassProps } from '../../utilities';
+
+let validProps = {
+    pointing: ['left', 'right', 'bottom left', 'bottom right', 'top left', 'top right']
+};
 
 export class Dropdown extends React.Component {
     static propTypes = {
@@ -21,6 +26,10 @@ export class Dropdown extends React.Component {
         inverted: React.PropTypes.bool,
         labeled: React.PropTypes.bool,
         multiple: React.PropTypes.bool,
+        pointing: React.PropTypes.oneOfType([
+            React.PropTypes.bool,
+            React.PropTypes.string
+        ]),
         scrolling: React.PropTypes.bool,
         search: React.PropTypes.bool,
         selection: React.PropTypes.bool,
@@ -67,7 +76,7 @@ export class Dropdown extends React.Component {
     }
 
     getClasses() {
-        return {
+        let classes = {
             // default
             ui: this.props.defaultClasses,
 
@@ -83,6 +92,7 @@ export class Dropdown extends React.Component {
             labeled: this.props.labeled,
             search: this.props.search,
             multiple: this.props.multiple,
+            pointing: this.props.pointing,
 
             // state
             active: this.props.active,
@@ -95,5 +105,6 @@ export class Dropdown extends React.Component {
 
             // variations
         };
+        return validateClassProps(classes, this.props, validProps);
     }
 }
