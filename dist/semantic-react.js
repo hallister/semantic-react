@@ -7052,6 +7052,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
+	var _utilities = __webpack_require__(4);
+	
+	var validProps = {
+	    pointing: ['left', 'right', 'bottom left', 'bottom right', 'top left', 'top right']
+	};
+	
 	var Dropdown = (function (_React$Component) {
 	    _inherits(Dropdown, _React$Component);
 	
@@ -7072,6 +7078,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            inverted: _react2['default'].PropTypes.bool,
 	            labeled: _react2['default'].PropTypes.bool,
 	            multiple: _react2['default'].PropTypes.bool,
+	            pointing: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.bool, _react2['default'].PropTypes.string]),
 	            scrolling: _react2['default'].PropTypes.bool,
 	            search: _react2['default'].PropTypes.bool,
 	            selection: _react2['default'].PropTypes.bool,
@@ -7132,7 +7139,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'getClasses',
 	        value: function getClasses() {
-	            return {
+	            var classes = {
 	                // default
 	                ui: this.props.defaultClasses,
 	
@@ -7148,6 +7155,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                labeled: this.props.labeled,
 	                search: this.props.search,
 	                multiple: this.props.multiple,
+	                pointing: this.props.pointing,
 	
 	                // state
 	                active: this.props.active,
@@ -7160,6 +7168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                // variations
 	            };
+	            return (0, _utilities.validateClassProps)(classes, this.props, validProps);
 	        }
 	    }]);
 	
