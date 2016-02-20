@@ -15,6 +15,7 @@ export * from './modules/dimmer/dimmable';
 export * from './modules/dropdown/dropdown';
 export * from './modules/dropdown/select';
 export * from './modules/dropdown/option';
+export * from './modules/dropdown/dropdownmenu';
 
 export * from './modules/modal/modal';
 export * from './modules/modal/modalbody';

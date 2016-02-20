@@ -9,7 +9,8 @@ export class Dropdown extends React.Component {
         compact: React.PropTypes.bool,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
-            React.PropTypes.string
+            React.PropTypes.string,
+            React.PropTypes.func
         ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
