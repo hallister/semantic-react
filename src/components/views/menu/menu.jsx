@@ -4,7 +4,8 @@ import { Animate } from '../../modules';
 import classNames from 'classnames';
 
 let validProps = {
-    attached: ['top', 'bottom']
+    attached: ['top', 'bottom'],
+    floated: ['right', 'left']
 };
 
 @Animate
@@ -30,6 +31,7 @@ export class Menu extends React.Component {
             to: React.PropTypes.object
         }),
         even: React.PropTypes.bool,
+        floated: React.PropTypes.oneOf(['right', 'left']),
         inverted: React.PropTypes.bool,
         pointing: React.PropTypes.bool,
         right: React.PropTypes.bool,
@@ -103,6 +105,7 @@ export class Menu extends React.Component {
             item: this.props.even && childCount > 0,
             borderless: this.props.borderless,
             attached: this.props.attached,
+            floated: this.props.floated,
             inverted: this.props.inverted,
             pointing: this.props.pointing,
             secondary: this.props.secondary,
