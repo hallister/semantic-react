@@ -1,6 +1,6 @@
 import { Colors } from '../../utilities';
 import { Table, Tr, Td }from '../../../src/components/collections';
-import { Label, Icon, Header }from '../../../src/components/elements';
+import { Label, Icon, Header, Image, Content, SubHeader }from '../../../src/components/elements';
 import { Menu, Item }from '../../../src/components/views';
 import { Rating }from '../../../src/components/modules';
 
@@ -286,6 +286,155 @@ export default {
                                 component: Td,
                                 children: 'Creatine is the reference compound for power improvement, with numbers from one meta-analysis to assess potency'
                             }
+                        ]
+                    }
+                ]
+
+
+            }
+        ]
+    },
+    Basic: {
+        component: Table,
+        props: {
+            celled: true,
+            basic: 'very',
+            collapsing: true
+        },
+        children: [
+            {
+                component: 'thead',
+                children:
+                    {
+                        component: Tr,
+                        children: [
+                            { component: 'th', children: 'Employee' },
+                            { component: 'th', children: 'Correct Guesses' }
+                        ]
+                    }
+
+            },
+            {
+                component: 'tbody',
+                children: [
+                    {
+                        component: Tr,
+                        children: [
+                            {
+                                component: Td,
+                                children: {
+                                    component: Header,
+                                    props: { className: 'image' }, // TODO Add "image" Header variant?
+                                    children: [
+                                        {
+                                            component: Image,
+                                            props: {
+                                                src: 'http://semantic-ui.com/images/avatar2/small/lena.png',
+                                                shape: 'rounded',
+                                                className: 'mini' // TODO Add "mini" Image variant?
+                                            }
+                                        },
+                                        {
+                                            component: Content,
+                                            children: [
+                                                'Lena',
+                                                { component: SubHeader, children: 'Human Resources' }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            { component: Td, children: '11' }
+                        ]
+                    },
+                    {
+                        component: Tr,
+                        children: [
+                            {
+                                component: Td,
+                                children: {
+                                    component: Header,
+                                    props: { className: 'image' }, // TODO Add "image" Header variant?
+                                    children: [
+                                        {
+                                            component: Image,
+                                            props: {
+                                                src: 'http://semantic-ui.com/images/avatar2/small/matthew.png',
+                                                shape: 'rounded',
+                                                className: 'mini' // TODO Add "mini" Image variant?
+                                            }
+                                        },
+                                        {
+                                            component: Content,
+                                            children: [
+                                                'Matthew',
+                                                { component: SubHeader, children: 'Fabric Design' }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            { component: Td, children: '11' }
+                        ]
+                    },
+                    {
+                        component: Tr,
+                        children: [
+                            {
+                                component: Td,
+                                children: {
+                                    component: Header,
+                                    props: { className: 'image' }, // TODO Add "image" Header variant?
+                                    children: [
+                                        {
+                                            component: Image,
+                                            props: {
+                                                src: 'http://semantic-ui.com/images/avatar2/small/lindsay.png',
+                                                shape: 'rounded',
+                                                className: 'mini' // TODO Add "mini" Image variant?
+                                            }
+                                        },
+                                        {
+                                            component: Content,
+                                            children: [
+                                                'Lindsay',
+                                                { component: SubHeader, children: 'Entertainment' }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            { component: Td, children: '11' }
+                        ]
+                    },
+                    {
+                        component: Tr,
+                        children: [
+                            {
+                                component: Td,
+                                children: {
+                                    component: Header,
+                                    props: { className: 'image' }, // TODO Add "image" Header variant?
+                                    children: [
+                                        {
+                                            component: Image,
+                                            props: {
+                                                src: 'http://semantic-ui.com/images/avatar2/small/mark.png',
+                                                shape: 'rounded',
+                                                className: 'mini' // TODO Add "mini" Image variant?
+                                            }
+                                        },
+                                        {
+                                            component: Content,
+                                            children: [
+                                                'Mark',
+                                                { component: SubHeader, children: 'Executive' }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            { component: Td, children: '11' }
                         ]
                     }
                 ]
