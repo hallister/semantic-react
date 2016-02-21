@@ -38,8 +38,8 @@ export class Menu extends React.Component {
             React.PropTypes.oneOf(['horizontally', 'vertically'])
         ]),
         fixed: React.PropTypes.bool,
-        fluid: React.PropTypes.bool,
         floated: React.PropTypes.oneOf(['right', 'left']),
+        fluid: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         pagination: React.PropTypes.bool,
         pointing: React.PropTypes.bool,
