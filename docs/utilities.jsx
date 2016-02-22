@@ -1,5 +1,23 @@
 import React from 'react';
 
+const omittedCloseTags = {
+    'area': true,
+    'base': true,
+    'br': true,
+    'col': true,
+    'embed': true,
+    'hr': true,
+    'img': true,
+    'input': true,
+    'keygen': true,
+    'link': true,
+    'meta': true,
+    'param': true,
+    'source': true,
+    'track': true,
+    'wbr': true
+};
+
 exports.Colors = ['red', 'orange', 'yellow', 'olive', 'green',
                   'teal', 'blue', 'violet', 'purple', 'pink',
                   'brown', 'grey', 'black'];
@@ -101,7 +119,7 @@ export function cloneElement(component, props, children) {
     return React.createElement(
         component,
         props || {},
-        children || []
+        ( children ? children : ( omittedCloseTags[component] ? null : [] ) )
     );
 }
 
