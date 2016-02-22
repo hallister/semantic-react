@@ -1,8 +1,8 @@
 import { Colors } from '../../utilities';
 import { Table, Tr, Td }from '../../../src/components/collections';
-import { Label, Icon, Header, Image, Content, SubHeader }from '../../../src/components/elements';
+import { Label, Icon, Header, Image, Content, SubHeader, IconButton, Button }from '../../../src/components/elements';
 import { Menu, Item }from '../../../src/components/views';
-import { Rating }from '../../../src/components/modules';
+import { Rating, Checkbox }from '../../../src/components/modules';
 
 export default {
     Celled: {
@@ -633,46 +633,186 @@ export default {
             }
         ]
     },
-    Definition: {
-        component: Table,
-        props: {
-            definition: true
-        },
-        children: [
-            {
-                component: 'thead',
-                children:
-                {
-                    component: Tr,
-                    children: [
-                        { component: 'th' },
-                        { component: 'th', children: 'Arguments' },
-                        { component: 'th', children: 'Description' }
-                    ]
-                }
-
+    Definition: [
+        {
+            component: Table,
+            props: {
+                definition: true
             },
-            {
-                component: 'tbody',
-                children: [
-                    {
+            children: [
+                {
+                    component: 'thead',
+                    children: {
                         component: Tr,
                         children: [
-                            { component: Td, children: 'reset rating' },
-                            { component: Td, children: 'None' },
-                            { component: Td, children: 'Resets rating to default value' }
-                        ]
-                    },
-                    {
-                        component: Tr,
-                        children: [
-                            { component: Td, children: 'set rating' },
-                            { component: Td, children: 'rating (integer)' },
-                            { component: Td, children: 'Sets the current star rating to specified value' }
+                            {component: 'th'},
+                            {component: 'th', children: 'Arguments'},
+                            {component: 'th', children: 'Description'}
                         ]
                     }
-                ]
-            }
-        ]
-    }
+
+                },
+                {
+                    component: 'tbody',
+                    children: [
+                        {
+                            component: Tr,
+                            children: [
+                                {component: Td, children: 'reset rating'},
+                                {component: Td, children: 'None'},
+                                {component: Td, children: 'Resets rating to default value'}
+                            ]
+                        },
+                        {
+                            component: Tr,
+                            children: [
+                                {component: Td, children: 'set rating'},
+                                {component: Td, children: 'rating (integer)'},
+                                {component: Td, children: 'Sets the current star rating to specified value'}
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            component: Table,
+            props: {
+                definition: true,
+                celled: true,
+                compact: true
+            },
+            children: [
+                {
+                    component: 'thead',
+                    children: {
+                        component: Tr,
+                        children: [
+                            {component: 'th'},
+                            {component: 'th', children: 'Name'},
+                            {component: 'th', children: 'Registration Date'},
+                            {component: 'th', children: 'E-mail address'},
+                            {component: 'th', children: 'Premium Plan'}
+                        ]
+                    }
+
+                },
+                {
+                    component: 'tbody',
+                    children: [
+                        {
+                            component: Tr,
+                            children: [
+                                {
+                                    component: Td,
+                                    props: { collapsing: true },
+                                    children: {
+                                        component: Checkbox,
+                                        props: {
+                                            slider: true,
+                                            className: 'fitted' // TODO Add prop?
+                                        }
+                                    }
+                                },
+                                {component: Td, children: 'John Lilki'},
+                                {component: Td, children: 'September 14, 2013'},
+                                {component: Td, children: 'jhlilk22@yahoo.com'},
+                                {component: Td, children: 'No'}
+                            ]
+                        },
+                        {
+                            component: Tr,
+                            children: [
+                                {
+                                    component: Td,
+                                    props: { collapsing: true },
+                                    children: {
+                                        component: Checkbox,
+                                        props: {
+                                            slider: true,
+                                            className: 'fitted' // TODO Add prop?
+                                        }
+                                    }
+                                },
+                                {component: Td, children: 'Jamie Harington'},
+                                {component: Td, children: 'January 11, 2014'},
+                                {component: Td, children: 'jamieharingonton@yahoo.com'},
+                                {component: Td, children: 'Yes'}
+                            ]
+                        },
+                        {
+                            component: Tr,
+                            children: [
+                                {
+                                    component: Td,
+                                    props: { collapsing: true },
+                                    children: {
+                                        component: Checkbox,
+                                        props: {
+                                            slider: true,
+                                            className: 'fitted' // TODO Add prop?
+                                        }
+                                    }
+                                },
+                                {component: Td, children: 'Jill Lewis'},
+                                {component: Td, children: 'May 11, 2014'},
+                                {component: Td, children: 'jilsewris22@yahoo.com'},
+                                {component: Td, children: 'Yes'}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    component: 'tfoot',
+                    props: {
+                        className: 'full-width'
+                    },
+                    children:
+                    {
+                        component: Tr,
+                        children: [
+                            { component: 'th' },
+                            {
+                                component: 'th',
+                                props: {
+                                    colSpan: "4"
+                                },
+                                children: [
+                                    {
+                                        component: IconButton,
+                                        props: {
+                                            floated: 'right',
+                                            labeled: true,
+                                            size: 'small',
+                                            name: 'user',
+                                            className: 'primary icon' // FIXME icon should have been added imho /Alex
+                                            //,primary: true // FIXME Or button_type: "primary"?
+                                        },
+                                        children: 'Add User'
+                                    },
+                                    {
+                                        component: Button,
+                                        props: {
+                                            size: 'small'
+                                        },
+                                        children: 'Approve'
+                                    },
+                                    {
+                                        component: Button,
+                                        props: {
+                                            size: 'small',
+                                            disabled: true
+                                        },
+                                        children: 'Approve All'
+                                    }
+                                ]
+                            }
+                        ]
+
+                    }
+
+                }
+            ]
+        }
+    ]
 };
