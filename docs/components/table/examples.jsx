@@ -442,5 +442,195 @@ export default {
 
             }
         ]
+    },
+    Striped: {
+        component: Table,
+        props: {
+            celled: true,
+            striped: true
+        },
+        children: [
+            {
+                component: 'thead',
+                children:
+                {
+                    component: Tr,
+                    children: {
+                        component: 'th',
+                        props: {
+                           colSpan: "3"
+                        },
+                        children: 'Git Repository'
+                    }
+                }
+            },
+            {
+                component: 'tbody',
+                children: [
+                    {
+                        component: Tr,
+                        children: [
+                            {
+                                component: Td,
+                                props: {
+                                    collapsing: true
+                                },
+                                children: [
+                                    {
+                                        component: Icon,
+                                        props: {
+                                            name: 'folder'
+                                        }
+                                    },
+                                    'node_modules'
+                                ]
+                            },
+                            {
+                                component: Td,
+                                children: 'Initial commit'
+                            },
+                            {
+                                component: Td,
+                                props: {
+                                    aligned: 'right',
+                                    collapsing: true
+                                },
+                                children: '10 hours ago'
+                            }
+                        ]
+                    },
+                    {
+                        component: Tr,
+                        children: [
+                            {
+                                component: Td,
+                                props: {
+                                    collapsing: true
+                                },
+                                children: [
+                                    {
+                                        component: Icon,
+                                        props: {
+                                            name: 'folder'
+                                        }
+                                    },
+                                    'test'
+                                ]
+                            },
+                            {
+                                component: Td,
+                                children: 'Initial commit'
+                            },
+                            {
+                                component: Td,
+                                props: {
+                                    aligned: 'right',
+                                    collapsing: true
+                                },
+                                children: '10 hours ago'
+                            }
+                        ]
+                    },
+                    {
+                        component: Tr,
+                        children: [
+                            {
+                                component: Td,
+                                props: {
+                                    collapsing: true
+                                },
+                                children: [
+                                    {
+                                        component: Icon,
+                                        props: {
+                                            name: 'folder'
+                                        }
+                                    },
+                                    'build'
+                                ]
+                            },
+                            {
+                                component: Td,
+                                children: 'Initial commit'
+                            },
+                            {
+                                component: Td,
+                                props: {
+                                    aligned: 'right',
+                                    collapsing: true
+                                },
+                                children: '10 hours ago'
+                            }
+                        ]
+                    },
+                    {
+                        component: Tr,
+                        children: [
+                            {
+                                component: Td,
+                                props: {
+                                    collapsing: true
+                                },
+                                children: [
+                                    {
+                                        component: Icon,
+                                        props: {
+                                            name: 'file',
+                                            className: 'outline' // FIXME What does this do and should it be a prop?
+                                        }
+                                    },
+                                    'package.json'
+                                ]
+                            },
+                            {
+                                component: Td,
+                                children: 'Initial commit'
+                            },
+                            {
+                                component: Td,
+                                props: {
+                                    aligned: 'right',
+                                    collapsing: true
+                                },
+                                children: '10 hours ago'
+                            }
+                        ]
+                    },
+                    {
+                        component: Tr,
+                        children: [
+                            {
+                                component: Td,
+                                props: {
+                                    collapsing: true
+                                },
+                                children: [
+                                    {
+                                        component: Icon,
+                                        props: {
+                                            name: 'file',
+                                            className: 'outline' // FIXME What does this do and should it be a prop?
+                                        }
+                                    },
+                                    'Gruntfile.js'
+                                ]
+                            },
+                            {
+                                component: Td,
+                                children: 'Initial commit'
+                            },
+                            {
+                                component: Td,
+                                props: {
+                                    aligned: 'right',
+                                    collapsing: true
+                                },
+                                children: '10 hours ago'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 };
