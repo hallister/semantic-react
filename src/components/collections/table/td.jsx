@@ -26,7 +26,7 @@ function getClasses(props) {
     return validateClassProps(classes, props, validProps);
 }
 
-let td = (props) => {
+let Td = (props) => {
 
     /* eslint-disable no-use-before-define */
     let { children, className, collapsing, component, singleLine, state, type,
@@ -42,7 +42,7 @@ let td = (props) => {
     );
 };
 
-td.propTypes = {
+Td.propTypes = {
     aligned: React.PropTypes.oneOf(['right', 'left', 'center', 'top', 'bottom']),
     className: React.PropTypes.any,
     collapsing: React.PropTypes.bool,
@@ -54,8 +54,8 @@ td.propTypes = {
     type: React.PropTypes.oneOf(['negative', 'positive', 'warning'])
 }
 
-td.defaultProps = {
+Td.defaultProps = {
     component: 'td'
 }
 
-export default td;
+export default Td;

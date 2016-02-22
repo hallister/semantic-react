@@ -58,7 +58,7 @@ function getClasses(props) {
     return validateClassProps(classes, props, validProps, { valigned: 'aligned' });
 }
 
-let table = (props) => {
+let Table = (props) => {
     /* eslint-disable no-use-before-define */
     let { basic, celled, children, className, collapsing, compact, component,
           defaultClasses, definition, fixed, inverted, selectable, singleLine,
@@ -80,7 +80,7 @@ let table = (props) => {
     );
 };
 
-table.propTypes = {
+Table.propTypes = {
     aligned: React.PropTypes.oneOf(['top', 'bottom']),
     basic: React.PropTypes.oneOfType([
         React.PropTypes.oneOf(['very']),
@@ -123,7 +123,7 @@ table.propTypes = {
     width: React.PropTypes.number
 }
 
-table.defaultProps = {
+Table.defaultProps = {
     component: 'table',
     defaultClasses: true,
     stackable: {
@@ -138,5 +138,5 @@ table.defaultProps = {
     }
 }
 
-export default table;
+export default Table;
 
