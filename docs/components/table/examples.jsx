@@ -632,5 +632,47 @@ export default {
                 ]
             }
         ]
+    },
+    Definition: {
+        component: Table,
+        props: {
+            definition: true
+        },
+        children: [
+            {
+                component: 'thead',
+                children:
+                {
+                    component: Tr,
+                    children: [
+                        { component: 'th' },
+                        { component: 'th', children: 'Arguments' },
+                        { component: 'th', children: 'Description' }
+                    ]
+                }
+
+            },
+            {
+                component: 'tbody',
+                children: [
+                    {
+                        component: Tr,
+                        children: [
+                            { component: Td, children: 'reset rating' },
+                            { component: Td, children: 'None' },
+                            { component: Td, children: 'Resets rating to default value' }
+                        ]
+                    },
+                    {
+                        component: Tr,
+                        children: [
+                            { component: Td, children: 'set rating' },
+                            { component: Td, children: 'rating (integer)' },
+                            { component: Td, children: 'Sets the current star rating to specified value' }
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 };
