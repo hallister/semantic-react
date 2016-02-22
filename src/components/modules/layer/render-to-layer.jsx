@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import {domIsDescendant} from "../../utilities";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { domIsDescendant } from '../../utilities';
 
 
 /**
@@ -11,13 +11,6 @@ import {domIsDescendant} from "../../utilities";
  */
 export class RenderToLayer extends React.Component {
 
-    constructor(props) {
-        super(props);
-        /**
-         * Layer element instance
-         */
-        this.layer = null;
-    }
     static propTypes = {
         /**
          * Callback function when clicked outside of rendered component.
@@ -45,6 +38,14 @@ export class RenderToLayer extends React.Component {
         useLayerForClickAway: true,
         zIndex: 2000
     };
+
+    constructor(props) {
+        super(props);
+        /**
+         * Layer element instance
+         */
+        this.layer = null;
+    }
 
     componentDidMount() {
         this.renderLayer();
@@ -119,7 +120,7 @@ export class RenderToLayer extends React.Component {
             }
 
             // Render layer content into layer element
-            const layerContent = this.props.render();
+            const layerContent = render();
             if (layerContent === null) {
                 ReactDOM.unstable_renderSubtreeIntoContainer(this, null, this.layer);
             } else {
