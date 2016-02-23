@@ -10,12 +10,12 @@ export default class Rating extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
-        max: React.PropTypes.number,
-        size: React.PropTypes.string,
         heart: React.PropTypes.bool,
+        max: React.PropTypes.number,
+        onChange: React.PropTypes.func,
+        size: React.PropTypes.string,
         star: React.PropTypes.bool,
-        value: React.PropTypes.number,
-        onChange: React.PropTypes.func
+        value: React.PropTypes.number
     };
 
     static defaultProps = {
