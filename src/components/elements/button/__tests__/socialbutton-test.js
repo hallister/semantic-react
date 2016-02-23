@@ -1,5 +1,5 @@
 /* eslint-env node, mocha */
-/* global sinon, assert */
+/* global sinon */
 import React from 'react';
 import { SocialButton, IconButton } from '../../../elements';
 import { expect } from 'chai';

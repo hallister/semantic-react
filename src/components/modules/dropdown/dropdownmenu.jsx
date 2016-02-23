@@ -160,16 +160,6 @@ export class DropdownMenu extends React.Component {
         });
     }
 
-    /**
-     * Outside click handler
-     */
-    handleClickOutside() {
-        if (this.state.active) {
-            this.setState({
-                active: false
-            })
-        }
-    }
 
     /**
      * Renders dropdown icon
@@ -257,15 +247,15 @@ export class DropdownMenu extends React.Component {
         );
     }
 
-    /*    getClasses() {
-     return {
-     // default
-     active: this.props.active,
-     // positioning
-     };
-     }*/
+    /**
+     * Outside click handler
+     */
+    handleClickOutside() {
+        if (this.state.active) {
+            this.setState({
+                active: false
+            })
+        }
+    }
 }
 
-// Need this trick for react-docgen
-/* DropdownMenu = ListensToClickOutside(DropdownMenu);
-export { DropdownMenu }; */

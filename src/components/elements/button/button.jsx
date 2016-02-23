@@ -130,9 +130,6 @@ export default class Button extends React.Component {
         defaultClasses: true
     };
 
-    isIconButton() {
-        return hasChild(this.props.children, Icon) && React.Children.count(this.props.children) === 1;
-    }
 
     render() {
         let Component = (this.props.attached || this.context.isAttached || this.props.animated || React.Children.count(this.props.children) > 1) ? 'div' : 'button';
@@ -151,6 +148,10 @@ export default class Button extends React.Component {
             other,
             this.props.children
         );
+    }
+
+    isIconButton() {
+        return hasChild(this.props.children, Icon) && React.Children.count(this.props.children) === 1;
     }
 
     getClasses() {

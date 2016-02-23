@@ -18,7 +18,7 @@ export default class Detail extends React.Component {
     };
 
     render() {
-        let Component = this.props.onClick ? 'a' : 'div';      
+        let Component = this.props.onClick ? 'a' : 'div';
         let { defaultClasses, ...other } = this.props;
 
         other.className = classNames(this.props.className, this.getClasses());

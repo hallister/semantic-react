@@ -39,7 +39,7 @@ describe('Button', () => {
 
         it('renders as a custom HTML element', () => {
             let wrapper = shallow(<Button component="div"/>);
-            expect(wrapper).to.have.tagName("div");
+            expect(wrapper).to.have.tagName('div');
         });
     })
 
@@ -140,17 +140,17 @@ describe('Button', () => {
 
     it('should be compact', () => {
         let wrapper = shallow(<Button compact />);
-        expect(wrapper).to.have.className("compact");
+        expect(wrapper).to.have.className('compact');
     });
 
     it('should fill it\'s parent container', () => {
         let wrapper = shallow(<Button fluid />);
-        expect(wrapper).to.have.className("fluid");
+        expect(wrapper).to.have.className('fluid');
     });
 
     it('should take a circular shape', () => {
         let wrapper = shallow(<Button circular />);
-        expect(wrapper).to.have.className("circular");
+        expect(wrapper).to.have.className('circular');
     });
 
     it('should allow a single icon as a child', () => {

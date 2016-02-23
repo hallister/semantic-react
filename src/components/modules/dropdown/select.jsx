@@ -226,34 +226,6 @@ class Select extends React.Component {
         });
     }
 
-    handleClickOutside() {
-        // this should be doing the same thing as the enter key before it closes
-
-        let match = this.isMatch();
-
-        // the text box itself is a match
-        if (match) {
-            if (this.props.multiple) {
-                this.refs.search.value = '';
-            }
-
-            this.setState({
-                active: false,
-                error: false,
-                selected: this.getSelected(match)
-            });
-            // if the search value is non-empty and the state is active but there's no valid selection, it's an error
-        } else if (this.refs.search && this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
-            this.setState({
-                error: true
-            });
-            // if the state is active and there is no error we can close it
-        } else if (this.state.active && !this.state.error) {
-            this.setState({
-                active: false
-            });
-        }
-    }
 
     renderChildren() {
         let search = this.refs.search ? this.refs.search.value : null;
@@ -401,6 +373,35 @@ class Select extends React.Component {
                 </Animations>
             </Dropdown>
         );
+    }
+
+    handleClickOutside() {
+        // this should be doing the same thing as the enter key before it closes
+
+        let match = this.isMatch();
+
+        // the text box itself is a match
+        if (match) {
+            if (this.props.multiple) {
+                this.refs.search.value = '';
+            }
+
+            this.setState({
+                active: false,
+                error: false,
+                selected: this.getSelected(match)
+            });
+            // if the search value is non-empty and the state is active but there's no valid selection, it's an error
+        } else if (this.refs.search && this.refs.search.value && this.state.active && !this.state.error && this.state.selected.length == 0) {
+            this.setState({
+                error: true
+            });
+            // if the state is active and there is no error we can close it
+        } else if (this.state.active && !this.state.error) {
+            this.setState({
+                active: false
+            });
+        }
     }
 
     // value formating for the hidden input box

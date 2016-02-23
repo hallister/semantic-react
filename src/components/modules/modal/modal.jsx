@@ -115,15 +115,6 @@ class Modal extends React.Component {
         this.props.onComplete(this.state.active);
     }
 
-    handleClickOutside() {
-        if (this.props.outsideClickClose) {
-            if (this.state.active) {
-                this.setState({
-                    active: false
-                });
-            }
-        }
-    }
 
     renderModalBody() {
         let { blurring, component, disabled, leaveAnimation, inverted, outsideClickClose, page, enterAnimation, ...other } = this.props;
@@ -152,6 +143,16 @@ class Modal extends React.Component {
             other,
             this.renderModalBody()
         );
+    }
+
+    handleClickOutside() {
+        if (this.props.outsideClickClose) {
+            if (this.state.active) {
+                this.setState({
+                    active: false
+                });
+            }
+        }
     }
 
     getModalClasses() {
