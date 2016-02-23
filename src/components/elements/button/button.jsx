@@ -7,7 +7,8 @@ let validProps = {
     animated: ['vertical', 'fade'],
     attached: ['left', 'right', 'bottom', 'top'],
     labeled: ['right', 'left'],
-    floated: ['right', 'left']
+    floated: ['right', 'left'],
+    size: ['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']
 };
 
 export default class Button extends React.Component {
@@ -63,6 +64,7 @@ export default class Button extends React.Component {
          */
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
+            React.PropTypes.func,
             React.PropTypes.string
         ]),
 
@@ -105,9 +107,23 @@ export default class Button extends React.Component {
         loading: React.PropTypes.bool,
 
         /**
+         * A button can be formatted to show different levels of emphasis
+         * Setting your brand colors to primary and secondary color variables in site.variables will allow you to use
+         * your color theming for UI elements
+         */
+        primary: React.PropTypes.bool,
+
+        /**
+         * A button can be formatted to show different levels of emphasis
+         * Setting your brand colors to primary and secondary color variables in site.variables will allow you to use
+         * your color theming for UI elements
+         */
+        secondary: React.PropTypes.bool,
+
+        /**
          * Adds a SemanticUI size class.
          */
-        size: React.PropTypes.string,
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
 
         /**
          * Adds a SemanticUI social class (SocialButton).
@@ -137,7 +153,7 @@ export default class Button extends React.Component {
         // consume props
         /* eslint-disable no-use-before-define */
         let { animated, attached, basic, children, circular, color, component,
-              compact, className, defaultClasses, floated, fluid, icon,
+              compact, className, defaultClasses, primary, secondary, floated, fluid, icon,
               inverted, labeled, loading, size, social, state,
               ...other } = this.props;
         /* eslint-enable no-use-before-define */
@@ -180,6 +196,8 @@ export default class Button extends React.Component {
             // variations
             circular: this.props.circular,
             compact: this.props.compact,
+            primary: this.props.primary,
+            secondary: this.props.secondary,
             fluid: this.props.fluid,
 
             // component
