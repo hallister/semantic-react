@@ -1,4 +1,3 @@
-import { Colors } from '../../utilities';
 import { Table, Tr, Td }from '../../../src/components/collections';
 import { Label, Icon, Header, Image, Content, SubHeader, IconButton, Button }from '../../../src/components/elements';
 import { Menu, Item }from '../../../src/components/views';
@@ -13,24 +12,23 @@ export default {
         children: [
             {
                 component: 'thead',
-                children:
-                    {
-                        component: Tr,
-                        children: [
-                            {
-                                component: 'th',
-                                children: 'Header'
-                            },
-                            {
-                                component: 'th',
-                                children: 'Header'
-                            },
-                            {
-                                component: 'th',
-                                children: 'Header'
-                            }
-                        ]
-                    }
+                children: {
+                    component: Tr,
+                    children: [
+                        {
+                            component: 'th',
+                            children: 'Header'
+                        },
+                        {
+                            component: 'th',
+                            children: 'Header'
+                        },
+                        {
+                            component: 'th',
+                            children: 'Header'
+                        }
+                    ]
+                }
 
             },
             {
@@ -99,80 +97,78 @@ export default {
             },
             {
                 component: 'tfoot',
-                children:
-                {
+                children: {
                     component: Tr,
-                    children:
-                        {
-                            component: 'th',
+                    children: {
+                        component: 'th',
+                        props: {
+                            colSpan: '3'
+                        },
+                        children: {
+                            component: Menu,
                             props: {
-                                colSpan: "3"
+                                floated: 'right',
+                                pagination: true
                             },
-                            children: {
-                                component: Menu,
-                                children: [
-                                    {
-                                        component: Item,
-                                        props: {
-                                            link: true,
-                                            className: 'icon' // TODO Add to Item as prop?
-                                        },
-                                        children: {
-                                            component: Icon,
-                                            props: {
-                                                name: 'chevron',
-                                                className: 'left' // TODO Add to Icon as prop?
-                                            }
-                                        }
+                            children: [
+                                {
+                                    component: Item,
+                                    props: {
+                                        link: true
                                     },
-                                    {
-                                        component: Item,
+                                    children: {
+                                        component: Icon,
                                         props: {
-                                            link: true
-                                        },
-                                        children: '1'
-                                    },
-                                    {
-                                        component: Item,
-                                        props: {
-                                            link: true
-                                        },
-                                        children: '2'
-                                    },
-                                    {
-                                        component: Item,
-                                        props: {
-                                            link: true
-                                        },
-                                        children: '3'
-                                    },
-                                    {
-                                        component: Item,
-                                        props: {
-                                            link: true
-                                        },
-                                        children: '4'
-                                    },
-                                    {
-                                        component: Item,
-                                        props: {
-                                            link: true,
-                                            className: 'icon' // TODO Add to Item as prop?
-                                        },
-                                        children: {
-                                            component: Icon,
-                                            props: {
-                                                name: 'chevron',
-                                                className: 'right' // TODO Add to Icon as prop?
-                                            }
+                                            name: 'chevron',
+                                            left: true
                                         }
                                     }
-                                ],
-                                props: {
-                                    floated: 'right'
+                                },
+                                {
+                                    component: Item,
+                                    props: {
+                                        link: true
+                                    },
+                                    children: '1'
+                                },
+                                {
+                                    component: Item,
+                                    props: {
+                                        link: true
+                                    },
+                                    children: '2'
+                                },
+                                {
+                                    component: Item,
+                                    props: {
+                                        link: true
+                                    },
+                                    children: '3'
+                                },
+                                {
+                                    component: Item,
+                                    props: {
+                                        link: true
+                                    },
+                                    children: '4'
+                                },
+                                {
+                                    component: Item,
+                                    props: {
+                                        link: true,
+                                        icon: true
+                                    },
+                                    children: {
+                                        component: Icon,
+                                        props: {
+                                            name: 'chevron',
+                                            right: true
+                                        }
+                                    }
                                 }
-                            }
+                            ]
                         }
+                    }
                 }
 
             }
@@ -184,23 +180,22 @@ export default {
         children: [
             {
                 component: 'thead',
-                children:
-                    {
-                        component: Tr,
-                        children: [
-                            {
-                                component: 'th',
-                                props: {
-                                    className: 'single line' // TODO Time to create a Th component?
-                                },
-                                children: 'Evidence Rating'
+                children: {
+                    component: Tr,
+                    children: [
+                        {
+                            component: 'th',
+                            props: {
+                                className: 'single line' // TODO Time to create a Th component?
                             },
-                            { component: 'th', children: 'Effect' },
-                            { component: 'th', children: 'Efficacy' },
-                            { component: 'th', children: 'Consensus' },
-                            { component: 'th', children: 'Comments' }
-                        ]
-                    }
+                            children: 'Evidence Rating'
+                        },
+                        { component: 'th', children: 'Effect' },
+                        { component: 'th', children: 'Efficacy' },
+                        { component: 'th', children: 'Consensus' },
+                        { component: 'th', children: 'Comments' }
+                    ]
+                }
 
             },
             {
@@ -228,7 +223,8 @@ export default {
                                     component: Rating,
                                     props: {
                                         star: true,
-                                        max: 3 // FIXME Cannot set active through props
+                                        value: 3,
+                                        max: 3
                                     }
                                 }
                             },
@@ -269,7 +265,8 @@ export default {
                                     component: Rating,
                                     props: {
                                         star: true,
-                                        max: 3 // FIXME Cannot set active through props
+                                        value: 3,
+                                        max: 3
                                     }
                                 }
                             },
@@ -304,14 +301,13 @@ export default {
         children: [
             {
                 component: 'thead',
-                children:
-                    {
-                        component: Tr,
-                        children: [
-                            { component: 'th', children: 'Employee' },
-                            { component: 'th', children: 'Correct Guesses' }
-                        ]
-                    }
+                children: {
+                    component: Tr,
+                    children: [
+                        { component: 'th', children: 'Employee' },
+                        { component: 'th', children: 'Correct Guesses' }
+                    ]
+                }
 
             },
             {
@@ -324,14 +320,13 @@ export default {
                                 component: Td,
                                 children: {
                                     component: Header,
-                                    props: { className: 'image' }, // TODO Add "image" Header variant?
                                     children: [
                                         {
                                             component: Image,
                                             props: {
                                                 src: 'http://semantic-ui.com/images/avatar2/small/lena.png',
                                                 shape: 'rounded',
-                                                className: 'mini' // TODO Add "mini" Image variant?
+                                                size: 'mini'
                                             }
                                         },
                                         {
@@ -354,14 +349,13 @@ export default {
                                 component: Td,
                                 children: {
                                     component: Header,
-                                    props: { className: 'image' }, // TODO Add "image" Header variant?
                                     children: [
                                         {
                                             component: Image,
                                             props: {
                                                 src: 'http://semantic-ui.com/images/avatar2/small/matthew.png',
                                                 shape: 'rounded',
-                                                className: 'mini' // TODO Add "mini" Image variant?
+                                                size: 'mini'
                                             }
                                         },
                                         {
@@ -384,14 +378,13 @@ export default {
                                 component: Td,
                                 children: {
                                     component: Header,
-                                    props: { className: 'image' }, // TODO Add "image" Header variant?
                                     children: [
                                         {
                                             component: Image,
                                             props: {
                                                 src: 'http://semantic-ui.com/images/avatar2/small/lindsay.png',
                                                 shape: 'rounded',
-                                                className: 'mini' // TODO Add "mini" Image variant?
+                                                size: 'mini'
                                             }
                                         },
                                         {
@@ -414,14 +407,13 @@ export default {
                                 component: Td,
                                 children: {
                                     component: Header,
-                                    props: { className: 'image' }, // TODO Add "image" Header variant?
                                     children: [
                                         {
                                             component: Image,
                                             props: {
                                                 src: 'http://semantic-ui.com/images/avatar2/small/mark.png',
                                                 shape: 'rounded',
-                                                className: 'mini' // TODO Add "mini" Image variant?
+                                                size: 'mini'
                                             }
                                         },
                                         {
@@ -452,13 +444,12 @@ export default {
         children: [
             {
                 component: 'thead',
-                children:
-                {
+                children: {
                     component: Tr,
                     children: {
                         component: 'th',
                         props: {
-                           colSpan: "3"
+                            colSpan: '3'
                         },
                         children: 'Git Repository'
                     }
@@ -575,8 +566,7 @@ export default {
                                     {
                                         component: Icon,
                                         props: {
-                                            name: 'file',
-                                            className: 'outline' // FIXME What does this do and should it be a prop?
+                                            name: 'file outline'
                                         }
                                     },
                                     'package.json'
@@ -608,8 +598,7 @@ export default {
                                     {
                                         component: Icon,
                                         props: {
-                                            name: 'file',
-                                            className: 'outline' // FIXME What does this do and should it be a prop?
+                                            name: 'file outline'
                                         }
                                     },
                                     'Gruntfile.js'
@@ -645,9 +634,9 @@ export default {
                     children: {
                         component: Tr,
                         children: [
-                            {component: 'th'},
-                            {component: 'th', children: 'Arguments'},
-                            {component: 'th', children: 'Description'}
+                            { component: 'th' },
+                            { component: 'th', children: 'Arguments' },
+                            { component: 'th', children: 'Description' }
                         ]
                     }
 
@@ -658,17 +647,17 @@ export default {
                         {
                             component: Tr,
                             children: [
-                                {component: Td, children: 'reset rating'},
-                                {component: Td, children: 'None'},
-                                {component: Td, children: 'Resets rating to default value'}
+                                { component: Td, children: 'reset rating' },
+                                { component: Td, children: 'None' },
+                                { component: Td, children: 'Resets rating to default value' }
                             ]
                         },
                         {
                             component: Tr,
                             children: [
-                                {component: Td, children: 'set rating'},
-                                {component: Td, children: 'rating (integer)'},
-                                {component: Td, children: 'Sets the current star rating to specified value'}
+                                { component: Td, children: 'set rating' },
+                                { component: Td, children: 'rating (integer)' },
+                                { component: Td, children: 'Sets the current star rating to specified value' }
                             ]
                         }
                     ]
@@ -688,11 +677,11 @@ export default {
                     children: {
                         component: Tr,
                         children: [
-                            {component: 'th'},
-                            {component: 'th', children: 'Name'},
-                            {component: 'th', children: 'Registration Date'},
-                            {component: 'th', children: 'E-mail address'},
-                            {component: 'th', children: 'Premium Plan'}
+                            { component: 'th' },
+                            { component: 'th', children: 'Name' },
+                            { component: 'th', children: 'Registration Date' },
+                            { component: 'th', children: 'E-mail address' },
+                            { component: 'th', children: 'Premium Plan' }
                         ]
                     }
 
@@ -710,14 +699,14 @@ export default {
                                         component: Checkbox,
                                         props: {
                                             slider: true,
-                                            className: 'fitted' // TODO Add prop?
+                                            fitted: true
                                         }
                                     }
                                 },
-                                {component: Td, children: 'John Lilki'},
-                                {component: Td, children: 'September 14, 2013'},
-                                {component: Td, children: 'jhlilk22@yahoo.com'},
-                                {component: Td, children: 'No'}
+                                { component: Td, children: 'John Lilki' },
+                                { component: Td, children: 'September 14, 2013' },
+                                { component: Td, children: 'jhlilk22@yahoo.com' },
+                                { component: Td, children: 'No' }
                             ]
                         },
                         {
@@ -730,14 +719,14 @@ export default {
                                         component: Checkbox,
                                         props: {
                                             slider: true,
-                                            className: 'fitted' // TODO Add prop?
+                                            fitted: true
                                         }
                                     }
                                 },
-                                {component: Td, children: 'Jamie Harington'},
-                                {component: Td, children: 'January 11, 2014'},
-                                {component: Td, children: 'jamieharingonton@yahoo.com'},
-                                {component: Td, children: 'Yes'}
+                                { component: Td, children: 'Jamie Harington' },
+                                { component: Td, children: 'January 11, 2014' },
+                                { component: Td, children: 'jamieharingonton@yahoo.com' },
+                                { component: Td, children: 'Yes' }
                             ]
                         },
                         {
@@ -750,14 +739,14 @@ export default {
                                         component: Checkbox,
                                         props: {
                                             slider: true,
-                                            className: 'fitted' // TODO Add prop?
+                                            fitted: true
                                         }
                                     }
                                 },
-                                {component: Td, children: 'Jill Lewis'},
-                                {component: Td, children: 'May 11, 2014'},
-                                {component: Td, children: 'jilsewris22@yahoo.com'},
-                                {component: Td, children: 'Yes'}
+                                { component: Td, children: 'Jill Lewis' },
+                                { component: Td, children: 'May 11, 2014' },
+                                { component: Td, children: 'jilsewris22@yahoo.com' },
+                                { component: Td, children: 'Yes' }
                             ]
                         }
                     ]
@@ -767,26 +756,25 @@ export default {
                     props: {
                         className: 'full-width'
                     },
-                    children:
-                    {
+                    children: {
                         component: Tr,
                         children: [
                             { component: 'th' },
                             {
                                 component: 'th',
                                 props: {
-                                    colSpan: "4"
+                                    colSpan: '4'
                                 },
                                 children: [
                                     {
                                         component: IconButton,
                                         props: {
                                             floated: 'right',
-                                            labeled: true,
+                                            //labeled: true,
                                             size: 'small',
-                                            name: 'user',
-                                            className: 'primary icon' // FIXME icon should have been added imho /Alex
-                                            //,primary: true // FIXME Or button_type: "primary"?
+                                            //name: 'user',
+                                            //primary: true,
+                                            social: 'facebook'
                                         },
                                         children: 'Add User'
                                     },
