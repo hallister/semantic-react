@@ -770,11 +770,10 @@ export default {
                                         component: IconButton,
                                         props: {
                                             floated: 'right',
-                                            //labeled: true,
+                                            labeled: true,
                                             size: 'small',
-                                            //name: 'user',
-                                            //primary: true,
-                                            social: 'facebook'
+                                            name: 'user',
+                                            primary: true
                                         },
                                         children: 'Add User'
                                     },
