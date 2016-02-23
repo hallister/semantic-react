@@ -60,8 +60,10 @@ export class ModalBody extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { active, basic, children, className, component, defaultClasses,
               fullscreen, offset, padding, size, style, start, end, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
         other.className = classNames(this.props.className, this.getClasses());
 
         if (this.modalFits() && this.props.active) {

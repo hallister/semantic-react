@@ -83,7 +83,9 @@ export class CheckboxFields extends Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { component, defaultClasses, name, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
         other.className = classNames(this.props.className, this.getClasses());
 
         return React.createElement(
@@ -97,8 +99,10 @@ export class CheckboxFields extends Component {
     cloneChild(index, child) {
         let boundClick = this.onClick.bind(this, index);
 
+        /* eslint-disable no-use-before-define */
         let { children, component, defaultClasses, onClick, type,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         return React.cloneElement(child, {
             key: index,

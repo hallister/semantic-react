@@ -37,9 +37,11 @@ export default class Icon extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { bordered, circular, color, component, corner, defaultClasses,
               disabled, fitted, flipped, inverted, link, loading, name, rotated,
               size, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

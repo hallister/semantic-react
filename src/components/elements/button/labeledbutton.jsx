@@ -102,8 +102,10 @@ export default class LabeledButton extends React.Component {
         }
 
         // most button props are consumed by the child
+        /* eslint-disable no-use-before-define */
         let { active, basic, color, circular, compact, fluid,  inverted,
               size, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(other.className);
 

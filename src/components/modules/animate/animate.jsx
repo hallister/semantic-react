@@ -154,8 +154,10 @@ export function Animate(ComposedComponent) {
         }
 
         render() {
+            /* eslint-disable no-use-before-define */
             let { animate, cancel, cancelDuration, duration, enter, end, leave, onComplete, start, ease,
                   ...other } = this.props;
+            /* eslint-enable no-use-before-define */
             let style = Object.assign({}, this.state.style, this.props.style);
 
             return (

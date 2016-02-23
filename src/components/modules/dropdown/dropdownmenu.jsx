@@ -213,9 +213,11 @@ export class DropdownMenu extends React.Component {
      * @returns {XML}
      */
     render() {
+        /* eslint-disable no-use-before-define */
         let {
             active, icon, label, dropdownComponent, menuComponent, ...other
         } = this.props;
+        /* eslint-enable no-use-before-define */
 
         // other.className = classNames(this.props.className, this.getClasses());
         other.onClick = this.onClick.bind(this);

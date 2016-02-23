@@ -97,8 +97,10 @@ export class Tabs extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, position, type,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         return React.createElement(
             this.props.component,

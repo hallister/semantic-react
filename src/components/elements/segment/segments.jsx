@@ -24,8 +24,10 @@ export default class Segments extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, className, compact, defaultClasses, horizontal,
               piled, raised, stacked, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

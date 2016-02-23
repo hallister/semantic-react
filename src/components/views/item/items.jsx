@@ -21,8 +21,10 @@ export class Items extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, divided,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

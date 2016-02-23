@@ -29,8 +29,10 @@ export class TabTitle extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, position,
               title, type, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses())
 

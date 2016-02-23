@@ -23,7 +23,9 @@ export default class Labels extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { circular, component, color, defaultClasses, size, tag, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

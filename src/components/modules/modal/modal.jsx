@@ -117,7 +117,9 @@ class Modal extends React.Component {
 
 
     renderModalBody() {
+        /* eslint-disable no-use-before-define */
         let { blurring, component, disabled, leaveAnimation, inverted, outsideClickClose, page, enterAnimation, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         let props = Object.assign(other, {
             animate: this.state.active,
@@ -135,7 +137,9 @@ class Modal extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { basic, children, component, leaveAnimation, fullscreen, offset, outsideClickClose, padding, size, enterAnimation, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
         other.active = this.state.active;
 
         return React.createElement(

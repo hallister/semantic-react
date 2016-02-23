@@ -103,9 +103,11 @@ export class Results extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, emptyHeader,
               emptyMessage, onSearchClick, results, search, style,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
         other.style = this.props.style;

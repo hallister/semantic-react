@@ -21,7 +21,9 @@ export class PopupElement extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { className, classes, style, pStyle, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
         other.style = Object.assign({}, style, pStyle);
 
         other.className = classNames(className, classes);

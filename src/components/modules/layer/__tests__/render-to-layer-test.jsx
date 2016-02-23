@@ -60,7 +60,7 @@ describe('RenderToLayer', () => {
                                        useLayerForClickAway={false} />);
 
         // cannot use TestUtils and wrapper.simulate() here
-        let event = new MouseEvent('click', {view: window});
+        let event = new MouseEvent('click', { view: window });
         button.dispatchEvent(event);
         expect(buttonClickSpy).to.have.been.called;
     });

@@ -56,8 +56,10 @@ export class Dropdown extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { active, component, defaultClasses, disabled, inverted,
               multiple, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
         other.className = classNames(this.props.className, this.getClasses());
 
         if (this.props.component == Dropdown) {

@@ -62,10 +62,12 @@ export default class Header extends React.Component {
     render() {
         let Component = this.props.onClick ? 'a' : 'div';
 
+        /* eslint-disable no-use-before-define */
         let { aligned, attached, children, className, color, component,
               defaultClasses, disabled, divider, emphasis, floated,
               horizontal, inverted, item, size,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         // add class names
         other.className = classNames(this.props.className, this.getClasses());

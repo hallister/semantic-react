@@ -1,5 +1,4 @@
 /* eslint-env node, mocha */
-/* global sinon */
 import React from 'react';
 import { Icon } from '../../../elements';
 import { expect } from 'chai';

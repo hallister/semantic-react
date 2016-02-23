@@ -47,9 +47,11 @@ export class Progress extends React.Component {
     }
 
     renderBar() {
+        /* eslint-disable no-use-before-define */
         let { active, attached, children, color, component, defaultClasses,
               disabled, error, indicating, inverted, size, success,
               warning, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
         other.progress = this.getProgress(other.progress);
 
         return (
@@ -60,9 +62,11 @@ export class Progress extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { active, attached, children, color, component, defaultClasses,
               disabled, duration, error, indicating, inverted, size, success,
               warning, progress, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
               // add classnames
         other.className = classNames(this.props.className, this.getClasses());

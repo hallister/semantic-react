@@ -20,7 +20,9 @@ export default class Description extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { defaultClasses, component, visible, hidden, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

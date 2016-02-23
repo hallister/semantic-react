@@ -44,9 +44,11 @@ export class Checkbox extends Component {
     }
 
     renderChildren() {
+        /* eslint-disable no-use-before-define */
         let { children, defaultClasses, className, onClick,
               radio, slider, toggle, component, readOnly, checked,
               disabled, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         let childElements = [
             React.DOM.input({
@@ -66,7 +68,9 @@ export class Checkbox extends Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { component, defaultClasses, name, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
         other.onClick = typeof this.props.onClick === 'function' ? this.props.onClick : this.onClick.bind(this);

@@ -326,10 +326,12 @@ class Select extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let {
             active, multiple, search, ignoreCase, name, placeholder,
             glyphWidth, defaultClasses, noResults, ...other
         } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
         other.onClick = this.onClick.bind(this);

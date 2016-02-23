@@ -54,7 +54,9 @@ export class Animations extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { enter, leave, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         let children = this.renderChildren();
 

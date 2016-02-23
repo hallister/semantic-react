@@ -42,8 +42,10 @@ export default class Input extends React.Component {
         // see if icon and label are children
         this.processChildren();
 
+        /* eslint-disable no-use-before-define */
         let { children, className, defaultClasses, icon, labeled, loading, name,
               placeholder, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(
             this.props.className,

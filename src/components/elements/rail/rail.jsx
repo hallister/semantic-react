@@ -25,8 +25,10 @@ export default class Rail extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { attached, children, className, close, defaultClasses,
               dividing, floated, internal, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

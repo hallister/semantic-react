@@ -34,8 +34,10 @@ export class Item extends React.Component {
         // if it's attached or animated use a div instead of a button
         let Component = (this.props.link || this.props.onClick) && !this.context.isMenuChild ? 'a' : 'div';
 
+        /* eslint-disable no-use-before-define */
         let { active, component, color, link, selected, defaultClasses,
               name, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

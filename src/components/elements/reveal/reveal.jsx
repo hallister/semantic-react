@@ -46,8 +46,10 @@ export default class Reveal extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { active, circular, children, className, defaultClasses, disabled, fade,
               instant, image, move, rotate, size, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

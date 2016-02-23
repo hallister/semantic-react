@@ -135,10 +135,12 @@ export default class Button extends React.Component {
         let Component = (this.props.attached || this.context.isAttached || this.props.animated || React.Children.count(this.props.children) > 1) ? 'div' : 'button';
 
         // consume props
+        /* eslint-disable no-use-before-define */
         let { animated, attached, basic, children, circular, color, component,
               compact, className, defaultClasses, floated, fluid, icon,
               inverted, labeled, loading, size, social, state,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         // add class names
         other.className = classNames(this.props.className, this.getClasses());

@@ -86,7 +86,9 @@ export class RenderToLayer extends React.Component {
      * Render layer
      */
     renderLayer() {
+        /* eslint-disable no-use-before-define */
         const { open, render } = this.props;
+        /* eslint-enable no-use-before-define */
         if (open) {
             // Layer should be rendered
             // Create layer div first
