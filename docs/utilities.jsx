@@ -1,26 +1,26 @@
 import React from 'react';
 
 const omittedCloseTags = {
-    'area': true,
-    'base': true,
-    'br': true,
-    'col': true,
-    'embed': true,
-    'hr': true,
-    'img': true,
-    'input': true,
-    'keygen': true,
-    'link': true,
-    'meta': true,
-    'param': true,
-    'source': true,
-    'track': true,
-    'wbr': true
+    area: true,
+    base: true,
+    br: true,
+    col: true,
+    embed: true,
+    hr: true,
+    img: true,
+    input: true,
+    keygen: true,
+    link: true,
+    meta: true,
+    param: true,
+    source: true,
+    track: true,
+    wbr: true
 };
 
 exports.Colors = ['red', 'orange', 'yellow', 'olive', 'green',
-                  'teal', 'blue', 'violet', 'purple', 'pink',
-                  'brown', 'grey', 'black'];
+    'teal', 'blue', 'violet', 'purple', 'pink',
+    'brown', 'grey', 'black'];
 
 exports.Components = {
     button: 'Button',
@@ -116,10 +116,13 @@ export function parseChildren(children, value) {
 }
 
 export function cloneElement(component, props, children) {
+    if (!children) {
+        children = (omittedCloseTags[component] ? null : [])
+    }
     return React.createElement(
         component,
         props || {},
-        ( children ? children : ( omittedCloseTags[component] ? null : [] ) )
+        children
     );
 }
 
