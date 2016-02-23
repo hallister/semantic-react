@@ -82,15 +82,6 @@ export class RenderToLayer extends React.Component {
             this.props.componentClickAway(event);
         }
     }
-
-
-    /**
-     * Render. Returning null here since it's being rendered in renderLayer()
-     */
-    render() {
-        return null;
-    }
-
     /**
      * Render layer
      */
@@ -121,9 +112,7 @@ export class RenderToLayer extends React.Component {
 
             // Render layer content into layer element
             const layerContent = render();
-            if (layerContent === null) {
-                ReactDOM.unstable_renderSubtreeIntoContainer(this, null, this.layer);
-            } else {
+            if (layerContent) {
                 ReactDOM.unstable_renderSubtreeIntoContainer(this, layerContent, this.layer);
             }
 
@@ -132,6 +121,14 @@ export class RenderToLayer extends React.Component {
             this.unrenderLayer();
         }
     }
+
+    /**
+     * Render. Returning null here since it's being rendered in renderLayer()
+     */
+    render() {
+        return null;
+    }
+
 
     /**
      * Unrender layer

@@ -26,13 +26,6 @@ let consumedProps = {
 };
 
 describe('Icon', () => {
-    it('should expect a name', () => {
-        let spy = sinon.stub(console, 'error');
-        shallow(<Icon />);
-        expect(spy).to.have.been.called;
-        spy.restore();
-    });
-
     describe('should render in the DOM', () => {
         it('renders as <div>', () => {
             let wrapper = shallow(<Icon name="cloud" />);

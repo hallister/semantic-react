@@ -7,15 +7,6 @@ import { shallow } from 'enzyme';
 import { itShouldPassUnusedDataProps } from '../../../test-utils';
 
 describe('IconButton', () => {
-    it('should expect a name', () => {
-        sinon.test(function() {
-            let spy = sinon.stub(console, 'error');
-
-            shallow(<IconButton />);
-            expect(spy).to.have.been.called;
-        });
-    });
-
     describe('should render in the DOM', () => {
         it('renders as <Button>', () => {
             let wrapper = shallow(<IconButton name="cloud" />);

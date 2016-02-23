@@ -8,15 +8,6 @@ import { itShouldPassUnusedDataProps } from '../../../test-utils';
 
 describe('SocialButton', () => {
 
-    it('should expect a name', () => {
-        let spy = sinon.stub(console, 'error');
-        shallow(<SocialButton />);
-        expect(spy).to.have.been.called;
-        spy.restore();
-
-    });
-
-
     describe('should render in the DOM', () => {
         it('renders as a <IconButton>', () => {
             let wrapper = shallow(<SocialButton name="facebook" />);
