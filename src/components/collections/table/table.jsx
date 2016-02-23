@@ -91,7 +91,10 @@ Table.propTypes = {
     collapsing: React.PropTypes.bool,
     color: React.PropTypes.string,
     columns: React.PropTypes.number,
-    compact: React.PropTypes.bool,
+    compact: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['very']),
+        React.PropTypes.bool
+    ]),
     component: React.PropTypes.oneOfType([
         React.PropTypes.element,
         React.PropTypes.string
