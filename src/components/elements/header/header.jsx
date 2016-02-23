@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '../../elements';
+import { Icon, Image } from '../../elements';
 import { hasChild, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 
@@ -86,6 +86,7 @@ export default class Header extends React.Component {
 
             // types
             icon: hasChild(this.props.children, Icon) && this.props.aligned == 'center',
+            image: hasChild(this.props.children, Image),
             item: this.context.isMenuChild && this.props.item,
 
             // states
