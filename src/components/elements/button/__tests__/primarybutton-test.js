@@ -1,21 +1,20 @@
 /* eslint-env node, mocha */
-import { createElement as $ } from 'react';
-import { PrimaryButton as Element, Button } from '../../../elements';
+import React from "react";
+import { PrimaryButton, Button } from '../../../elements';
 import { expect } from 'chai';
-import sd from 'skin-deep';
+import { shallow } from "enzyme";
 
 describe('PrimaryButton', () => {
 
     describe('should render in the DOM', () => {
-        let tree = sd.shallowRender($(Element));
-        let vdom = tree.getRenderOutput();
-
         it('renders as a <Button>', () => {
-            expect(vdom.type).to.equal(Button);
+            let wrapper = shallow(<PrimaryButton />);
+            expect(wrapper.is(Button)).to.be.true;
         });
 
         it('PrimaryButton renders as blue', () => {
-            expect(vdom.props).has.property('color', 'blue');
+            let wrapper = shallow(<PrimaryButton />);
+            expect(wrapper).to.have.prop('color', 'blue');
         });
     });
 });

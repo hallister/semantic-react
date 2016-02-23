@@ -1,13 +1,10 @@
 /* eslint-env node, mocha */
 /* global sinon */
-import { createElement as $ } from 'react';
-import { Image as Element } from '../../../elements';
+import React from 'react';
+import { Image } from '../../../elements';
 import { expect } from 'chai';
-import sd from 'skin-deep';
-
-let props = {
-    src: 'test.png'
-};
+import { shallow } from 'enzyme';
+import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
 let consumedProps = {
     aligned: 'top',
@@ -29,106 +26,81 @@ let consumedProps = {
 };
 
 describe('Image', () => {
-    beforeEach(function() {
-        props = {
-            src: 'test.png'
-        };
-    });
 
     it('should expect a src', () => {
         sinon.test(function() {
             let spy = sinon.stub(console, 'error');
-            sd.shallowRender($(Element, {}));
-            spy.should.have.been.called();
-            expect(1).to.equal(2);
+            shallow(<Image />);
+            expect(spy).to.have.been.called;
+            spy.restore();
         });
     });
 
     describe('should render in the DOM', () => {
         it('renders as <img>', () => {
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.eq('ui image');
-            expect(vdom.type).to.equal('img');
+            let wrapper = shallow(<Image src="test.png" />);
+            expect(wrapper).to.have.className('ui image');
+            expect(wrapper).to.have.tagName('img');
         });
 
         it('renders as a custom HTML element', () => {
-            props.component = 'div';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Image component="div"
+                                         src="test.png" />);
+            expect(wrapper).to.have.tagName('div');
         });
     });
 
     describe('should float', () => {
         it('should float right', () => {
-            props.floated = 'right';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/right floated/);
+            let wrapper = shallow(<Image floated="right"
+                                         src="test.png" />);
+            expect(wrapper).to.have.className('right floated');
         });
 
         it('should float left', () => {
-            props.floated = 'left';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/left floated/);
+            let wrapper = shallow(<Image floated="left"
+                                         src="test.png" />);
+            expect(wrapper).to.have.className('left floated');
         });
     });
 
     describe('should be visible or hidden', () => {
         it('should be visible when visible=visible', () => {
-            props.visible = 'visible';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/visible/);
+            let wrapper = shallow(<Image src="test.png"
+                                         visible="visible"/>);
+            expect(wrapper).to.have.className('visible');
         });
 
         it('should be visible when visible=true', () => {
-            props.visible = true;
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/visible/);
+            let wrapper = shallow(<Image src="test.png"
+                                         visible/>);
+            expect(wrapper).to.have.className('visible');
         });
 
         it('should be hidden when visible=hidden', () => {
-            props.visible = 'hidden';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).not.to.match(/visible/);
+            let wrapper = shallow(<Image src="test.png"
+                                         visible="hidden"/>);
+            expect(wrapper).to.have.not.className('visible');
         });
 
         it('should be hidden when visible=false', () => {
-            props.visible = false;
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).not.to.match(/visible/);
+            let wrapper = shallow(<Image src="test.png"
+                                         visible={false}/>);
+            expect(wrapper).to.have.not.className('visible');
         });
     });
 
     describe('should allow a shape', () => {
         it('should rotate clockwise', () => {
-            props.shape = 'circular';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/circular/);
+            let wrapper = shallow(<Image shape="circular"
+                                         src="test.png" />);
+            expect(wrapper).to.have.className('circular');
         });
 
         it('should rotate counterclockwise', () => {
-            props.shape = 'rounded';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/rounded/);
+            let wrapper = shallow(<Image shape="rounded"
+                                         src="test.png" />);
+            expect(wrapper).to.have.className('rounded');
         });
     });
 
@@ -137,125 +109,76 @@ describe('Image', () => {
     });
 
     it('should appear disabled', () => {
-        props.disabled = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/disabled/);
+        let wrapper = shallow(<Image disabled
+                                     src="test.png" />);
+        expect(wrapper).to.have.className('disabled');
     });
 
     it('should be an avatar', () => {
-        props.avatar = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/avatar/);
+        let wrapper = shallow(<Image avatar
+                                     src="test.png" />);
+        expect(wrapper).to.have.className('avatar');
     });
 
     it('should have various sizes', () => {
-        props.size = 'small';
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/small/);
-        expect(vdom.props.className).not.to.match(/size/);
+        let wrapper = shallow(<Image size="small"
+                                     src="test.png" />);
+        expect(wrapper).to.have.className('small');
+        expect(wrapper).to.have.not.className('size');
     });
 
     describe('should support spacing', () => {
         it('should be left spaced', () => {
-            props.spaced = 'left';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/left spaced/);
+            let wrapper = shallow(<Image spaced="left"
+                                         src="test.png" />);
+            expect(wrapper).to.have.className('left spaced');
         });
 
-        it('should be left spaced', () => {
-            props.spaced = 'right';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/right spaced/);
+        it('should be right spaced', () => {
+            let wrapper = shallow(<Image spaced="right"
+                                         src="test.png" />);
+            expect(wrapper).to.have.className('right spaced');
         });
     });
 
     describe('should be alignable', () => {
         it('should be aligned to top', () => {
-            props.aligned = 'top';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/top aligned/);
+            let wrapper = shallow(<Image aligned="top"
+                                         src="test.png" />);
+            expect(wrapper).to.have.className('top aligned');
         });
 
         it('should be aligned to the middle', () => {
-            props.aligned = 'middle';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/middle aligned/);
+            let wrapper = shallow(<Image aligned="middle"
+                                         src="test.png" />);
+            expect(wrapper).to.have.className('middle aligned');
         });
 
         it('should be aligned to the bottom', () => {
-            props.aligned = 'bottom';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/bottom aligned/);
+            let wrapper = shallow(<Image aligned="bottom"
+                                         src="test.png" />);
+            expect(wrapper).to.have.className('bottom aligned');
         });
     });
 
     it('should have fluid filling', () => {
-        props.fluid = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/fluid/);
+        let wrapper = shallow(<Image fluid
+                                     src="test.png" />);
+        expect(wrapper).to.have.className('fluid');
     });
 
     it('should appear centered', () => {
-        props.centered = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/centered/);
+        let wrapper = shallow(<Image centered
+                                     src="test.png" />);
+        expect(wrapper).to.have.className('centered');
     });
 
     it('should appear bordered', () => {
-        props.bordered = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/bordered/);
+        let wrapper = shallow(<Image bordered
+                                     src="test.png" />);
+        expect(wrapper).to.have.className('bordered');
     });
 
-    describe('should properly pass props', () => {
-        Object.keys(consumedProps).forEach(key => {
-            props[key] = consumedProps[key];
-        });
+    itShouldConsumeOwnAndPassCustomProps(Image, consumedProps);
 
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-        let regex = new RegExp(consumedProps['className']);
-
-        it('consumes all used props', () => {
-            expect(Object.keys(vdom.props)).to.have.length(2);
-            expect(vdom.props).to.have.property('className');
-        });
-
-
-        it('passes the className prop', () => {
-            expect(vdom.props.className).to.match(regex);
-        });
-
-        it('passes unused data props', () => {
-            props['data-test'] = 'test';
-            props['dataTest'] = 'test';
-
-            vdom = sd.shallowRender($(Element, props)).getRenderOutput();
-
-            expect(vdom.props).to.have.property('data-test', 'test');
-            expect(vdom.props).to.have.property('dataTest', 'test');
-        });
-    });
 });

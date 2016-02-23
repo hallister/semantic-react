@@ -33,7 +33,7 @@ module.exports = function(config) {
         },
         webpack: {
             resolve: {
-                extensions: ['', '.js', '.jsx', '.es6']
+                extensions: ['', '.js', '.jsx', '.es6', '.json']
             },
             plugins: [
                 new webpack.IgnorePlugin(/react\/lib\/ReactContext/)
@@ -48,6 +48,9 @@ module.exports = function(config) {
                     test: /\.(jsx?|es6)$/,
                     exclude: /node_modules/,
                     loader: 'babel'
+                },{
+                    test: /\.json$/,
+                    loader: 'json'
                 }]
             }
         },

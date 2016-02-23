@@ -1,11 +1,10 @@
 /* eslint-env node, mocha */
 
-import React, { createElement as $ } from 'react';
-import { Button as Element, Icon } from '../../../elements';
+import React from 'react';
+import { Button, Icon } from '../../../elements';
 import { expect } from 'chai';
-import sd from 'skin-deep';
-
-let props = {};
+import { shallow } from 'enzyme';
+import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
 let consumedProps = {
     animated: true,
@@ -29,237 +28,135 @@ let consumedProps = {
 };
 
 describe('Button', () => {
-    beforeEach(function() {
-        props = {};
-    });
-
     describe('should render in the DOM', () => {
 
         it('renders as <button>', () => {
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
+            let wrapper = shallow(<Button />);
 
-            expect(vdom.props.className).to.match(/ui button/);
-            expect(vdom.type).to.equal('button');
+            expect(wrapper).to.have.className('ui button');
+            expect(wrapper).to.have.tagName('button');
         });
 
         it('renders as a custom HTML element', () => {
-            props.component = 'div';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Button component="div"/>);
+            expect(wrapper).to.have.tagName("div");
         });
     })
 
     describe('should animate', () => {
         it('animates horizontally', () => {
-            props.animated = true;
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/animated/);
+            let wrapper = shallow(<Button animated />);
+            expect(wrapper).to.have.className('animated');
         });
 
         it('animates vertically', () => {
-            props.animated = 'vertical';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/vertical animated/);
+            let wrapper = shallow(<Button animated="vertical" />);
+            expect(wrapper).to.have.className('vertical animated');
         });
 
         it('animates by fading in/out', () => {
-            props.animated = 'fade';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/fade animated/);
+            let wrapper = shallow(<Button animated="fade" />);
+            expect(wrapper).to.have.className('fade animated');
         });
     });
 
     describe('should be stateful', () => {
-        beforeEach(function() {
-            props = {
-                state: 'active'
-            };
-        });
-
         it('has an active state', () => {
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/active/);
+            let wrapper = shallow(<Button state="active" />);
+            expect(wrapper).to.have.className('active');
         });
 
         it('has a disabled state', () => {
-            props.state = 'disabled';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/disabled/);
+            let wrapper = shallow(<Button state="disabled" />);
+            expect(wrapper).to.have.className('disabled');
         });
 
         it('has a loading state', () => {
-            props.loading = true;
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/loading/);
+            let wrapper = shallow(<Button loading />);
+            expect(wrapper).to.have.className('loading');
         });
     });
 
     describe('should float', () => {
         it('floats right', () => {
-            props.floated = 'right';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/right floated/);
+            let wrapper = shallow(<Button floated="right" />);
+            expect(wrapper).to.have.className('right floated');
         });
 
         it('floats left', () => {
-            props.floated = 'left';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/left floated/);
+            let wrapper = shallow(<Button floated="left" />);
+            expect(wrapper).to.have.className('left floated');
         });
     });
 
     describe('should attach to other objects', () => {
         it('can attach to the top of an attachable element', () => {
-            props.attached = 'top';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/top attached/);
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Button attached="top" />);
+            expect(wrapper).to.have.className('top attached');
+            expect(wrapper).to.have.tagName('div');
         });
 
         it('can attach to the bottom of an attachable element', () => {
-            props.attached = 'bottom';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/bottom attached/);
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Button attached="bottom" />);
+            expect(wrapper).to.have.className('bottom attached');
+            expect(wrapper).to.have.tagName('div');
         });
 
         it('can attach to the left of a another button', () => {
-            props.attached = 'left';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/left attached/);
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Button attached="left" />);
+            expect(wrapper).to.have.className('left attached');
+            expect(wrapper).to.have.tagName('div');
         });
 
         it('can attach to the right of a another button', () => {
-            props.attached = 'right';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/right attached/);
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Button attached="right" />);
+            expect(wrapper).to.have.className('right attached');
+            expect(wrapper).to.have.tagName('div');
         });
     });
 
     it('should be less pronounced', () => {
-        props.basic = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/basic/);
+        let wrapper = shallow(<Button basic />);
+        expect(wrapper).to.have.className('basic');
     });
 
     it('should be noticable on dark backgrounds', () => {
-        props.inverted = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/inverted/);
+        let wrapper = shallow(<Button inverted />);
+        expect(wrapper).to.have.className('inverted');
     });
 
     it('should have various sizes', () => {
-        props.size = 'small';
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
+        let wrapper = shallow(<Button size="small" />);
+        expect(wrapper).to.have.className('small');
+        expect(wrapper).to.have.not.className('size');
 
-        expect(vdom.props.className).to.match(/small/);
-        expect(vdom.props.className).not.to.match(/size/);
     });
 
     it('should support colors', () => {
-        props.color = 'yellow';
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/yellow/);
-        expect(vdom.props.className).not.to.match(/color/);
+        let wrapper = shallow(<Button color="yellow" />);
+        expect(wrapper).to.have.className('yellow');
+        expect(wrapper).to.have.not.className('color');
     });
 
     it('should be compact', () => {
-        props.compact = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/compact/);
+        let wrapper = shallow(<Button compact />);
+        expect(wrapper).to.have.className("compact");
     });
 
     it('should fill it\'s parent container', () => {
-        props.fluid = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/fluid/);
+        let wrapper = shallow(<Button fluid />);
+        expect(wrapper).to.have.className("fluid");
     });
 
     it('should take a circular shape', () => {
-        props.circular = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/circular/);
+        let wrapper = shallow(<Button circular />);
+        expect(wrapper).to.have.className("circular");
     });
 
     it('should allow a single icon as a child', () => {
-        let tree = sd.shallowRender($(Element, props, <Icon name="cloud" />));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props).to.have.property('children');
-        expect(vdom.props.children).to.deep.equal(<Icon name="cloud" />);
+        let wrapper = shallow(<Button><Icon name="cloud" /></Button>);
+        expect(wrapper.find(Icon)).to.exist;
     });
 
-    describe('should properly pass props', () => {
-        Object.keys(consumedProps).forEach(key => {
-            props[key] = consumedProps[key];
-        });
-
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-        let regex = new RegExp(consumedProps['className']);
-
-        it('consumes all used props', () => {
-            expect(Object.keys(vdom.props)).to.have.length(2);
-            expect(vdom.props).to.have.property('children');
-            expect(vdom.props.children).to.be.an('undefined');
-            expect(vdom.props).to.have.property('className');
-        });
-
-
-        it('passes the className prop', () => {
-            expect(vdom.props.className).to.match(regex);
-        });
-
-        it('passes unused data props', () => {
-            props['data-test'] = 'test';
-            props['dataTest'] = 'test';
-
-            vdom = sd.shallowRender($(Element, props)).getRenderOutput();
-
-            expect(vdom.props).to.have.property('data-test', 'test');
-            expect(vdom.props).to.have.property('dataTest', 'test');
-        });
-    });
+    itShouldConsumeOwnAndPassCustomProps(Button, consumedProps);
 });

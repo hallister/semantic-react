@@ -1,101 +1,59 @@
 /* eslint-env node, mocha */
 /* global sinon, assert */
-import { createElement as $ } from 'react';
-import { IconButton as Element, Button, Icon } from '../../../elements';
+import React from 'react';
+import { IconButton, Button, Icon } from '../../../elements';
 import { expect } from 'chai';
-import sd from 'skin-deep';
-
-let props = {
-    name: 'cloud'
-};
+import { shallow } from 'enzyme';
+import { itShouldPassUnusedDataProps } from '../../../test-utils';
 
 describe('IconButton', () => {
-    beforeEach(function() {
-        props = {
-            name: 'cloud'
-        };
-    });
-
     it('should expect a name', () => {
         sinon.test(function() {
             let spy = sinon.stub(console, 'error');
 
-            sd.shallowRender($(Element));
-            assert(spy.called);
+            shallow(<IconButton />);
+            expect(spy).to.have.been.called;
         });
     });
 
     describe('should render in the DOM', () => {
-        beforeEach(function() {
-            props = {
-                name: 'cloud'
-            };
-        });
-
         it('renders as <Button>', () => {
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props).has.property('icon', true);
-            expect(vdom.type).to.equal(Button);
+            let wrapper = shallow(<IconButton name="cloud" />);
+            expect(wrapper.is(Button)).to.be.true;
+            expect(wrapper).to.have.prop('icon', true);
         });
 
         it('passes the custom component to <Button>', () => {
-            props.component = 'div';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
+            let wrapper = shallow(<IconButton component="div"
+                                              name="cloud" />);
+            expect(wrapper).to.have.tagName('div');
 
-            expect(vdom.props).has.property('component', 'div');
         });
     });
 
     it('should have a single icon child', () => {
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-        let icon = vdom.props.children[0];
-
-        expect(vdom.props.children).to.have.length(1);
-        expect(icon.type).to.equal(Icon);
-        expect(icon.props.name).to.equal('cloud');
+        let wrapper = shallow(<IconButton name="cloud" />);
+        expect(wrapper).to.have.exactly(1).descendants(Icon);
     });
 
     it('should have a single icon child and a label', () => {
-        let tree = sd.shallowRender($(Element, props, 'Label'));
-        let vdom = tree.getRenderOutput();
-        let icon = vdom.props.children[0];
-        let text = vdom.props.children[1];
-
-        expect(vdom.props.children).to.have.length(2);
-        expect(text).to.equal('Label');
-        expect(icon.type).to.deep.equal(Icon);
-        expect(icon.props.name).to.equal('cloud');
+        let wrapper = shallow(<IconButton name="cloud">Label</IconButton>);
+        expect(wrapper.find(Icon)).to.have.prop('name', 'cloud');
+        expect(wrapper.children().last()).to.have.text('Label');
     });
 
     it('should allow the icon to change color', () => {
-        props.iconColor = 'yellow';
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-        let icon = vdom.props.children[0];
-
-        expect(icon.props.color).to.equal('yellow');
+        let wrapper = shallow(<IconButton name="cloud"
+                                          iconColor="yellow" />);
+        expect(wrapper.find(Icon)).to.have.prop('color', 'yellow');
     });
 
     it('should allow the button to change color', () => {
-        props.color = 'yellow';
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.color).to.equal('yellow');
+        let wrapper = shallow(<IconButton name="cloud"
+                                          color="yellow" />);
+        expect(wrapper).to.have.prop('color', 'yellow');
     });
 
-    it('passes unused data props', () => {
-        props['data-test'] = 'test';
-        props['dataTest'] = 'test';
 
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props).to.have.property('data-test', 'test');
-        expect(vdom.props).to.have.property('dataTest', 'test');
-    });
+    itShouldPassUnusedDataProps(IconButton, {});
 });

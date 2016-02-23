@@ -1,8 +1,9 @@
 /* eslint-env node, mocha */
-import React, { createElement as $ } from 'react';
-import { Images as Element, Image } from '../../../elements';
+import React from 'react';
+import { Images, Image } from '../../../elements';
 import { expect } from 'chai';
-import sd from 'skin-deep';
+import { shallow } from 'enzyme';
+import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
 let children = [
     <Image
@@ -13,7 +14,6 @@ let children = [
         src="test2.png" />
 ];
 
-let props = {};
 
 let consumedProps = {
     avatar: true,
@@ -28,140 +28,73 @@ let consumedProps = {
 };
 
 describe('Images', () => {
-    beforeEach(function() {
-        props = {};
-    });
-
     describe('should render in the DOM', () => {
         it('renders as <div>', () => {
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.eq('ui images');
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Images>{children}</Images>)
+            expect(wrapper).to.have.className('ui images');
+            expect(wrapper).to.have.tagName('div');
         });
 
         it('renders as a custom HTML element', () => {
-            props.component = 'span';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.type).to.equal('span');
+            let wrapper = shallow(<Images component="span">{children}</Images>)
+            expect(wrapper).to.have.tagName('span');
         });
     });
 
     describe('should be visible or hidden', () => {
         it('should be visible when visible=visible', () => {
-            props.visible = 'visible';
-            let tree = sd.shallowRender($(Element, props, children));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).not.to.match(/hidden/);
+            let wrapper = shallow(<Images visible="visible">{children}</Images>)
+            expect(wrapper).to.have.not.className('hidden')
         });
 
         it('should be visible when visible=true', () => {
-            props.visible = true;
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).not.to.match(/hidden/);
+            let wrapper = shallow(<Images visible>{children}</Images>)
+            expect(wrapper).to.have.not.className('hidden')
         });
 
         it('should be hidden when visible=hidden', () => {
-            props.visible = 'hidden';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/hidden/);
+            let wrapper = shallow(<Images visible="hidden">{children}</Images>)
+            expect(wrapper).to.have.className('hidden')
         });
 
         it('should be hidden when visible=false', () => {
-            props.visible = false;
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/hidden/);
+            let wrapper = shallow(<Images visible={false}>{children}</Images>)
+            expect(wrapper).to.have.className('hidden')
         });
     });
 
     describe('should allow a shape', () => {
         it('should rotate clockwise', () => {
-            props.shape = 'circular';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/circular/);
+            let wrapper = shallow(<Images shape="circular">{children}</Images>)
+            expect(wrapper).to.have.className('circular')
         });
 
         it('should rotate counterclockwise', () => {
-            props.shape = 'rounded';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/rounded/);
+            let wrapper = shallow(<Images shape="rounded">{children}</Images>)
+            expect(wrapper).to.have.className('rounded')
         });
     });
 
     it('should appear disabled', () => {
-        props.disabled = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/disabled/);
+        let wrapper = shallow(<Images disabled>{children}</Images>)
+        expect(wrapper).to.have.className('disabled')
     });
 
     it('should be an avatar', () => {
-        props.avatar = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/avatar/);
+        let wrapper = shallow(<Images avatar>{children}</Images>)
+        expect(wrapper).to.have.className('avatar')
     });
 
     it('should have various sizes', () => {
-        props.size = 'small';
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/small/);
-        expect(vdom.props.className).not.to.match(/size/);
+        let wrapper = shallow(<Images size="small">{children}</Images>)
+        expect(wrapper).to.have.className('small')
+        expect(wrapper).to.have.not.className('size')
     });
 
     it('should appear bordered', () => {
-        props.bordered = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/bordered/);
+        let wrapper = shallow(<Images bordered>{children}</Images>)
+        expect(wrapper).to.have.className('bordered')
     });
 
-    describe('should properly pass props', () => {
-        Object.keys(consumedProps).forEach(key => {
-            props[key] = consumedProps[key];
-        });
-
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-        let regex = new RegExp(consumedProps['className']);
-
-        it('consumes all used props', () => {
-            expect(Object.keys(vdom.props)).to.have.length(2);
-            expect(vdom.props).to.have.property('className');
-        });
-
-
-        it('passes the className prop', () => {
-            expect(vdom.props.className).to.match(regex);
-        });
-
-        it('passes unused data props', () => {
-            props['data-test'] = 'test';
-            props['dataTest'] = 'test';
-
-            vdom = sd.shallowRender($(Element, props)).getRenderOutput();
-
-            expect(vdom.props).to.have.property('data-test', 'test');
-            expect(vdom.props).to.have.property('dataTest', 'test');
-        });
-    });
+    itShouldConsumeOwnAndPassCustomProps(Images, consumedProps);
 });

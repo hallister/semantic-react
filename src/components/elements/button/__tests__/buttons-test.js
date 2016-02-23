@@ -1,9 +1,10 @@
 /* eslint-env node, mocha */
 
-import React, { createElement as $ } from 'react';
-import { Buttons as Element, Button, IconButton } from '../../../elements';
+import React from 'react';
+import { Buttons, Button, IconButton } from '../../../elements';
 import { expect } from 'chai';
-import sd from 'skin-deep';
+import { shallow } from 'enzyme';
+import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
 let buttonsChildren = [
     <Button key="1">Button 1</Button>,
@@ -19,7 +20,6 @@ let iconButtonsChildren = [
         name="arrow" />
 ];
 
-let props = {};
 let consumedProps = {
     attached: 'top',
     basic: true,
@@ -38,106 +38,45 @@ let consumedProps = {
 };
 
 describe('Buttons', () => {
-    beforeEach(function() {
-        props = {};
-    });
-
     describe('should render in the DOM', () => {
         it('renders as <div>', () => {
-            let tree = sd.shallowRender($(Element, props, buttonsChildren));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/ui buttons/);
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Buttons>{buttonsChildren}</Buttons>);
+            expect(wrapper).to.have.className('ui buttons');
+            expect(wrapper).to.have.tagName('div');
         });
 
         it('renders as a custom HTML element', () => {
-            props.component = 'span';
-            let tree = sd.shallowRender($(Element, props, buttonsChildren));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.type).to.equal('span')
+            let wrapper = shallow(<Buttons component="span">{buttonsChildren}</Buttons>);
+            expect(wrapper).to.have.tagName('span');
         });
     });
 
     it('should position a group of buttons', () => {
-        let tree = sd.shallowRender($(Element, props, buttonsChildren));
-        let vdom = tree.getRenderOutput();
-
-        React.Children.forEach(vdom.props.children, child => {
-            expect(child.type).to.equal(Button);
-        });
-
-        expect(Object.keys(vdom.props.children)).to.have.length(2);
+        let wrapper = shallow(<Buttons>{buttonsChildren}</Buttons>);
+        expect(wrapper).to.have.exactly(2).descendants(Button);
     });
 
     it('should position a group of buttons vertically', () => {
-        props.vertical = true;
-        let tree = sd.shallowRender($(Element, props, buttonsChildren));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/vertical/);
-        expect(Object.keys(vdom.props.children)).to.have.length(2);
+        let wrapper = shallow(<Buttons vertical>{buttonsChildren}</Buttons>);
+        expect(wrapper).to.have.className('vertical');
+        expect(wrapper).to.have.exactly(2).descendants(Button);
     });
 
     it('should position a group of icon buttons', () => {
-        props.vertical = true;
-        let tree = sd.shallowRender($(Element, props, iconButtonsChildren));
-        let vdom = tree.getRenderOutput();
-
-        React.Children.forEach(vdom.props.children, child => {
-            expect(child.type).to.equal(IconButton);
-        });
-
-        expect(Object.keys(vdom.props.children)).to.have.length(2);
-        expect(vdom.props.children[0].props).to.have.property('name', 'cloud');
-        expect(vdom.props.children[1].props).to.have.property('name', 'arrow');
+        let wrapper = shallow(<Buttons vertical>{iconButtonsChildren}</Buttons>);
+        expect(wrapper.find(IconButton).first()).to.have.prop('name', 'cloud');
+        expect(wrapper.find(IconButton).last()).to.have.prop('name', 'arrow');
     });
 
     it('should position a group of buttons with equal widths', () => {
-        props.equal = true;
-        let tree = sd.shallowRender($(Element, props, iconButtonsChildren));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/two/);
+        let wrapper = shallow(<Buttons equal>{iconButtonsChildren}</Buttons>);
+        expect(wrapper).to.have.className('two');
     });
 
     it('should force an equal width group with one child to be fluid', () => {
-        props.equal = true;
-        let tree = sd.shallowRender($(Element, props, <Button/>));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/fluid/);
+        let wrapper = shallow(<Buttons equal><Button /></Buttons>);
+        expect(wrapper).to.have.className('fluid');
     });
 
-    describe('should properly pass props', () => {
-        Object.keys(consumedProps).forEach(key => {
-            props[key] = consumedProps[key];
-        });
-
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-        let regex = new RegExp(consumedProps['className']);
-
-        it('consumes all used props', () => {
-            expect(Object.keys(vdom.props)).to.have.length(2);
-            expect(vdom.props).to.have.property('children');
-            expect(vdom.props.children).to.be.an('undefined');
-            expect(vdom.props).to.have.property('className');
-        });
-
-        it('passes the className prop', () => {
-            expect(vdom.props.className).to.match(regex);
-        });
-
-        it('passes unused data props', () => {
-            props['data-test'] = 'test';
-            props['dataTest'] = 'test';
-
-            vdom = sd.shallowRender($(Element, props)).getRenderOutput();
-
-            expect(vdom.props).to.have.property('data-test', 'test');
-            expect(vdom.props).to.have.property('dataTest', 'test');
-        });
-    });
+    itShouldConsumeOwnAndPassCustomProps(Buttons, consumedProps);
 });

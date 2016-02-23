@@ -1,12 +1,12 @@
 /* eslint-env node, mocha */
 
-import { createElement as $ } from 'react';
-import { Header as Element } from '../../../elements';
+import React from 'react';
+import { Header } from '../../../elements';
 import { Menu } from '../../../views';
 import { expect } from 'chai';
-import sd from 'skin-deep';
+import { shallow } from 'enzyme';
+import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
-let props = {};
 
 let consumedProps = {
     aligned: 'right',
@@ -26,176 +26,94 @@ let consumedProps = {
 };
 
 describe('Header', () => {
-    beforeEach(function() {
-        props = {};
-    });
-
     describe('should render in the DOM', () => {
 
         it('renders as <div>', () => {
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/ui header/);
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Header />);
+            expect(wrapper).to.have.tagName('div');
+            expect(wrapper).to.have.className('ui header');
         });
 
         it('renders as a custom HTML element', () => {
-            props.component = 'h1';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.type).to.equal('h1');
+            let wrapper = shallow(<Header component="h1" />);
+            expect(wrapper).to.have.tagName('h1');
         });
-    })
+    });
 
     describe('should allow emphasis', () => {
-        beforeEach(function() {
-            props = {
-                emphasis: 'dividing'
-            };
-        });
-
         it('has a dividing emphasis', () => {
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/dividing/);
+            let wrapper = shallow(<Header emphasis="dividing" />);
+            expect(wrapper).to.have.className('dividing');
         });
 
         it('has a block emphasis', () => {
-            props.emphasis = 'block';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/block/);
+            let wrapper = shallow(<Header emphasis="block" />);
+            expect(wrapper).to.have.className('block');
         });
     });
 
     describe('should float', () => {
         it('floats right', () => {
-            props.floated = 'right';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/right floated/);
+            let wrapper = shallow(<Header floated="right" />);
+            expect(wrapper).to.have.className('right floated');
         });
 
         it('floats left', () => {
-            props.floated = 'left';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/left floated/);
+            let wrapper = shallow(<Header floated="left" />);
+            expect(wrapper).to.have.className('left floated');
         });
     });
 
     describe('should attach to other objects', () => {
         it('can attach to the top of an attachable element', () => {
-            props.attached = 'top';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/top attached/);
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Header attached="top" />);
+            expect(wrapper).to.have.className('top attached');
+            expect(wrapper).to.have.tagName('div');
         });
 
         it('can attach to the bottom of an attachable element', () => {
-            props.attached = 'bottom';
-            let tree = sd.shallowRender($(Element, props));
-            let vdom = tree.getRenderOutput();
-
-            expect(vdom.props.className).to.match(/bottom attached/);
-            expect(vdom.type).to.equal('div');
+            let wrapper = shallow(<Header attached="bottom" />);
+            expect(wrapper).to.have.className('bottom attached');
+            expect(wrapper).to.have.tagName('div');
         });
     });
 
     it('should be noticable on dark backgrounds', () => {
-        props.inverted = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/inverted/);
+        let wrapper = shallow(<Header inverted />);
+        expect(wrapper).to.have.className('inverted');
     });
 
     it('should appear disabled', () => {
-        props.disabled = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/disabled/);
+        let wrapper = shallow(<Header disabled />);
+        expect(wrapper).to.have.className('disabled');
     });
 
     it('should be a dividing header', () => {
-        props.divider = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/divider/);
+        let wrapper = shallow(<Header divider />);
+        expect(wrapper).to.have.className('divider');
     });
 
     it('should have various sizes', () => {
-        props.size = 'small';
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/small/);
-        expect(vdom.props.className).not.to.match(/size/);
+        let wrapper = shallow(<Header size="small" />);
+        expect(wrapper).to.have.className('small');
+        expect(wrapper).to.have.not.className('size');
     });
 
     it('should support colors', () => {
-        props.color = 'yellow';
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/yellow/);
-        expect(vdom.props.className).not.to.match(/color/);
+        let wrapper = shallow(<Header color="yellow" />);
+        expect(wrapper).to.have.className('yellow');
+        expect(wrapper).to.have.not.className('color');
     });
 
     it('should be horizontal', () => {
-        props.horizontal = true;
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.className).to.match(/horizontal/);
+        let wrapper = shallow(<Header horizontal />);
+        expect(wrapper).to.have.className('horizontal');
     });
 
-    it('should be an item', () => {
-        let tree = sd.shallowRender($(Menu, {}, $(Element)));
-        let vdom = tree.getRenderOutput();
-
-        expect(vdom.props.children.props.item).to.eq(true);
+    it('should be an item when is child of Menu', () => {
+        let wrapper = shallow(<Menu><Header /></Menu>);
+        expect(wrapper.find(Header)).to.have.prop('item', true);
     });
 
-    describe('should properly pass props', () => {
-        Object.keys(consumedProps).forEach(key => {
-            props[key] = consumedProps[key];
-        });
-
-        let tree = sd.shallowRender($(Element, props));
-        let vdom = tree.getRenderOutput();
-        let regex = new RegExp(consumedProps['className']);
-
-        it('consumes all used props', () => {
-            expect(Object.keys(vdom.props)).to.have.length(2);
-            expect(vdom.props).to.have.property('children');
-            expect(vdom.props.children).to.be.an('undefined');
-            expect(vdom.props).to.have.property('className');
-        });
-
-
-        it('passes the className prop', () => {
-            expect(vdom.props.className).to.match(regex);
-        });
-
-        it('passes unused data props', () => {
-            props['data-test'] = 'test';
-            props['dataTest'] = 'test';
-
-            vdom = sd.shallowRender($(Element, props)).getRenderOutput();
-
-            expect(vdom.props).to.have.property('data-test', 'test');
-            expect(vdom.props).to.have.property('dataTest', 'test');
-        });
-    });
+    itShouldConsumeOwnAndPassCustomProps(Header, consumedProps);
 });
