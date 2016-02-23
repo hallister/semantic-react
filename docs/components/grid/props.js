@@ -578,6 +578,13 @@ exports.row = {
                 "computed": false
             }
         },
+        "equal": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "stretched": {
             "type": {
                 "name": "bool"

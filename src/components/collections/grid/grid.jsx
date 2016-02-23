@@ -130,6 +130,10 @@ export class Grid extends React.Component {
             grid: this.props.defaultClasses
         }
 
+        if (this.props.equal) {
+            classes['equal width'] = true;
+        }
+
         if (this.props.columns !== false) {
             if (this.props.columns > 0  && this.props.columns <= 16) {
                 classes[Numbers[this.props.columns] + ' column'] = true;

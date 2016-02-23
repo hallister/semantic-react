@@ -117,7 +117,53 @@ exports.menu = {
             "required": false,
             "description": ""
         },
+        "fitted": {
+            "type": {
+                "name": "union",
+                "value": [
+                    {
+                        "name": "bool"
+                    },
+                    {
+                        "name": "enum",
+                        "value": [
+                            {
+                                "value": "'horizontally'",
+                                "computed": false
+                            },
+                            {
+                                "value": "'vertically'",
+                                "computed": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            "required": false,
+            "description": ""
+        },
+        "fixed": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
+        "fluid": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "inverted": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
+        "pagination": {
             "type": {
                 "name": "bool"
             },

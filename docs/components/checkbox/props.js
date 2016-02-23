@@ -60,6 +60,13 @@ exports.checkbox = {
             "required": false,
             "description": ""
         },
+        "fitted": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "indeterminate": {
             "type": {
                 "name": "bool"

@@ -12,6 +12,7 @@ export class Checkbox extends Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
+        fitted: React.PropTypes.bool,
         indeterminate: React.PropTypes.bool,
         name: React.PropTypes.string,
         onClick: React.PropTypes.func,
@@ -89,6 +90,7 @@ export class Checkbox extends Component {
             radio: this.props.radio,
 
              // variations
+            fitted: this.props.fitted,
             slider: this.props.slider,
             toggle: this.props.toggle,
 

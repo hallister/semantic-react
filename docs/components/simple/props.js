@@ -82,6 +82,31 @@ exports.author = {
 exports.container = {
     "description": "",
     "props": {
+        "aligned": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'left'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'justified'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'center'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": ""
+        },
         "children": {
             "type": {
                 "name": "node"
@@ -114,6 +139,13 @@ exports.container = {
                 "value": "'div'",
                 "computed": false
             }
+        },
+        "fluid": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
         }
     }
 }

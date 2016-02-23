@@ -20,6 +20,7 @@ export class Row extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
+        equal: React.PropTypes.bool,
         stretched: React.PropTypes.bool,
         valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
         visible: React.PropTypes.oneOf(['large screen', 'wide screen', 'computer', 'mobile', 'tablet'])
@@ -62,6 +63,10 @@ export class Row extends React.Component {
             stretched: this.props.stretched,
 
             row: this.props.defaultClasses
+        }
+
+        if (this.props.equal) {
+            classes['equal width'] = true;
         }
 
         if (this.props.columns !== false) {

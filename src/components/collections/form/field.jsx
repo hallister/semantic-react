@@ -40,7 +40,7 @@ let Field = (props) => {
         component,
         other,
         [
-            hasFirstChild(children, Checkbox) || hasFirstChild(children, Checkboxes) || label == '' ? '' : renderLabel(props.label),
+            hasFirstChild(children, Checkbox) || hasFirstChild(children, Checkboxes) || !label || label == ''  ? null : renderLabel(props.label),
             children
         ]
     );

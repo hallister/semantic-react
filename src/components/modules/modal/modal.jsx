@@ -1,8 +1,8 @@
 import React from 'react';
 import { ModalBody, Dimmer } from '../../modules';
-import OutsideClick from 'react-outsideclickhandler';
+import listensToClickOutside from 'react-onclickoutside/decorator';
 
-export class Modal extends React.Component {
+class Modal extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         basic: React.PropTypes.bool,
@@ -115,11 +115,13 @@ export class Modal extends React.Component {
         this.props.onComplete(this.state.active);
     }
 
-    onModalClose() {
-        if (this.state.active) {
-            this.setState({
-                active: false
-            });
+    handleClickOutside() {
+        if (this.props.outsideClickClose) {
+            if (this.state.active) {
+                this.setState({
+                    active: false
+                });
+            }
         }
     }
 
@@ -134,23 +136,11 @@ export class Modal extends React.Component {
             onComplete: this.onAnimationComplete.bind(this)
         });
 
-        let modal = React.createElement(
+        return React.createElement(
             ModalBody,
             props,
             this.props.children
         );
-
-        if (this.props.outsideClickClose) {
-            return (
-                    <OutsideClick
-                        onOutsideClick={this.onModalClose.bind(this)}
-                    >
-                        {modal}
-                    </OutsideClick>
-            );
-        } else {
-            return modal;
-        }
     }
 
     render() {
@@ -176,3 +166,7 @@ export class Modal extends React.Component {
         return classes;
     }
 }
+
+// Need this trick for react-docgen
+Modal = listensToClickOutside(Modal);
+export { Modal };

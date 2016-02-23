@@ -7,19 +7,36 @@ var externals = [];
 externals.push(/^react(\/.*)?$/, /^react-dom(\/.*)?$/);
 
 module.exports = {
-    'dev-tool': 'source-map',
+    devtool: 'source-map',
     entry: './src/components/semantic-react',
     externals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        'react/lib/ReactTransitionGroup': 'React.addons.ReactTransitionGroup'
+        'react': {
+            root: 'React',
+            commonjs2: 'react',
+            commonjs: 'react',
+            amd: 'react'
+        },
+        'react-dom': {
+            root: 'ReactDOM',
+            commonjs2: 'react-dom',
+            commonjs: 'react-dom',
+            amd: 'react-dom'
+        },
+        'react/lib/ReactTransitionGroup': {
+            root: 'React.addons.ReactTransitionGroup',
+            commonjs2: 'react/lib/ReactTransitionGroup',
+            commonjs: 'react/lib/ReactTransitionGroup',
+            amd: 'react/lib/ReactTransitionGroup'
+        }
     },
     plugins: [
         new webpack.IgnorePlugin(/ReactContext/)
     ],
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: pack.name + '.js'
+        filename: pack.name + '.js',
+        library: 'SemanticReact',
+        libraryTarget: 'umd'
     },
     resolve: {
         extensions: ['', '.js', '.jsx', '.es6']

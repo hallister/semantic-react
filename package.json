@@ -2,11 +2,11 @@
   "name": "semantic-react",
   "version": "0.0.2",
   "description": "React components for Semantic UI.",
-  "main": "server.js",
+  "main": "dist/semantic-react.js",
   "scripts": {
     "start": "NODE_ENV=development && node scripts/exec.js docs:gen && node server.js",
     "start:win": "set NODE_ENV=development&& node scripts/exec.js docs:gen&& node server.js",
-    "build": "node scripts/exec.js build",
+    "build": "set NODE_ENV=production && node scripts/exec.js build",
     "build:min": "node scripts/exec.js build:min",
     "docs:gen": "node scripts/exec.js docs:gen",
     "test": "node scripts/exec.js test",
@@ -27,7 +27,7 @@
   "dependencies": {
     "classnames": "^2.2.0",
     "raf": "^3.1.0",
-    "react-outsideclickhandler": "^0.1.0"
+    "react-onclickoutside": "^4.5.0"
   },
   "peerDependencies": {
     "react": ">=0.14.2",
@@ -63,10 +63,12 @@
     "karma-spec-reporter": "0.0.22",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.3",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
     "react-addons-test-utils": "^0.14.2",
     "react-addons-transition-group": "^0.14.2",
     "react-codemirror": "^0.2.0",
-    "react-docgen": "^2.4.0",
+    "react-docgen": "^2.7.0",
     "react-router": "^1.0.0-rc4",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",

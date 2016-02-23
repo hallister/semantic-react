@@ -23,6 +23,13 @@ exports.dropdown = {
             "required": false,
             "description": ""
         },
+        "compact": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "component": {
             "type": {
                 "name": "union",
@@ -74,6 +81,13 @@ exports.dropdown = {
             "required": false,
             "description": ""
         },
+        "inline": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "inverted": {
             "type": {
                 "name": "bool"
@@ -89,6 +103,13 @@ exports.dropdown = {
             "description": ""
         },
         "multiple": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
+        "scrolling": {
             "type": {
                 "name": "bool"
             },

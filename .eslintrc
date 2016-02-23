@@ -101,7 +101,7 @@
         "react/no-multi-comp": [1, { "ignoreStateless": true }],
         "react/no-danger": 1,
         "react/no-unknown-property": 2,
-        "react/prop-types": [2, { ignore: ['onClick']}],
+        "react/prop-types": [2, { ignore: ['onClick', 'children', 'state']}],
         "react/react-in-jsx-scope": 2,
         "react/self-closing-comp": 2,
         "react/sort-comp": [2, {
