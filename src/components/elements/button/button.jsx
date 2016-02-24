@@ -76,7 +76,7 @@ export default class Button extends React.Component {
         /**
          * Forces to component to float left or right.
          */
-        floated: React.PropTypes.oneOf(['right', 'left']),
+        floated: React.PropTypes.oneOf(['left', 'right']),
 
         /**
          * The component fills the parent components horizontal space.
