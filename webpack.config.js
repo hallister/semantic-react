@@ -5,7 +5,7 @@ var webpack = require('webpack');
 // TODO: Eventually Docs need eslinting as well
 
 module.exports = {
-    devtool: 'eval',
+    devtool: 'inline-source-map',
     entry: [
         'webpack-hot-middleware/client',
         './docs/docs'
@@ -13,7 +13,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'docs'),
         filename: 'bundle.js',
-        publicPath: '/static/'
+        publicPath: '/'
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
