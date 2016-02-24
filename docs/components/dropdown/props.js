@@ -119,6 +119,13 @@ exports.dropdown = {
             "required": false,
             "description": ""
         },
+        "scrolling": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
         "pointing": {
             "type": {
                 "name": "union",
