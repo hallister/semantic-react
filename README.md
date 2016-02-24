@@ -2,6 +2,13 @@
 
 This project is a complete Semantic UI (SUI) to React. Currently, the majority of SUI has been ported to React however, much of the components are still untested. Major issues going forward include testing, documentation and various enhancements.
 
+## Approach
+Semantic-react uses react for any DOM changes. All animations are style-based, so we don't touch the DOM without React knowing.
+
+Other Semantic UI projects out there, like [react-semantify](http://jessy1092.github.io/react-semantify/), are bindings for semantic-ui's existing javascript. So you'll need react-semantify, semantic-ui and jquery installed to use it. (around 400kb minified in overhead)
+
+semantic-react (in its current state) is around 178kb, and there are no external dependencies besides React and ReactDOM. Once complete, the file size is expected end up around 200kb.
+
 ## Contributions
 The project is currently in its infancy, however, much of the porting is complete. If you would like to contribute to the project, fork and follow the instructions below:
 
