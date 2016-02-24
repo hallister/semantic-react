@@ -33,9 +33,11 @@ export class Row extends React.Component {
 
     render() {
         // consume props
+        /* eslint-disable no-use-before-define */
         let { aligned, className, component, children, color, columns,
             defaultClasses, stretched, valigned, visible,
             ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         // add classnames
         other.className = classNames(this.props.className, this.getClasses());

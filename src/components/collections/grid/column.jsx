@@ -52,21 +52,6 @@ export class Column extends React.Component {
         this.style[type] = style;
     }
 
-    render() {
-        // consume props
-        let { aligned, color, component, className, children, defaultClasses,
-            floated, valigned, width, ...other } = this.props;
-
-        // add classnames
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            React.Children.count(this.props.children) !== 0 ? this.renderChildren() : []
-        );
-    }
-
     renderChildren() {
         let children = [Device, Computer, Tablet, Mobile];
         return React.Children.map(this.props.children, (child, index) => {
@@ -83,6 +68,23 @@ export class Column extends React.Component {
                 return child;
             }
         });
+    }
+
+    render() {
+        // consume props
+        /* eslint-disable no-use-before-define */
+        let { aligned, color, component, className, children, defaultClasses,
+            floated, valigned, width, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
+
+        // add classnames
+        other.className = classNames(this.props.className, this.getClasses());
+
+        return React.createElement(
+            this.props.component,
+            other,
+            React.Children.count(this.props.children) !== 0 ? this.renderChildren() : []
+        );
     }
 
     getClasses() {

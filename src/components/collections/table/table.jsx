@@ -59,10 +59,12 @@ function getClasses(props) {
 }
 
 let table = (props) => {
+    /* eslint-disable no-use-before-define */
     let { basic, celled, children, className, collapsing, compact, component,
           defaultClasses, definition, fixed, inverted, selectable, singleLine,
           stackable, striped, structured, unstackable, valigned,
           ...other } = props;
+    /* eslint-enable no-use-before-define */
 
     other.className = classNames(
         className,

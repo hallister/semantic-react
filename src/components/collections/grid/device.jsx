@@ -21,11 +21,6 @@ export class Device extends React.Component {
         width: React.PropTypes.number
     };
 
-    render() {
-        this.renderStyle();
-        return null;
-    }
-
     renderStyle() {
         let classes = {};
 
@@ -46,4 +41,10 @@ export class Device extends React.Component {
 
         return this.props.callback(classes, this.props.type);
     }
+
+    render() {
+        this.renderStyle();
+        return null;
+    }
+
 }
