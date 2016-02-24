@@ -141,10 +141,44 @@ exports.image = {
         },
         "size": {
             "type": {
-                "name": "string"
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'mini'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'tiny'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'small'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'medium'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'large'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'big'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'huge'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'massive'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
-            "description": ""
+            "description": "Adds a SemanticUI size class."
         },
         "spaced": {
             "type": {
@@ -294,10 +328,44 @@ exports.images = {
         },
         "size": {
             "type": {
-                "name": "string"
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'mini'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'tiny'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'small'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'medium'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'large'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'big'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'huge'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'massive'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
-            "description": ""
+            "description": "Adds a SemanticUI size class."
         },
         "visible": {
             "type": {

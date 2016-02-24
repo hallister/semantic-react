@@ -133,11 +133,11 @@ exports.button = {
                 "name": "enum",
                 "value": [
                     {
-                        "value": "'right'",
+                        "value": "'left'",
                         "computed": false
                     },
                     {
-                        "value": "'left'",
+                        "value": "'right'",
                         "computed": false
                     }
                 ]
@@ -198,9 +198,57 @@ exports.button = {
             "required": false,
             "description": "Displays a loading indicator on the component."
         },
+        "primary": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "A button can be formatted to show different levels of emphasis.\r\nSetting your brand colors to primary color variables in site.variables will allow you to use your color theming for UI elements."
+        },
+        "secondary": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "A button can be formatted to show different levels of emphasis.\r\nSetting your brand colors to secondary color variables in site.variables will allow you to use your color theming for UI elements."
+        },
         "size": {
             "type": {
-                "name": "string"
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'mini'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'tiny'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'small'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'medium'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'large'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'big'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'huge'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'massive'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": "Adds a SemanticUI size class."
@@ -330,11 +378,11 @@ exports.buttons = {
                 "name": "enum",
                 "value": [
                     {
-                        "value": "'right'",
+                        "value": "'left'",
                         "computed": false
                     },
                     {
-                        "value": "'left'",
+                        "value": "'right'",
                         "computed": false
                     }
                 ]
@@ -365,7 +413,41 @@ exports.buttons = {
         },
         "size": {
             "type": {
-                "name": "string"
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'mini'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'tiny'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'small'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'medium'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'large'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'big'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'huge'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'massive'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": "Adds a SemanticUI size class."
@@ -563,18 +645,52 @@ exports.labeledbutton = {
                 "name": "bool"
             },
             "required": false,
-            "description": ""
+            "description": "A button can be formatted to show different levels of emphasis.\r\nSetting your brand colors to primary color variables in site.variables will allow you to use your color theming for UI elements."
         },
         "secondary": {
             "type": {
                 "name": "bool"
             },
             "required": false,
-            "description": ""
+            "description": "A button can be formatted to show different levels of emphasis.\r\nSetting your brand colors to secondary color variables in site.variables will allow you to use your color theming for UI elements."
         },
         "size": {
             "type": {
-                "name": "string"
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'mini'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'tiny'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'small'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'medium'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'large'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'big'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'huge'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'massive'",
+                        "computed": false
+                    }
+                ]
             },
             "required": false,
             "description": ""

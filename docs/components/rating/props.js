@@ -68,6 +68,13 @@ exports.rating = {
                 "computed": false
             }
         },
+        "onChange": {
+            "type": {
+                "name": "func"
+            },
+            "required": false,
+            "description": "Callback on click to star"
+        },
         "size": {
             "type": {
                 "name": "string"
@@ -87,14 +94,7 @@ exports.rating = {
                 "name": "number"
             },
             "required": false,
-            "description": "Current stars count"
-        },
-        "onChange": {
-            "type": {
-                "name": "func"
-            },
-            "required": false,
-            "description": "Callback on click to star"
+            "description": "The (initial) value of the component"
         }
     }
 }
