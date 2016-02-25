@@ -47,9 +47,12 @@ case 'docs:gen':
     glob(path.normalize('./src/components/**/*.jsx'), function(stuff, files) {
         var components = [];
 
-        // we ignore any top-level src/components file AND anything in animate.
+        // we ignore any top-level src/components file AND anything in animate AND any test files.
         for (var index = 0; index < files.length; ++index) {
-            if (path.dirname(files[index]) !== 'src/components' && path.dirname(files[index]) !== 'src/components/modules/animate') {
+            if (path.dirname(files[index]) !== 'src/components' &&
+                path.dirname(files[index]) !== 'src/components/modules/animate' &&
+                !(/__tests__/.test(files[index])))
+            {
                 components.push(files[index]);
             }
         }

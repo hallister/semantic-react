@@ -25,6 +25,8 @@ export * from './modules/popup/popupplacer';
 export * from './modules/popup/popupelement';
 export * from './modules/popup/portal';
 
+export * from './modules/layer/rendertolayer';
+
 export * from './modules/progress/bar';
 export * from './modules/progress/progress';
 

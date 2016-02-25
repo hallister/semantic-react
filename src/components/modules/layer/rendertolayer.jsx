@@ -131,6 +131,12 @@ export class RenderToLayer extends React.Component {
         return null;
     }
 
+    /**
+     * Returns layer DOM element
+     */
+    getLayer() {
+        return this.layer;
+    }
 
     /**
      * Unrender layer
