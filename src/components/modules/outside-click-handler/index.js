@@ -10,27 +10,28 @@ export default class OutsideClickHandler extends React.Component {
     };
 
     componentDidMount() {
-        document.addEventListener('click', this.handleDocumentClick.bind(this), false);
+        document.addEventListener('click', this.handleDocumentClick, false);
     }
     
     componentWillUnmount() {
-        document.removeEventListener('click', this.handleDocumentClick.bind(this), false);
+        document.removeEventListener('click', this.handleDocumentClick, false);
     }
 
-    handleDocumentClick(event) {
-        if (this.props.onOutsideClick !== null) {
-            return this.props.onOutsideClick(event);
+    handleDocumentClick = (event) => {
+        if (this.props.onOutsideClick === null) {
+            return;
         }
+        return this.props.onOutsideClick(event);
     }
 
-    handleMyClick(event) {
+    handleMyClick = (event) => {
         event.stopPropagation();
         event.nativeEvent.stopImmediatePropagation();
     }
 
     render() {
         return (
-            <div onClick={this.handleMyClick.bind(this)}>
+            <div onClick={this.handleMyClick}>
                 {this.props.children}
             </div>
         );
