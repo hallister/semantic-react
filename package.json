@@ -28,7 +28,8 @@
     "classnames": "^2.2.0",
     "raf": "^3.2.0",
     "react-motion-ui-pack": "^0.6.0",
-    "react-onclickoutside": "^4.5.0"
+    "react-onclickoutside": "^4.5.0",
+    "react-portal": "^2.0.0"
   },
   "peerDependencies": {
     "react": ">=0.14.2",
