@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Animate } from '../../modules';
 import classNames from 'classnames';
 
-@Animate
+// @Animate
 export class Dimmable extends Component {
     static propTypes = {
         children: React.PropTypes.node,

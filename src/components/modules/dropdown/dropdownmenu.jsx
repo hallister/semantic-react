@@ -1,5 +1,6 @@
 import React from 'react';
-import { Animations, Dropdown } from '../../modules';
+import { Dropdown } from '../../modules';
+import Transition from 'react-motion-ui-pack';
 import { Icon, Text } from '../../elements';
 import { Menu } from '../../views';
 import ListensToClickOutside from 'react-onclickoutside/decorator';
@@ -29,14 +30,9 @@ export class DropdownMenu extends React.Component {
             React.PropTypes.func
         ]),
         /**
-         * Enter animation
+         * Enter animations transforms
          */
-        enterAnimation: React.PropTypes.shape({
-            duration: React.PropTypes.number,
-            easing: React.PropTypes.string,
-            from: React.PropTypes.object,
-            to: React.PropTypes.object
-        }),
+        enterAnimation: React.PropTypes.object,
         /**
          * Menu icon
          */
@@ -48,12 +44,7 @@ export class DropdownMenu extends React.Component {
         /**
          * Leave animation
          */
-        leaveAnimation: React.PropTypes.shape({
-            duration: React.PropTypes.number,
-            easing: React.PropTypes.string,
-            from: React.PropTypes.object,
-            to: React.PropTypes.object
-        }),
+        leaveAnimation: React.PropTypes.object,
         /**
          * Specify component to be used as Menu.
          * Usually is should be menu but with custom options applied (for example inverted)
@@ -70,40 +61,10 @@ export class DropdownMenu extends React.Component {
         icon: 'dropdown',
         dropdownComponent: 'div',
         enterAnimation: {
-            duration: 150,
-            easing: 'out-circ',
-            from: {
-                opacity: 0,
-                transform: 'scaleY(0)',
-                transformOrigin: 'top center',
-                WebkitTransform: 'scaleY(0)',
-                WebkitTransformOrigin: 'top center'
-            },
-            to: {
-                opacity: 1,
-                transform: 'scaleY(1)',
-                transformOrigin: 'top center',
-                WebkitTransform: 'scaleY(1)',
-                WebkitTransformOrigin: 'top center'
-            }
+            height: 'auto'
         },
         leaveAnimation: {
-            duration: 150,
-            easing: 'out-cubic',
-            from: {
-                opacity: 1,
-                transform: 'scaleY(1)',
-                transformOrigin: 'top center',
-                WebkitTransform: 'scaleY(1)',
-                WebkitTransformOrigin: 'top center'
-            },
-            to: {
-                opacity: 0,
-                transform: 'scaleY(0)',
-                transformOrigin: 'top center',
-                WebkitTransform: 'scaleY(0)',
-                WebkitTransformOrigin: 'top center'
-            }
+            height: 0
         }
     };
 
@@ -235,16 +196,19 @@ export class DropdownMenu extends React.Component {
             >
                 {this.renderMenuText()}
                 {this.renderMenuIcon()}
-                <Animations
-                    active={this.state.active}
-                    animate={this.state.active}
-                    component={MenuComponent}
-                    end={this.props.leaveAnimation}
-                    onComplete={this.onAnimationComplete.bind(this)}
-                    start={this.props.enterAnimation}
+                <Transition
+                    component={false}
+                    enter={this.props.enterAnimation}
+                    leave={this.props.leaveAnimation}
                 >
-                    {children}
-                </Animations>
+                    {this.state.active &&
+                    <MenuComponent key="menu"
+                                   style={{ overflow: 'hidden' }}
+                    >
+                        {children}
+                    </MenuComponent>
+                    }
+                </Transition>
             </Dropdown>
         );
     }

@@ -8,7 +8,7 @@ let validProps = {
     fitted: ['horizontally', 'vertically']
 };
 
-@Animate
+// @Animate
 export class Menu extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,

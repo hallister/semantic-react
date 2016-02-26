@@ -3,7 +3,7 @@ import { Animate } from '../../modules';
 import { Content } from '../../elements';
 import classNames from 'classnames';
 
-@Animate
+// @Animate
 export class Results extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,

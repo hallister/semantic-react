@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Icon, Label } from '../../elements';
 import { Menu } from '../../views';
-import { Animations, Dropdown, Option } from '../../modules';
+import { Dropdown, Option } from '../../modules';
+import Transition from 'react-motion-ui-pack';
 import classNames from 'classnames';
 import ListensToClickOutside from 'react-onclickoutside/decorator';
 
@@ -16,21 +17,11 @@ class Select extends React.Component {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
         defaultClasses: React.PropTypes.bool,
-        enterAnimation: React.PropTypes.shape({
-            duration: React.PropTypes.number,
-            easing: React.PropTypes.string,
-            from: React.PropTypes.object,
-            to: React.PropTypes.object
-        }),
+        enterAnimation: React.PropTypes.object,
         fluid: React.PropTypes.bool,
         glyphWidth: React.PropTypes.number,
         ignoreCase: React.PropTypes.bool,
-        leaveAnimation: React.PropTypes.shape({
-            duration: React.PropTypes.number,
-            easing: React.PropTypes.string,
-            from: React.PropTypes.object,
-            to: React.PropTypes.object
-        }),
+        leaveAnimation: React.PropTypes.object,
         multiple: React.PropTypes.bool,
         name: React.PropTypes.string,
         noResults: React.PropTypes.string,
@@ -42,40 +33,17 @@ class Select extends React.Component {
         ignoreCase: true,
         defaultClasses: true,
         glyphWidth: 1.0714,
-        noResults: 'No results found...'
+        noResults: 'No results found...',
+        enterAnimation: {
+            height: 'auto'
+        },
+        leaveAnimation: {
+            height: 0
+        }
     };
 
     constructor(props) {
         super(props);
-
-        // animations should just move these to props
-        this.animation = {
-            enter: this.props.enterAnimation || {
-                duration: 150,
-                easing: 'out-circ',
-                from: {
-                    opacity: 0,
-                    transform: 'scaleY(0)',
-                    transformOrigin: 'top center',
-                    WebkitTransform: 'scaleY(0)',
-                    WebkitTransformOrigin: 'top center'
-                },
-                to: {
-                    opacity: 1,
-                    transform: 'scaleY(1)',
-                    transformOrigin: 'top center',
-                    WebkitTransform: 'scaleY(1)',
-                    WebkitTransformOrigin: 'top center'
-                }
-            }
-        };
-
-        this.animation.leave = this.props.leaveAnimation || {
-            duration: 150,
-            easing: 'out-cubic',
-            from: this.animation.enter.to,
-            to: this.animation.enter.from
-        };
 
         // we don't want this modifying state
         this.validOptions = {}
@@ -109,16 +77,6 @@ class Select extends React.Component {
         }
 
         return true;
-    }
-
-    onAnimationComplete() {
-        // visible state differs from active in that it
-        // cna only change after completion of the animation
-        if (!this.state.active) {
-            this.setState({
-                visible: false
-            })
-        }
     }
 
 
@@ -279,7 +237,7 @@ class Select extends React.Component {
         // can't animate while ReactTransitionGroup
         if (this.props.multiple) {
             return this.state.selected.map(label => {
-                return (
+/*                return (
                     <Label
                         component="a"
                         key={label}
@@ -291,7 +249,27 @@ class Select extends React.Component {
                             name="close"
                             onClick={this.onCloseOption.bind(this, label)}/>
                     </Label>
-                );
+                );*/
+                return (
+                    <Transition
+                        component={false}
+                        enter={{ scale: 1, opacity: 1 }}
+                        leave={{ scale: 0, opacity: 0 }}
+                        style={{ display: 'inline-block' }}
+                    >
+                        <Label
+                            component="a"
+                            key={label}
+                            onClick={this.onLabelClick.bind(this, label)}
+                            style={{ display: 'inline-block' }}
+                        >
+                            {label}
+                            <Icon
+                                name="close"
+                                onClick={this.onCloseOption.bind(this, label)}/>
+                        </Label>
+                    </Transition>
+                )
             });
         }
     }
@@ -363,16 +341,19 @@ class Select extends React.Component {
                 {this.renderLabels()}
                 {this.renderSearch()}
                 {this.renderText()}
-                <Animations
-                    active={this.state.active}
-                    animate={this.state.active}
-                    component={Menu}
-                    end={this.animation.leave}
-                    onComplete={this.onAnimationComplete.bind(this)}
-                    start={this.animation.enter}
+                <Transition
+                    component={false}
+                    enter={this.props.enterAnimation}
+                    leave={this.props.leaveAnimation}
                 >
-                    {children}
-                </Animations>
+                    {this.state.active &&
+                        <Menu key="menu"
+                              style={{ overflow: 'hidden' }}
+                        >
+                            {children}
+                        </Menu>
+                    }
+                </Transition>
             </Dropdown>
         );
     }

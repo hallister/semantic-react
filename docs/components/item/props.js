@@ -47,6 +47,9 @@ exports.item = {
                     },
                     {
                         "name": "string"
+                    },
+                    {
+                        "name": "func"
                     }
                 ]
             },

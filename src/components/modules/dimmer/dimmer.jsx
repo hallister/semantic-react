@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import Transition from 'react-motion-ui-pack';
 import { getChild, hasChild } from '../../utilities';
 import { Content, Loader, Segment } from '../../elements';
-import { Animations, Dimmable } from '../../modules';
+import { Dimmable } from '../../modules';
 import classNames from 'classnames';
 
 export class Dimmer extends Component {
@@ -36,24 +37,12 @@ export class Dimmer extends Component {
         super(props);
 
         this.enter = {
-            ease: 'swing',
-            from: {
-                opacity: 0
-            },
-            to: {
-                opacity: 1
-            }
-        }
+            opacity: 1
+        };
 
         this.leave = {
-            ease: 'swing',
-            from: {
-                opacity: 1
-            },
-            to: {
-                opacity: 0
-            }
-        }
+            opacity: 0
+        };
     }
 
     getChildContext() {
@@ -94,9 +83,7 @@ export class Dimmer extends Component {
         if (this.props.active) {
             dimmerChildren.push(
                 <Dimmable
-                    enter={this.enter}
                     key="animation"
-                    leave={this.leave}
                     page={this.props.page}
                 >
                     {this.renderContent()}
@@ -107,13 +94,28 @@ export class Dimmer extends Component {
         Array.prototype.push.apply(dimmerChildren, this.renderChildren());
 
         other.className = classNames(this.getClasses());
-        other.component = Segment;
+        // other.component = Segment;
 
-        return React.createElement(
+        return (
+            <Transition component={false}
+                        enter={this.enter}
+                        leave={this.leave}
+            >
+                {this.props.active &&
+                    <Segment {...other}
+                        key="dimmersegment"
+                    >
+                        {dimmerChildren}
+                    </Segment>
+                }
+            </Transition>
+        );
+
+/*        return React.createElement(
             Animations,
             other,
             dimmerChildren
-        );
+        );*/
     }
 
     renderLoader() {
