@@ -211,30 +211,12 @@ exports.dropdownmenu = {
         },
         "enterAnimation": {
             "type": {
-                "name": "shape",
-                "value": {
-                    "duration": {
-                        "name": "number",
-                        "required": false
-                    },
-                    "easing": {
-                        "name": "string",
-                        "required": false
-                    },
-                    "from": {
-                        "name": "object",
-                        "required": false
-                    },
-                    "to": {
-                        "name": "object",
-                        "required": false
-                    }
-                }
+                "name": "object"
             },
             "required": false,
-            "description": "Enter animation",
+            "description": "Enter animations transforms",
             "defaultValue": {
-                "value": "{\r\n    duration: 150,\r\n    easing: 'out-circ',\r\n    from: {\r\n        opacity: 0,\r\n        transform: 'scaleY(0)',\r\n        transformOrigin: 'top center',\r\n        WebkitTransform: 'scaleY(0)',\r\n        WebkitTransformOrigin: 'top center'\r\n    },\r\n    to: {\r\n        opacity: 1,\r\n        transform: 'scaleY(1)',\r\n        transformOrigin: 'top center',\r\n        WebkitTransform: 'scaleY(1)',\r\n        WebkitTransformOrigin: 'top center'\r\n    }\r\n}",
+                "value": "{\r\n    height: 'auto'\r\n}",
                 "computed": false
             }
         },
@@ -258,30 +240,12 @@ exports.dropdownmenu = {
         },
         "leaveAnimation": {
             "type": {
-                "name": "shape",
-                "value": {
-                    "duration": {
-                        "name": "number",
-                        "required": false
-                    },
-                    "easing": {
-                        "name": "string",
-                        "required": false
-                    },
-                    "from": {
-                        "name": "object",
-                        "required": false
-                    },
-                    "to": {
-                        "name": "object",
-                        "required": false
-                    }
-                }
+                "name": "object"
             },
             "required": false,
             "description": "Leave animation",
             "defaultValue": {
-                "value": "{\r\n    duration: 150,\r\n    easing: 'out-cubic',\r\n    from: {\r\n        opacity: 1,\r\n        transform: 'scaleY(1)',\r\n        transformOrigin: 'top center',\r\n        WebkitTransform: 'scaleY(1)',\r\n        WebkitTransformOrigin: 'top center'\r\n    },\r\n    to: {\r\n        opacity: 0,\r\n        transform: 'scaleY(0)',\r\n        transformOrigin: 'top center',\r\n        WebkitTransform: 'scaleY(0)',\r\n        WebkitTransformOrigin: 'top center'\r\n    }\r\n}",
+                "value": "{\r\n    height: 0\r\n}",
                 "computed": false
             }
         },
@@ -365,28 +329,14 @@ exports.select = {
         },
         "enterAnimation": {
             "type": {
-                "name": "shape",
-                "value": {
-                    "duration": {
-                        "name": "number",
-                        "required": false
-                    },
-                    "easing": {
-                        "name": "string",
-                        "required": false
-                    },
-                    "from": {
-                        "name": "object",
-                        "required": false
-                    },
-                    "to": {
-                        "name": "object",
-                        "required": false
-                    }
-                }
+                "name": "object"
             },
             "required": false,
-            "description": ""
+            "description": "",
+            "defaultValue": {
+                "value": "{\r\n    height: 'auto'\r\n}",
+                "computed": false
+            }
         },
         "fluid": {
             "type": {
@@ -419,28 +369,14 @@ exports.select = {
         },
         "leaveAnimation": {
             "type": {
-                "name": "shape",
-                "value": {
-                    "duration": {
-                        "name": "number",
-                        "required": false
-                    },
-                    "easing": {
-                        "name": "string",
-                        "required": false
-                    },
-                    "from": {
-                        "name": "object",
-                        "required": false
-                    },
-                    "to": {
-                        "name": "object",
-                        "required": false
-                    }
-                }
+                "name": "object"
             },
             "required": false,
-            "description": ""
+            "description": "",
+            "defaultValue": {
+                "value": "{\r\n    height: 0\r\n}",
+                "computed": false
+            }
         },
         "multiple": {
             "type": {

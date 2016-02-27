@@ -171,30 +171,12 @@ exports.search = {
         },
         "enterAnimation": {
             "type": {
-                "name": "shape",
-                "value": {
-                    "duration": {
-                        "name": "number",
-                        "required": false
-                    },
-                    "easing": {
-                        "name": "string",
-                        "required": false
-                    },
-                    "from": {
-                        "name": "object",
-                        "required": false
-                    },
-                    "to": {
-                        "name": "object",
-                        "required": false
-                    }
-                }
+                "name": "object"
             },
             "required": false,
             "description": "",
             "defaultValue": {
-                "value": "{\r\n    duration: 200,\r\n    easing: 'out-expo',\r\n    from: {\r\n        opacity: 0,\r\n        transform: 'scale(0,0)',\r\n        WebkitTransform: 'scale(0,0)'\r\n    },\r\n    to: {\r\n        opacity: 1,\r\n        transform: 'scale(1,1)',\r\n        WebkitTransform: 'scale(1,1)'\r\n    }\r\n}",
+                "value": "{\r\n    opacity: 1,\r\n    scale: 1\r\n}",
                 "computed": false
             }
         },
@@ -215,30 +197,12 @@ exports.search = {
         },
         "leaveAnimation": {
             "type": {
-                "name": "shape",
-                "value": {
-                    "duration": {
-                        "name": "number",
-                        "required": false
-                    },
-                    "easing": {
-                        "name": "string",
-                        "required": false
-                    },
-                    "from": {
-                        "name": "object",
-                        "required": false
-                    },
-                    "to": {
-                        "name": "object",
-                        "required": false
-                    }
-                }
+                "name": "object"
             },
             "required": false,
             "description": "",
             "defaultValue": {
-                "value": "{\r\n    duration: 200,\r\n    easing: 'out-expo',\r\n    from: {\r\n        opacity: 1,\r\n        transform: 'scale(1,1)',\r\n        WebkitTransform: 'scale(1,1)'\r\n    },\r\n    to: {\r\n        opacity: 0,\r\n        transform: 'scale(0,0)',\r\n        WebkitTransform: 'scale(0,0)'\r\n    }\r\n}",
+                "value": "{\r\n    opacity: 0,\r\n    scale: 0\r\n}",
                 "computed": false
             }
         },

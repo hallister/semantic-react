@@ -144,14 +144,12 @@ export function isEveryChild(children, component) {
     return true;
 }
 
-export function domIsDescendant(parent, child) {
-    let node = child.parentNode;
-
-    while (node !== null) {
-        if (node === parent) return true;
+export function isNodeInRoot(node, root) {
+    while (node) {
+        if (node === root) {
+            return true;
+        }
         node = node.parentNode;
     }
-
     return false;
 }
-

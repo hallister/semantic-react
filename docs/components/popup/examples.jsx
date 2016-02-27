@@ -11,13 +11,14 @@ class TestPopupButton extends React.Component {
     }
 
 
-    onBtnClick() {
+    onBtnClick(event) {
         this.setState({
-            popup: !this.state.popup
+            popup: !this.state.popup,
+            element: event.target
         });
     }
 
-    onClickAway() {
+    onClickAway(event) {
         this.setState({
             popup: false
         });
@@ -27,7 +28,18 @@ class TestPopupButton extends React.Component {
         return (
             <div>
                 <Button onClick={this.onBtnClick.bind(this)}>Test</Button>
-                <Popup active={this.state.popup}><h1>TEST3</h1></Popup>
+                <Popup active={this.state.popup}
+                       target={this.state.element}
+                       inverted
+                       wide={false}
+                       size="small"
+                       lastResortPosition="top left"
+                       position="bottom right"
+                       preventElementClicks={false}
+                       onRequestClose={this.onClickAway.bind(this)}
+                >
+                    This is very long exampleThis is very long exampleThis is very long exampleThis is very long exampleThis is very long exampleThis is very long example
+                </Popup>
             </div>
         )
     }
