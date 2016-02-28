@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimmer } from '../../../src/components/modules';
+import { Dimmer, Dimmable } from '../../../src/components/modules';
 import { Button, Segment, Header, Content } from '../../../src/components/elements';
 
 class TestDimmer extends React.Component {
@@ -15,11 +15,16 @@ class TestDimmer extends React.Component {
         return (
             <div>
                 <Button onClick={this.handleButtonClick.bind(this)}>Click me</Button>
-                <Dimmer active={this.state.active}>
+                <Segment attached 
+                         bluring
+                         component={Dimmable}
+                >
                     <Header>Overlayable section</Header>
-                    <p></p>
-                    <Content>Dimmed message!</Content>
-                </Dimmer>
+                    <p>Section text</p>
+                    <Dimmer active={this.state.active}>
+                        Dimmed message!
+                    </Dimmer>
+                </Segment>
             </div>
         )
     }

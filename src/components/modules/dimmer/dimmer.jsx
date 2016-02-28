@@ -1,192 +1,96 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Transition from 'react-motion-ui-pack';
-import { getChild, hasChild } from '../../utilities';
-import { Content, Loader, Segment } from '../../elements';
-import { Dimmable } from '../../modules';
+import { hasChild } from '../../utilities';
+import { Content, Loader } from '../../elements';
 import classNames from 'classnames';
+import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
 
-export class Dimmer extends Component {
+export class Dimmer extends React.Component {
     static propTypes = {
+        ...defaultPropTypes,
+        /**
+         * Hide/Display dimmer
+         */
         active: React.PropTypes.bool,
-        basic: React.PropTypes.bool,
-        blurring: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
-        inverted: React.PropTypes.bool,
-        page: React.PropTypes.bool
+        /**
+         * Enter animation
+         */
+        enterAnimation: React.PropTypes.object,
+        /**
+         * Leave animation
+         */
+        leaveAnimation: React.PropTypes.object,
+        /**
+         * Page dimmer. Doesn't require dimmable section
+         */
+        page: React.PropTypes.bool,
+        /**
+         * Inverted dimmer
+         */
+        inverted: React.PropTypes.bool
     };
 
+    
     // This forces <Content> to add a centered div below it.
     static childContextTypes = {
         isDimmerChild: React.PropTypes.bool
     };
 
     static defaultProps = {
-        defaultClasses: true,
-        basic: true,
-        page: false
-    };
-
-    constructor(props) {
-        super(props);
-
-        this.enter = {
+        ...defaultPropValues,
+        active: false,
+        enterAnimation: {
             opacity: 1
-        };
-
-        this.leave = {
+        },
+        leaveAnimation: {
             opacity: 0
-        };
-    }
-
+        },
+        page: false,
+        inverted: false
+    };
+    
     getChildContext() {
         return {
             isDimmerChild: true
         };
     }
-
-    // IE 10+
-    componentWillMount() {
-        if (this.props.page) {
-            document.body.classList.add('dimmable');
-        }
-    }
-
-    // IE 10+
-    componentWillUnmount() {
-        if (this.props.page) {
-            document.body.classList.remove('dimmable');
-        }
-    }
-
-    renderChildren() {
-        return getChild(this.props.children, Content);
-    }
-
-    renderContent() {
-        return getChild(this.props.children, Content, false);
-    }
-
-    renderDimmer() {
+    
+    render() {
         /* eslint-disable no-use-before-define */
-        let { component, disabled, inverted, ...other } = this.props;
+        let { active, children, component, enterAnimation, leaveAnimation, page, inverted, ...other } = this.props;
         /* eslint-enable no-use-before-define */
-
-        let dimmerChildren = [];
-
-        if (this.props.active) {
-            dimmerChildren.push(
-                <Dimmable
-                    key="animation"
-                    page={this.props.page}
-                >
-                    {this.renderContent()}
-                </Dimmable>
-            );
-        }
-
-        Array.prototype.push.apply(dimmerChildren, this.renderChildren());
-
-        other.className = classNames(this.getClasses());
-        // other.component = Segment;
-
+        
+        let Component = component;
+        other.className = classNames(other.className, this.getClasses());
         return (
             <Transition component={false}
-                        enter={this.enter}
-                        leave={this.leave}
+                        enter={enterAnimation}
+                        leave={leaveAnimation}
             >
-                {this.props.active &&
-                    <Segment {...other}
-                        key="dimmersegment"
+                {active &&
+                    <Component {...other}
+                        key="dimmer"
                     >
-                        {dimmerChildren}
-                    </Segment>
+                        {hasChild(children, Loader) ?
+                            children :
+                            <Content>
+                                {children}
+                            </Content>
+                        }
+                    </Component>
                 }
             </Transition>
-        );
-
-/*        return React.createElement(
-            Animations,
-            other,
-            dimmerChildren
-        );*/
+        )
     }
-
-    renderLoader() {
-        /* eslint-disable no-use-before-define */
-        let { disabled, inverted, ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-
-        other.className = classNames(
-            this.props.className,
-            this.props.inverted ? 'inverted' : '',
-            this.getDimmerClasses()
-        );
-
-        return React.createElement(
-            this.props.component,
-            other,
-            this.props.children
-        );
-    }
-
-    render() {
-        if (hasChild(this.props.children, Loader)) {
-            return this.renderLoader();
-        } else {
-            return this.renderDimmer();
-        }
-    }
-
-    getAnimation() {
-        return {
-            state: this.props.active,
-            enterState: {
-                name: 'fadeIn',
-                ease: 'cubic-out',
-                duration: 250
-            },
-            exitState: {
-                name: 'fadeOut',
-                ease: 'cubic-out',
-                duration: 300
-            }
-        };
-    }
-
+    
     getClasses() {
-        let classes = {
-            // default
-            dimmable: this.props.defaultClasses,
-            dimmed: this.props.active,
-
-            // positioning
-
-            // types
-            inverted: this.props.inverted,
-            blurring: this.props.blurring
-
-            // component
-
-            // variations
-        };
-
-        return classes;
-    }
-
-    getDimmerClasses() {
-        let classes = {
+        return {
             ui: this.props.defaultClasses,
-            active: this.props.defaultClasses,
-            dimmer: this.props.defaultClasses
-        }
-
-        return classes;
+            dimmer: this.props.defaultClasses,
+            active: this.props.active,
+            page: this.props.page,
+            inverted: this.props.inverted
+        };
     }
 }
+

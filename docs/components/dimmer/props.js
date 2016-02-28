@@ -1,59 +1,33 @@
 /* eslint-disable */
 exports.dimmable = {
-    "description": "",
+    "description": "Defines dimmable section",
     "props": {
-        "children": {
-            "type": {
-                "name": "node"
-            },
-            "required": false,
-            "description": ""
-        },
-        "component": {
-            "type": {
-                "name": "union",
-                "value": [
-                    {
-                        "name": "element"
-                    },
-                    {
-                        "name": "string"
-                    }
-                ]
-            },
-            "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "'div'",
-                "computed": false
-            }
-        },
-        "defaultClasses": {
+        "blurring": {
             "type": {
                 "name": "bool"
             },
             "required": false,
-            "description": "",
+            "description": "Blur dimmer",
             "defaultValue": {
-                "value": "true",
+                "value": "false",
                 "computed": false
             }
         },
-        "page": {
+        "dimmed": {
             "type": {
                 "name": "bool"
             },
             "required": false,
-            "description": ""
-        },
-        "style": {
-            "type": {
-                "name": "object"
-            },
-            "required": false,
-            "description": ""
+            "description": "Add dimmed class to dimmable. This could be omitted and you can instead set overflow: hidden instead",
+            "defaultValue": {
+                "value": "false",
+                "computed": false
+            }
         }
-    }
+    },
+    "composes": [
+        "../../defaultProps"
+    ]
 }
 /* eslint-enable */
 /* eslint-disable */
@@ -65,91 +39,59 @@ exports.dimmer = {
                 "name": "bool"
             },
             "required": false,
-            "description": ""
-        },
-        "basic": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "",
+            "description": "Hide/Display dimmer",
             "defaultValue": {
-                "value": "true",
+                "value": "false",
                 "computed": false
             }
         },
-        "blurring": {
+        "enterAnimation": {
             "type": {
-                "name": "bool"
+                "name": "object"
             },
             "required": false,
-            "description": ""
-        },
-        "children": {
-            "type": {
-                "name": "node"
-            },
-            "required": false,
-            "description": ""
-        },
-        "className": {
-            "type": {
-                "name": "any"
-            },
-            "required": false,
-            "description": ""
-        },
-        "component": {
-            "type": {
-                "name": "union",
-                "value": [
-                    {
-                        "name": "element"
-                    },
-                    {
-                        "name": "string"
-                    }
-                ]
-            },
-            "required": false,
-            "description": ""
-        },
-        "defaultClasses": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "",
+            "description": "Enter animation",
             "defaultValue": {
-                "value": "true",
+                "value": "{\r\n    opacity: 1\r\n}",
                 "computed": false
             }
         },
-        "disabled": {
+        "leaveAnimation": {
             "type": {
-                "name": "bool"
+                "name": "object"
             },
             "required": false,
-            "description": ""
-        },
-        "inverted": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
+            "description": "Leave animation",
+            "defaultValue": {
+                "value": "{\r\n    opacity: 0\r\n}",
+                "computed": false
+            }
         },
         "page": {
             "type": {
                 "name": "bool"
             },
             "required": false,
-            "description": "",
+            "description": "Page dimmer. Doesn't require dimmable section",
+            "defaultValue": {
+                "value": "false",
+                "computed": false
+            }
+        },
+        "inverted": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Inverted dimmer",
             "defaultValue": {
                 "value": "false",
                 "computed": false
             }
         }
-    }
+    },
+    "composes": [
+        "../../defaultProps"
+    ]
 }
 /* eslint-enable */
