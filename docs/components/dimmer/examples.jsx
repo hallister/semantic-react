@@ -16,13 +16,14 @@ class TestDimmer extends React.Component {
             <div>
                 <Button onClick={this.handleButtonClick.bind(this)}>Click me</Button>
                 <Segment attached 
-                         bluring
+                         dimmed={this.state.active}
+                         blurring
                          component={Dimmable}
                 >
                     <Header>Overlayable section</Header>
                     <p>Section text</p>
                     <Dimmer active={this.state.active}>
-                        Dimmed message!
+                        <Header inverted>Dimmed message!</Header>
                     </Dimmer>
                 </Segment>
             </div>
