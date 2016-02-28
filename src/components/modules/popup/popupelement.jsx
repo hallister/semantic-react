@@ -46,7 +46,8 @@ export class PopupElement extends React.Component {
         /**
          * Popup position
          */
-        position: React.PropTypes.oneOf(POSITIONS)
+        position: React.PropTypes.oneOf(['top left', 'top center', 'top right', 'right center',
+                'bottom right', 'bottom center', 'bottom left', 'left center'])
     };
     
     static defaultProps = {

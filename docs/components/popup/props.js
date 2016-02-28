@@ -13,17 +13,6 @@ exports.popup = {
                 "computed": false
             }
         },
-        "autoCloseWhenOffScreen": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "Hide popup when target element scrolls off the screen",
-            "defaultValue": {
-                "value": "true",
-                "computed": false
-            }
-        },
         "autoPosition": {
             "type": {
                 "name": "bool"
@@ -75,6 +64,17 @@ exports.popup = {
                 "computed": false
             }
         },
+        "onRequestClose": {
+            "type": {
+                "name": "func"
+            },
+            "required": false,
+            "description": "Callback when popup wants to be closed (i.e. when offscreen or clicked outside)",
+            "defaultValue": {
+                "value": "() => {}",
+                "computed": false
+            }
+        },
         "prefer": {
             "type": {
                 "name": "enum",
@@ -96,23 +96,23 @@ exports.popup = {
                 "computed": false
             }
         },
-        "onRequestClose": {
-            "type": {
-                "name": "func"
-            },
-            "required": false,
-            "description": "Callback when popup wants to be closed (i.e. when offscreen or clicked outside)",
-            "defaultValue": {
-                "value": "() => {}",
-                "computed": false
-            }
-        },
         "preventElementClicks": {
             "type": {
                 "name": "bool"
             },
             "required": false,
             "description": "If true will prevent clicking on the other elements",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
+        "requestCloseWhenOffScreen": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Hide popup when target element scrolls off the screen",
             "defaultValue": {
                 "value": "true",
                 "computed": false
