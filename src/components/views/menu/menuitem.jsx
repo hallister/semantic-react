@@ -33,10 +33,6 @@ MenuItem.propTypes = {
      */
     color: React.PropTypes.string,
     /**
-     * On menu option click callback. Usually you shouldn't use it and lever on Menu callbacks instead
-     */
-    onClick: React.PropTypes.func,
-    /**
      * Item value
      */
     value: React.PropTypes.oneOfType([
