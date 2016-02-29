@@ -2,8 +2,6 @@ import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
-import { MenuItem } from './menuitem';
-import { hasChild } from '../../utilities';
 
 let validProps = {
     attached: ['top', 'bottom'],
@@ -49,13 +47,17 @@ export class Menu extends React.Component {
          */
         inverted: React.PropTypes.bool,
         /**
-         * Callback for menu item click (regardless active or not active)
+         * Menu active value
          */
-        onMenuItemClick: React.PropTypes.func,
+        menuValue: React.PropTypes.any,
         /**
          * Callback for active item change. It will not fire if clicking at already active item
          */
         onMenuChange: React.PropTypes.func,
+        /**
+         * Callback for menu item click (regardless active or not active)
+         */
+        onMenuItemClick: React.PropTypes.func,
         /**
          * A pagination menu is specially formatted to present links to pages of content 
          */
@@ -81,10 +83,6 @@ export class Menu extends React.Component {
          */
         text: React.PropTypes.bool,
         /**
-         * Menu active value
-         */
-        value: React.PropTypes.any,
-        /**
          * A vertical menu displays elements vertically..
          */
         vertical: React.PropTypes.bool
@@ -108,7 +106,7 @@ export class Menu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeItem: props.value
+            activeItem: props.menuValue
         }
     }
     
@@ -119,9 +117,9 @@ export class Menu extends React.Component {
     }
     
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value) {
+        if (nextProps.menuValue) {
             this.setState({
-                activeItem: nextProps.value
+                activeItem: nextProps.menuValue
             });
         }
     }
@@ -142,23 +140,23 @@ export class Menu extends React.Component {
     
     renderChildren() {
         // If this is not controlled menu do not do anything with childs
-        if (typeof this.props.value === 'undefined') {
+        if (typeof this.props.menuValue === 'undefined') {
             return this.props.children;
         }
         
         // should deep traverse?
         let newChildren = React.Children.map(this.props.children, child => {
-            // Process if a child is MenuItem
-            if (child.type === MenuItem && typeof child.props.value !== 'undefined') {
+            // Process if a child has menuValue property
+            if (typeof child.props.menuValue !== 'undefined') {
                 return React.cloneElement(child, {
-                    active: this.state.activeItem === child.props.value,
-                    key: child.props.value,
-                    onClick: this.onMenuItemClick.bind(this, child.props.value)
+                    active: this.state.activeItem === child.props.menuValue,
+                    key: child.props.menuValue,
+                    onClick: this.onMenuItemClick.bind(this, child.props.menuValue)
                 });
             } else {
                 // Menu could contain non items, for example divider, pass it untouched (only add key)
                 return React.cloneElement(child, {
-                    key: child.props.children
+                    key: (typeof child.props.key !== 'undefined') ? child.props.key : child.props.children
                 });
             }
         });
@@ -170,7 +168,7 @@ export class Menu extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let { attached, borderless, component, even, fitted, fixed, fluid, inverted, pagination,
-            pointing, right, secondary, tabular, text, value, vertical, ...other } = this.props;
+            pointing, right, secondary, tabular, text, menuValue, vertical, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());

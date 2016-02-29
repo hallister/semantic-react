@@ -9,7 +9,7 @@ import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 let consumedProps = {
     active: true,
     color: 'green',
-    value: 'test'
+    menuValue: 'test'
 };
 
 describe('MenuItem', () => {
@@ -40,9 +40,9 @@ describe('MenuItem', () => {
     });
     
     it('Could contain value as data variable', () => {
-        let wrapper = shallow(<MenuItem value="test"/>);
+        let wrapper = shallow(<MenuItem menuValue="test"/>);
         expect(wrapper.find(Item)).to.have.data('value', 'test');
-        wrapper = shallow(<MenuItem value={5}/>);
+        wrapper = shallow(<MenuItem menuValue={5}/>);
         expect(wrapper.find(Item)).to.have.data('value', 5);
     });
     

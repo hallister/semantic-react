@@ -113,7 +113,7 @@ describe('Menu', () => {
     
     describe('Shouldn\'t have default ui class', () => {
         it('When menu is a child of another menu', () => {
-            let wrapper = shallow(<Menu><Menu /></Menu>)
+            let wrapper = shallow(<Menu><Menu /></Menu>);
             expect(wrapper).to.have.className('ui');
             expect(wrapper.children()).to.have.not.className('ui');
         });
@@ -124,25 +124,25 @@ describe('Menu', () => {
         });
     });
     
-    describe('When value property provided', () => {
+    describe('When menuValue property provided', () => {
         let childrens = [];
         childrens.push(<MenuItem className="first"
                                  key={1} 
-                                 value={1}>First</MenuItem>);
+                                 menuValue={1}>First</MenuItem>);
         childrens.push(<MenuItem className="second"
                                  key={2} 
-                                 value={2}>Second</MenuItem>);
+                                 menuValue={2}>Second</MenuItem>);
         childrens.push(<MenuItem className="third"
                                  key={3} 
-                                 value={3}>Third</MenuItem>);
+                                 menuValue={3}>Third</MenuItem>);
         
         it('Should set activeItem state to the provided value', () => {
-            let wrapper = shallow(<Menu value={1}>{childrens}</Menu>);
+            let wrapper = shallow(<Menu menuValue={1}>{childrens}</Menu>);
             expect(wrapper).to.have.state('activeItem', 1);
         });
         
         it('Should add click handlers to MenuItem childs', () => {
-            let wrapper = shallow(<Menu value={1}>{childrens}</Menu>);
+            let wrapper = shallow(<Menu menuValue={1}>{childrens}</Menu>);
             expect(wrapper).to.have.exactly(3).descendants(MenuItem);
             expect(wrapper.find(MenuItem).at(0)).to.have.prop('onClick');
             expect(wrapper.find(MenuItem).at(1)).to.have.prop('onClick');
@@ -150,9 +150,9 @@ describe('Menu', () => {
         });
         
         it('Should render MenuItem as active when MenuItem value is matched by provided value', () => {
-            let wrapper = shallow(<Menu value={1}>{childrens}</Menu>);
+            let wrapper = shallow(<Menu menuValue={1}>{childrens}</Menu>);
             expect(wrapper.find(MenuItem).at(0)).to.have.prop('active', true);
-            wrapper = shallow(<Menu value={3}>{childrens}</Menu>);
+            wrapper = shallow(<Menu menuValue={3}>{childrens}</Menu>);
             expect(wrapper.find(MenuItem).at(2)).to.have.prop('active', true);
             expect(wrapper.find(MenuItem).at(0)).to.have.prop('active', false);
         });
@@ -165,7 +165,7 @@ describe('Menu', () => {
             it('Should fire onMenuItemClick callback', () => {
                 let onMenuItemClickStub = sinon.stub();
                 let wrapper = shallow(
-                    <Menu value={1}
+                    <Menu menuValue={1}
                           onMenuItemClick={onMenuItemClickStub}
                     >
                         {childrens}
@@ -180,7 +180,7 @@ describe('Menu', () => {
             it('Shouldn\'t fire onMenuChange callback', () => {
                 let onMenuChangeStub = sinon.stub();
                 let wrapper = shallow(
-                    <Menu value={1}
+                    <Menu menuValue={1}
                           onMenuChange={onMenuChangeStub}
                     >
                         {childrens}
@@ -200,7 +200,7 @@ describe('Menu', () => {
             it('Should fire onMenuItemSelect callback', () => {
                 let onMenuItemClickStub = sinon.stub();
                 let wrapper = shallow(
-                    <Menu value={1}
+                    <Menu menuValue={1}
                           onMenuItemClick={onMenuItemClickStub}
                     >
                         {childrens}
@@ -214,7 +214,7 @@ describe('Menu', () => {
             it('Should fire onMenuChange callback', () => {
                 let onMenuChangeStub = sinon.stub();
                 let wrapper = shallow(
-                    <Menu value={1}
+                    <Menu menuValue={1}
                           onMenuChange={onMenuChangeStub}
                     >
                         {childrens}
@@ -226,7 +226,7 @@ describe('Menu', () => {
             });
             it('Should set activeItem to the new value and rerended active menuitem', () => {
                 let wrapper = shallow(
-                    <Menu value={1}>
+                    <Menu menuValue={1}>
                         {childrens}
                     </Menu>
                 );

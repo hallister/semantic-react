@@ -11132,8 +11132,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _defaultProps = __webpack_require__(94);
 	
-	var _menuitem = __webpack_require__(102);
-	
 	var validProps = {
 	    attached: ['top', 'bottom'],
 	    fitted: ['horizontally', 'vertically']
@@ -11179,13 +11177,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	             */
 	            inverted: _react2['default'].PropTypes.bool,
 	            /**
-	             * Callback for menu item click (regardless active or not active)
+	             * Menu active value
 	             */
-	            onMenuItemClick: _react2['default'].PropTypes.func,
+	            menuValue: _react2['default'].PropTypes.any,
 	            /**
 	             * Callback for active item change. It will not fire if clicking at already active item
 	             */
 	            onMenuChange: _react2['default'].PropTypes.func,
+	            /**
+	             * Callback for menu item click (regardless active or not active)
+	             */
+	            onMenuItemClick: _react2['default'].PropTypes.func,
 	            /**
 	             * A pagination menu is specially formatted to present links to pages of content 
 	             */
@@ -11210,10 +11212,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	             * A menu can be formatted for text content
 	             */
 	            text: _react2['default'].PropTypes.bool,
-	            /**
-	             * Menu active value
-	             */
-	            value: _react2['default'].PropTypes.any,
 	            /**
 	             * A vertical menu displays elements vertically..
 	             */
@@ -11247,7 +11245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        _get(Object.getPrototypeOf(Menu.prototype), 'constructor', this).call(this, props);
 	        this.state = {
-	            activeItem: props.value
+	            activeItem: props.menuValue
 	        };
 	    }
 	
@@ -11261,9 +11259,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(nextProps) {
-	            if (nextProps.value) {
+	            if (nextProps.menuValue) {
 	                this.setState({
-	                    activeItem: nextProps.value
+	                    activeItem: nextProps.menuValue
 	                });
 	            }
 	        }
@@ -11287,23 +11285,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var _this = this;
 	
 	            // If this is not controlled menu do not do anything with childs
-	            if (typeof this.props.value === 'undefined') {
+	            if (typeof this.props.menuValue === 'undefined') {
 	                return this.props.children;
 	            }
 	
 	            // should deep traverse?
 	            var newChildren = _react2['default'].Children.map(this.props.children, function (child) {
-	                // Process if a child is MenuItem
-	                if (child.type === _menuitem.MenuItem && typeof child.props.value !== 'undefined') {
+	                // Process if a child has menuValue property
+	                if (typeof child.props.menuValue !== 'undefined') {
 	                    return _react2['default'].cloneElement(child, {
-	                        active: _this.state.activeItem === child.props.value,
-	                        key: child.props.value,
-	                        onClick: _this.onMenuItemClick.bind(_this, child.props.value)
+	                        active: _this.state.activeItem === child.props.menuValue,
+	                        key: child.props.menuValue,
+	                        onClick: _this.onMenuItemClick.bind(_this, child.props.menuValue)
 	                    });
 	                } else {
 	                    // Menu could contain non items, for example divider, pass it untouched (only add key)
 	                    return _react2['default'].cloneElement(child, {
-	                        key: child.props.children
+	                        key: typeof child.props.key !== 'undefined' ? child.props.key : child.props.children
 	                    });
 	                }
 	            });
@@ -11329,10 +11327,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var secondary = _props.secondary;
 	            var tabular = _props.tabular;
 	            var text = _props.text;
-	            var value = _props.value;
+	            var menuValue = _props.menuValue;
 	            var vertical = _props.vertical;
 	
-	            var other = _objectWithoutProperties(_props, ['attached', 'borderless', 'component', 'even', 'fitted', 'fixed', 'fluid', 'inverted', 'pagination', 'pointing', 'right', 'secondary', 'tabular', 'text', 'value', 'vertical']);
+	            var other = _objectWithoutProperties(_props, ['attached', 'borderless', 'component', 'even', 'fitted', 'fixed', 'fluid', 'inverted', 'pagination', 'pointing', 'right', 'secondary', 'tabular', 'text', 'menuValue', 'vertical']);
 	
 	            /* eslint-enable no-use-before-define */
 	
@@ -11434,9 +11432,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MenuItem = function MenuItem(_ref) {
 	    var active = _ref.active;
 	    var color = _ref.color;
-	    var value = _ref.value;
+	    var menuValue = _ref.menuValue;
 	
-	    var other = _objectWithoutProperties(_ref, ['active', 'color', 'value']);
+	    var other = _objectWithoutProperties(_ref, ['active', 'color', 'menuValue']);
 	
 	    var classes = {
 	        active: active
@@ -11447,7 +11445,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    other.className = (0, _classnames2['default'])(other.className, classes);
 	
 	    return _react2['default'].createElement(_itemItem.Item, _extends({}, other, {
-	        'data-value': value,
+	        'data-value': menuValue,
 	        link: true }));
 	};
 	
@@ -11461,9 +11459,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    color: _react2['default'].PropTypes.string,
 	    /**
-	     * Item value
+	     * Item value (used in controlled menu)
 	     */
-	    value: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.string])
+	    menuValue: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.string])
 	});
 	
 	MenuItem.defaultProps = _extends({}, _itemItem.Item.defaultProps);

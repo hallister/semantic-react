@@ -6,7 +6,7 @@ import { Item } from '../item/item';
 /**
  * Menu/Dropdown item
  */
-let MenuItem = ({ active, color, value, ...other }) => {
+let MenuItem = ({ active, color, menuValue, ...other }) => {
     let classes = {
         active: active
     };
@@ -16,7 +16,7 @@ let MenuItem = ({ active, color, value, ...other }) => {
     other.className = classNames(other.className, classes);
     
     return (<Item {...other} 
-            data-value={value}
+            data-value={menuValue}
             link />
     );
     
@@ -33,9 +33,9 @@ MenuItem.propTypes = {
      */
     color: React.PropTypes.string,
     /**
-     * Item value
+     * Item value (used in controlled menu)
      */
-    value: React.PropTypes.oneOfType([
+    menuValue: React.PropTypes.oneOfType([
         React.PropTypes.number,
         React.PropTypes.string
     ])
