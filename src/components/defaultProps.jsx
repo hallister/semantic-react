@@ -26,7 +26,7 @@ export const defaultPropTypes = {
     /**
      * Additional CSS ui classes
      */
-    className: React.PropTypes.node
+    className: React.PropTypes.string
 };
 
 /**

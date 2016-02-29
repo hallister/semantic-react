@@ -1,101 +1,25 @@
 /* eslint-disable */
 exports.item = {
-    "description": "",
+    "description": "Item is collection of elements. It could be menu/dropdown item or part ofr <Items /> collection",
     "props": {
-        "active": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "children": {
-            "type": {
-                "name": "node"
-            },
-            "required": false,
-            "description": ""
-        },
-        "className": {
-            "type": {
-                "name": "union",
-                "value": [
-                    {
-                        "name": "node"
-                    },
-                    {
-                        "name": "object"
-                    }
-                ]
-            },
-            "required": false,
-            "description": ""
-        },
-        "color": {
-            "type": {
-                "name": "string"
-            },
-            "required": false,
-            "description": ""
-        },
-        "component": {
-            "type": {
-                "name": "union",
-                "value": [
-                    {
-                        "name": "element"
-                    },
-                    {
-                        "name": "string"
-                    },
-                    {
-                        "name": "func"
-                    }
-                ]
-            },
-            "required": false,
-            "description": ""
-        },
-        "defaultClasses": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "true",
-                "computed": false
-            }
-        },
         "link": {
             "type": {
                 "name": "bool"
             },
             "required": false,
-            "description": ""
-        },
-        "name": {
-            "type": {
-                "name": "string"
-            },
-            "required": false,
-            "description": ""
+            "description": "Make item clickable"
         },
         "onClick": {
             "type": {
                 "name": "func"
             },
             "required": false,
-            "description": ""
-        },
-        "selected": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
+            "description": "Item click handler"
         }
-    }
+    },
+    "composes": [
+        "../../defaultProps"
+    ]
 }
 /* eslint-enable */
 /* eslint-disable */

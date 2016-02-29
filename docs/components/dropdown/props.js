@@ -272,7 +272,7 @@ exports.dropdownmenu = {
 /* eslint-enable */
 /* eslint-disable */
 exports.option = {
-    "description": "",
+    "description": "Select dropdown option",
     "props": {
         "children": {
             "type": {
@@ -288,7 +288,10 @@ exports.option = {
             "required": true,
             "description": ""
         }
-    }
+    },
+    "composes": [
+        "../../views/menu/menuitem"
+    ]
 }
 /* eslint-enable */
 /* eslint-disable */
