@@ -6,7 +6,7 @@ import { Item } from '../item/item';
 /**
  * Menu/Dropdown item
  */
-let MenuItem = ({ active, color, value, onClick, ...other }) => {
+let MenuItem = ({ active, color, value, ...other }) => {
     let classes = {
         active: active
     };
