@@ -127,7 +127,10 @@ export class Menu extends React.Component {
     }
 
 
-    onMenuItemClick(value) {
+    onMenuItemClick(value, event) {
+        event.stopPropagation();
+        event.preventDefault();
+        
         this.props.onMenuItemClick(value);
         if (this.state.activeItem !== value) {
             this.setState({
@@ -146,11 +149,11 @@ export class Menu extends React.Component {
         // should deep traverse?
         let newChildren = React.Children.map(this.props.children, child => {
             // Process if a child is MenuItem
-            if (child.type === MenuItem) {
+            if (child.type === MenuItem && typeof child.props.value !== 'undefined') {
                 return React.cloneElement(child, {
                     active: this.state.activeItem === child.props.value,
                     key: child.props.value,
-                    onClick: this.onMenuItemClick.bind(this)
+                    onClick: this.onMenuItemClick.bind(this, child.props.value)
                 });
             } else {
                 // Menu could contain non items, for example divider, pass it untouched (only add key)

@@ -17,9 +17,7 @@ let MenuItem = ({ active, color, value, onClick, ...other }) => {
     
     return (<Item {...other} 
             data-value={value}
-            link
-            onClick={onClick && value ? () => { onClick(value); } : null} // call only if menuitem value provided
-        />
+            link />
     );
     
 };

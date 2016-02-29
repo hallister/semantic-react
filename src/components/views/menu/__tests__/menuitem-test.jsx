@@ -46,27 +46,5 @@ describe('MenuItem', () => {
         expect(wrapper.find(Item)).to.have.data('value', 5);
     });
     
-    describe('When clicking an item', () => {
-        it('Should call onClick with value if provided', () => {
-            let onClickStub = sinon.stub();
-            let wrapper = shallow(
-                <MenuItem value="test"
-                          onClick={onClickStub} />
-            );
-            wrapper.simulate('click');
-            expect(onClickStub).to.have.been.calledWith('test');
-            
-        });
-        
-        it('Shouldn\'t call onClick if value wasn\'t provided', () => {
-            let onClickStub = sinon.stub();
-            let wrapper = shallow(
-                <MenuItem onClick={onClickStub} />
-            );
-            wrapper.simulate('click');
-            expect(onClickStub).to.have.not.been.called;
-        });
-    });
-    
     itShouldConsumeOwnAndPassCustomProps(MenuItem, consumedProps);
 });

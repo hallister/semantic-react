@@ -158,6 +158,10 @@ describe('Menu', () => {
         });
         
         describe('When clicking on active MenuItem', () => {
+            let eventStub = {
+                stopPropagation: sinon.stub(),
+                preventDefault: sinon.stub()
+            };
             it('Should fire onMenuItemClick callback', () => {
                 let onMenuItemClickStub = sinon.stub();
                 let wrapper = shallow(
@@ -168,7 +172,7 @@ describe('Menu', () => {
                     </Menu>
                 );
                 
-                wrapper.find('.first').props().onClick(1);
+                wrapper.find('.first').simulate('click', eventStub);
                 expect(onMenuItemClickStub).to.have.been.called;
                 
             });
@@ -183,12 +187,16 @@ describe('Menu', () => {
                     </Menu>
                 );
 
-                wrapper.find('.first').props().onClick(1);
+                wrapper.find('.first').simulate('click', eventStub);
                 expect(onMenuChangeStub).to.have.not.been.called;
             });
         });
         
         describe('When clicking on non-active MenuItem', () => {
+            let eventStub = {
+                stopPropagation: sinon.stub(),
+                preventDefault: sinon.stub()
+            };
             it('Should fire onMenuItemSelect callback', () => {
                 let onMenuItemClickStub = sinon.stub();
                 let wrapper = shallow(
@@ -199,7 +207,7 @@ describe('Menu', () => {
                     </Menu>
                 );
 
-                wrapper.find('.second').props().onClick(2);
+                wrapper.find('.second').simulate('click', eventStub);
                 expect(onMenuItemClickStub).to.have.been.called;
             });
 
@@ -213,7 +221,7 @@ describe('Menu', () => {
                     </Menu>
                 );
 
-                wrapper.find('.second').props().onClick(2);
+                wrapper.find('.second').simulate('click', eventStub);
                 expect(onMenuChangeStub).to.have.been.called;
             });
             it('Should set activeItem to the new value and rerended active menuitem', () => {
@@ -223,7 +231,7 @@ describe('Menu', () => {
                     </Menu>
                 );
 
-                wrapper.find('.second').props().onClick(2);
+                wrapper.find('.second').simulate('click', eventStub);
                 expect(wrapper).to.have.state('activeItem', 2);
                 wrapper.update();
                 expect(wrapper.find(MenuItem).at(0)).to.have.prop('active', false);
