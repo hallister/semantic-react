@@ -42,7 +42,8 @@ export default class Search extends React.Component {
         results: React.PropTypes.oneOfType([
             React.PropTypes.array,
             React.PropTypes.object
-        ])
+        ]),
+        value: React.PropTypes.string
     };
 
     static defaultProps = {
@@ -56,108 +57,76 @@ export default class Search extends React.Component {
             opacity: 0,
             scale: 0
         },
+        icon: 'search',
         onSearchClick: function noop() {},
-        placeholder: 'Search...'
+        placeholder: 'Search...',
+        value: ''
     };
 
     constructor(props) {
         super(props);
 
-        // see shouldComponentUpdate
-        this.results = false;
-
         this.state = {
             focus: false
-        }
-    }
-
-    shouldComponentUpdate(props, state) {
-        // if the results are identical, don't rerender
-        // if the new state is inactive, we may be trying to blur
-        if (this.props.results === props.results && state.active) {
-            return false;
-        }
-
-        // if the search box is empty, don't allow re-rendering of results
-        // while the box animates closed
-        if (this.searchInput && this.searchInput.value === '') {
-            this.results = this.props.results;
-        } else {
-            this.results = false;
-        }
-
-        return true;
+        };
     }
 
     onBlur() {
-        this.setState({
-            focus: false
-        });
-    }
-
-    onChange(e) {
-        if (e.target.value === '') {
+        if (this.state.focus) {
             this.setState({
                 focus: false
             });
-        } else {
-            this.setState({
-                focus: true
-            });
-            this.props.onChange(e);
         }
     }
 
-    onFocus() {
+    onChange(e) {
         this.setState({
-            focus: true
+            focus: e.target.value !== ''
+        });
+
+        this.props.onChange(e);
+    }
+
+    onFocus(e) {
+        this.setState({
+            focus: e.target.value !== ''
         });
     }
 
     onSearchClick(e, child) {
-        this.searchInput.value = child;
-
         this.props.onSearchClick(e, child);
     }
 
     renderChildren() {
-        if (this.props.icon || this.props.loading) {
-            return this.renderIconInput();
-        } else {
-            return this.renderInput();
-        }
-    }
-
-    renderIconInput() {
         return (
-            <div className="ui icon input">
-                {this.renderInput()}
-                <Icon name={this.props.icon || 'search'} />
+            <div className="ui icon input" key='searchInput' >
+                <input className="prompt"
+                    onBlur={this.onBlur.bind(this)}
+                    onChange={this.onChange.bind(this)}
+                    onFocus={this.onFocus.bind(this)}
+                    placeholder={this.props.placeholder}
+                    value={this.props.value}
+                    type="text" />
+                {this.renderInputIcon()}
             </div>
         );
     }
 
-    renderInput() {
-        return (
-            <input className="prompt"
-                key="searchPrompt"
-                onBlur={this.onBlur.bind(this)}
-                onChange={this.onChange.bind(this)}
-                onFocus={this.onFocus.bind(this)}
-                placeholder={this.props.placeholder}
-                ref={(ref) => this.searchInput = ref}
-                type="text" />
-        );
+    renderInputIcon() {
+        if (!this.props.icon) return null;
+
+        return <Icon name={this.props.icon} />;
     }
 
     renderResults() {
         let props = {
+            animate: this.state.focus && this.props.value !== '',
             emptyHeader: this.props.emptyHeader,
             emptyMessage: this.props.emptyMessage,
             key: 'searchResults',
             onSearchClick: this.onSearchClick.bind(this),
-            results: this.results || this.props.results,
-            search: this.searchInput ? this.searchInput.value : ''
+            results: this.state.focus ? this.props.results : [],
+            search: this.props.value || '',
         };
 
         return (
@@ -196,12 +165,13 @@ export default class Search extends React.Component {
     getClasses() {
         return {
             ui: this.props.defaultClasses,
+            search: this.props.defaultClasses,
 
+            // state
+            loading: this.props.loading,
             focus: this.state.focus,
 
-            category: !Array.isArray(this.props.results),
-
-            search: this.props.defaultClasses
+            category: !Array.isArray(this.props.results)
         };
     }
 

@@ -45,9 +45,9 @@ export default class Results extends React.Component {
         }
     }
 
-    renderArray() {
-        let results = arguments[0] || this.props.results;
-
+    renderArray(results) {
+        results = results || this.props.results;
+        
         return results.map((child, key) => {
             let description = null;
             let title = typeof child === 'object' ? child.title : child;
