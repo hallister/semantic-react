@@ -62,7 +62,7 @@ exports.rating = {
                 "name": "number"
             },
             "required": false,
-            "description": "",
+            "description": "Max stars count",
             "defaultValue": {
                 "value": "5",
                 "computed": false
@@ -81,6 +81,20 @@ exports.rating = {
             },
             "required": false,
             "description": ""
+        },
+        "value": {
+            "type": {
+                "name": "number"
+            },
+            "required": false,
+            "description": "Current stars count"
+        },
+        "onChange": {
+            "type": {
+                "name": "func"
+            },
+            "required": false,
+            "description": "Callback on click to star"
         }
     }
 }
