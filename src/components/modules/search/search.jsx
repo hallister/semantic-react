@@ -93,9 +93,9 @@ export default class Search extends React.Component {
         this.props.onSearchClick(e, child);
     }
 
-    renderChildren() {
+    renderInput() {
         return (
-            <div className="ui icon input" key='searchInput' >
+            <div className={this.getClassesInput()} key='searchInput' >
                 <input className="prompt"
                     onBlur={this.onBlur.bind(this)}
                     onChange={this.onChange.bind(this)}
@@ -106,6 +106,12 @@ export default class Search extends React.Component {
                 {this.renderInputIcon()}
             </div>
         );
+    }
+
+    getClassesInput() {
+        return classNames('ui input', {
+            icon: Boolean(this.props.icon)
+        });
     }
 
     renderInputIcon() {
@@ -152,7 +158,7 @@ export default class Search extends React.Component {
             this.props.component,
             other,
             [
-                this.renderChildren(),
+                this.renderInput(),
                 this.renderResults()
             ]
         );
