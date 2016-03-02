@@ -2,6 +2,43 @@
 exports.menu = {
     "description": "Menu. Could be simple or controlled. Controlled menu will be activated by providing value property and will manage\r\ncurrent active item and fire onChange callback when value was changed",
     "props": {
+        "children": {
+            "type": {
+                "name": "node"
+            },
+            "required": false,
+            "description": "Children nodes"
+        },
+        "component": {
+            "type": {
+                "name": "custom",
+                "raw": "elementType"
+            },
+            "required": false,
+            "description": "Use other component for composing results\r\n@example\r\n<Grid component={Container}>...</Grid>",
+            "defaultValue": {
+                "value": "'div'",
+                "computed": false
+            }
+        },
+        "defaultClasses": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Apply default semantic UI classes for component, for example ui button",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
+        "className": {
+            "type": {
+                "name": "string"
+            },
+            "required": false,
+            "description": "Additional CSS ui classes"
+        },
         "attached": {
             "type": {
                 "name": "enum",
@@ -79,16 +116,12 @@ exports.menu = {
             "required": false,
             "description": "A menu may have its colors inverted to show greater contrast"
         },
-        "onMenuItemClick": {
+        "menuValue": {
             "type": {
-                "name": "func"
+                "name": "any"
             },
             "required": false,
-            "description": "Callback for menu item click (regardless active or not active)",
-            "defaultValue": {
-                "value": "() => {}",
-                "computed": false
-            }
+            "description": "Menu active value"
         },
         "onMenuChange": {
             "type": {
@@ -96,6 +129,17 @@ exports.menu = {
             },
             "required": false,
             "description": "Callback for active item change. It will not fire if clicking at already active item",
+            "defaultValue": {
+                "value": "() => {}",
+                "computed": false
+            }
+        },
+        "onMenuItemClick": {
+            "type": {
+                "name": "func"
+            },
+            "required": false,
+            "description": "Callback for menu item click (regardless active or not active)",
             "defaultValue": {
                 "value": "() => {}",
                 "computed": false
@@ -143,13 +187,6 @@ exports.menu = {
             "required": false,
             "description": "A menu can be formatted for text content"
         },
-        "value": {
-            "type": {
-                "name": "any"
-            },
-            "required": false,
-            "description": "Menu active value"
-        },
         "vertical": {
             "type": {
                 "name": "bool"
@@ -167,6 +204,57 @@ exports.menu = {
 exports.menuitem = {
     "description": "Menu/Dropdown item",
     "props": {
+        "children": {
+            "type": {
+                "name": "node"
+            },
+            "required": false,
+            "description": "Children nodes"
+        },
+        "component": {
+            "type": {
+                "name": "custom",
+                "raw": "elementType"
+            },
+            "required": false,
+            "description": "Use other component for composing results\r\n@example\r\n<Grid component={Container}>...</Grid>",
+            "defaultValue": {
+                "value": "'div'",
+                "computed": false
+            }
+        },
+        "defaultClasses": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Apply default semantic UI classes for component, for example ui button",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
+        "className": {
+            "type": {
+                "name": "string"
+            },
+            "required": false,
+            "description": "Additional CSS ui classes"
+        },
+        "link": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Make item clickable"
+        },
+        "onClick": {
+            "type": {
+                "name": "func"
+            },
+            "required": false,
+            "description": "Item click handler"
+        },
         "active": {
             "type": {
                 "name": "bool"
@@ -181,14 +269,7 @@ exports.menuitem = {
             "required": false,
             "description": "Item color"
         },
-        "onClick": {
-            "type": {
-                "name": "func"
-            },
-            "required": false,
-            "description": "On menu option click callback. Usually you shouldn't use it and lever on Menu callbacks instead"
-        },
-        "value": {
+        "menuValue": {
             "type": {
                 "name": "union",
                 "value": [
@@ -201,7 +282,7 @@ exports.menuitem = {
                 ]
             },
             "required": false,
-            "description": "Item value"
+            "description": "Item value (used in controlled menu)"
         }
     },
     "composes": [

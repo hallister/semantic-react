@@ -281,6 +281,79 @@ exports.option = {
             "required": false,
             "description": ""
         },
+        "component": {
+            "type": {
+                "name": "custom",
+                "raw": "elementType"
+            },
+            "required": false,
+            "description": "Use other component for composing results\r\n@example\r\n<Grid component={Container}>...</Grid>",
+            "defaultValue": {
+                "value": "'div'",
+                "computed": false
+            }
+        },
+        "defaultClasses": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Apply default semantic UI classes for component, for example ui button",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
+        "className": {
+            "type": {
+                "name": "string"
+            },
+            "required": false,
+            "description": "Additional CSS ui classes"
+        },
+        "link": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Make item clickable"
+        },
+        "onClick": {
+            "type": {
+                "name": "func"
+            },
+            "required": false,
+            "description": "Item click handler"
+        },
+        "active": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Is item active"
+        },
+        "color": {
+            "type": {
+                "name": "string"
+            },
+            "required": false,
+            "description": "Item color"
+        },
+        "menuValue": {
+            "type": {
+                "name": "union",
+                "value": [
+                    {
+                        "name": "number"
+                    },
+                    {
+                        "name": "string"
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Item value (used in controlled menu)"
+        },
         "value": {
             "type": {
                 "name": "string"

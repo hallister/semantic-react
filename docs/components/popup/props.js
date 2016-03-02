@@ -2,6 +2,160 @@
 exports.popup = {
     "description": "Popup with animations",
     "props": {
+        "children": {
+            "type": {
+                "name": "node"
+            },
+            "required": false,
+            "description": "Children nodes"
+        },
+        "component": {
+            "type": {
+                "name": "custom",
+                "raw": "elementType"
+            },
+            "required": false,
+            "description": "Use other component for composing results\r\n@example\r\n<Grid component={Container}>...</Grid>",
+            "defaultValue": {
+                "value": "'div'",
+                "computed": false
+            }
+        },
+        "defaultClasses": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Apply default semantic UI classes for component, for example ui button",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
+        "className": {
+            "type": {
+                "name": "string"
+            },
+            "required": false,
+            "description": "Additional CSS ui classes"
+        },
+        "basic": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Basic popup variation"
+        },
+        "fluid": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Fluid popup"
+        },
+        "flowing": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "No maximum width and continue to flow to fit its content"
+        },
+        "inverted": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Inverted popup"
+        },
+        "size": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'mini'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'tiny'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'small'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'large'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'huge'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Popup size"
+        },
+        "wide": {
+            "type": {
+                "name": "union",
+                "value": [
+                    {
+                        "name": "bool"
+                    },
+                    {
+                        "name": "string"
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Make content of popup wide"
+        },
+        "position": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'top left'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'top center'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'top right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'right center'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom center'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom left'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'left center'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Popup position",
+            "defaultValue": {
+                "value": "'top left'",
+                "computed": false
+            }
+        },
         "active": {
             "type": {
                 "name": "bool"
@@ -146,6 +300,43 @@ exports.popup = {
 exports.popupelement = {
     "description": "Popup component without animation transitions",
     "props": {
+        "children": {
+            "type": {
+                "name": "node"
+            },
+            "required": false,
+            "description": "Children nodes"
+        },
+        "component": {
+            "type": {
+                "name": "custom",
+                "raw": "elementType"
+            },
+            "required": false,
+            "description": "Use other component for composing results\r\n@example\r\n<Grid component={Container}>...</Grid>",
+            "defaultValue": {
+                "value": "'div'",
+                "computed": false
+            }
+        },
+        "defaultClasses": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Apply default semantic UI classes for component, for example ui button",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
+        "className": {
+            "type": {
+                "name": "string"
+            },
+            "required": false,
+            "description": "Additional CSS ui classes"
+        },
         "basic": {
             "type": {
                 "name": "bool"
