@@ -27,6 +27,12 @@ module.exports = {
             commonjs2: 'react/lib/ReactTransitionGroup',
             commonjs: 'react/lib/ReactTransitionGroup',
             amd: 'react/lib/ReactTransitionGroup'
+        },
+        'radium': {
+            root: 'Radium',
+            commonjs2: 'radium',
+            commonjs: 'radium',
+            amd: 'radium'
         }
     },
     plugins: [
