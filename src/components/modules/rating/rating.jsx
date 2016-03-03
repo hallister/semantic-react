@@ -13,7 +13,8 @@ export class Rating extends React.Component {
         heart: React.PropTypes.bool,
         max: React.PropTypes.number,
         size: React.PropTypes.string,
-        star: React.PropTypes.bool
+        star: React.PropTypes.bool,
+        value: React.PropTypes.number
     };
 
     static defaultProps = {
@@ -27,7 +28,7 @@ export class Rating extends React.Component {
         super(props);
 
         this.state = {
-            active: null
+            active: props.value || null
         };
     }
 

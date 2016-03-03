@@ -23,10 +23,12 @@ export default class Icon extends React.Component {
         fitted: React.PropTypes.bool,
         flipped: React.PropTypes.oneOf(['horizontally', 'vertically']),
         inverted: React.PropTypes.bool,
+        left: React.PropTypes.bool,
         link: React.PropTypes.bool,
         loading: React.PropTypes.bool,
         name: React.PropTypes.string.isRequired,
         onClick: React.PropTypes.func,
+        right: React.PropTypes.bool,
         rotated: React.PropTypes.oneOf(['clockwise', 'counterclockwise']),
         size: React.PropTypes.string
     };
@@ -59,9 +61,11 @@ export default class Icon extends React.Component {
             corner: this.props.corner,
             disabled: this.props.disabled,
             fitted: this.props.fitted,
+            left: this.props.left,
             link: this.props.link || this.props.onClick,
             inverted: this.props.inverted,
             loading: this.props.loading,
+            right: this.props.right,
 
             // component
             icon: this.props.defaultClasses

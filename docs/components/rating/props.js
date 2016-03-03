@@ -81,7 +81,14 @@ exports.rating = {
             },
             "required": false,
             "description": ""
-        }
+        },
+        "value": {
+            "type": {
+                "name": "number"
+            },
+            "required": false,
+            "description": "The (initial) value of the component"
+        },
     }
 }
 /* eslint-enable */

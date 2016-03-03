@@ -30,7 +30,7 @@ export default class LabeledButton extends React.Component {
         positive: React.PropTypes.bool,
         primary: React.PropTypes.bool,
         secondary: React.PropTypes.bool,
-        size: React.PropTypes.string,
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         social: React.PropTypes.string
     };
 

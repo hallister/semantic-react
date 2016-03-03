@@ -1,4 +1,6 @@
 import React from 'react';
+import { Icon } from '../../elements';
+import { hasChild } from '../../utilities';
 import classNames from 'classnames';
 
 export class Item extends React.Component {
@@ -12,9 +14,14 @@ export class Item extends React.Component {
         color: React.PropTypes.string,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
-            React.PropTypes.string
+            React.PropTypes.string,
+            React.PropTypes.func
         ]),
         defaultClasses: React.PropTypes.bool,
+        fitted: React.PropTypes.oneOfType([
+            React.PropTypes.bool,
+            React.PropTypes.oneOf(['horizontally', 'vertically'])
+        ]),
         link: React.PropTypes.bool,
         name: React.PropTypes.string,
         onClick: React.PropTypes.func,
@@ -58,6 +65,7 @@ export class Item extends React.Component {
             // content
 
             // variations
+            icon: hasChild(this.props.children, Icon),
 
             // component
             item: this.props.defaultClasses

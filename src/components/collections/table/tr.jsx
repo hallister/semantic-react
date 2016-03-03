@@ -1,7 +1,7 @@
 import React from 'react';
 import { Td } from './td';
 
-let tr = (props) => {
+let Tr = (props) => {
     return (
         <Td
             {...props}
@@ -12,7 +12,7 @@ let tr = (props) => {
     );
 };
 
-tr.propTypes = {
+Tr.propTypes = {
     children: React.PropTypes.node,
     component: React.PropTypes.oneOfType([
         React.PropTypes.element,
@@ -20,8 +20,8 @@ tr.propTypes = {
     ])
 }
 
-tr.defaultProps = {
+Tr.defaultProps = {
     component: 'tr'
 }
 
-exports.Tr = tr;
+exports.Tr = Tr;

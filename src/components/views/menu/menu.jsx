@@ -5,7 +5,8 @@ import classNames from 'classnames';
 
 let validProps = {
     attached: ['top', 'bottom'],
-    fitted: ['horizontally', 'vertically']
+    fitted: ['horizontally', 'vertically'],
+    floated: ['right', 'left']
 };
 
 @Animate
@@ -21,7 +22,8 @@ export class Menu extends React.Component {
         className: React.PropTypes.node,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
-            React.PropTypes.string
+            React.PropTypes.string,
+            React.PropTypes.func
         ]),
         defaultClasses: React.PropTypes.bool,
         end: React.PropTypes.shape({
@@ -36,6 +38,7 @@ export class Menu extends React.Component {
             React.PropTypes.oneOf(['horizontally', 'vertically'])
         ]),
         fixed: React.PropTypes.bool,
+        floated: React.PropTypes.oneOf(['right', 'left']),
         fluid: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         pagination: React.PropTypes.bool,
@@ -117,6 +120,7 @@ export class Menu extends React.Component {
             secondary: this.props.secondary,
             tabular: this.props.tabular,
             vertical: this.props.vertical,
+            floated: this.props.floated,
             fluid: this.props.fluid,
             fixed: this.props.fixed,
             fitted: this.props.fitted,

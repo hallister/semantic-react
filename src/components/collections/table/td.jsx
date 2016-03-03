@@ -26,7 +26,7 @@ function getClasses(props) {
     return validateClassProps(classes, props, validProps);
 }
 
-let td = (props) => {
+let Td = (props) => {
 
     let { children, className, collapsing, component, singleLine, state, type,
         ...other } = props;
@@ -40,7 +40,7 @@ let td = (props) => {
     );
 };
 
-td.propTypes = {
+Td.propTypes = {
     aligned: React.PropTypes.oneOf(['right', 'left', 'center', 'top', 'bottom']),
     className: React.PropTypes.any,
     collapsing: React.PropTypes.bool,
@@ -52,8 +52,8 @@ td.propTypes = {
     type: React.PropTypes.oneOf(['negative', 'positive', 'warning'])
 }
 
-td.defaultProps = {
+Td.defaultProps = {
     component: 'td'
 }
 
-exports.Td = td;
+exports.Td = Td;

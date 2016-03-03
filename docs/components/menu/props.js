@@ -64,6 +64,9 @@ exports.menu = {
                     },
                     {
                         "name": "string"
+                    },
+                    {
+                        "name": "func"
                     }
                 ]
             },

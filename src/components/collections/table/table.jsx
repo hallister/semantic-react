@@ -58,7 +58,7 @@ function getClasses(props) {
     return validateClassProps(classes, props, validProps, { valigned: 'aligned' });
 }
 
-let table = (props) => {
+let Table = (props) => {
     let { basic, celled, children, className, collapsing, compact, component,
           defaultClasses, definition, fixed, inverted, selectable, singleLine,
           stackable, striped, structured, unstackable, valigned,
@@ -78,7 +78,7 @@ let table = (props) => {
     );
 };
 
-table.propTypes = {
+Table.propTypes = {
     aligned: React.PropTypes.oneOf(['top', 'bottom']),
     basic: React.PropTypes.oneOfType([
         React.PropTypes.oneOf(['very']),
@@ -89,7 +89,10 @@ table.propTypes = {
     collapsing: React.PropTypes.bool,
     color: React.PropTypes.string,
     columns: React.PropTypes.number,
-    compact: React.PropTypes.bool,
+    compact: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['very']),
+        React.PropTypes.bool
+    ]),
     component: React.PropTypes.oneOfType([
         React.PropTypes.element,
         React.PropTypes.string
@@ -121,7 +124,7 @@ table.propTypes = {
     width: React.PropTypes.number
 }
 
-table.defaultProps = {
+Table.defaultProps = {
     component: 'table',
     defaultClasses: true,
     stackable: {
@@ -136,4 +139,4 @@ table.defaultProps = {
     }
 }
 
-exports.Table = table;
+exports.Table = Table;

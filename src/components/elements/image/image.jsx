@@ -5,6 +5,7 @@ import classNames from 'classnames';
 let validProps = {
     aligned: ['top', 'middle', 'bottom'],
     floated: ['right', 'left'],
+    size: ['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive'],
     spaced: ['right', 'left']
 };
 
@@ -27,7 +28,7 @@ export default class Image extends React.Component {
         floated: React.PropTypes.oneOf(['right', 'left']),
         fluid: React.PropTypes.bool,
         shape: React.PropTypes.oneOf(['circular', 'rounded']),
-        size: React.PropTypes.string,
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         spaced: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['right', 'left']),
             React.PropTypes.bool
@@ -113,8 +114,6 @@ export default class Image extends React.Component {
             image: this.props.defaultClasses && !this.props.content && this.context.isCommentsChild !== true
 
         };
-
-        classes[this.props.size] = !!this.props.size;
 
         return validateClassProps(classes, this.props, validProps);
     }

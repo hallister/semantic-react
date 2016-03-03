@@ -105,6 +105,13 @@ exports.icon = {
             "required": false,
             "description": ""
         },
+        "left": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Left variation of the icon (if any)"
+        },
         "link": {
             "type": {
                 "name": "bool"
@@ -132,6 +139,13 @@ exports.icon = {
             },
             "required": false,
             "description": ""
+        },
+        "right": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Right variation of the icon (if any)"
         },
         "rotated": {
             "type": {
