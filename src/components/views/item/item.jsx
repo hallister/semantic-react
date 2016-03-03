@@ -1,10 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+import Radium from 'radium';
 import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
 
 /**
  * Item is collection of elements. It could be menu/dropdown item or part ofr <Items /> collection
  */
+@Radium
 export class Item extends React.Component {
     static propTypes = {
         ...defaultPropTypes,

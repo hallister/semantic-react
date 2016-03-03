@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+import Radium from 'radium';
 
+@Radium
 export default class Rail extends React.Component {
     static propTypes = {
         attached: React.PropTypes.bool,

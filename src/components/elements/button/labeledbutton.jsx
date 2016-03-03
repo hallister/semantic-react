@@ -2,7 +2,9 @@ import React from 'react';
 import { Icon, Label, Button } from '../../elements';
 import { hasChild, hasFirstChild, spliceChildren } from '../../utilities';
 import classNames from 'classnames';
+import Radium from 'radium';
 
+@Radium
 export default class LabeledButton extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,

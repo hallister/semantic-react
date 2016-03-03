@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+import Radium from 'radium';
 
+@Radium
 export class Card extends React.Component {
     static propTypes = {
         centered: React.PropTypes.bool,

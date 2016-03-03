@@ -2,6 +2,7 @@ import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
 import { Device, Computer, Tablet, Mobile } from '../../collections';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 let validProps = {
     aligned: ['right', 'left', 'justified', 'center'],
@@ -12,6 +13,7 @@ let validProps = {
     valigned: ['top', 'middle', 'bottom']
 };
 
+@Radium
 export class Grid extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),

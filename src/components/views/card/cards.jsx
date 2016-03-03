@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import Radium from 'radium';
 
+@Radium
 export class Cards extends Component {
     static propTypes = {
         children: React.PropTypes.node,

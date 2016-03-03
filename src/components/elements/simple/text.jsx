@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 function getClasses(props) {
     return {
@@ -42,4 +43,4 @@ Text.defaultProps = {
     defaultClasses: true
 };
 
-export default Text;
+export default Radium(Text);

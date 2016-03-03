@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
+import Radium from 'radium';
 
 /**
  * Defines dimmable section
@@ -36,6 +37,8 @@ Dimmable.defaultProps = {
     dimmed: false,
     blurring: false
 };
+
+Dimmable = Radium(Dimmable);
 
 export { Dimmable };
 

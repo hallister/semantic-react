@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import Radium from 'radium';
 
+@Radium
 export class Checkbox extends Component {
     static propTypes = {
         checked: React.PropTypes.bool,

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 let Author = ({ children, className, component, ...other }) => {
     other.className = classNames(className, { author: true });
@@ -24,4 +25,4 @@ Author.defaultProps = {
     component: 'a'
 };
 
-export default Author;
+export default Radium(Author);

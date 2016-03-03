@@ -1,12 +1,14 @@
 import React from 'react';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 let validProps = {
     aligned: ['top', 'middle', 'bottom'],
     floated: ['right', 'left']
 };
 
+@Radium
 export default class Content extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,

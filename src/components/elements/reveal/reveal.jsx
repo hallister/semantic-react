@@ -2,12 +2,14 @@ import React from 'react';
 import { Image } from '../../elements';
 import { hasDescendant, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 let validProps = {
     move: ['right', 'up', 'down'],
     rotate: ['left']
 };
 
+@Radium
 export default class Reveal extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,

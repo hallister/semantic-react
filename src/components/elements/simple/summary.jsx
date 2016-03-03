@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 let Summary = ({ children, className, component, ...other }) => {
     other.className = classNames(className, { summary: true });
@@ -24,4 +25,4 @@ Summary.defaultProps = {
     component: 'div'
 };
 
-export default Summary;
+export default Radium(Summary);

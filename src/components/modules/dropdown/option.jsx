@@ -1,10 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import { MenuItem } from '../../views/menu/menuitem';
+import Radium from 'radium';
 
 /**
  * Select dropdown option
  */
+@Radium
 export class Option extends React.Component {
     static propTypes = {
         ...MenuItem.propTypes,

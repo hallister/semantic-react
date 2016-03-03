@@ -1,10 +1,12 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
+import Radium from 'radium';
 
 let validProps = {
     reversed: ['vertically']
 }
 
+@Radium
 export class Device extends React.Component {
     static propTypes = {
         callback: React.PropTypes.func,

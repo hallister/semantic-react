@@ -1,12 +1,14 @@
 import React from 'react';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 let validProps = {
     flipped: ['horizontally', 'vertically'],
     rotated: ['clockwise', 'counterclockwise']
 };
 
+@Radium
 export default class Icon extends React.Component {
     static propTypes = {
         bordered: React.PropTypes.bool,

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 function getClasses(props) {
     let classes = {
@@ -62,4 +63,4 @@ Form.defaultProps = {
     defaultClasses: true
 }
 
-exports.Form = Form;
+exports.Form = Radium(Form);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 let validProps = {
     attached: ['bottom', 'top'],
@@ -77,4 +78,4 @@ message.defaultProps = {
     defaultClasses: true
 }
 
-exports.Message = message;
+exports.Message = Radium(message);

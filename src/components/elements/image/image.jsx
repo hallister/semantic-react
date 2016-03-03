@@ -1,6 +1,7 @@
 import React from 'react';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 let validProps = {
     aligned: ['top', 'middle', 'bottom'],
@@ -9,6 +10,7 @@ let validProps = {
 };
 
 // can't do SVG since JSX/React breaks on SVG images
+@Radium
 export default class Image extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),

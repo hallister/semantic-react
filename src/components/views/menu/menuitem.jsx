@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Item } from '../item/item';
+import Radium from 'radium';
 
 
 /**
@@ -44,5 +45,7 @@ MenuItem.propTypes = {
 MenuItem.defaultProps = {
     ...Item.defaultProps
 };
+
+MenuItem = Radium(MenuItem);
 
 export { MenuItem }

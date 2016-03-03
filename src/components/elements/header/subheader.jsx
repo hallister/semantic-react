@@ -1,7 +1,9 @@
 import React from 'react';
 import { Header } from '../../elements';
 import classNames from 'classnames';
+import Radium from 'radium';
 
+@Radium
 export default class SubHeader extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,

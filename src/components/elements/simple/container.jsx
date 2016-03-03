@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
+import Radium from 'radium';
 
 let validProps = {
     aligned: ['right', 'left', 'justified', 'center']
@@ -43,4 +44,4 @@ Container.defaultProps = {
     component: 'div'
 };
 
-export default Container;
+export default Radium(Container);

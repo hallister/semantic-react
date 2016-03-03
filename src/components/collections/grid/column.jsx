@@ -2,6 +2,7 @@ import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
 import { Device, Computer, Tablet, Mobile } from '../../collections';
 import classNames from 'classnames';
+import Radium from 'radium';
 
 let validProps = {
     aligned: ['right', 'left', 'justified', 'center'],
@@ -11,6 +12,7 @@ let validProps = {
 
 };
 
+@Radium
 export class Column extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),

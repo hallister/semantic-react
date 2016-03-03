@@ -27,6 +27,7 @@
   "dependencies": {
     "classnames": "^2.2.0",
     "lodash.throttle": "^4.0.1",
+    "radium": "^0.16.6",
     "raf": "^3.2.0",
     "react-addons-shallow-compare": "^0.14.7",
     "react-event-listener": "^0.1.1",

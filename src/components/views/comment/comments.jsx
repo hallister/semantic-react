@@ -1,4 +1,5 @@
 import React from 'react';
+import Radium from 'radium';
 import classNames from 'classnames';
 
 function getClasses(props) {
@@ -48,4 +49,4 @@ comments.defaultProps = {
     defaultClasses: true
 }
 
-exports.Comments = comments;
+exports.Comments = Radium(comments);

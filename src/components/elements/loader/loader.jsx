@@ -1,7 +1,9 @@
 import React from 'react';
 import { hasChild } from '../../utilities';
 import classNames from 'classnames';
+import Radium from 'radium';
 
+@Radium
 export default class Loader extends React.Component {
     static propTypes = {
         centered: React.PropTypes.bool,

@@ -2,11 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import { Bar } from '../../modules';
 import { validateClassProps } from '../../utilities';
+import Radium from 'radium';
 
 let validProps = {
     attached: ['top', 'bottom']
 };
 
+@Radium
 export class Progress extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,

@@ -2,8 +2,9 @@ import React from 'react';
 import { Animate } from '../../modules';
 import { Content } from '../../elements';
 import classNames from 'classnames';
+import Radium from 'radium';
 
-// @Animate
+@Radium
 export class Results extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
