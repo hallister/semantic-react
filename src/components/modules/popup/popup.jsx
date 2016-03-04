@@ -191,6 +191,8 @@ export class Popup extends React.Component {
             position: 'fixed' // need it to be fixed to avoid it with bloating code with many checks
         };
         
+        const popupStyle = style ? [style, positionStyle] : positionStyle;
+        
         return (
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
                     style={this.props.preventElementClicks ? portalStyle : {}}
@@ -212,7 +214,7 @@ export class Popup extends React.Component {
                             {...other}
                             key="popup"
                             position={this.state.position}
-                            style={[style, positionStyle]}
+                            style={popupStyle}
                             ref="popup" />
                         }
                     </Transition>
