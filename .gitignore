@@ -18,7 +18,7 @@ node_modules
 typings
 typings.json
 
-# coverage
+# Coverage
 dist/coverage
 
 # Server overrides
