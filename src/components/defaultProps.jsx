@@ -6,9 +6,13 @@ import React from 'react';
 import elementType from 'react-prop-types/lib/elementType';
 
 /**
- * Default component propTypes applied almost to every component
+ * Need component to pass into react-docgen
  */
-export const defaultPropTypes = {
+let DefaultProps = () => {
+    return <noscript />
+};
+
+DefaultProps.propTypes = {
     /**
      * Children nodes
      */
@@ -29,10 +33,9 @@ export const defaultPropTypes = {
     className: React.PropTypes.string
 };
 
-/**
- * Default Prop values
- */
-export const defaultPropValues = {
+DefaultProps.defaultProps = {
     component: 'div',
     defaultClasses: true
 };
+
+export default DefaultProps;

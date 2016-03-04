@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Item } from '../item/item';
+import Item from '../item/item';
 
 
 /**
@@ -45,4 +45,4 @@ MenuItem.defaultProps = {
     ...Item.defaultProps
 };
 
-export { MenuItem }
+export default MenuItem;

@@ -487,4 +487,4 @@ class Select extends React.Component {
 
 // Need this trick for react-docgen
 Select = ListensToClickOutside(Select);
-export { Select };
+export default Select;

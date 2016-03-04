@@ -49,4 +49,6 @@ comments.defaultProps = {
     defaultClasses: true
 }
 
-exports.Comments = Radium(comments);
+comments = Radium(comments);
+export default comments;
+

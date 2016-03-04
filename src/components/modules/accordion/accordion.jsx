@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Radium from 'radium';
 
 @Radium
-export class Accordion extends Component {
+export default class Accordion extends Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,

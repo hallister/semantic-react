@@ -3,13 +3,13 @@ import Transition from 'react-motion-ui-pack';
 import { hasChild } from '../../utilities';
 import { Content, Loader } from '../../elements';
 import classNames from 'classnames';
-import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
+import DefaultProps from '../../defaultProps';
 import Radium from 'radium';
 
 @Radium
-export class Dimmer extends React.Component {
+export default class Dimmer extends React.Component {
     static propTypes = {
-        ...defaultPropTypes,
+        ...DefaultProps.propTypes,
         /**
          * Hide/Display dimmer
          */
@@ -39,7 +39,7 @@ export class Dimmer extends React.Component {
     };
 
     static defaultProps = {
-        ...defaultPropValues,
+        ...DefaultProps.defaultProps,
         active: false,
         enterAnimation: {
             opacity: 1
@@ -95,4 +95,3 @@ export class Dimmer extends React.Component {
         };
     }
 }
-

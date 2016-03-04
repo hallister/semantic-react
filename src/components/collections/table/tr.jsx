@@ -1,5 +1,5 @@
 import React from 'react';
-import { Td } from './td';
+import Td from './td';
 import Radium from 'radium';
 
 let tr = (props) => {
@@ -25,4 +25,5 @@ tr.defaultProps = {
     component: 'tr'
 }
 
-exports.Tr = Radium(tr);
+tr = Radium(tr);
+export default tr;

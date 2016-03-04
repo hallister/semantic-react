@@ -3,7 +3,7 @@ import { Animate, $ } from '../../modules';
 import classNames from 'classnames';
 
 @Animate
-export class ModalBody extends React.Component {
+export default class ModalBody extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         basic: React.PropTypes.bool,

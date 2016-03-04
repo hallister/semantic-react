@@ -139,4 +139,6 @@ table.defaultProps = {
     }
 }
 
-exports.Table = Radium(table);
+table = Radium(table);
+export default table;
+

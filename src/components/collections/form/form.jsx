@@ -63,4 +63,5 @@ Form.defaultProps = {
     defaultClasses: true
 }
 
-exports.Form = Radium(Form);
+Form = Radium(Form);
+export default Form;

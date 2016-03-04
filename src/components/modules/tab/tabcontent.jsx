@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Radium from 'radium';
 
 @Radium
-export class TabContent extends React.Component {
+export default class TabContent extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         children: React.PropTypes.node,

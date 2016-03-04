@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Radium from 'radium';
 
 @Radium
-export class Items extends React.Component {
+export default class Items extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
-import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
+import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
 import Radium from 'radium';
 
@@ -82,7 +82,7 @@ let Column = (props) => {
 };
 
 Column.propTypes = {
-    ...defaultPropTypes,
+    ...DefaultProps.propTypes,
     /**
      * Horizontal content alignment
      */
@@ -137,8 +137,8 @@ Column.propTypes = {
 };
 
 Column.defaultProps = {
-    ...defaultPropValues
+    ...DefaultProps.defaultProps
 };
 
 Column = Radium(Column);
-export { Column };
+export default Column;

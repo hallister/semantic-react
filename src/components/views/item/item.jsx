@@ -1,15 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 import Radium from 'radium';
-import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
+import DefaultProps from '../../defaultProps';
 
 /**
  * Item is collection of elements. It could be menu/dropdown item or part ofr <Items /> collection
  */
 @Radium
-export class Item extends React.Component {
+export default class Item extends React.Component {
     static propTypes = {
-        ...defaultPropTypes,
+        ...DefaultProps.propTypes,
         /**
          * Make item clickable
          */
@@ -21,7 +21,7 @@ export class Item extends React.Component {
     };
     
     static defaultProps = {
-        ...defaultPropValues
+        ...DefaultProps.defaultProps
     };
 
     render() {

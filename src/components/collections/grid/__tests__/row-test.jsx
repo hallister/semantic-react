@@ -3,7 +3,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
-import { Row } from '../row';
+import Row from '../row';
 
 const consumedProps = {
     component: 'div',

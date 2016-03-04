@@ -1,8 +1,8 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { Grid } from '../grid';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
+import Grid from '../grid';
 
 const consumedProps = {
     aligned: 'center',

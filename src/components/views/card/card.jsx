@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Radium from 'radium';
 
 @Radium
-export class Card extends React.Component {
+export default class Card extends React.Component {
     static propTypes = {
         centered: React.PropTypes.bool,
         children: React.PropTypes.node,

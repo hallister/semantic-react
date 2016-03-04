@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
-import { Column } from '../column';
+import Column from '../column';
 
 const consumedProps = {
     component: 'div',

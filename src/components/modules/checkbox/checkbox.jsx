@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Radium from 'radium';
 
 @Radium
-export class Checkbox extends Component {
+export default class Checkbox extends Component {
     static propTypes = {
         checked: React.PropTypes.bool,
         children: React.PropTypes.node,

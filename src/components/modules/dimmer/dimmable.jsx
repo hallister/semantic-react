@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
+import DefaultProps from '../../defaultProps';
 import Radium from 'radium';
 
 /**
@@ -21,7 +21,7 @@ let Dimmable = ({ component, dimmed, blurring, ...other }) => {
 };
 
 Dimmable.propTypes = {
-    ...defaultPropTypes,
+    ...DefaultProps.propTypes,
     /**
      * Blur dimmer
      */
@@ -33,12 +33,12 @@ Dimmable.propTypes = {
 };
 
 Dimmable.defaultProps = {
-    ...defaultPropValues,
+    ...DefaultProps.defaultProps,
     dimmed: false,
     blurring: false
 };
 
 Dimmable = Radium(Dimmable);
 
-export { Dimmable };
+export default Dimmable;
 

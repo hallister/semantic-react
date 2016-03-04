@@ -10,7 +10,7 @@ import ListensToClickOutside from 'react-onclickoutside/decorator';
  * Dropdown menu with animations
  */
 @ListensToClickOutside
-export class DropdownMenu extends React.Component {
+export default class DropdownMenu extends React.Component {
     static propTypes = {
         /**
          * Should menu be opened when first rendered

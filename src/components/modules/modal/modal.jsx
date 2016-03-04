@@ -174,4 +174,4 @@ class Modal extends React.Component {
 
 // Need this trick for react-docgen
 Modal = listensToClickOutside(Modal);
-export { Modal };
+export default Modal;

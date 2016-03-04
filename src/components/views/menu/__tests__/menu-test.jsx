@@ -3,8 +3,8 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { Menu } from '../menu';
-import { Dropdown } from '../../../modules/dropdown/dropdown';
-import { MenuItem } from '../menuitem';
+import { Dropdown } from '../../../modules';
+import MenuItem from '../menuitem';
 
 describe('Menu', () => {
     it('It renders as div by default', () => {

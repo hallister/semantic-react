@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Radium from 'radium';
 
 @Radium
-export class Results extends React.Component {
+export default class Results extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.any,

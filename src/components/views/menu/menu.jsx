@@ -2,7 +2,7 @@ import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import Radium from 'radium';
-import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     attached: ['top', 'bottom'],
@@ -14,9 +14,9 @@ let validProps = {
  * current active item and fire onChange callback when value was changed
  */
 @Radium
-export class Menu extends React.Component {
+export default class Menu extends React.Component {
     static propTypes = {
-        ...defaultPropTypes,
+        ...DefaultProps.propTypes,
         /**
          * A menu may be attached to other content segments
          */
@@ -100,7 +100,7 @@ export class Menu extends React.Component {
     };
 
     static defaultProps = {
-        ...defaultPropValues,
+        ...DefaultProps.defaultProps,
         onMenuItemClick: () => {},
         onMenuChange: () => {}
     };

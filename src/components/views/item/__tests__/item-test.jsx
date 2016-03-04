@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
-import { Item } from '../item';
+import Item from '../item';
 
 const consumedProps = {
     link: true

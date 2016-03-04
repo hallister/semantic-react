@@ -1,7 +1,7 @@
 import React from 'react';
-import { TabContent } from './tabcontent';
+import TabContent from './tabcontent';
 
-export class Tab extends React.Component {
+export default class Tab extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         component: React.PropTypes.oneOfType([

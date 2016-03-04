@@ -9,7 +9,7 @@ let validProps = {
 };
 
 @Radium
-export class Progress extends React.Component {
+export default class Progress extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         attached: React.PropTypes.oneOf(['top', 'bottom']),

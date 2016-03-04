@@ -45,4 +45,5 @@ Feed.defaultProps = {
     defaultClasses: true
 }
 
-exports.Feed = Radium(Feed);
+Feed = Radium(Feed);
+export default Feed;

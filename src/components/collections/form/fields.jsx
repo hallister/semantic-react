@@ -1,6 +1,6 @@
 import React from 'react';
 import { countChildren, Numbers } from '../../utilities';
-import { Field } from './field';
+import Field from './field';
 import classNames from 'classnames';
 import Radium from 'radium';
 
@@ -59,4 +59,6 @@ Fields.defaultProps = {
     defaultClasses: true
 }
 
-exports.Fields = Radium(Fields);
+Fields = Radium(Fields);
+
+export default Fields;

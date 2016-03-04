@@ -1,6 +1,6 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
-import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
+import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
 import Radium from 'radium';
 
@@ -66,7 +66,7 @@ let Grid = (props) => {
 };
 
 Grid.propTypes = {
-    ...defaultPropTypes,
+    ...DefaultProps.propTypes,
     /**
      * Horizontal content alignment
      */
@@ -136,8 +136,8 @@ Grid.propTypes = {
 };
 
 Grid.defaultProps = {
-    ...defaultPropValues
+    ...DefaultProps.defaultProps
 };
 
 Grid = Radium(Grid);
-export { Grid };
+export default Grid;

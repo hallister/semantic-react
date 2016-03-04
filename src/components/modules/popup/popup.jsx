@@ -5,7 +5,7 @@ import Portal from 'react-portal';
 import EventListener from 'react-event-listener';
 import throttle from 'lodash.throttle';
 import shallowCompare from 'react-addons-shallow-compare';
-import { PopupElement, POSITIONS } from './popupelement';
+import PopupElement, { POSITIONS } from './popupelement';
 import { isNodeInRoot } from '../../utilities';
 
 // const shallowCompare = require('react-addons-shallow-compare');
@@ -13,7 +13,7 @@ import { isNodeInRoot } from '../../utilities';
 /**
  * Popup with animations
  */
-export class Popup extends React.Component {
+export default class Popup extends React.Component {
     static propTypes = {
         ...PopupElement.propTypes,
         /**

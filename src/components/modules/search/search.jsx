@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icon } from '../../elements';
 import Transition from 'react-motion-ui-pack';
-import { Results } from './results';
+import Results from './results';
 import classNames from 'classnames';
 import Radium from 'radium';
 
@@ -20,7 +20,7 @@ import Radium from 'radium';
 ['test', 'test']
 */
 @Radium
-export class Search extends React.Component {
+export default class Search extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.any,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { Dimmable } from '../dimmable';
+import Dimmable from '../dimmable';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
 const consumedProps = {

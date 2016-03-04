@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Radium from 'radium';
 
 @Radium
-export class CheckboxFields extends Component {
+export default class CheckboxFields extends Component {
     static propTypes = {
         children: React.PropTypes.oneOfType([
             React.PropTypes.array,

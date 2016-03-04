@@ -59,4 +59,5 @@ td.defaultProps = {
     component: 'td'
 }
 
-exports.Td = Radium(td);
+td = Radium(td);
+export default td;

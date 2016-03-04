@@ -73,4 +73,7 @@ Field.defaultProps = {
     defaultClasses: true
 }
 
-exports.Field = Radium(Field);
+Field = Radium(Field);
+
+export default Field;
+

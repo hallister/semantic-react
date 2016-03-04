@@ -3,8 +3,7 @@ import { Animate } from '../../modules';
 import classNames from 'classnames';
 
 // TODO: image and horizontal list examples
-
-export class AccordionBody extends Component {
+export default class AccordionBody extends Component {
     static propTypes = {
         active: React.PropTypes.bool,
         children: React.PropTypes.node,

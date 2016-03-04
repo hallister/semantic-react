@@ -1,11 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
-import { MenuItem } from '../../views/menu/menuitem';
+import { MenuItem } from '../../views';
 
 /**
  * Select dropdown option
  */
-export class Option extends React.Component {
+export default class Option extends React.Component {
     static propTypes = {
         ...MenuItem.propTypes,
         children: React.PropTypes.node,

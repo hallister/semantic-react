@@ -78,4 +78,6 @@ message.defaultProps = {
     defaultClasses: true
 }
 
-exports.Message = Radium(message);
+message = Radium(message);
+export default message;
+

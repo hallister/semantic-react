@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { Dimmer } from '../dimmer';
+import Dimmer from '../dimmer';
 import { Loader, Content } from '../../../elements';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 

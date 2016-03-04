@@ -89,4 +89,6 @@ Event.defaultProps = {
     component: 'div'
 }
 
-exports.Event = Radium(Event);
+Event = Radium(Event);
+export default Event;
+

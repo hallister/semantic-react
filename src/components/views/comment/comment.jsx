@@ -59,4 +59,5 @@ Comment.defaultProps = {
     component: 'div'
 }
 
-exports.Comment = Radium(Comment);
+Comment = Radium(Comment);
+export default Comment;

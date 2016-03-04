@@ -8,7 +8,7 @@ let validProps = {
 };
 
 @Radium
-export class Dropdown extends React.Component {
+export default class Dropdown extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         children: React.PropTypes.node,

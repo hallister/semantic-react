@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
+import DefaultProps from '../../defaultProps';
 import Radium from 'radium';
 
 export const POSITIONS = ['top left', 'top center', 'top right', 'right center',
@@ -10,12 +10,12 @@ export const POSITIONS = ['top left', 'top center', 'top right', 'right center',
  * Popup component without animation transitions
  */
 @Radium
-export class PopupElement extends React.Component {
+export default class PopupElement extends React.Component {
     static propTypes = {
         /**
          * Default properties
          */
-        ...defaultPropTypes,
+        ...DefaultProps.propTypes,
         /**
          * Basic popup variation
          */
@@ -53,7 +53,7 @@ export class PopupElement extends React.Component {
     };
     
     static defaultProps = {
-        ...defaultPropValues,
+        ...DefaultProps.defaultProps,
         position: 'top left'
     };
 

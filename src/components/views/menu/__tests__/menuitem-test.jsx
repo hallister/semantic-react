@@ -2,8 +2,8 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { MenuItem } from '../menuitem';
-import { Item } from '../../item/item';
+import MenuItem from '../menuitem';
+import { Item } from '../../../views';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
 let consumedProps = {
