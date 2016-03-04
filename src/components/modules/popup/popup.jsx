@@ -169,7 +169,7 @@ export class Popup extends React.Component {
         // consuming position from props here since it's passing it from state
         /* eslint-disable no-use-before-define, react/prop-types */
         let { active, autoPosition, distanceAway, lastResortPosition, offset, startAnimation, endAnimation,
-            onRequestClose, prefer, position, preventElementClicks, requestCloseWhenOffScreen, target, ...other } = this.props;
+            onRequestClose, prefer, position, preventElementClicks, requestCloseWhenOffScreen, target, style, ...other } = this.props;
         /* eslint-enable no-use-before-define, react/prop-types */
         
         // Apply invisible layer to portal if preventElementClicks is true
@@ -188,7 +188,7 @@ export class Popup extends React.Component {
             bottom: 'auto',
             right: 'auto',
             display: 'block',
-            position: 'fixed !important' // need it to be fixed to avoid it with bloating code with many checks
+            position: 'fixed' // need it to be fixed to avoid it with bloating code with many checks
         };
         
         return (
@@ -212,7 +212,7 @@ export class Popup extends React.Component {
                             {...other}
                             key="popup"
                             position={this.state.position}
-                            style={positionStyle}
+                            style={[style, positionStyle]}
                             ref="popup" />
                         }
                     </Transition>
