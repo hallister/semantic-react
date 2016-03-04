@@ -83,8 +83,17 @@ let Column = (props) => {
 
 Column.propTypes = {
     ...defaultPropTypes,
+    /**
+     * Horizontal content alignment
+     */
     aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+    /**
+     * Float to the right or left edge of the row
+     */
     floated: React.PropTypes.oneOf(['right', 'left']),
+    /**
+     * Only visible for types. Could be single type string or array, i.e. only={["mobile","tablet"]}
+     */
     only: React.PropTypes.oneOfType([
         React.PropTypes.oneOf([
             'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
@@ -93,12 +102,33 @@ Column.propTypes = {
             'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
         ]))
     ]),
+    /**
+     * Column width for all device types
+     */
     width: React.PropTypes.number,
+    /**
+     * Column width for mobile
+     */
     mobileWidth: React.PropTypes.number,
+    /**
+     * Column width for tablet
+     */
     tabletWidth: React.PropTypes.number,
+    /**
+     * Column width for computer
+     */
     computerWidth: React.PropTypes.number,
+    /**
+     * Column width for large screens
+     */
     largeScreenWidth: React.PropTypes.number,
+    /**
+     * Column width for wide screens
+     */
     wideScreenWidth: React.PropTypes.number,
+    /**
+     * Vertical content alignment
+     */
     valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
 };
 
