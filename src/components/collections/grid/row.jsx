@@ -111,7 +111,11 @@ Row.propTypes = {
     /**
      * Justified content fits exactly inside the grid column, taking up the entire width from one side to the other
      */
-    justified: React.PropTypes.bool
+    justified: React.PropTypes.bool,
+    /**
+     * Vertical content alignment
+     */
+    valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
 };
 
 Row.defaultProps = {

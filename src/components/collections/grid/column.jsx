@@ -103,6 +103,10 @@ Column.propTypes = {
         ]))
     ]),
     /**
+     * Column color
+     */
+    color: React.PropTypes.string,
+    /**
      * Column width for all device types
      */
     width: React.PropTypes.number,
