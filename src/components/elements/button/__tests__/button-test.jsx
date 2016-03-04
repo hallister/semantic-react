@@ -11,7 +11,6 @@ let consumedProps = {
     attached: true,
     basic: true,
     circular: true,
-    className: 'testClass',
     color: 'red',
     compact: true,
     component: 'div',

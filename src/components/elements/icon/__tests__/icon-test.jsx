@@ -9,7 +9,6 @@ let consumedProps = {
     bordered: true,
 
     circular: true,
-    className: 'testClass',
     color: 'red',
     component: 'i',
     defaultClasses: true,

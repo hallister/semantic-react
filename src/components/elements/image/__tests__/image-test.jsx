@@ -11,7 +11,6 @@ let consumedProps = {
     avatar: true,
     bordered: true,
     centered: true,
-    className: 'testClass',
     component: 'div',
     content: true,
     defaultClasses: true,

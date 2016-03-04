@@ -11,7 +11,6 @@ import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 let consumedProps = {
     aligned: 'right',
     attached: true,
-    className: 'testClass',
     color: 'red',
     component: 'div',
     defaultClasses: true,

@@ -18,7 +18,6 @@ let children = [
 let consumedProps = {
     avatar: true,
     bordered: true,
-    className: 'testClass',
     component: 'div',
     defaultClasses: true,
     disabled: true,

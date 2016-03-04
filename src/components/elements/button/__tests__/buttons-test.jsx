@@ -23,7 +23,6 @@ let iconButtonsChildren = [
 let consumedProps = {
     attached: 'top',
     basic: true,
-    className: 'testClass',
     color: 'red',
     compact: true,
     component: 'div',

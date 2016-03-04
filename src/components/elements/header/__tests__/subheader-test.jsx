@@ -8,7 +8,6 @@ import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
 
 let consumedProps = {
-    className: 'testClass',
     component: 'div',
     defaultClasses: true
 };
