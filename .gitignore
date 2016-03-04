@@ -13,3 +13,13 @@ node_modules
 
 # webstorm
 .idea
+
+# typings
+typings
+typings.json
+
+# coverage
+dist/coverage
+
+# Server overrides
+server.js

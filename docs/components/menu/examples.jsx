@@ -19,27 +19,27 @@ export default {
         {
             component: Menu,
             props: {
-                value: 1
+                menuValue: 1
             },
             children: [
                 {
                     component: MenuItem,
                     props: {
-                        value: 1
+                        menuValue: 1
                     },
                     children: 'Item 1'
                 },
                 {
                     component: MenuItem,
                     props: {
-                        value: 2
+                        menuValue: 2
                     },
                     children: 'Item 2'
                 },
                 {
                     component: MenuItem,
                     props: {
-                        value: 3
+                        menuValue: 3
                     },
                     children: 'Item 3'
                 }
