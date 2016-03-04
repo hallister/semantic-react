@@ -1,112 +1,110 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
-import { Device, Computer, Tablet, Mobile } from '../../collections';
+import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
 import classNames from 'classnames';
 import Radium from 'radium';
 
-let validProps = {
+const validProps = {
     aligned: ['right', 'left', 'justified', 'center'],
     floated: ['right', 'left'],
-    visible: ['large screen', 'wide screen', 'computer', 'mobile', 'tablet'],
     valigned: ['top', 'middle', 'bottom']
 
 };
 
-@Radium
-export class Column extends React.Component {
-    static propTypes = {
-        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        color: React.PropTypes.string,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
-        floated: React.PropTypes.oneOf(['right', 'left']),
-        style: React.PropTypes.any,
-        valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
-        visible: React.PropTypes.oneOf(['large screen', 'wide screen', 'computer', 'mobile', 'tablet']),
-        width: React.PropTypes.number
+function getClasses(props) {
+    let classes = {
+        column: props.defaultClasses
     };
-
-    static defaultProps = {
-        component: 'div',
-        defaultClasses: true
-    };
-
-    constructor(props) {
-        super(props);
-
-        this.style = {
-            mobile: {},
-            computer: {},
-            tablet: {}
+    
+    classes[props.color] = !!props.color;
+    
+    // Widths
+    if (props.width && props.width > 0 && props.width <= 16) {
+        classes[`${Numbers[props.width]} wide`] = true;
+    }
+    
+    if (props.mobileWidth && props.mobileWidth > 0 && props.mobileWidth <= 16) {
+        classes[`${Numbers[props.mobileWidth]} wide mobile`] = true;
+    }
+    
+    if (props.tabletWidth && props.tabletWidth > 0 && props.tabletWidth <= 16) {
+        classes[`${Numbers[props.tabletWidth]} wide tablet`] = true;
+    }
+    
+    if (props.computerWidth && props.computerWidth > 0 && props.computerWidth <= 16) {
+        classes[`${Numbers[props.computerWidth]} wide computer`] = true;
+    }
+    
+    if (props.largeScreenWidth && props.largeScreenWidth > 0 && props.largeScreenWidth <= 16) {
+        classes[`${Numbers[props.largeScreenWidth]} wide large screen`] = true;
+    }
+    
+    if (props.wideScreenWidth && props.wideScreenWidth > 0 && props.wideScreenWidth <= 16) {
+        classes[`${Numbers[props.wideScreenWidth]} wide widescreen`] = true;
+    }
+    
+    if (props.only) {
+        let device;
+        if (Array.isArray(props.only)) {
+            device = props.only.join(' ');
+        } else {
+            device = props.only;
+        }
+        if (device) {
+            classes[`${device} only`] = true;
         }
     }
-
-    componentDidMount() {
-        this.forceUpdate();
-    }
-
-    onFoundDevice(style, type) {
-        this.style[type] = style;
-    }
-
-    renderChildren() {
-        let children = [Device, Computer, Tablet, Mobile];
-        return React.Children.map(this.props.children, (child, index) => {
-            if (children.indexOf(child.type) > -1) {
-                return React.cloneElement(
-                    child,
-                    {
-                        callback: this.onFoundDevice.bind(this),
-                        key: index
-                    },
-                    child.children
-                )
-            } else {
-                return child;
-            }
-        });
-    }
-
-    render() {
-        // consume props
-        /* eslint-disable no-use-before-define */
-        let { aligned, color, component, className, children, defaultClasses,
-            floated, valigned, width, ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-
-        // add classnames
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            React.Children.count(this.props.children) !== 0 ? this.renderChildren() : []
-        );
-    }
-
-    getClasses() {
-        let classes = {
-            ...this.style.computer,
-            ...this.style.tablet,
-            ...this.style.mobile,
-            column: this.props.defaultClasses,
-
-            aligned: this.props.aligned && this.props.aligned !== 'justified'
-        }
-
-        classes[this.props.color] = !!this.props.color;
-
-        if (this.props.width) {
-            if (this.props.width > 0  && this.props.width <= 16) {
-                classes[Numbers[this.props.width] + ' wide'] = true;
-            }
-        }
-
-        return validateClassProps(classes, this.props, validProps, { visible: 'only', valigned: 'aligned' });
-    }
+    
+    return validateClassProps(classes, props, validProps, { valigned: 'aligned' });
 }
+
+/**
+ * Grid column
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+let Column = (props) => {
+    /* eslint-disable no-use-before-define */
+    let {
+        aligned, component, children, defaultClasses, floated, only, width, mobileWidth, tabletWidth,
+        computerWidth, largeScreenWidth, wideScreenWidth, valigned, ...other
+    } = props;
+    /* eslint-enable no-use-before-define */
+    let Component = component;
+    other.className = classNames(other.className, getClasses(props));
+    
+    return (
+        <Component {...other}>
+            {children}
+        </Component>
+    );
+};
+
+Column.propTypes = {
+    ...defaultPropTypes,
+    aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+    floated: React.PropTypes.oneOf(['right', 'left']),
+    only: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf([
+            'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
+        ]),
+        React.PropTypes.arrayOf(React.PropTypes.oneOf([
+            'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
+        ]))
+    ]),
+    width: React.PropTypes.number,
+    mobileWidth: React.PropTypes.number,
+    tabletWidth: React.PropTypes.number,
+    computerWidth: React.PropTypes.number,
+    largeScreenWidth: React.PropTypes.number,
+    wideScreenWidth: React.PropTypes.number,
+    valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
+};
+
+Column.defaultProps = {
+    ...defaultPropValues
+};
+
+Column = Radium(Column);
+export { Column };

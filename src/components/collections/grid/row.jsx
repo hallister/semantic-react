@@ -1,86 +1,96 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
+import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
 import classNames from 'classnames';
 import Radium from 'radium';
 
-let validProps = {
-    aligned: ['right', 'left', 'justified', 'center'],
-    valigned: ['top', 'middle', 'bottom'],
-    visible: ['large screen', 'wide screen', 'computer', 'mobile', 'tablet']
+const validProps = {
+    aligned: ['right', 'left', 'center'],
+    valigned: ['top', 'middle', 'bottom']
 };
 
-@Radium
-export class Row extends React.Component {
-    static propTypes = {
-        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        color: React.PropTypes.string,
-        columns: React.PropTypes.number,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
-        equal: React.PropTypes.bool,
-        stretched: React.PropTypes.bool,
-        valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
-        visible: React.PropTypes.oneOf(['large screen', 'wide screen', 'computer', 'mobile', 'tablet'])
+function getClasses(props) {
+    let classes = {
+        row: props.defaultClasses,
+        centered: props.centered,
+        doubling: props.doubling,
+        stretched: props.stretched,
+        justified: props.justified
     };
-
-    static defaultProps = {
-        component: 'div',
-        defaultClasses: true
-    };
-
-    render() {
-        // consume props
-        /* eslint-disable no-use-before-define */
-        let { aligned, className, component, children, color, columns,
-            defaultClasses, stretched, valigned, visible,
-            ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-
-        // add classnames
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            this.props.children
-        );
+    
+    if (props.columns && props.columns > 0 && props.columns <= 16) {
+        classes[`${Numbers[props.columns]} column`] = true;
     }
-
-    getClasses() {
-        let columns = Numbers.reduce((obj, num) => {
-            obj[num + ' column'] = false;
-            return obj;
-        }, {});
-
-        let classes = {
-            ...columns,
-
-            aligned: this.props.aligned && this.props.aligned !== 'justified',
-
-            only: this.props.visible,
-
-            stretched: this.props.stretched,
-
-            row: this.props.defaultClasses
-        }
-
-        if (this.props.equal) {
-            classes['equal width'] = true;
-        }
-
-        if (this.props.columns !== false) {
-            if (this.props.columns > 0  && this.props.columns <= 16) {
-                classes[Numbers[this.props.columns] + ' column'] = true;
-            }
-        }
-
-        classes[this.props.color] = !!this.props.color;
-
-        return validateClassProps(classes, this.props, validProps, { visible: 'only' });
+    
+    classes[props.color] = !!props.color;
+    
+    if (props.equal) {
+        classes['equal width'] = true;
     }
+    
+    if (props.only) {
+        let device;
+        if (Array.isArray(props.only)) {
+            device = props.only.join(' ');
+        } else {
+            device = props.only;
+        }
+        if (device) {
+            classes[`${device} only`] = true;
+        }
+    }
+    
+    return validateClassProps(classes, props, validProps, {valigned: 'aligned'});
 }
+
+/**
+ * Grid row
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+let Row = (props) => {
+    /* eslint-disable no-use-before-define */
+    let {
+        aligned, component, centered, children, columns, defaultClasses, doubling, equal,
+        stretched, color, only, justified, ...other
+    } = props;
+    /* eslint-enable no-use-before-define */
+    
+    let Component = component;
+    other.className = classNames(other.className, getClasses(props));
+    
+    return (
+        <Component {...other}>
+            {children}
+        </Component>
+    );
+};
+
+Row.propTypes = {
+    ...defaultPropTypes,
+    aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+    centered: React.PropTypes.bool,
+    doubling: React.PropTypes.bool,
+    equal: React.PropTypes.bool,
+    only: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf([
+            'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
+        ]),
+        React.PropTypes.arrayOf(React.PropTypes.oneOf([
+            'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
+        ])) 
+    ]),
+    columns: React.PropTypes.number,
+    stretched: React.PropTypes.bool,
+    color: React.PropTypes.string,
+    justified: React.PropTypes.bool
+};
+
+Row.defaultProps = {
+    ...defaultPropValues
+};
+
+Row = Radium(Row);
+export { Row };
+

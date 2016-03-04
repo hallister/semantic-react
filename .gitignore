@@ -16,7 +16,6 @@ node_modules
 
 # typings
 typings
-typings.json
 
 # Coverage
 dist/coverage

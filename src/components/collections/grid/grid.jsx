@@ -1,57 +1,111 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
-import { Device, Computer, Tablet, Mobile } from '../../collections';
+import { defaultPropTypes, defaultPropValues } from '../../defaultProps';
 import classNames from 'classnames';
 import Radium from 'radium';
 
-let validProps = {
-    aligned: ['right', 'left', 'justified', 'center'],
+const validProps = {
+    aligned: ['right', 'left', 'center'],
     celled: ['internally'],
-    divided: ['vertically'],
+    divided: ['vertically', 'internally'],
     padded: ['horizontally', 'vertically'],
     relaxed: ['very'],
+    reversed: ['mobile', 'mobile vertically', 'tablet', 'tablet vertically', 'computer', 'computer vertically'],
     valigned: ['top', 'middle', 'bottom']
 };
 
-@Radium
-export class Grid extends React.Component {
+function getClassNames(props) {
+    let classes = {
+        // Default
+        ui: props.defaultClasses,
+        grid: props.defaultClasses,
+        
+        // variations
+        container: props.container,
+        relaxed: props.relaxed,
+        centered: props.centered,
+        stackable: props.stackable,
+        doubling: props.doubling
+    };
+
+    if (props.columns && props.columns > 0 && props.columns <= 16) {
+        classes[`${Numbers[props.columns]} column`] = true;
+    }
+    
+    if (props.equal) {
+        classes['equal width'] = true;
+    }
+    
+    return validateClassProps(classes, props, validProps, { valigned: 'aligned' });
+}
+
+let Grid = (props) => {
+    // consume props
+    /* eslint-disable no-use-before-define */
+    let {
+        aligned, defaultClasses, centered, celled, columns, container, component, children,
+        divided, doubling, equal, padded, relaxed, reversed, stackable, valigned,
+        ...other
+    } = props;
+    /* eslint-enable no-use-before-define */
+    const Component = component;
+    other.className = classNames(other.className, getClassNames(props));
+    return (
+        <Component 
+            {...other} 
+        >
+            {children}
+        </Component>
+    );
+};
+
+Grid.propTypes = {
+    ...defaultPropTypes,
+    aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+    centered: React.PropTypes.bool,
+    celled: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['internally']),
+        React.PropTypes.bool
+    ]),
+    columns: React.PropTypes.number,
+    container: React.PropTypes.bool,
+    divided: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['vertically', 'internally']),
+        React.PropTypes.bool
+    ]),
+    doubling: React.PropTypes.bool,
+    equal: React.PropTypes.bool,
+    padded: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['horizontally', 'vertically']),
+        React.PropTypes.bool
+    ]),
+    relaxed: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['very']),
+        React.PropTypes.bool
+    ]),
+    reversed: React.PropTypes.oneOfType([
+        'mobile', 'mobile vertically', 'tablet', 'tablet vertically', 'computer', 'computer vertically'
+    ]),
+    stackable: React.PropTypes.bool,
+    valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
+};
+
+Grid.defaultProps = {
+    ...defaultPropValues
+};
+
+Grid = Radium(Grid);
+export { Grid };
+
+/*export class Grid extends React.Component {
     static propTypes = {
+        ...defaultPropTypes,
         aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
-        celled: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['internally']),
-            React.PropTypes.bool
-        ]),
-        centered: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        columns: React.PropTypes.number,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        container: React.PropTypes.bool,
-        defaultClasses: React.PropTypes.bool,
-        divided: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['vertically']),
-            React.PropTypes.bool
-        ]),
-        doubling: React.PropTypes.bool,
-        equal: React.PropTypes.bool,
-        padded: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['horizontally', 'vertically']),
-            React.PropTypes.bool
-        ]),
-        relaxed: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['very']),
-            React.PropTypes.bool
-        ]),
-        stackable: React.PropTypes.bool,
         valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true
+        ...defaultPropValues
     };
 
     constructor(props) {
@@ -92,11 +146,11 @@ export class Grid extends React.Component {
 
     render() {
         // consume props
-        /* eslint-disable no-use-before-define */
+        /!* eslint-disable no-use-before-define *!/
         let { aligned, celled, centered, children, columns, component,
               container, className, defaultClasses, divided, doubling, equal,
               padded, relaxed, stackable, valigned, ...other } = this.props;
-        /* eslint-enable no-use-before-define */
+        /!* eslint-enable no-use-before-define *!/
 
         // add classnames
         other.className = classNames(this.props.className, this.getClasses());
@@ -146,4 +200,4 @@ export class Grid extends React.Component {
 
         return validateClassProps(classes, this.props, validProps, { valigned: 'aligned' });
     }
-}
+}*/
