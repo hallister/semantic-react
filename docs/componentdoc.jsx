@@ -11,7 +11,9 @@ let ComponentDoc = (props) => {
     let propList = require("./components/" + props.params.component + "/props.js");
     let Examples = require("./components/" + props.params.component + "/examples.jsx");
     /* eslint-enable-quotes */
+    /* eslint-disable no-use-before-define */
     let { children, ...other } = props;
+    /* eslint-enable no-use-before-define */
 
     let exampleObject = configParser(Examples);
     let exampleCode = configParser(Examples, true);

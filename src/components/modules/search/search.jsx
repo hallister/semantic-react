@@ -200,10 +200,12 @@ export class Search extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, emptyHeader,
               emptyMessage, enterAnimation, icon, leaveAnimation, loading,
               onChange, onSearchClick, placeholder, results,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

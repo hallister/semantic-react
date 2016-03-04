@@ -85,7 +85,9 @@ export class Dimmer extends Component {
     }
 
     renderDimmer() {
+        /* eslint-disable no-use-before-define */
         let { component, disabled, inverted, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         let dimmerChildren = [];
 
@@ -115,7 +117,9 @@ export class Dimmer extends Component {
     }
 
     renderLoader() {
+        /* eslint-disable no-use-before-define */
         let { disabled, inverted, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(
             this.props.className,

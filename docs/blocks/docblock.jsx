@@ -10,14 +10,16 @@ export default class DocBlock extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, params, type, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         let childArray = React.Children.toArray(children);
 
         return (
             <Segment basic>
                 <Header component="h1"
-                    dividing
+                        dividing
                 >
                     {this.props.title.charAt(0).toUpperCase() + this.props.title.slice(1)}
                 </Header>

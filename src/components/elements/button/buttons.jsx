@@ -111,9 +111,11 @@ export default class Buttons extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { attached, basic, children, className, color, compact, component,
               defaultClasses, equal, floated, icon, inverted, labeled, size,
               vertical, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

@@ -89,7 +89,9 @@ class Docs extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         return (
             <Grid

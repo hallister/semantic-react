@@ -24,17 +24,6 @@ export class Accordion extends Component {
         }
     }
 
-    _handleClick(key) {
-        let active;
-
-        if (key !== this.state.currentActive) {
-            active = key;
-        }
-
-        this.setState({
-            currentActive: active
-        })
-    }
 
     renderChildren() {
         let index = 0;
@@ -86,5 +75,17 @@ export class Accordion extends Component {
                 {this.renderChildren()}
             </div>
         )
+    }
+
+    _handleClick(key) {
+        let active;
+
+        if (key !== this.state.currentActive) {
+            active = key;
+        }
+
+        this.setState({
+            currentActive: active
+        })
     }
 }

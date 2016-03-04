@@ -90,9 +90,11 @@ export class Grid extends React.Component {
 
     render() {
         // consume props
+        /* eslint-disable no-use-before-define */
         let { aligned, celled, centered, children, columns, component,
               container, className, defaultClasses, divided, doubling, equal,
               padded, relaxed, stackable, valigned, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         // add classnames
         other.className = classNames(this.props.className, this.getClasses());

@@ -22,7 +22,7 @@ SocialButton.propTypes = {
     /**
      * Adds a SemanticUI name class to the icon.
      */
-    name: React.PropTypes.string
+    name: React.PropTypes.string.isRequired
 };
 
 export default SocialButton;

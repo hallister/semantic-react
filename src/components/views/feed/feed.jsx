@@ -14,8 +14,10 @@ function getClasses(props) {
 }
 
 let Feed = (props) => {
+    /* eslint-disable no-use-before-define */
     let { children, className, component, defaultClasses, size,
           ...other } = props;
+    /* eslint-enable no-use-before-define */
 
     other.className = classNames(className, getClasses(props));
 

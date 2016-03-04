@@ -18,8 +18,10 @@ export default class SubHeader extends React.Component {
     };
 
     render() {
-        let { children, className, component, defaultClasses, 
+        /* eslint-disable no-use-before-define */
+        let { children, className, component, defaultClasses,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

@@ -2,7 +2,9 @@ import React from 'react';
 import { Segment, Label } from '../../src/components/elements';
 
 let ExampleContentBlock = (props) => {
+    /* eslint-disable no-use-before-define */
     let { example, exampleCode, exampleObject, ...other } = props;
+    /* eslint-enable no-use-before-define */
 
     return (
         <div

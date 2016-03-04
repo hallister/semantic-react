@@ -21,7 +21,8 @@ export class Menu extends React.Component {
         className: React.PropTypes.node,
         component: React.PropTypes.oneOfType([
             React.PropTypes.element,
-            React.PropTypes.string
+            React.PropTypes.string,
+            React.PropTypes.func
         ]),
         defaultClasses: React.PropTypes.bool,
         end: React.PropTypes.shape({
@@ -75,7 +76,9 @@ export class Menu extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { active, start, end, component, defaultClasses, even, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
         other.style = this.props.style;

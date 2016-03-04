@@ -33,8 +33,10 @@ export class Bar extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { defaultClasses, progress, showPercentage, component,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
               // add classnames
         other.className = classNames(this.props.className, this.getClasses());

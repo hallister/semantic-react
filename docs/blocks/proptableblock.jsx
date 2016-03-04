@@ -20,7 +20,9 @@ function handleUnion(value) {
 }
 
 let PropTableBlock = (props) => {
+    /* eslint-disable no-use-before-define */
     let { ...other } = props;
+    /* eslint-enable no-use-before-define */
     let typeName = [];
 
     if (props.description.type.name == 'union') {

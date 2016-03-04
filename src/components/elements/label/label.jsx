@@ -74,8 +74,10 @@ export default class Label extends React.Component {
 
         let Component = this.props.onClick ? 'a' : 'div';
 
+        /* eslint-disable no-use-before-define */
         let { defaultClasses, left, right, corner, label, attached, image, color, pointing, ribbon, tag,
               link, circular, size, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

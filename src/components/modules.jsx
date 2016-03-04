@@ -15,6 +15,7 @@ export * from './modules/dimmer/dimmable';
 export * from './modules/dropdown/dropdown';
 export * from './modules/dropdown/select';
 export * from './modules/dropdown/option';
+export * from './modules/dropdown/dropdownmenu';
 
 export * from './modules/modal/modal';
 export * from './modules/modal/modalbody';
@@ -23,6 +24,8 @@ export * from './modules/popup/popup';
 export * from './modules/popup/popupplacer';
 export * from './modules/popup/popupelement';
 export * from './modules/popup/portal';
+
+export * from './modules/layer/rendertolayer';
 
 export * from './modules/progress/bar';
 export * from './modules/progress/progress';

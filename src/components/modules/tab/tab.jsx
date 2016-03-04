@@ -16,7 +16,9 @@ export class Tab extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, header, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         return (
             <TabContent { ...other }>

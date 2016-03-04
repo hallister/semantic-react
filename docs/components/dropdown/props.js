@@ -39,6 +39,9 @@ exports.dropdown = {
                     },
                     {
                         "name": "string"
+                    },
+                    {
+                        "name": "func"
                     }
                 ]
             },
@@ -68,6 +71,13 @@ exports.dropdown = {
             "description": ""
         },
         "error": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": ""
+        },
+        "floating": {
             "type": {
                 "name": "bool"
             },
@@ -109,6 +119,21 @@ exports.dropdown = {
             "required": false,
             "description": ""
         },
+        "pointing": {
+            "type": {
+                "name": "union",
+                "value": [
+                    {
+                        "name": "bool"
+                    },
+                    {
+                        "name": "string"
+                    }
+                ]
+            },
+            "required": false,
+            "description": ""
+        },
         "scrolling": {
             "type": {
                 "name": "bool"
@@ -136,6 +161,147 @@ exports.dropdown = {
             },
             "required": false,
             "description": ""
+        }
+    }
+}
+/* eslint-enable */
+/* eslint-disable */
+exports.dropdownmenu = {
+    "description": "Dropdown menu with animations",
+    "props": {
+        "active": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Should menu be opened when first rendered",
+            "defaultValue": {
+                "value": "false",
+                "computed": false
+            }
+        },
+        "children": {
+            "type": {
+                "name": "node"
+            },
+            "required": false,
+            "description": "Children nodes"
+        },
+        "dropdownComponent": {
+            "type": {
+                "name": "union",
+                "value": [
+                    {
+                        "name": "element"
+                    },
+                    {
+                        "name": "string"
+                    },
+                    {
+                        "name": "func"
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Pass additional component to use in dropdown, for example Button.\r\nIf you specify it, then default icon and label won't be rendered",
+            "defaultValue": {
+                "value": "'div'",
+                "computed": false
+            }
+        },
+        "enterAnimation": {
+            "type": {
+                "name": "shape",
+                "value": {
+                    "duration": {
+                        "name": "number",
+                        "required": false
+                    },
+                    "easing": {
+                        "name": "string",
+                        "required": false
+                    },
+                    "from": {
+                        "name": "object",
+                        "required": false
+                    },
+                    "to": {
+                        "name": "object",
+                        "required": false
+                    }
+                }
+            },
+            "required": false,
+            "description": "Enter animation",
+            "defaultValue": {
+                "value": "{\r\n    duration: 150,\r\n    easing: 'out-circ',\r\n    from: {\r\n        opacity: 0,\r\n        transform: 'scaleY(0)',\r\n        transformOrigin: 'top center',\r\n        WebkitTransform: 'scaleY(0)',\r\n        WebkitTransformOrigin: 'top center'\r\n    },\r\n    to: {\r\n        opacity: 1,\r\n        transform: 'scaleY(1)',\r\n        transformOrigin: 'top center',\r\n        WebkitTransform: 'scaleY(1)',\r\n        WebkitTransformOrigin: 'top center'\r\n    }\r\n}",
+                "computed": false
+            }
+        },
+        "icon": {
+            "type": {
+                "name": "string"
+            },
+            "required": false,
+            "description": "Menu icon",
+            "defaultValue": {
+                "value": "'dropdown'",
+                "computed": false
+            }
+        },
+        "label": {
+            "type": {
+                "name": "string"
+            },
+            "required": false,
+            "description": "Menu label"
+        },
+        "leaveAnimation": {
+            "type": {
+                "name": "shape",
+                "value": {
+                    "duration": {
+                        "name": "number",
+                        "required": false
+                    },
+                    "easing": {
+                        "name": "string",
+                        "required": false
+                    },
+                    "from": {
+                        "name": "object",
+                        "required": false
+                    },
+                    "to": {
+                        "name": "object",
+                        "required": false
+                    }
+                }
+            },
+            "required": false,
+            "description": "Leave animation",
+            "defaultValue": {
+                "value": "{\r\n    duration: 150,\r\n    easing: 'out-cubic',\r\n    from: {\r\n        opacity: 1,\r\n        transform: 'scaleY(1)',\r\n        transformOrigin: 'top center',\r\n        WebkitTransform: 'scaleY(1)',\r\n        WebkitTransformOrigin: 'top center'\r\n    },\r\n    to: {\r\n        opacity: 0,\r\n        transform: 'scaleY(0)',\r\n        transformOrigin: 'top center',\r\n        WebkitTransform: 'scaleY(0)',\r\n        WebkitTransformOrigin: 'top center'\r\n    }\r\n}",
+                "computed": false
+            }
+        },
+        "menuComponent": {
+            "type": {
+                "name": "union",
+                "value": [
+                    {
+                        "name": "element"
+                    },
+                    {
+                        "name": "string"
+                    },
+                    {
+                        "name": "func"
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Specify component to be used as Menu.\r\nUsually is should be menu but with custom options applied (for example inverted)"
         }
     }
 }

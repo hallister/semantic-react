@@ -4,7 +4,7 @@ var path = require('path');
 
 module.exports = function(config) {
     config.set({
-        frameworks: ['mocha', 'sinon-chai'],
+        frameworks: ['mocha', 'chai', 'sinon'],
         files: [
           'src/app.tests.js'
         ],
@@ -15,7 +15,7 @@ module.exports = function(config) {
         },
         browsers: [ 'jsdom' ],
         preprocessors: {
-           'src/app.tests.js': ['webpack'],
+           'src/app.tests.js': ['webpack', 'sourcemap'],
            'src/components/semantic-react.jsx': ['coverage']
         },
         reporters: [ 'spec', 'coverage' ],
@@ -32,11 +32,13 @@ module.exports = function(config) {
             ]
         },
         webpack: {
+            devtool: 'inline-source-map',
+            debug: true,
             resolve: {
-                extensions: ['', '.js', '.jsx', '.es6']
+                extensions: ['', '.js', '.jsx', '.es6', '.json']
             },
             plugins: [
-                new webpack.IgnorePlugin(/react\/lib\/ReactContext/)
+                new webpack.IgnorePlugin(/react\/lib\/(ReactContext|ExecutionEnvironment)/)
             ],
             module: {
                 preLoaders: [{
@@ -48,6 +50,9 @@ module.exports = function(config) {
                     test: /\.(jsx?|es6)$/,
                     exclude: /node_modules/,
                     loader: 'babel'
+                },{
+                    test: /\.json$/,
+                    loader: 'json'
                 }]
             }
         },

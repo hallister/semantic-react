@@ -78,7 +78,9 @@ export class Popup extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { active, children, position, startAnimation, endAnimation, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
         let popup;
 
         // popup is not placed, but is active
