@@ -2,7 +2,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { Menu } from '../menu';
+import Menu from '../menu';
 import { Dropdown } from '../../../modules';
 import MenuItem from '../menuitem';
 
