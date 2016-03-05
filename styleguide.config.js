@@ -42,6 +42,8 @@ module.exports = {
         webpackConfig.devtool = 'inline-source-map';
         webpackConfig.resolve.extensions.push('.es6');
         
+        webpackConfig.resolveLoader.modulesDirectories = ['src/loaders', ...webpackConfig.resolveLoader.modulesDirectories];
+
         // webpackConfig.resolve.alias['rsg-components/TableOfContents'] = path.join(__dirname, 'src/styleguide/TableOfContents');
         return webpackConfig;
     }
