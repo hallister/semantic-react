@@ -1,7 +1,6 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
-import Radium from 'radium';
 import DefaultProps from '../../defaultProps';
 
 let validProps = {
@@ -13,7 +12,6 @@ let validProps = {
  * Menu. Could be simple or controlled. Controlled menu will be activated by providing value property and will manage
  * current active item and fire onChange callback when value was changed
  */
-@Radium
 export default class Menu extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,

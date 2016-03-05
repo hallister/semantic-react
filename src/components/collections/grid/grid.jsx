@@ -2,7 +2,6 @@ import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
 import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 const validProps = {
     aligned: ['right', 'left', 'center'],
@@ -139,5 +138,4 @@ Grid.defaultProps = {
     ...DefaultProps.defaultProps
 };
 
-Grid = Radium(Grid);
 export default Grid;

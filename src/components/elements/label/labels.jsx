@@ -1,8 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Radium from 'radium';
 
-@Radium
 export default class Labels extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,

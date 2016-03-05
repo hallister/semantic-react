@@ -1,9 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 // Currently header/dividers are only headers. Maybe do both?
-@Radium
 export default class Divider extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['horizontal', 'vertical']),

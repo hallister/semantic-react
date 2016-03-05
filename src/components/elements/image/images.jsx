@@ -1,8 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Radium from 'radium';
 
-@Radium
 export default class Images extends React.Component {
     static propTypes = {
         avatar: React.PropTypes.bool,

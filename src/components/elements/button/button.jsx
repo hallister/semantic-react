@@ -2,7 +2,6 @@ import React from 'react';
 import { Icon } from '../../elements';
 import { hasChild, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 let validProps = {
     animated: ['vertical', 'fade'],
@@ -11,7 +10,6 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-@Radium
 export default class Button extends React.Component {
     static propTypes = {
         /**

@@ -4,9 +4,7 @@ import { hasChild } from '../../utilities';
 import { Content, Loader } from '../../elements';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
-import Radium from 'radium';
 
-@Radium
 export default class Dimmer extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,

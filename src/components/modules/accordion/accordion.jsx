@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { AccordionTitle, AccordionBody } from '../../modules'
 import classNames from 'classnames';
-import Radium from 'radium';
 
-@Radium
 export default class Accordion extends Component {
     static propTypes = {
         children: React.PropTypes.node,

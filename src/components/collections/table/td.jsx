@@ -1,7 +1,6 @@
 import React from 'react';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 let validProps = {
     aligned: ['right', 'left', 'center', 'top', 'bottom']
@@ -59,5 +58,4 @@ td.defaultProps = {
     component: 'td'
 }
 
-td = Radium(td);
 export default td;

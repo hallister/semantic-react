@@ -8,7 +8,7 @@ externals.push(/^react(\/.*)?$/, /^react-dom(\/.*)?$/);
 
 module.exports = {
     devtool: 'source-map',
-    entry: './src/components/semantic-react',
+    entry: './src/components/index',
     externals: {
         'react': {
             root: 'React',

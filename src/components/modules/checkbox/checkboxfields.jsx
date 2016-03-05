@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Checkbox } from '../../modules';
 import classNames from 'classnames';
-import Radium from 'radium';
 
-@Radium
 export default class CheckboxFields extends Component {
     static propTypes = {
         children: React.PropTypes.oneOfType([

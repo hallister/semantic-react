@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 let Meta = ({ children, className, component, ...other }) => {
     other.className = classNames(className, { metadata: true });
@@ -25,4 +24,4 @@ Meta.defaultProps = {
     component: 'div'
 };
 
-export default Radium(Meta);
+export default Meta;

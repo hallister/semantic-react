@@ -2,9 +2,7 @@ import React from 'react';
 import Tab from './tab';
 import TabTitle from './tabtitle';
 import { Item } from '../../views';
-import Radium from 'radium';
 
-@Radium
 export default class Tabs extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,

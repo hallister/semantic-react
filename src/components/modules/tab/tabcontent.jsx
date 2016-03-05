@@ -1,8 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Radium from 'radium';
 
-@Radium
 export default class TabContent extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,

@@ -2,7 +2,6 @@ import React from 'react';
 import { hasChild, validateClassProps } from '../../utilities';
 import { Image } from '../../elements';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 let validProps = {
     attached: ['top', 'bottom', 'top right', 'top left', 'bottom left', 'bottom right'],
@@ -11,7 +10,6 @@ let validProps = {
     ribbon: ['right']
 };
 
-@Radium
 export default class Label extends React.Component {
     static propTypes = {
         attached: React.PropTypes.oneOf(['top', 'bottom', 'top right', 'top left', 'bottom left', 'bottom right']),

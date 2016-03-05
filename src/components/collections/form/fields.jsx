@@ -2,7 +2,6 @@ import React from 'react';
 import { countChildren, Numbers } from '../../utilities';
 import Field from './field';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 function getClasses(props) {
     let classes = {
@@ -58,7 +57,5 @@ Fields.defaultProps = {
     component: 'div',
     defaultClasses: true
 }
-
-Fields = Radium(Fields);
 
 export default Fields;

@@ -8,8 +8,6 @@ import shallowCompare from 'react-addons-shallow-compare';
 import PopupElement, { POSITIONS } from './popupelement';
 import { isNodeInRoot } from '../../utilities';
 
-// const shallowCompare = require('react-addons-shallow-compare');
-
 /**
  * Popup with animations
  */
@@ -191,7 +189,7 @@ export default class Popup extends React.Component {
             position: 'fixed' // need it to be fixed to avoid it with bloating code with many checks
         };
         
-        const popupStyle = style ? [style, positionStyle] : positionStyle;
+        const popupStyle = style ? { ...style, ...positionStyle } : positionStyle;
         
         return (
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}

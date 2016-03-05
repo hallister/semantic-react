@@ -2,7 +2,6 @@ import React from 'react';
 import { Icon } from '../../elements';
 import { hasChild, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 let validProps = {
     aligned: ['right', 'left', 'justified', 'center'],
@@ -10,7 +9,6 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-@Radium
 export default class Header extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),

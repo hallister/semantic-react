@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, Content } from '../../elements';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 function renderChildren(children) {
     let commentChildren = [];
@@ -59,5 +58,4 @@ Comment.defaultProps = {
     component: 'div'
 }
 
-Comment = Radium(Comment);
 export default Comment;

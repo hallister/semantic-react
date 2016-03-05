@@ -1,13 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
-import Radium from 'radium';
 
 let validProps = {
     pointing: ['left', 'right', 'bottom left', 'bottom right', 'top left', 'top right']
 };
 
-@Radium
 export default class Dropdown extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 let Date = ({ children, className, component, ...other }) => {
     other.className = classNames(className, { date: true });
@@ -25,4 +24,4 @@ Date.defaultProps = {
     component: 'div'
 };
 
-export default Radium(Date);
+export default Date;

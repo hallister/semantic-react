@@ -3,7 +3,6 @@ import { Icon } from '../../elements';
 import Transition from 'react-motion-ui-pack';
 import Results from './results';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 /*
 3 support results types:
@@ -19,7 +18,6 @@ import Radium from 'radium';
 
 ['test', 'test']
 */
-@Radium
 export default class Search extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,

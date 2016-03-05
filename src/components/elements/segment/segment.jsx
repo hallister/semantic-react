@@ -1,7 +1,6 @@
 import React from 'react';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 let validProps = {
     aligned: ['right', 'left', 'center'],
@@ -9,7 +8,6 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-@Radium
 export default class Segment extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['right', 'left', 'center']),

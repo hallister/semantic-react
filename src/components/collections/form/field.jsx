@@ -2,7 +2,6 @@ import React from 'react';
 import { Numbers, hasFirstChild } from '../../utilities';
 import { Checkbox, Checkboxes } from '../../modules';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 function getClasses(props) {
     let classes = {
@@ -72,8 +71,6 @@ Field.defaultProps = {
     component: 'div',
     defaultClasses: true
 }
-
-Field = Radium(Field);
 
 export default Field;
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 
 let Actions = ({ children, className, component, ...other }) => {
@@ -26,4 +25,4 @@ Actions.defaultProps = {
     component: 'div'
 };
 
-export default Radium(Actions);
+export default Actions;

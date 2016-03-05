@@ -1,9 +1,7 @@
 import React from 'react';
 import { Icon, Label } from '../../elements';
 import classNames from 'classnames';
-import Radium from 'radium';
 
-@Radium
 export default class Input extends React.Component {
     static propTypes = {
         action: React.PropTypes.bool,

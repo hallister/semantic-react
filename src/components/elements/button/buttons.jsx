@@ -2,14 +2,12 @@ import React from 'react';
 import { LabeledButton, IconButton } from '../../elements';
 import { Numbers, validateClassProps, isEveryChild } from '../../utilities';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 let validProps = {
     attached: ['bottom', 'top'],
     floated: ['right', 'left']
 };
 
-@Radium
 export default class Buttons extends React.Component {
     static propTypes = {
         /**

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 function getClasses(props) {
     let classes = {
@@ -45,5 +44,4 @@ Feed.defaultProps = {
     defaultClasses: true
 }
 
-Feed = Radium(Feed);
 export default Feed;

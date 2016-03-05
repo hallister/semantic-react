@@ -2,7 +2,6 @@ import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
 import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 const validProps = {
     aligned: ['right', 'left', 'justified', 'center'],
@@ -140,5 +139,4 @@ Column.defaultProps = {
     ...DefaultProps.defaultProps
 };
 
-Column = Radium(Column);
 export default Column;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, Images, Icon } from '../../elements';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 function renderContent(children) {
     let contentChildren = [];
@@ -89,6 +88,5 @@ Event.defaultProps = {
     component: 'div'
 }
 
-Event = Radium(Event);
 export default Event;
 

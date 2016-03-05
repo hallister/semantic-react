@@ -1,7 +1,6 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
-import Radium from 'radium';
 
 let validProps = {
     aligned: ['top', 'bottom'],
@@ -139,6 +138,5 @@ table.defaultProps = {
     }
 }
 
-table = Radium(table);
 export default table;
 
