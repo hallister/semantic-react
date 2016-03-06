@@ -3,7 +3,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Menu from '../menu';
-import { Dropdown } from '../../../modules';
+import { DropdownElement } from '../../../modules';
 import MenuItem from '../menuitem';
 
 describe('Menu', () => {
@@ -119,8 +119,22 @@ describe('Menu', () => {
         });
         
         it('When menu is a child of dropdown', () => {
-            let wrapper = shallow(<Dropdown><Menu /></Dropdown>);
-            expect(wrapper.find(Menu)).to.have.not.className('ui');
+            let wrapper = shallow(<Menu />, { context: { isDropdownChild: true } });
+            expect(wrapper).to.have.not.className('ui');
+        });
+    });
+
+    describe('When menu is child of dropdown', () => {
+        it('Should add click handlers to menu items', () => {
+            let wrapper = shallow(
+                    <Menu>
+                        <MenuItem menuValue={1}>First</MenuItem>
+                        <MenuItem menuValue={2}>Second</MenuItem>
+                    </Menu>,
+            { context: { isDropdownChild: true }});
+            
+            expect(wrapper.find(MenuItem).at(0)).to.have.prop('onClick');
+            expect(wrapper.find(MenuItem).at(1)).to.have.prop('onClick');
         });
     });
     

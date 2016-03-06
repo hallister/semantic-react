@@ -18,9 +18,7 @@ DefaultProps.propTypes = {
      */
     children: React.PropTypes.node,
     /**
-     * Use other component for composing results
-     * @example
-     * <Grid component={Container}>...</Grid>
+     * Use other component for composing results: <DropdownMenu component={Button}>
      */
     component: elementType,
     /**

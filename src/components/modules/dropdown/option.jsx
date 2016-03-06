@@ -3,27 +3,38 @@ import classNames from 'classnames';
 import { MenuItem } from '../../views';
 
 /**
- * Select dropdown option
+ * Select option. This should be used in <Select>
  */
-export default class Option extends React.Component {
-    static propTypes = {
-        ...MenuItem.propTypes,
-        children: React.PropTypes.node,
-        value: React.PropTypes.string.isRequired
-    };
-
-    render() {
-        /* eslint-disable */
-        if (this.props.active) {
-            this.props.className = classNames(this.props.className, {selected: true});
-        }
-        /* eslint-enable */
-        return (
-            <MenuItem
-                {...this.props}
-            >
-                {this.props.children}
-            </MenuItem>
-        );
+let Option = (props) => {
+    /* eslint-disable no-use-before-define */
+    const { children, value, ...other } = props;
+    /* eslint-enable no-use-before-define */
+    if (other.active) {
+        other.className = classNames(other.className, { selected: true });
     }
-}
+    return (
+        <MenuItem 
+            menuValue={value}
+            {...other} 
+        >
+            {children}
+        </MenuItem>
+    )
+};
+
+Option.propTypes = {
+    ...MenuItem.propTypes,
+    /**
+     * Option value
+     */
+    value: React.PropTypes.oneOfType([
+        React.PropTypes.number,
+        React.PropTypes.string
+    ]).isRequired
+};
+
+Option.defaultProps = {
+    ...MenuItem.defaultProps
+};
+
+export default Option;

@@ -130,7 +130,7 @@ export default class Menu extends React.Component {
         event.preventDefault();
         
         this.props.onMenuItemClick(value);
-        if (this.state.activeItem !== value) {
+        if (typeof this.props.menuValue !== 'undefined' && this.state.activeItem !== value) {
             this.setState({
                 activeItem: value
             });
@@ -139,8 +139,8 @@ export default class Menu extends React.Component {
     }
     
     renderChildren() {
-        // If this is not controlled menu do not do anything with childs
-        if (typeof this.props.menuValue === 'undefined') {
+        // If this is not controlled menu and not dropdown child do not do anything with childs
+        if (typeof this.props.menuValue === 'undefined' && !this.context.isDropdownChild) {
             return this.props.children;
         }
         
