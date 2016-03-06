@@ -9,9 +9,6 @@ import { Menu } from '../../views';
 import DropdownElement from './dropdownelement';
 import elementType from 'react-prop-types/lib/elementType'; 
 
-const validProps = {
-    pointing: ['left', 'right', 'top left', 'top right', 'bottom left', 'bottom right']
-};
 
 /**
  * Dropdown menu with animations
@@ -28,17 +25,9 @@ export default class DropdownMenu extends React.Component {
          */
         enterAnimation: React.PropTypes.object,
         /**
-         * A dropdown menu can appear to be floating below an element. 
-         */
-        floating: React.PropTypes.bool,
-        /**
          * Menu icon
          */
         icon: React.PropTypes.string,
-        /**
-         * A dropdown can be formatted to appear inline in other content
-         */
-        inline: React.PropTypes.bool,
         /**
          * Menu label
          */
@@ -53,15 +42,6 @@ export default class DropdownMenu extends React.Component {
          * DropdownMenu will pass some props to your Menu component, so you're responsive for passing it down to the level
          */
         menuComponent: elementType,
-        /**
-         * A dropdown can be formatted so that its menu is pointing
-         */
-        pointing: React.PropTypes.oneOfType([
-            React.PropTypes.bool,
-            React.PropTypes.oneOf([
-                'left', 'right', 'top left', 'top right', 'bottom left', 'bottom right'
-            ])
-        ]),
         /**
          * Menu item click callback
          */
@@ -101,7 +81,6 @@ export default class DropdownMenu extends React.Component {
             })
         }
     }
-
 
     /**
      * Dropdown click
@@ -181,12 +160,9 @@ export default class DropdownMenu extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let {
-            active, enterAnimation, leaveAnimation, floating, inline, pointing, 
-            children, icon, label, menuComponent, onMenuItemClick, ...other
+            active, enterAnimation, leaveAnimation, children, icon, label, menuComponent, onMenuItemClick, ...other
         } = this.props;
         /* eslint-enable no-use-before-define */
-
-        other.className = classNames(other.className, this.getClasses());
 
         const MenuComponent = menuComponent || Menu;
 
@@ -220,15 +196,6 @@ export default class DropdownMenu extends React.Component {
                 </Transition>
             </DropdownElement>
         );
-    }
-    
-    getClasses() {
-        let classes = {
-            floating: this.props.floating,
-            inline: this.props.inline,
-            pointing: this.props.pointing
-        };
-        return validateClassProps(classes, this.props, validProps);
     }
 }
 

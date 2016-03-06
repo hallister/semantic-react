@@ -11,6 +11,9 @@ const consumedProps = {
     disabled: true,
     error: true,
     loading: true,
+    floating: true,
+    inline: true,
+    pointing: true,
     fluid: true,
     scrolling: true
 };
@@ -61,6 +64,53 @@ describe('DropdownElement', () => {
     it('Could be scrolling', () => {
         let wrapper = shallow(<DropdownElement scrolling/>);
         expect(wrapper).to.have.className('scrolling');
+    });
+    
+    it('Could be floating', () => {
+        let wrapper = shallow(<DropdownElement floating/>);
+        expect(wrapper).to.have.className('floating');
+    });
+
+    it('Could be inline', () => {
+        let wrapper = shallow(<DropdownElement inline/>);
+        expect(wrapper).to.have.className('inline');
+    });
+
+    describe('It could be pointing', () => {
+        it('Pointing', () => {
+            let wrapper = shallow(<DropdownElement pointing/>);
+            expect(wrapper).to.have.className('pointing');
+        });
+
+        it('Left pointing', () => {
+            let wrapper = shallow(<DropdownElement pointing="left"/>);
+            expect(wrapper).to.have.className('left pointing')
+        });
+
+        it('Right pointing', () => {
+            let wrapper = shallow(<DropdownElement pointing="right"/>);
+            expect(wrapper).to.have.className('right pointing');
+        });
+
+        it('Top left pointing', () => {
+            let wrapper = shallow(<DropdownElement pointing="top left"/>);
+            expect(wrapper).to.have.className('top left pointing');
+        });
+
+        it('Top right pointing', () => {
+            let wrapper = shallow(<DropdownElement pointing="top right"/>);
+            expect(wrapper).to.have.className('top right pointing');
+        });
+
+        it('Bottom left pointing', () => {
+            let wrapper = shallow(<DropdownElement pointing="bottom left"/>);
+            expect(wrapper).to.have.className('bottom left pointing');
+        });
+
+        it('Bottom right pointing', () => {
+            let wrapper = shallow(<DropdownElement pointing="bottom right"/>);
+            expect(wrapper).to.have.className('bottom right pointing');
+        });
     });
     
     itShouldConsumeOwnAndPassCustomProps(DropdownElement, consumedProps);
