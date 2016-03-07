@@ -1,9 +1,9 @@
 import React from 'react';
-import { Tab } from './tab';
-import { TabTitle } from './tabtitle';
+import Tab from './tab';
+import TabTitle from './tabtitle';
 import { Item } from '../../views';
 
-export class Tabs extends React.Component {
+export default class Tabs extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.any,
@@ -97,8 +97,10 @@ export class Tabs extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, position, type,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         return React.createElement(
             this.props.component,

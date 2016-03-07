@@ -604,7 +604,7 @@ exports.socialbutton = {
             "type": {
                 "name": "string"
             },
-            "required": false,
+            "required": true,
             "description": "Adds a SemanticUI name class to the icon."
         }
     }

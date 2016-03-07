@@ -45,8 +45,10 @@ export default class Content extends React.Component {
     render() {
         let children = this.context.isDimmerChild ? this.renderDimmerChild() : this.props.children;
 
+        /* eslint-disable no-use-before-define */
         let { aligned, component, defaultClasses, extra, floated, hidden, meta,
               visible, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

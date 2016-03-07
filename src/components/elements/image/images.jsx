@@ -27,8 +27,10 @@ export default class Images extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { avatar, bordered, children, className, component, defaultClasses,
               disabled, shape, size, visible, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

@@ -26,7 +26,9 @@ function getClasses(props) {
 }
 
 let Form = (props) => {
+    /* eslint-disable no-use-before-define */
     let { children, className, component, ...other } = props;
+    /* eslint-enable no-use-before-define */
     other.className = classNames(className, getClasses(props));
 
     return React.createElement(
@@ -60,4 +62,4 @@ Form.defaultProps = {
     defaultClasses: true
 }
 
-exports.Form = Form;
+export default Form;

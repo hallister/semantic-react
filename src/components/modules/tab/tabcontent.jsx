@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export class TabContent extends React.Component {
+export default class TabContent extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         children: React.PropTypes.node,
@@ -29,8 +29,10 @@ export class TabContent extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { active, children, className, component, defaultClasses,
               loading, segment, type, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses())
 

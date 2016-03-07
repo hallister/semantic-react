@@ -35,9 +35,11 @@ function getClasses(props) {
 }
 
 let message = (props) => {
+    /* eslint-disable no-use-before-define */
     let { attached, children, className, color, compact, component,
           defaultClasses, floating, hidden, icon, size, state, type, visible,
           ...other } = props;
+    /* eslint-enable no-use-before-define */
 
     other.className = classNames(className, getClasses(props));
 
@@ -75,4 +77,5 @@ message.defaultProps = {
     defaultClasses: true
 }
 
-exports.Message = message;
+export default message;
+

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from '../../elements';
-import { Results } from './results';
+import Transition from 'react-motion-ui-pack';
+import Results from './results';
 import classNames from 'classnames';
 
 /*
@@ -17,8 +18,7 @@ import classNames from 'classnames';
 
 ['test', 'test']
 */
-
-export class Search extends React.Component {
+export default class Search extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.any,
@@ -29,22 +29,12 @@ export class Search extends React.Component {
         defaultClasses: React.PropTypes.bool,
         emptyHeader: React.PropTypes.string,
         emptyMessage: React.PropTypes.string,
-        enterAnimation: React.PropTypes.shape({
-            duration: React.PropTypes.number,
-            easing: React.PropTypes.string,
-            from: React.PropTypes.object,
-            to: React.PropTypes.object
-        }),
+        enterAnimation: React.PropTypes.object,
         icon: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.bool
         ]),
-        leaveAnimation: React.PropTypes.shape({
-            duration: React.PropTypes.number,
-            easing: React.PropTypes.string,
-            from: React.PropTypes.object,
-            to: React.PropTypes.object
-        }),
+        leaveAnimation: React.PropTypes.object,
         loading: React.PropTypes.bool,
         onChange: React.PropTypes.func.isRequired,
         onSearchClick: React.PropTypes.func,
@@ -59,32 +49,12 @@ export class Search extends React.Component {
         component: 'div',
         defaultClasses: true,
         enterAnimation: {
-            duration: 200,
-            easing: 'out-expo',
-            from: {
-                opacity: 0,
-                transform: 'scale(0,0)',
-                WebkitTransform: 'scale(0,0)'
-            },
-            to: {
-                opacity: 1,
-                transform: 'scale(1,1)',
-                WebkitTransform: 'scale(1,1)'
-            }
+            opacity: 1,
+            scale: 1
         },
         leaveAnimation: {
-            duration: 200,
-            easing: 'out-expo',
-            from: {
-                opacity: 1,
-                transform: 'scale(1,1)',
-                WebkitTransform: 'scale(1,1)'
-            },
-            to: {
-                opacity: 0,
-                transform: 'scale(0,0)',
-                WebkitTransform: 'scale(0,0)'
-            }
+            opacity: 0,
+            scale: 0
         },
         onSearchClick: function noop() {},
         placeholder: 'Search...'
@@ -182,28 +152,34 @@ export class Search extends React.Component {
 
     renderResults() {
         let props = {
-            animate: this.state.focus && this.searchInput.value !== '',
             emptyHeader: this.props.emptyHeader,
             emptyMessage: this.props.emptyMessage,
             key: 'searchResults',
             onSearchClick: this.onSearchClick.bind(this),
             results: this.results || this.props.results,
-            search: this.searchInput ? this.searchInput.value : '',
-            start: this.props.enterAnimation,
-            end: this.props.leaveAnimation
+            search: this.searchInput ? this.searchInput.value : ''
         };
 
-        return React.createElement(
-            Results,
-            props
+        return (
+            <Transition component={false}
+                        enter={this.props.enterAnimation}
+                        leave={this.props.leaveAnimation}
+            >
+                {(this.state.focus && this.searchInput.value !== '') &&
+                    <Results {...props}/>
+                }
+
+            </Transition>
         );
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, emptyHeader,
               emptyMessage, enterAnimation, icon, leaveAnimation, loading,
               onChange, onSearchClick, placeholder, results,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

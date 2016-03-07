@@ -48,10 +48,12 @@ export default class Segment extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { aligned, component, attached, basic, blurring, children,
               className, clearing, color, defaultClasses, disabled,
               emphasis, floated, index, inverted, loading, vertical,
               zIndex, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
         other.style = this.getStyle();

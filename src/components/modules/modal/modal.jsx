@@ -115,18 +115,11 @@ class Modal extends React.Component {
         this.props.onComplete(this.state.active);
     }
 
-    handleClickOutside() {
-        if (this.props.outsideClickClose) {
-            if (this.state.active) {
-                this.setState({
-                    active: false
-                });
-            }
-        }
-    }
 
     renderModalBody() {
+        /* eslint-disable no-use-before-define */
         let { blurring, component, disabled, leaveAnimation, inverted, outsideClickClose, page, enterAnimation, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         let props = Object.assign(other, {
             animate: this.state.active,
@@ -144,7 +137,9 @@ class Modal extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { basic, children, component, leaveAnimation, fullscreen, offset, outsideClickClose, padding, size, enterAnimation, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
         other.active = this.state.active;
 
         return React.createElement(
@@ -152,6 +147,16 @@ class Modal extends React.Component {
             other,
             this.renderModalBody()
         );
+    }
+
+    handleClickOutside() {
+        if (this.props.outsideClickClose) {
+            if (this.state.active) {
+                this.setState({
+                    active: false
+                });
+            }
+        }
     }
 
     getModalClasses() {
@@ -169,4 +174,4 @@ class Modal extends React.Component {
 
 // Need this trick for react-docgen
 Modal = listensToClickOutside(Modal);
-export { Modal };
+export default Modal;

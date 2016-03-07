@@ -3,7 +3,7 @@ import { Animate, $ } from '../../modules';
 import classNames from 'classnames';
 
 @Animate
-export class ModalBody extends React.Component {
+export default class ModalBody extends React.Component {
     static propTypes = {
         active: React.PropTypes.bool,
         basic: React.PropTypes.bool,
@@ -60,8 +60,10 @@ export class ModalBody extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { active, basic, children, className, component, defaultClasses,
               fullscreen, offset, padding, size, style, start, end, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
         other.className = classNames(this.props.className, this.getClasses());
 
         if (this.modalFits() && this.props.active) {

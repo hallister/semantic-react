@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export class Rating extends React.Component {
+export default class Rating extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.any,
@@ -65,7 +65,9 @@ export class Rating extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { defaultClasses, heart, max, size, star, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

@@ -6,7 +6,9 @@ import { Components } from '../utilities';
 import PropTableBlock from './proptableblock';
 
 let PropBlock = (props) => {
+    /* eslint-disable no-use-before-define */
     let { children, ...other } = props;
+    /* eslint-enable no-use-before-define */
     let propList = [];
 
     let tabs = (

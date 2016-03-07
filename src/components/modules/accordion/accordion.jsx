@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AccordionTitle, AccordionBody } from '../../modules'
 import classNames from 'classnames';
 
-export class Accordion extends Component {
+export default class Accordion extends Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
@@ -24,17 +24,6 @@ export class Accordion extends Component {
         }
     }
 
-    _handleClick(key) {
-        let active;
-
-        if (key !== this.state.currentActive) {
-            active = key;
-        }
-
-        this.setState({
-            currentActive: active
-        })
-    }
 
     renderChildren() {
         let index = 0;
@@ -86,5 +75,17 @@ export class Accordion extends Component {
                 {this.renderChildren()}
             </div>
         )
+    }
+
+    _handleClick(key) {
+        let active;
+
+        if (key !== this.state.currentActive) {
+            active = key;
+        }
+
+        this.setState({
+            currentActive: active
+        })
     }
 }

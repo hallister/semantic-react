@@ -1,10 +1,8 @@
 import React from 'react';
-import { Animate } from '../../modules';
 import { Content } from '../../elements';
 import classNames from 'classnames';
 
-@Animate
-export class Results extends React.Component {
+export default class Results extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.any,
@@ -103,9 +101,11 @@ export class Results extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, emptyHeader,
               emptyMessage, onSearchClick, results, search, style,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
         other.style = this.props.style;

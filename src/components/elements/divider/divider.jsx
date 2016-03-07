@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 
 // Currently header/dividers are only headers. Maybe do both?
-
 export default class Divider extends React.Component {
     static propTypes = {
         aligned: React.PropTypes.oneOf(['horizontal', 'vertical']),
@@ -26,8 +25,10 @@ export default class Divider extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { aligned, children, className, clearing, component, defaultClasses,
               header, hidden, inverted, spacing, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

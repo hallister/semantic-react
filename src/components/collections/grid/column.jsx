@@ -1,108 +1,142 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
-import { Device, Computer, Tablet, Mobile } from '../../collections';
+import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
 
-let validProps = {
+const validProps = {
     aligned: ['right', 'left', 'justified', 'center'],
     floated: ['right', 'left'],
-    visible: ['large screen', 'wide screen', 'computer', 'mobile', 'tablet'],
     valigned: ['top', 'middle', 'bottom']
 
 };
 
-export class Column extends React.Component {
-    static propTypes = {
-        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        color: React.PropTypes.string,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
-        floated: React.PropTypes.oneOf(['right', 'left']),
-        style: React.PropTypes.any,
-        valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
-        visible: React.PropTypes.oneOf(['large screen', 'wide screen', 'computer', 'mobile', 'tablet']),
-        width: React.PropTypes.number
+function getClasses(props) {
+    let classes = {
+        column: props.defaultClasses
     };
-
-    static defaultProps = {
-        component: 'div',
-        defaultClasses: true
-    };
-
-    constructor(props) {
-        super(props);
-
-        this.style = {
-            mobile: {},
-            computer: {},
-            tablet: {}
+    
+    classes[props.color] = !!props.color;
+    
+    // Widths
+    if (props.width && props.width > 0 && props.width <= 16) {
+        classes[`${Numbers[props.width]} wide`] = true;
+    }
+    
+    if (props.mobileWidth && props.mobileWidth > 0 && props.mobileWidth <= 16) {
+        classes[`${Numbers[props.mobileWidth]} wide mobile`] = true;
+    }
+    
+    if (props.tabletWidth && props.tabletWidth > 0 && props.tabletWidth <= 16) {
+        classes[`${Numbers[props.tabletWidth]} wide tablet`] = true;
+    }
+    
+    if (props.computerWidth && props.computerWidth > 0 && props.computerWidth <= 16) {
+        classes[`${Numbers[props.computerWidth]} wide computer`] = true;
+    }
+    
+    if (props.largeScreenWidth && props.largeScreenWidth > 0 && props.largeScreenWidth <= 16) {
+        classes[`${Numbers[props.largeScreenWidth]} wide large screen`] = true;
+    }
+    
+    if (props.wideScreenWidth && props.wideScreenWidth > 0 && props.wideScreenWidth <= 16) {
+        classes[`${Numbers[props.wideScreenWidth]} wide widescreen`] = true;
+    }
+    
+    if (props.only) {
+        let device;
+        if (Array.isArray(props.only)) {
+            device = props.only.join(' ');
+        } else {
+            device = props.only;
+        }
+        if (device) {
+            classes[`${device} only`] = true;
         }
     }
-
-    componentDidMount() {
-        this.forceUpdate();
-    }
-
-    onFoundDevice(style, type) {
-        this.style[type] = style;
-    }
-
-    render() {
-        // consume props
-        let { aligned, color, component, className, children, defaultClasses,
-            floated, valigned, width, ...other } = this.props;
-
-        // add classnames
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            React.Children.count(this.props.children) !== 0 ? this.renderChildren() : []
-        );
-    }
-
-    renderChildren() {
-        let children = [Device, Computer, Tablet, Mobile];
-        return React.Children.map(this.props.children, (child, index) => {
-            if (children.indexOf(child.type) > -1) {
-                return React.cloneElement(
-                    child,
-                    {
-                        callback: this.onFoundDevice.bind(this),
-                        key: index
-                    },
-                    child.children
-                )
-            } else {
-                return child;
-            }
-        });
-    }
-
-    getClasses() {
-        let classes = {
-            ...this.style.computer,
-            ...this.style.tablet,
-            ...this.style.mobile,
-            column: this.props.defaultClasses,
-
-            aligned: this.props.aligned && this.props.aligned !== 'justified'
-        }
-
-        classes[this.props.color] = !!this.props.color;
-
-        if (this.props.width) {
-            if (this.props.width > 0  && this.props.width <= 16) {
-                classes[Numbers[this.props.width] + ' wide'] = true;
-            }
-        }
-
-        return validateClassProps(classes, this.props, validProps, { visible: 'only', valigned: 'aligned' });
-    }
+    
+    return validateClassProps(classes, props, validProps, { valigned: 'aligned' });
 }
+
+/**
+ * Grid column
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+let Column = (props) => {
+    /* eslint-disable no-use-before-define */
+    let {
+        aligned, component, children, defaultClasses, floated, only, width, mobileWidth, tabletWidth,
+        computerWidth, largeScreenWidth, wideScreenWidth, valigned, ...other
+    } = props;
+    /* eslint-enable no-use-before-define */
+    let Component = component;
+    other.className = classNames(other.className, getClasses(props));
+    
+    return (
+        <Component {...other}>
+            {children}
+        </Component>
+    );
+};
+
+Column.propTypes = {
+    ...DefaultProps.propTypes,
+    /**
+     * Horizontal content alignment
+     */
+    aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+    /**
+     * Float to the right or left edge of the row
+     */
+    floated: React.PropTypes.oneOf(['right', 'left']),
+    /**
+     * Only visible for types. Could be single type string or array, i.e. only={["mobile","tablet"]}
+     */
+    only: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf([
+            'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
+        ]),
+        React.PropTypes.arrayOf(React.PropTypes.oneOf([
+            'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
+        ]))
+    ]),
+    /**
+     * Column color
+     */
+    color: React.PropTypes.string,
+    /**
+     * Column width for all device types
+     */
+    width: React.PropTypes.number,
+    /**
+     * Column width for mobile
+     */
+    mobileWidth: React.PropTypes.number,
+    /**
+     * Column width for tablet
+     */
+    tabletWidth: React.PropTypes.number,
+    /**
+     * Column width for computer
+     */
+    computerWidth: React.PropTypes.number,
+    /**
+     * Column width for large screens
+     */
+    largeScreenWidth: React.PropTypes.number,
+    /**
+     * Column width for wide screens
+     */
+    wideScreenWidth: React.PropTypes.number,
+    /**
+     * Vertical content alignment
+     */
+    valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
+};
+
+Column.defaultProps = {
+    ...DefaultProps.defaultProps
+};
+
+export default Column;

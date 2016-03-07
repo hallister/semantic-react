@@ -58,4 +58,4 @@ Comment.defaultProps = {
     component: 'div'
 }
 
-exports.Comment = Comment;
+export default Comment;

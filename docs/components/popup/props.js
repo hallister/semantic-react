@@ -1,197 +1,21 @@
 /* eslint-disable */
 exports.popup = {
-    "description": "",
-    "props": {
-        "active": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": ""
-        },
-        "children": {
-            "type": {
-                "name": "node"
-            },
-            "required": false,
-            "description": ""
-        },
-        "endAnimation": {
-            "type": {
-                "name": "shape",
-                "value": {
-                    "duration": {
-                        "name": "number",
-                        "required": false
-                    },
-                    "easing": {
-                        "name": "string",
-                        "required": false
-                    },
-                    "from": {
-                        "name": "object",
-                        "required": false
-                    },
-                    "to": {
-                        "name": "object",
-                        "required": false
-                    }
-                }
-            },
-            "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "{\r\n    duration: 200,\r\n    easing: 'ease in',\r\n    from: {\r\n        opacity: 1,\r\n        transform: 'scale(1,1)',\r\n        WebkitTransform: 'scale(1,1)'\r\n    },\r\n    to: {\r\n        opacity: 0,\r\n        transform: 'scale(0,0)',\r\n        WebkitTransform: 'scale(0,0)'\r\n    }\r\n}",
-                "computed": false
-            }
-        },
-        "position": {
-            "type": {
-                "name": "string"
-            },
-            "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "'top left'",
-                "computed": false
-            }
-        },
-        "startAnimation": {
-            "type": {
-                "name": "shape",
-                "value": {
-                    "duration": {
-                        "name": "number",
-                        "required": false
-                    },
-                    "easing": {
-                        "name": "string",
-                        "required": false
-                    },
-                    "from": {
-                        "name": "object",
-                        "required": false
-                    },
-                    "to": {
-                        "name": "object",
-                        "required": false
-                    }
-                }
-            },
-            "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "{\r\n    duration: 200,\r\n    easing: 'ease in',\r\n    from: {\r\n        opacity: 0,\r\n        transform: 'scale(0,0)',\r\n        WebkitTransform: 'scale(0,0)'\r\n    },\r\n    to: {\r\n        opacity: 1,\r\n        transform: 'scale(1,1)',\r\n        WebkitTransform: 'scale(1,1)'\r\n    }\r\n}",
-                "computed": false
-            }
-        }
-    }
-}
-/* eslint-enable */
-/* eslint-disable */
-exports.popupelement = {
-    "description": "",
+    "description": "Popup with animations",
     "props": {
         "children": {
             "type": {
                 "name": "node"
             },
             "required": false,
-            "description": ""
-        },
-        "className": {
-            "type": {
-                "name": "node"
-            },
-            "required": false,
-            "description": ""
-        },
-        "classes": {
-            "type": {
-                "name": "object"
-            },
-            "required": false,
-            "description": ""
+            "description": "Children nodes"
         },
         "component": {
             "type": {
-                "name": "union",
-                "value": [
-                    {
-                        "name": "func"
-                    },
-                    {
-                        "name": "string"
-                    }
-                ]
+                "name": "custom",
+                "raw": "elementType"
             },
             "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "'div'",
-                "computed": false
-            }
-        },
-        "pStyle": {
-            "type": {
-                "name": "object"
-            },
-            "required": false,
-            "description": ""
-        },
-        "style": {
-            "type": {
-                "name": "object"
-            },
-            "required": false,
-            "description": ""
-        }
-    }
-}
-/* eslint-enable */
-/* eslint-disable */
-exports.popupplacer = {
-    "description": "",
-    "props": {
-        "active": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "false",
-                "computed": false
-            }
-        },
-        "children": {
-            "type": {
-                "name": "node"
-            },
-            "required": false,
-            "description": ""
-        },
-        "className": {
-            "type": {
-                "name": "node"
-            },
-            "required": false,
-            "description": ""
-        },
-        "component": {
-            "type": {
-                "name": "union",
-                "value": [
-                    {
-                        "name": "func"
-                    },
-                    {
-                        "name": "string"
-                    }
-                ]
-            },
-            "required": false,
-            "description": "",
+            "description": "Use other component for composing results\r\n@example\r\n<Grid component={Container}>...</Grid>",
             "defaultValue": {
                 "value": "'div'",
                 "computed": false
@@ -202,51 +26,90 @@ exports.popupplacer = {
                 "name": "bool"
             },
             "required": false,
-            "description": "",
+            "description": "Apply default semantic UI classes for component, for example ui button",
             "defaultValue": {
                 "value": "true",
                 "computed": false
             }
         },
-        "distanceAway": {
+        "className": {
             "type": {
-                "name": "number"
+                "name": "string"
             },
             "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "0",
-                "computed": false
-            }
+            "description": "Additional CSS ui classes"
         },
-        "jitter": {
+        "basic": {
             "type": {
-                "name": "number"
+                "name": "bool"
             },
             "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "2",
-                "computed": false
-            }
+            "description": "Basic popup variation"
         },
-        "offset": {
+        "fluid": {
             "type": {
-                "name": "number"
+                "name": "bool"
             },
             "required": false,
-            "description": "",
-            "defaultValue": {
-                "value": "0",
-                "computed": false
-            }
+            "description": "Fluid popup"
         },
-        "onPositioned": {
+        "flowing": {
             "type": {
-                "name": "func"
+                "name": "bool"
             },
             "required": false,
-            "description": ""
+            "description": "No maximum width and continue to flow to fit its content"
+        },
+        "inverted": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Inverted popup"
+        },
+        "size": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'mini'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'tiny'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'small'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'large'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'huge'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Popup size"
+        },
+        "wide": {
+            "type": {
+                "name": "union",
+                "value": [
+                    {
+                        "name": "bool"
+                    },
+                    {
+                        "name": "string"
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Make content of popup wide"
         },
         "position": {
             "type": {
@@ -287,33 +150,313 @@ exports.popupplacer = {
                 ]
             },
             "required": false,
-            "description": "",
+            "description": "Popup position",
             "defaultValue": {
                 "value": "'top left'",
                 "computed": false
             }
         },
-        "target": {
+        "active": {
             "type": {
-                "name": "array"
+                "name": "bool"
             },
             "required": false,
-            "description": ""
+            "description": "True to display the popup. If false will be hidden",
+            "defaultValue": {
+                "value": "false",
+                "computed": false
+            }
+        },
+        "autoPosition": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Auto position popup when needed",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
+        "distanceAway": {
+            "type": {
+                "name": "number"
+            },
+            "required": false,
+            "description": "Offset for distance of popup from element",
+            "defaultValue": {
+                "value": "0",
+                "computed": false
+            }
+        },
+        "endAnimation": {
+            "type": {
+                "name": "object"
+            },
+            "required": false,
+            "description": "End animation",
+            "defaultValue": {
+                "value": "{\r\n    scale: 0\r\n}",
+                "computed": false
+            }
+        },
+        "lastResortPosition": {
+            "type": {
+                "name": "string"
+            },
+            "required": false,
+            "description": "Use this position when element fails to fit on screen in all tried positions\r\nIf omitted, the last tried position will be used instead"
+        },
+        "offset": {
+            "type": {
+                "name": "number"
+            },
+            "required": false,
+            "description": "Offset in pixels from calculated position",
+            "defaultValue": {
+                "value": "0",
+                "computed": false
+            }
+        },
+        "onRequestClose": {
+            "type": {
+                "name": "func"
+            },
+            "required": false,
+            "description": "Callback when popup wants to be closed (i.e. when offscreen or clicked outside)",
+            "defaultValue": {
+                "value": "() => {}",
+                "computed": false
+            }
+        },
+        "prefer": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'adjacent'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'opposite'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": "When auto-positioning popup use opposite direction or adjacent as next position",
+            "defaultValue": {
+                "value": "'adjacent'",
+                "computed": false
+            }
+        },
+        "preventElementClicks": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "If true will prevent clicking on the other elements",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
+        "requestCloseWhenOffScreen": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Hide popup when target element scrolls off the screen",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
+        "startAnimation": {
+            "type": {
+                "name": "object"
+            },
+            "required": false,
+            "description": "Start animation",
+            "defaultValue": {
+                "value": "{\r\n    scale: 1\r\n}",
+                "computed": false
+            }
+        },
+        "target": {
+            "type": {
+                "name": "object"
+            },
+            "required": false,
+            "description": "Target element to apply popup"
         }
-    }
+    },
+    "composes": [
+        "./popupelement"
+    ]
 }
 /* eslint-enable */
 /* eslint-disable */
-exports.portal = {
-    "description": "",
+exports.popupelement = {
+    "description": "Popup component without animation transitions",
     "props": {
         "children": {
             "type": {
                 "name": "node"
             },
             "required": false,
-            "description": ""
+            "description": "Children nodes"
+        },
+        "component": {
+            "type": {
+                "name": "custom",
+                "raw": "elementType"
+            },
+            "required": false,
+            "description": "Use other component for composing results\r\n@example\r\n<Grid component={Container}>...</Grid>",
+            "defaultValue": {
+                "value": "'div'",
+                "computed": false
+            }
+        },
+        "defaultClasses": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Apply default semantic UI classes for component, for example ui button",
+            "defaultValue": {
+                "value": "true",
+                "computed": false
+            }
+        },
+        "className": {
+            "type": {
+                "name": "string"
+            },
+            "required": false,
+            "description": "Additional CSS ui classes"
+        },
+        "basic": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Basic popup variation"
+        },
+        "fluid": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Fluid popup"
+        },
+        "flowing": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "No maximum width and continue to flow to fit its content"
+        },
+        "inverted": {
+            "type": {
+                "name": "bool"
+            },
+            "required": false,
+            "description": "Inverted popup"
+        },
+        "size": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'mini'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'tiny'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'small'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'large'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'huge'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Popup size"
+        },
+        "wide": {
+            "type": {
+                "name": "union",
+                "value": [
+                    {
+                        "name": "bool"
+                    },
+                    {
+                        "name": "string"
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Make content of popup wide"
+        },
+        "position": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'top left'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'top center'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'top right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'right center'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom center'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'bottom left'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'left center'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Popup position",
+            "defaultValue": {
+                "value": "'top left'",
+                "computed": false
+            }
         }
-    }
+    },
+    "composes": [
+        "../../defaultProps"
+    ]
 }
 /* eslint-enable */

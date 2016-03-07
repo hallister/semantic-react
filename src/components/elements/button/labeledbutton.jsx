@@ -48,7 +48,9 @@ export default class LabeledButton extends React.Component {
      *  Handles buttons with an image for a label
      */
     renderButton() {
+        /* eslint-disable no-use-before-define */
         let { ...other } = this.props;
+        /* eslint-enable no-use-before-define */
         other.icon = true;
         other.labeled = this.props.labeled || true;
 
@@ -65,7 +67,9 @@ export default class LabeledButton extends React.Component {
         let components = spliceChildren(this.props.children, Label);
 
         // labeled is consumed by the parent button
+        /* eslint-disable no-use-before-define */
         let { labeled, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 
@@ -98,8 +102,10 @@ export default class LabeledButton extends React.Component {
         }
 
         // most button props are consumed by the child
+        /* eslint-disable no-use-before-define */
         let { active, basic, color, circular, compact, fluid,  inverted,
               size, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(other.className);
 

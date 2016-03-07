@@ -1,17 +1,13 @@
-export * from './collections/grid/computer';
-export * from './collections/grid/tablet';
-export * from './collections/grid/mobile';
-export * from './collections/grid/device';
-export * from './collections/grid/column';
-export * from './collections/grid/row';
-export * from './collections/grid/grid';
+export { default as Column } from './collections/grid/column';
+export { default as Row } from './collections/grid/row';
+export { default as Grid } from './collections/grid/grid';
 
-export * from './collections/message/message';
+export { default as Message } from './collections/message/message';
 
-export * from './collections/table/table';
-export * from './collections/table/tr';
-export * from './collections/table/td';
+export { default as Table } from './collections/table/table';
+export { default as Tr } from './collections/table/tr';
+export { default as Td } from './collections/table/td';
 
-export * from './collections/form/form';
-export * from './collections/form/fields';
-export * from './collections/form/field';
+export { default as Form } from './collections/form/form';
+export { default as Fields } from './collections/form/fields';
+export { default as Field } from './collections/form/field';

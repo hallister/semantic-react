@@ -1,70 +1,46 @@
 import React from 'react';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
-export class Item extends React.Component {
+/**
+ * Item is collection of elements. It could be menu/dropdown item or part ofr <Items /> collection
+ */
+export default class Item extends React.Component {
     static propTypes = {
-        active: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        className: React.PropTypes.oneOfType([
-            React.PropTypes.node,
-            React.PropTypes.object
-        ]),
-        color: React.PropTypes.string,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
+        ...DefaultProps.propTypes,
+        /**
+         * Make item clickable
+         */
         link: React.PropTypes.bool,
-        name: React.PropTypes.string,
-        onClick: React.PropTypes.func,
-        selected: React.PropTypes.bool
+        /**
+         * Item click handler
+         */
+        onClick: React.PropTypes.func
     };
-    // anytime we are the child of a menu, we want to use a div
-    static contextTypes = {
-        isMenuChild: React.PropTypes.bool
-    };
-
+    
     static defaultProps = {
-        defaultClasses: true
+        ...DefaultProps.defaultProps
     };
 
     render() {
-        // if it's attached or animated use a div instead of a button
-        let Component = (this.props.link || this.props.onClick) && !this.context.isMenuChild ? 'a' : 'div';
-
-        let { active, component, color, link, selected, defaultClasses,
-              name, ...other } = this.props;
+        /* eslint-disable no-use-before-define */
+        let { component, link, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
-
+        
         return React.createElement(
-            this.props.component || Component,
+            component,
             other,
             this.props.children
         );
     }
 
     getClasses() {
-        let classes = {
-            // default
-
-            // positioning
-
-            // types
-            active: this.props.active,
-            selected: this.props.active && this.context.isMenuChild,
-
-            // content
-
-            // variations
-
+        return {
+            link: this.props.link || this.props.onClick,
             // component
             item: this.props.defaultClasses
         };
-
-        classes[this.props.color] = !!this.props.color;
-
-        return classes;
     }
 }

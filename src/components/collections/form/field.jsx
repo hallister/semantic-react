@@ -33,7 +33,9 @@ function renderLabel(label) {
 }
 
 let Field = (props) => {
+    /* eslint-disable no-use-before-define */
     let { children, className, component, label, width, ...other } = props;
+    /* eslint-enable no-use-before-define */
     other.className = classNames(className, getClasses(props));
 
     return React.createElement(
@@ -70,4 +72,5 @@ Field.defaultProps = {
     defaultClasses: true
 }
 
-exports.Field = Field;
+export default Field;
+

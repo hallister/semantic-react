@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Icon } from '../../elements';
 import classNames from 'classnames';
 
-export class AccordionTitle extends Component {
+export default class AccordionTitle extends Component {
     static propTypes = {
         active: React.PropTypes.bool,
         children: React.PropTypes.node,

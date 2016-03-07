@@ -1,6 +1,6 @@
 import React from 'react';
 import { countChildren, Numbers } from '../../utilities';
-import { Field } from './field';
+import Field from './field';
 import classNames from 'classnames';
 
 function getClasses(props) {
@@ -27,7 +27,9 @@ function getClasses(props) {
 }
 
 let Fields = (props) => {
+    /* eslint-disable no-use-before-define */
     let { children, className, component, ...other } = props;
+    /* eslint-enable no-use-before-define */
     other.className = classNames(className, getClasses(props));
 
     return React.createElement(
@@ -56,4 +58,4 @@ Fields.defaultProps = {
     defaultClasses: true
 }
 
-exports.Fields = Fields;
+export default Fields;

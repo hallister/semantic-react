@@ -28,8 +28,10 @@ function getClasses(props) {
 
 let td = (props) => {
 
+    /* eslint-disable no-use-before-define */
     let { children, className, collapsing, component, singleLine, state, type,
         ...other } = props;
+    /* eslint-enable no-use-before-define */
 
     other.className = classNames(className, getClasses(props));
 
@@ -56,4 +58,4 @@ td.defaultProps = {
     component: 'td'
 }
 
-exports.Td = td;
+export default td;

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export class Items extends React.Component {
+export default class Items extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
@@ -21,8 +21,10 @@ export class Items extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, divided,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

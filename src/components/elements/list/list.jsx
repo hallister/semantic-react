@@ -48,9 +48,11 @@ export default class List extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { aligned, animated, celled, defaultClasses, horizontal,
               inverted, link, relaxed, selection, size, type,
               ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

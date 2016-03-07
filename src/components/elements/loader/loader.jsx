@@ -27,7 +27,9 @@ export default class Loader extends React.Component {
     };
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

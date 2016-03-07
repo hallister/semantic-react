@@ -88,4 +88,5 @@ Event.defaultProps = {
     component: 'div'
 }
 
-exports.Event = Event;
+export default Event;
+

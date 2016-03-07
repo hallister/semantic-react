@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
+
 let Actions = ({ children, className, component, ...other }) => {
     other.className = classNames(className, { actions: true });
 

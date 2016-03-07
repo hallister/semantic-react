@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export class Card extends React.Component {
+export default class Card extends React.Component {
     static propTypes = {
         centered: React.PropTypes.bool,
         children: React.PropTypes.node,
@@ -43,7 +43,9 @@ export class Card extends React.Component {
     }
 
     render() {
+        /* eslint-disable no-use-before-define */
         let { centered, col, color, doubling, defaultClasses, fluid, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
 

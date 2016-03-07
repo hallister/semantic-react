@@ -12,8 +12,10 @@ function getClasses(props) {
 }
 
 let Text = (props) => {
+    /* eslint-disable no-use-before-define */
     let { children, className, component, defaultClasses, extra,
           ...other } = props;
+    /* eslint-enable no-use-before-define */
 
     other.className = classNames(className, getClasses(props));
 

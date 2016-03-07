@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
-export class Cards extends Component {
+export default class Cards extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         className: React.PropTypes.node,
@@ -15,6 +15,7 @@ export class Cards extends Component {
     };
 
     static defaultProps = {
+        component: 'div',
         defaultClasses: true
     };
 
@@ -39,11 +40,20 @@ export class Cards extends Component {
             // component
             cards: this.props.defaultClasses
         };
+        
+        /* eslint-disable no-use-before-define */
+        let {
+            component, defaultClasses, children, link, ...other
+        } = this.props;
+        /* eslint-enable no-use-before-define */
+        
+        let Component = component;
+        other.className = classNames(other.className, classes);
 
         return (
-            <div className={classNames(this.props.className, classes)}>
-                {this.props.children}
-            </div>
+            <Component {...other}>
+                {children}
+            </Component>
         );
     }
 }

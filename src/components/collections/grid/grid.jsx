@@ -1,145 +1,141 @@
 import React from 'react';
 import { Numbers, validateClassProps } from '../../utilities';
-import { Device, Computer, Tablet, Mobile } from '../../collections';
+import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
 
-let validProps = {
-    aligned: ['right', 'left', 'justified', 'center'],
+const validProps = {
+    aligned: ['right', 'left', 'center'],
     celled: ['internally'],
-    divided: ['vertically'],
+    divided: ['vertically', 'internally'],
     padded: ['horizontally', 'vertically'],
     relaxed: ['very'],
+    reversed: ['mobile', 'mobile vertically', 'tablet', 'tablet vertically', 'computer', 'computer vertically'],
     valigned: ['top', 'middle', 'bottom']
 };
 
-export class Grid extends React.Component {
-    static propTypes = {
-        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
-        celled: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['internally']),
-            React.PropTypes.bool
-        ]),
-        centered: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        columns: React.PropTypes.number,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        container: React.PropTypes.bool,
-        defaultClasses: React.PropTypes.bool,
-        divided: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['vertically']),
-            React.PropTypes.bool
-        ]),
-        doubling: React.PropTypes.bool,
-        equal: React.PropTypes.bool,
-        padded: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['horizontally', 'vertically']),
-            React.PropTypes.bool
-        ]),
-        relaxed: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['very']),
-            React.PropTypes.bool
-        ]),
-        stackable: React.PropTypes.bool,
-        valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
+function getClassNames(props) {
+    let classes = {
+        // Default
+        ui: props.defaultClasses,
+        grid: props.defaultClasses,
+        
+        // variations
+        container: props.container,
+        relaxed: props.relaxed,
+        centered: props.centered,
+        stackable: props.stackable,
+        doubling: props.doubling
     };
 
-    static defaultProps = {
-        component: 'div',
-        defaultClasses: true
-    };
-
-    constructor(props) {
-        super(props);
-
-        this.style = {
-            mobile: {},
-            computer: {},
-            tablet: {}
-        }
+    if (props.columns && props.columns > 0 && props.columns <= 16) {
+        classes[`${Numbers[props.columns]} column`] = true;
     }
-
-    componentDidMount() {
-        this.forceUpdate();
+    
+    if (props.equal) {
+        classes['equal width'] = true;
     }
-
-    onFoundDevice(style, type) {
-        this.style[type] = style;
-    }
-
-    renderChildren() {
-        let children = [Device, Computer, Tablet, Mobile];
-        return React.Children.map(this.props.children, (child, index) => {
-            if (children.indexOf(child.type) > -1) {
-                return React.cloneElement(
-                    child,
-                    {
-                        callback: this.onFoundDevice.bind(this),
-                        key: index
-                    },
-                    child.children
-                )
-            } else {
-                return child;
-            }
-        });
-    }
-
-    render() {
-        // consume props
-        let { aligned, celled, centered, children, columns, component,
-              container, className, defaultClasses, divided, doubling, equal,
-              padded, relaxed, stackable, valigned, ...other } = this.props;
-
-        // add classnames
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            this.renderChildren()
-        );
-    }
-
-    getClasses() {
-        let columns = Numbers.reduce((obj, num) => {
-            obj[num + ' column'] = false;
-            return obj;
-        }, {});
-
-        let classes = {
-            ui: this.props.defaultClasses,
-            ...this.style.computer,
-            ...this.style.tablet,
-            ...this.style.mobile,
-            ...columns,
-
-            aligned: this.props.aligned && this.props.aligned !== 'justified',
-            container: this.props.container,
-            centered: this.props.centered,
-            celled: this.props.celled,
-            doubling: this.props.doubling,
-            divided: this.props.divided,
-            padded: this.props.padded,
-            relaxed: this.props.relaxed,
-            stackable: this.props.stackable,
-
-            grid: this.props.defaultClasses
-        }
-
-        if (this.props.equal) {
-            classes['equal width'] = true;
-        }
-
-        if (this.props.columns !== false) {
-            if (this.props.columns > 0  && this.props.columns <= 16) {
-                classes[Numbers[this.props.columns] + ' column'] = true;
-            }
-        }
-
-        return validateClassProps(classes, this.props, validProps, { valigned: 'aligned' });
-    }
+    
+    return validateClassProps(classes, props, validProps, { valigned: 'aligned' });
 }
+
+/**
+ * Semantic Grid
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+let Grid = (props) => {
+    // consume props
+    /* eslint-disable no-use-before-define */
+    let {
+        aligned, defaultClasses, centered, celled, columns, container, component, children,
+        divided, doubling, equal, padded, relaxed, reversed, stackable, valigned,
+        ...other
+    } = props;
+    /* eslint-enable no-use-before-define */
+    const Component = component;
+    other.className = classNames(other.className, getClassNames(props));
+    return (
+        <Component 
+            {...other} 
+        >
+            {children}
+        </Component>
+    );
+};
+
+Grid.propTypes = {
+    ...DefaultProps.propTypes,
+    /**
+     * Horizontal content alignment
+     */
+    aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+    /**
+     * Center columns
+     */
+    centered: React.PropTypes.bool,
+    /**
+     * Divide rows into cells
+     */
+    celled: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['internally']),
+        React.PropTypes.bool
+    ]),
+    /**
+     * Grid column count
+     */
+    columns: React.PropTypes.number,
+    /**
+     * Add container class, i.e. ui grid container
+     */
+    container: React.PropTypes.bool,
+    /**
+     * Add dividers between ros
+     */
+    divided: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['vertically', 'internally']),
+        React.PropTypes.bool
+    ]),
+    /**
+     * Double column width on tablet and mobile sizes
+     */
+    doubling: React.PropTypes.bool,
+    /**
+     * Automatically resize elements to split the available width evently
+     */
+    equal: React.PropTypes.bool,
+    /**
+     * Preserve gutters on first and las columns
+     */
+    padded: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['horizontally', 'vertically']),
+        React.PropTypes.bool
+    ]),
+    /**
+     * Increase size of gutters
+     */
+    relaxed: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['very']),
+        React.PropTypes.bool
+    ]),
+    /**
+     * Reverse the order of columns or rows by device
+     */
+    reversed: React.PropTypes.oneOfType([
+        'mobile', 'mobile vertically', 'tablet', 'tablet vertically', 'computer', 'computer vertically'
+    ]),
+    /**
+     * Automatically stack rows into single columns on mobile devices
+     */
+    stackable: React.PropTypes.bool,
+    /**
+     * Vertical content alignment
+     */
+    valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
+};
+
+Grid.defaultProps = {
+    ...DefaultProps.defaultProps
+};
+
+export default Grid;

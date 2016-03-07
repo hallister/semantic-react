@@ -16,8 +16,10 @@ function getClasses(props) {
 }
 
 let comments = (props) => {
+    /* eslint-disable no-use-before-define */
     let { children, className, collapsed, component, defaultClasses, minimal,
           threaded, ...other } = props;
+    /* eslint-enable no-use-before-define */
 
     other.className = classNames(className, getClasses(props));
 
@@ -46,4 +48,5 @@ comments.defaultProps = {
     defaultClasses: true
 }
 
-exports.Comments = comments;
+export default comments;
+

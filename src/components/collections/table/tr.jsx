@@ -1,5 +1,5 @@
 import React from 'react';
-import { Td } from './td';
+import Td from './td';
 
 let tr = (props) => {
     return (
@@ -24,4 +24,4 @@ tr.defaultProps = {
     component: 'tr'
 }
 
-exports.Tr = tr;
+export default tr;
