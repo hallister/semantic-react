@@ -149,14 +149,15 @@ export default class Menu extends React.Component {
             // Process if a child has menuValue property
             if (typeof child.props.menuValue !== 'undefined') {
                 return React.cloneElement(child, {
-                    active: this.state.activeItem === child.props.menuValue,
+                    // If child has active property, then pass it
+                    active: (typeof child.props.active !== 'undefined') ? child.props.active : this.state.activeItem === child.props.menuValue,
                     key: child.props.menuValue,
                     onClick: this.onMenuItemClick.bind(this, child.props.menuValue)
                 });
             } else {
                 // Menu could contain non items, for example divider, pass it untouched (only add key)
                 return React.cloneElement(child, {
-                    key: (typeof child.props.key !== 'undefined') ? child.props.key : child.props.children
+                    key: (typeof child.key !== 'undefined') ? child.key : child.props.children
                 });
             }
         });

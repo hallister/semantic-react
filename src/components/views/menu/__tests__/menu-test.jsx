@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 /* global sinon */
 import React from 'react';
 import { expect } from 'chai';
@@ -136,6 +137,17 @@ describe('Menu', () => {
             expect(wrapper.find(MenuItem).at(0)).to.have.prop('onClick');
             expect(wrapper.find(MenuItem).at(1)).to.have.prop('onClick');
         });
+    });
+
+    it('If child item has active property it should pass it untouched', () => {
+        let wrapper = shallow(
+            <Menu>
+                <MenuItem active menuValue={1}>First</MenuItem>
+                <MenuItem active menuValue={2}>Second</MenuItem>
+            </Menu>
+        );
+        expect(wrapper.find(MenuItem).at(0)).to.have.prop('active', true);
+        expect(wrapper.find(MenuItem).at(1)).to.have.prop('active', true);
     });
     
     describe('When menuValue property provided', () => {

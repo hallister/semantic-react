@@ -39,7 +39,7 @@ module.exports = {
                 exclude: /(__tests__|node_modules)/
             }
         );
-        webpackConfig.devtool = 'inline-source-map';
+        webpackConfig.devtool = 'source-map';
         webpackConfig.resolve.extensions.push('.es6');
         
         webpackConfig.resolveLoader.modulesDirectories = ['src/loaders', ...webpackConfig.resolveLoader.modulesDirectories];
