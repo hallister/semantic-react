@@ -15,12 +15,9 @@ The project is currently in its infancy, however, much of the porting is complet
 ### Installation
 ```
 npm install
-npm start
+npm run styleguide-server
 ```
 
-**NOTE:** If you are using Windows you'll need to `npm run start:win` due to Windows syntax for setting environmental variables.
-
-This will launch the development documentation. Any modifications to components requires that you re-run `npm run docs:gen`. This is an automated tool that generates props documentation.
 
 ### Releases
 Presently the only public release is well-behind the current master. The current plan is to complete testing and documentation for all components prior to an official first release.
