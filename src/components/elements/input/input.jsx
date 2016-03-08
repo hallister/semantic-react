@@ -157,6 +157,8 @@ export default class Input extends React.Component {
                 input.push(this.children.label);
                 input.push(inputHTML);
             }
+
+            input.push(this.children.button);
         }
 
         return input;
@@ -169,7 +171,8 @@ export default class Input extends React.Component {
     processChildren() {
         let children = {
             icon: null,
-            label: null
+            label: null,
+            button: null
         };
 
         React.Children.forEach(this.props.children, function(child) {
@@ -177,6 +180,8 @@ export default class Input extends React.Component {
                 children.icon = child;
             } else if (child.type === Label && typeof child.type !== 'undefined') {
                 children.label = child;
+            } else if (child.type === Button && typeof child.type !== 'undefined') {
+                children.button = child;
             }
         });
 
