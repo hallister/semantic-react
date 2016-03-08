@@ -23,7 +23,7 @@ let IconButton = ({ children, iconColor, name, social, ...other }) => {
     return (
         <Button
             {...other}
-            icon={React.Children.count(children) === 0}
+            icon
             social={social ? name : ''}
         >
             {renderChildren(children, name, social, iconColor)}
@@ -45,7 +45,7 @@ IconButton.propTypes = {
     /**
      * Adds a SemanticUI name class to the icon.
      */
-    name: React.PropTypes.string,
+    name: React.PropTypes.string.isRequired,
 
     /**
      * Renders as a social button if true (see SocialButton);
