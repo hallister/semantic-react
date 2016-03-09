@@ -868,6 +868,10 @@ namespace SemanticReact {
          */
         fluid?: boolean;
         /**
+         * Float left or right
+         */
+        floated?: "right" | "left";
+        /**
          * A menu may have its colors inverted to show greater contrast
          */
         inverted?: boolean;

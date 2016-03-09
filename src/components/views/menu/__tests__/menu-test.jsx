@@ -98,6 +98,18 @@ describe('Menu', () => {
         let wrapper = shallow(<Menu text/>);
         expect(wrapper).to.have.className('text');
     });
+
+    describe('It could be floated', () => {
+        it('Left', () => {
+            let wrapper = shallow(<Menu floated="left"/>);
+            expect(wrapper).to.have.className('left floated');
+        }); 
+
+        it('Right', () => {
+            let wrapper = shallow(<Menu floated="right"/>);
+            expect(wrapper).to.have.className('right floated');
+        });
+    });
     
     describe('Could be item equal width menu', () => {
         it('Should have <number> item class when even prop was specified', () => {
