@@ -965,7 +965,6 @@ namespace SemanticReact {
 // <DropdownMenu />
     export interface DropdownMenuProps extends DropdownBaseProps<DropdownMenu> {
         active?: boolean;
-        dropdownComponent?: any;
         enterAnimation?: any;
         icon?: string;
         label?: string;
