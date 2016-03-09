@@ -26,7 +26,7 @@ export function itShouldConsumeOwnAndPassCustomProps(Component, props) {
     describe('should properly pass props', () => {
         it('consumes all used props', () => {
             // Funny trick to check component and it's rendered output
-            // We need validate both props passed to component and props for component's rendered output
+            // We need to validate both props passed to component and props for the component's rendered output
             // If we do shallow(<Component {...props}/>) then shallow renderer will do component rendering instead
             // Actually component rendering will be performed later
             let wrapper = shallow(<div><Component {...props} /></div>);
