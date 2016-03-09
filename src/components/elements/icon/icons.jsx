@@ -29,8 +29,10 @@ export default class Icons extends React.Component {
         fitted: React.PropTypes.bool,
         flipped: React.PropTypes.oneOf(['horizontally', 'vertically']),
         inverted: React.PropTypes.bool,
+        left: React.PropTypes.bool,
         link: React.PropTypes.bool,
         loading: React.PropTypes.bool,
+        right: React.PropTypes.bool,
         rotated: React.PropTypes.oneOf(['clockwise', 'counterclockwise']),
         size: React.PropTypes.string
     };
@@ -71,6 +73,8 @@ export default class Icons extends React.Component {
 
             // flipped variation
             flipped: this.props.flipped,
+            left: this.props.left,
+            right: this.props.right,
             rotated: this.props.flipped,
 
             // component

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Icon } from '../../elements';
 
 export default class Rating extends React.Component {
     static propTypes = {
@@ -13,7 +14,7 @@ export default class Rating extends React.Component {
         heart: React.PropTypes.bool,
         max: React.PropTypes.number,
         onChange: React.PropTypes.func,
-        size: React.PropTypes.string,
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         star: React.PropTypes.bool,
         value: React.PropTypes.number
     };
@@ -46,14 +47,14 @@ export default class Rating extends React.Component {
 
             if (this.props.onChange) {
                 children.push(
-                    <i
+                    <Icon
                         className={classNames(classes)}
                         key={i}
                         onClick={this.handleChange.bind(this, i)} />
                 )
             } else {
                 children.push(
-                    <i
+                    <Icon
                         className={classNames(classes)}
                         key={i} />
                 )
@@ -66,7 +67,7 @@ export default class Rating extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { defaultClasses, heart, max, size, star, ...other } = this.props;
+        let { component, defaultClasses, heart, max, size, star, value, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -79,12 +80,18 @@ export default class Rating extends React.Component {
     }
 
     getClasses() {
-        return {
+        let classes = {
             ui: this.props.defaultClasses,
-            [this.props.size]: !!this.props.size,
+
+            // variations
             star: this.props.star,
             heart: this.props.heart,
             rating: this.props.defaultClasses
         }
+
+        // string types
+        classes[this.props.size] = !!this.props.size;
+
+        return classes;
     }
 }

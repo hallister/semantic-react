@@ -5,8 +5,8 @@ import classNames from 'classnames';
 
 let validProps = {
     attached: ['bottom', 'top'],
-    floated: ['right', 'left'],
-    size: ['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']
+    floated: ['right', 'left']
+    // No 'size' here to avoid validateClassProps() picking it up and adding classes
 };
 
 export default class Buttons extends React.Component {

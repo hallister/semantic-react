@@ -18,12 +18,7 @@ describe('Menu', () => {
         expect(wrapper).to.have.tagName('ul');
         expect(wrapper).to.have.className('ui menu');
     });
-    
-    it('Could be right menu', () => {
-        let wrapper = shallow(<Menu right/>);
-        expect(wrapper).to.have.className('right');
-    });
-    
+
     it('Could be borderless', () => {
         let wrapper = shallow(<Menu borderless/>);
         expect(wrapper).to.have.className('borderless');

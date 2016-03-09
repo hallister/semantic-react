@@ -1,4 +1,5 @@
 /* eslint-env node, mocha */
+/* global sinon */
 import React from 'react';
 import { Input, Button, Icon, Label } from '../../../elements';
 import { expect } from 'chai';
@@ -93,6 +94,7 @@ describe('Input', () => {
         let wrapper = shallow(<Input name="test" />);
         expect(wrapper.find('input').first()).to.have.prop('name', 'test');
     });
+
     it('should have a placeholder', () => {
         let wrapper = shallow(<Input placeholder="test" />);
         expect(wrapper.find('input').first()).to.have.prop('placeholder', 'test');
@@ -100,8 +102,18 @@ describe('Input', () => {
 
     it('should have various sizes', () => {
         let wrapper = shallow(<Input size="small" />);
-        expect(wrapper).to.have.className('size');
+        expect(wrapper).to.have.not.className('size');
         expect(wrapper).to.have.className('small');
+    });
+
+    // FIXME This always passes
+    it('should not allow unknown sizes', () => {
+        sinon.test(function() {
+            let spy = sinon.stub(console, 'warn');
+            shallow(<Input size="bad" />); // FIXME try "small" and it still passes :/
+            expect(spy).to.have.been.called;
+            spy.restore();
+        });
     });
 
     describe('should be stateful', () => {

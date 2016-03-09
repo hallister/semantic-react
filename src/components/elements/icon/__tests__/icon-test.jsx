@@ -17,8 +17,10 @@ let consumedProps = {
     fitted: true,
     flipped: 'horizontally',
     inverted: true,
+    left: true,
     link: true,
     loading: true,
+    right: true,
     rotated: 'clockwise',
     size: 'small'
 };
@@ -63,6 +65,20 @@ describe('Icon', () => {
             let wrapper = shallow(<Icon name="cloud"
                                         rotated="counterclockwise"/>);
             expect(wrapper).to.have.className('counterclockwise rotated');
+        });
+    });
+
+    describe('should align', () => {
+        it('should align left', () => {
+            let wrapper = shallow(<Icon name="cloud"
+                                        left />);
+            expect(wrapper).to.have.className('left');
+        });
+
+        it('should align right', () => {
+            let wrapper = shallow(<Icon name="cloud"
+                                        right />);
+            expect(wrapper).to.have.className('right');
         });
     });
 

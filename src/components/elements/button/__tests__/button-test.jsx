@@ -1,5 +1,5 @@
 /* eslint-env node, mocha */
-
+/* global sinon */
 import React from 'react';
 import { Button, Icon } from '../../../elements';
 import { expect } from 'chai';
@@ -21,6 +21,8 @@ let consumedProps = {
     inverted: true,
     labeled: true,
     loading: true,
+    primary: true,
+    secondary: true,
     size: 'small',
     social: 'facebook',
     state: 'active'
@@ -131,6 +133,16 @@ describe('Button', () => {
 
     });
 
+    // FIXME This always passes
+    it('should not allow unknown sizes', () => {
+        sinon.test(function() {
+            let spy = sinon.stub(console, 'warn');
+            shallow(<Button size="bad" />); // FIXME try "small" and it still passes :/
+            expect(spy).to.have.been.called;
+            spy.restore();
+        });
+    });
+
     it('should support colors', () => {
         let wrapper = shallow(<Button color="yellow" />);
         expect(wrapper).to.have.className('yellow');
@@ -155,6 +167,16 @@ describe('Button', () => {
     it('should allow a single icon as a child', () => {
         let wrapper = shallow(<Button><Icon name="cloud" /></Button>);
         expect(wrapper.find(Icon)).to.exist;
+    });
+
+    it('should allow the button to be primary', () => {
+        let wrapper = shallow(<Button primary />);
+        expect(wrapper).to.have.className('primary');
+    });
+
+    it('should allow the button to be secondary', () => {
+        let wrapper = shallow(<Button secondary />);
+        expect(wrapper).to.have.className('secondary');
     });
 
     itShouldConsumeOwnAndPassCustomProps(Button, consumedProps);

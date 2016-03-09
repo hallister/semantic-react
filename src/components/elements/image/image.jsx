@@ -5,8 +5,8 @@ import classNames from 'classnames';
 let validProps = {
     aligned: ['top', 'middle', 'bottom'],
     floated: ['right', 'left'],
-    size: ['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive'],
     spaced: ['right', 'left']
+    // No 'size' here to avoid validateClassProps() picking it up and adding classes
 };
 
 // can't do SVG since JSX/React breaks on SVG images
@@ -116,6 +116,9 @@ export default class Image extends React.Component {
             image: this.props.defaultClasses && !this.props.content && this.context.isCommentsChild !== true
 
         };
+
+        // string types
+        classes[this.props.size] = !!this.props.size;
 
         return validateClassProps(classes, this.props, validProps);
     }

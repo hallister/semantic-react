@@ -1,4 +1,5 @@
 /* eslint-env node, mocha */
+/* global sinon */
 import React from 'react';
 import { Images, Image } from '../../../elements';
 import { expect } from 'chai';
@@ -88,6 +89,16 @@ describe('Images', () => {
         let wrapper = shallow(<Images size="small">{children}</Images>)
         expect(wrapper).to.have.className('small')
         expect(wrapper).to.have.not.className('size')
+    });
+
+    // FIXME This always passes
+    it('should not allow unknown sizes', () => {
+        sinon.test(function() {
+            let spy = sinon.stub(console, 'warn');
+            shallow(<Images size="bad">{children}</Images>); // FIXME try "small" and it still passes :/
+            expect(spy).to.have.been.called;
+            spy.restore();
+        });
     });
 
     it('should appear bordered', () => {

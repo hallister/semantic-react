@@ -14,7 +14,7 @@ export default class Images extends React.Component {
         defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         shape: React.PropTypes.oneOf(['circular', 'rounded']),
-        size: ['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive'],
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         visible: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['hidden', 'visible']),
             React.PropTypes.bool
