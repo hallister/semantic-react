@@ -171,7 +171,7 @@ export default class Menu extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { attached, borderless, component, even, fitted, fixed, fluid, inverted, pagination,
+        let { attached, borderless, component, even, fitted, fixed, fluid, floated, inverted, pagination,
             pointing, right, secondary, tabular, text, menuValue, vertical, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
