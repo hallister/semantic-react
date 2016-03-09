@@ -4,15 +4,14 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Menu from '../menu';
-import { DropdownElement } from '../../../modules';
 import MenuItem from '../menuitem';
 
-describe.only('Menu', () => {
+describe('Menu', () => {
     it('It renders as div by default', () => {
         let wrapper = shallow(<Menu />);
         expect(wrapper).to.have.tagName('div');
         expect(wrapper).to.have.className('ui menu');
-    });
+    });  
     
     it('It renders as custom component', () => {
         let wrapper = shallow(<Menu component="ul"/>);
@@ -125,19 +124,16 @@ describe.only('Menu', () => {
         });
     });
 
-    describe('When menu is child of dropdown', () => {
-        it('Should add click handlers to menu items', () => {
-            let wrapper = shallow(
-                    <Menu>
-                        <MenuItem menuValue={1}>First</MenuItem>
-                        <MenuItem menuValue={2}>Second</MenuItem>
-                    </Menu>,
-            { context: { isDropdownChild: true }});
-            
-            expect(wrapper.find(MenuItem).at(0)).to.have.prop('onClick');
-            expect(wrapper.find(MenuItem).at(1)).to.have.prop('onClick');
-        });
+    it('It should add click handlers to menu items', () => {
+        let wrapper = shallow(
+            <Menu>
+                <MenuItem menuValue={1}>First</MenuItem>
+                <MenuItem menuValue={2}>Second</MenuItem>
+            </Menu>);
+        expect(wrapper.find(MenuItem).at(0)).to.have.prop('onClick');
+        expect(wrapper.find(MenuItem).at(1)).to.have.prop('onClick');
     });
+
 
     it('If child item has active property it should pass it untouched', () => {
         let wrapper = shallow(
@@ -148,6 +144,36 @@ describe.only('Menu', () => {
         );
         expect(wrapper.find(MenuItem).at(0)).to.have.prop('active', true);
         expect(wrapper.find(MenuItem).at(1)).to.have.prop('active', true);
+    });
+
+    describe('When clicking on active MenuItem', () => {
+        let eventStub = {
+            stopPropagation: sinon.stub(),
+            preventDefault: sinon.stub()
+        };
+        it('Should call onMenuItemClick callback', () => {
+            let onMenuItemClickStub = sinon.stub();
+            let wrapper = shallow(
+                <Menu onMenuItemClick={onMenuItemClickStub}>
+                    <MenuItem menuValue={1}>Test</MenuItem>
+                </Menu>
+            );
+
+            wrapper.find(MenuItem).simulate('click', eventStub);
+            expect(onMenuItemClickStub).to.have.been.called;
+        });
+
+        it('Shouldn\'t call onMenuItemClick callback if menu item doesn\'t have menuValue property', () => {
+            let onMenuItemClickStub = sinon.stub();
+            let wrapper = shallow(
+                <Menu onMenuItemClick={onMenuItemClickStub}>
+                    <MenuItem>Test</MenuItem>
+                </Menu>
+            );
+
+            wrapper.find(MenuItem).simulate('click', eventStub);
+            expect(onMenuItemClickStub).to.have.not.been.called;
+        });
     });
     
     describe('When menuValue property provided', () => {
@@ -162,18 +188,6 @@ describe.only('Menu', () => {
                                  key={3} 
                                  menuValue={3}>Third</MenuItem>);
         
-        it('Should set activeItem state to the provided value', () => {
-            let wrapper = shallow(<Menu menuValue={1}>{childrens}</Menu>);
-            expect(wrapper).to.have.state('activeItem', 1);
-        });
-        
-        it('Should add click handlers to MenuItem childs', () => {
-            let wrapper = shallow(<Menu menuValue={1}>{childrens}</Menu>);
-            expect(wrapper).to.have.exactly(3).descendants(MenuItem);
-            expect(wrapper.find(MenuItem).at(0)).to.have.prop('onClick');
-            expect(wrapper.find(MenuItem).at(1)).to.have.prop('onClick');
-            expect(wrapper.find(MenuItem).at(2)).to.have.prop('onClick');
-        });
         
         it('Should render MenuItem as active when MenuItem value is matched by provided value', () => {
             let wrapper = shallow(<Menu menuValue={1}>{childrens}</Menu>);
@@ -182,88 +196,59 @@ describe.only('Menu', () => {
             expect(wrapper.find(MenuItem).at(2)).to.have.prop('active', true);
             expect(wrapper.find(MenuItem).at(0)).to.have.prop('active', false);
         });
-        
-        describe('When clicking on active MenuItem', () => {
+
+        it('Should work if array was given', () => {
+            let wrapper = shallow(<Menu menuValue={[2, 3]}>{childrens}</Menu>);
+            expect(wrapper.find(MenuItem).at(0)).to.have.prop('active', false);
+            expect(wrapper.find(MenuItem).at(1)).to.have.prop('active', true);
+            expect(wrapper.find(MenuItem).at(2)).to.have.prop('active', true);
+        });
+
+        describe('When clicking on menu item', () => {
             let eventStub = {
                 stopPropagation: sinon.stub(),
                 preventDefault: sinon.stub()
             };
-            it('Should fire onMenuItemClick callback', () => {
-                let onMenuItemClickStub = sinon.stub();
-                let wrapper = shallow(
-                    <Menu menuValue={1}
-                          onMenuItemClick={onMenuItemClickStub}
-                    >
-                        {childrens}
-                    </Menu>
-                );
-                
-                wrapper.find('.first').simulate('click', eventStub);
-                expect(onMenuItemClickStub).to.have.been.called;
-                
-            });
-            
-            it('Shouldn\'t fire onMenuChange callback', () => {
-                let onMenuChangeStub = sinon.stub();
-                let wrapper = shallow(
-                    <Menu menuValue={1}
-                          onMenuChange={onMenuChangeStub}
-                    >
-                        {childrens}
-                    </Menu>
-                );
+            describe('When single menuValue was provided to Menu', () => {
+                it('Should call onMenuChange callback if menu item value doesn\'t match with provided value in menu', () => {
+                    let onMenuChangeStub = sinon.stub();
+                    let wrapper = shallow(<Menu menuValue={1} onMenuChange={onMenuChangeStub}>{childrens}</Menu>);
+                    wrapper.find('.second').simulate('click', eventStub);
+                    expect(onMenuChangeStub).to.have.been.calledWith(2);
+                });
 
-                wrapper.find('.first').simulate('click', eventStub);
-                expect(onMenuChangeStub).to.have.not.been.called;
-            });
-        });
-        
-        describe('When clicking on non-active MenuItem', () => {
-            let eventStub = {
-                stopPropagation: sinon.stub(),
-                preventDefault: sinon.stub()
-            };
-            it('Should fire onMenuItemSelect callback', () => {
-                let onMenuItemClickStub = sinon.stub();
-                let wrapper = shallow(
-                    <Menu menuValue={1}
-                          onMenuItemClick={onMenuItemClickStub}
-                    >
-                        {childrens}
-                    </Menu>
-                );
-
-                wrapper.find('.second').simulate('click', eventStub);
-                expect(onMenuItemClickStub).to.have.been.called;
+                it('Should call onMenuChange callback with null if menu item value is equal to provided value in menu', () => {
+                    let onMenuChangeStub = sinon.stub();
+                    let wrapper = shallow(<Menu menuValue={1} onMenuChange={onMenuChangeStub}>{childrens}</Menu>);
+                    wrapper.find('.first').simulate('click', eventStub);
+                    expect(onMenuChangeStub).to.have.been.calledWith(null);
+                });
             });
 
-            it('Should fire onMenuChange callback', () => {
-                let onMenuChangeStub = sinon.stub();
-                let wrapper = shallow(
-                    <Menu menuValue={1}
-                          onMenuChange={onMenuChangeStub}
-                    >
-                        {childrens}
-                    </Menu>
-                );
+            describe('When array of menuValue was given to Menu', () => {
+                it('Should call onMenuChange callback with original array and new menuValue if it wasn\'t presented in given array', () => {
+                    let onMenuChangeStub = sinon.stub();
+                    let wrapper = shallow(<Menu menuValue={[1, 2]} onMenuChange={onMenuChangeStub}>{childrens}</Menu>);
+                    wrapper.find('.third').simulate('click', eventStub);
+                    expect(onMenuChangeStub).to.have.been.calledWith([1, 2, 3]);
 
-                wrapper.find('.second').simulate('click', eventStub);
-                expect(onMenuChangeStub).to.have.been.called;
-            });
-            it('Should set activeItem to the new value and rerended active menuitem', () => {
-                let wrapper = shallow(
-                    <Menu menuValue={1}>
-                        {childrens}
-                    </Menu>
-                );
+                    wrapper = shallow(<Menu menuValue={[]} onMenuChange={onMenuChangeStub}>{childrens}</Menu>);
+                    wrapper.find('.second').simulate('click', eventStub);
+                    expect(onMenuChangeStub).to.have.been.calledWith([2]);
+                });
 
-                wrapper.find('.second').simulate('click', eventStub);
-                expect(wrapper).to.have.state('activeItem', 2);
-                wrapper.update();
-                expect(wrapper.find(MenuItem).at(0)).to.have.prop('active', false);
-                expect(wrapper.find(MenuItem).at(1)).to.have.prop('active', true);
+                it('Should call onMenuChange callback with original array with removed menuValue', () => {
+                    let onMenuChangeStub = sinon.stub();
+                    let wrapper = shallow(<Menu menuValue={[1, 2]} onMenuChange={onMenuChangeStub}>{childrens}</Menu>);
+                    wrapper.find('.first').simulate('click', eventStub);
+                    expect(onMenuChangeStub).to.have.been.calledWith([2]);
+                    wrapper.setProps({
+                        menuValue: [2]
+                    });
+                    wrapper.find('.second').simulate('click', eventStub);
+                    expect(onMenuChangeStub).to.have.been.calledWith([]);
+                });
             });
         });
-        
     });
 });
