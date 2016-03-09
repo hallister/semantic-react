@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Label } from '../../elements';
+import { Button, Icon, Label } from '../../elements';
 import classNames from 'classnames';
 
 export default class Input extends React.Component {
@@ -43,8 +43,8 @@ export default class Input extends React.Component {
         this.processChildren();
 
         /* eslint-disable no-use-before-define */
-        let { children, className, defaultClasses, icon, labeled, loading, name,
-              placeholder, ...other } = this.props;
+        let { action, children, className, defaultClasses, icon, fluid, focus, inverted, labeled, loading, name,
+              placeholder, size, state, transparent, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(
@@ -140,7 +140,8 @@ export default class Input extends React.Component {
         let inputHTML = (
             <input
                 key="input"
-                placeholder={this.props.placeholder} />
+                placeholder={this.props.placeholder}
+                name={this.props.name} />
         );
 
         if (labelClasses.corner) {
