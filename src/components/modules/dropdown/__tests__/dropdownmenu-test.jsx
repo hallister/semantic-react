@@ -23,7 +23,7 @@ const consumedProps = {
     onMenuItemClick: () => {}
 };
 
-describe.only('DropdownMenu', () => {
+describe('DropdownMenu', () => {
     it('Should render dropdown element', () => {
         let wrapper = shallow(<DropdownMenu/>);
         expect(wrapper.type()).to.be.equal(DropdownElement);
