@@ -5,7 +5,8 @@ import DefaultProps from '../../defaultProps';
 
 let validProps = {
     attached: ['top', 'bottom'],
-    fitted: ['horizontally', 'vertically']
+    fitted: ['horizontally', 'vertically'],
+    floated: ['right', 'left']
 };
 
 /**
@@ -39,7 +40,11 @@ export default class Menu extends React.Component {
          */
         fixed: React.PropTypes.bool,
         /**
-         * A vertical menu may take the size of its container. (A horizontal menu does this by default) 
+         * Float left or right
+         */
+        floated: React.PropTypes.oneOf(['right', 'left']),
+        /**
+         * A vertical menu may take the size of its container. (A horizontal menu does this by default)
          */
         fluid: React.PropTypes.bool,
         /**
@@ -65,7 +70,7 @@ export default class Menu extends React.Component {
          */
         onMenuItemClick: React.PropTypes.func,
         /**
-         * A pagination menu is specially formatted to present links to pages of content 
+         * A pagination menu is specially formatted to present links to pages of content
          */
         pagination: React.PropTypes.bool,
         /**
@@ -216,6 +221,7 @@ export default class Menu extends React.Component {
             item: this.props.even && childCount > 0,
             borderless: this.props.borderless,
             attached: this.props.attached,
+            floated: this.props.floated,
             inverted: this.props.inverted,
             pagination: this.props.pagination,
             pointing: this.props.pointing,
