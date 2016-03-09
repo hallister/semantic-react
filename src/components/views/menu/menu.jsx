@@ -5,7 +5,8 @@ import DefaultProps from '../../defaultProps';
 
 let validProps = {
     attached: ['top', 'bottom'],
-    fitted: ['horizontally', 'vertically']
+    fitted: ['horizontally', 'vertically'],
+    floated: ['right', 'left']
 };
 
 /**
@@ -39,7 +40,11 @@ export default class Menu extends React.Component {
          */
         fixed: React.PropTypes.bool,
         /**
-         * A vertical menu may take the size of its container. (A horizontal menu does this by default) 
+         * Float left or right
+         */
+        floated: React.PropTypes.oneOf(['right', 'left']),
+        /**
+         * A vertical menu may take the size of its container. (A horizontal menu does this by default)
          */
         fluid: React.PropTypes.bool,
         /**
@@ -59,7 +64,7 @@ export default class Menu extends React.Component {
          */
         onMenuItemClick: React.PropTypes.func,
         /**
-         * A pagination menu is specially formatted to present links to pages of content 
+         * A pagination menu is specially formatted to present links to pages of content
          */
         pagination: React.PropTypes.bool,
         /**
@@ -102,20 +107,20 @@ export default class Menu extends React.Component {
         onMenuItemClick: () => {},
         onMenuChange: () => {}
     };
-    
+
     constructor(props) {
         super(props);
         this.state = {
             activeItem: props.menuValue
         }
     }
-    
+
     getChildContext() {
         return {
             isMenuChild: true
         };
     }
-    
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.menuValue) {
             this.setState({
@@ -128,7 +133,7 @@ export default class Menu extends React.Component {
     onMenuItemClick(value, event) {
         event.stopPropagation();
         event.preventDefault();
-        
+
         this.props.onMenuItemClick(value);
         if (typeof this.props.menuValue !== 'undefined' && this.state.activeItem !== value) {
             this.setState({
@@ -137,13 +142,13 @@ export default class Menu extends React.Component {
             this.props.onMenuChange(value);
         }
     }
-    
+
     renderChildren() {
         // If this is not controlled menu and not dropdown child do not do anything with childs
         if (typeof this.props.menuValue === 'undefined' && !this.context.isDropdownChild) {
             return this.props.children;
         }
-        
+
         // should deep traverse?
         let newChildren = React.Children.map(this.props.children, child => {
             // Process if a child has menuValue property
@@ -161,9 +166,9 @@ export default class Menu extends React.Component {
                 });
             }
         });
-        
+
         return newChildren;
-        
+
     }
 
     render() {
@@ -179,7 +184,7 @@ export default class Menu extends React.Component {
         } else {
             component = this.props.component;
         }
-        
+
         let children = this.renderChildren();
 
         return React.createElement(
@@ -188,7 +193,7 @@ export default class Menu extends React.Component {
             children
         );
     }
-    
+
     getClasses() {
         let childCount = React.Children.count(this.props.children);
 
@@ -207,6 +212,7 @@ export default class Menu extends React.Component {
             item: this.props.even && childCount > 0,
             borderless: this.props.borderless,
             attached: this.props.attached,
+            floated: this.props.floated,
             inverted: this.props.inverted,
             pagination: this.props.pagination,
             pointing: this.props.pointing,
