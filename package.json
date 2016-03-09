@@ -6,7 +6,9 @@
   "files": [
     "dist",
     "lib",
-    "radium.js"
+    "radium.js",
+    "semantic-react.d.ts",
+    "typings.json"
   ],
   "scripts": {
     "start": "NODE_ENV=development && node scripts/exec.js docs:gen && node server.js",
