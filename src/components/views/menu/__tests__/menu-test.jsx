@@ -6,7 +6,7 @@ import { shallow } from 'enzyme';
 import Menu from '../menu';
 import MenuItem from '../menuitem';
 
-describe.only('Menu', () => {
+describe('Menu', () => {
     it('It renders as div by default', () => {
         let wrapper = shallow(<Menu />);
         expect(wrapper).to.have.tagName('div');
