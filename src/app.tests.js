@@ -1,4 +1,5 @@
 require('babel-polyfill');
+require('mutationobserver-shim');
 
 const chai = require('chai');
 const sinonChai = require('sinon-chai');

@@ -54,13 +54,19 @@ export default class Menu extends React.Component {
         /**
          * Menu active value
          */
-        menuValue: React.PropTypes.any,
+        menuValue: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.string,
+            React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]))
+        ]),
         /**
-         * Callback for active item change. It will not fire if clicking at already active item
+         * Callback for active item change. Will not be fired if menuValue was omitted
+         * Will pass new menuValue or array of new menuValue
+         * If all items were unselected would pass null if menuValue is single value or empty array if menuValue is array
          */
         onMenuChange: React.PropTypes.func,
         /**
-         * Callback for menu item click (regardless active or not active)
+         * Callback for menu item click 
          */
         onMenuItemClick: React.PropTypes.func,
         /**
@@ -107,55 +113,50 @@ export default class Menu extends React.Component {
         onMenuItemClick: () => {},
         onMenuChange: () => {}
     };
-
+    
     constructor(props) {
         super(props);
-        this.state = {
-            activeItem: props.menuValue
-        }
     }
-
+    
     getChildContext() {
         return {
             isMenuChild: true
         };
     }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.menuValue) {
-            this.setState({
-                activeItem: nextProps.menuValue
-            });
-        }
-    }
-
+    
 
     onMenuItemClick(value, event) {
         event.stopPropagation();
         event.preventDefault();
-
+        
         this.props.onMenuItemClick(value);
-        if (typeof this.props.menuValue !== 'undefined' && this.state.activeItem !== value) {
-            this.setState({
-                activeItem: value
-            });
-            this.props.onMenuChange(value);
+        // Call onMenuChange callback when needed
+        if (typeof this.props.menuValue !== 'undefined') {
+            // Multiple menu selection
+            if (Array.isArray(this.props.menuValue)) {
+                if (this.props.menuValue.indexOf(value) !== -1) {
+                    // Unselect menu item
+                    this.props.onMenuChange(this.props.menuValue.filter(val => val !== value));
+                } else {
+                    // select menu item
+                    this.props.onMenuChange([...this.props.menuValue, value]);
+                }
+                // Single menu selection 
+            } else {
+                // calling with null if clicking on same item, because we might want to unselect menu item
+                this.props.onMenuChange(this.props.menuValue !== value ? value : null);
+            }
         }
     }
-
+    
     renderChildren() {
-        // If this is not controlled menu and not dropdown child do not do anything with childs
-        if (typeof this.props.menuValue === 'undefined' && !this.context.isDropdownChild) {
-            return this.props.children;
-        }
-
         // should deep traverse?
-        let newChildren = React.Children.map(this.props.children, child => {
+        return React.Children.map(this.props.children, child => {
             // Process if a child has menuValue property
             if (typeof child.props.menuValue !== 'undefined') {
                 return React.cloneElement(child, {
                     // If child has active property, then pass it
-                    active: (typeof child.props.active !== 'undefined') ? child.props.active : this.state.activeItem === child.props.menuValue,
+                    active: (typeof child.props.active !== 'undefined') ? child.props.active : this.isActiveItem(child.props.menuValue),
                     key: child.props.menuValue,
                     onClick: this.onMenuItemClick.bind(this, child.props.menuValue)
                 });
@@ -166,14 +167,11 @@ export default class Menu extends React.Component {
                 });
             }
         });
-
-        return newChildren;
-
     }
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { attached, borderless, component, even, fitted, fixed, fluid, inverted, pagination,
+        let { attached, borderless, component, even, fitted, fixed, fluid, floated, inverted, pagination,
             pointing, right, secondary, tabular, text, menuValue, vertical, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
@@ -184,7 +182,7 @@ export default class Menu extends React.Component {
         } else {
             component = this.props.component;
         }
-
+        
         let children = this.renderChildren();
 
         return React.createElement(
@@ -194,6 +192,17 @@ export default class Menu extends React.Component {
         );
     }
 
+    /**
+     * Returns true if it should be active item
+     * @param value
+     */
+    isActiveItem(value) {
+        if (typeof value === 'undefined') return false;
+        if (typeof this.props.menuValue === 'undefined') return false;
+        if (Array.isArray(this.props.menuValue) && this.props.menuValue.indexOf(value) !== -1) return true;
+        return !!(!Array.isArray(this.props.menuValue) && this.props.menuValue === value);
+    }
+    
     getClasses() {
         let childCount = React.Children.count(this.props.children);
 

@@ -9,7 +9,7 @@ import { Label, Icon, Header } from '../../../elements';
 import { Menu } from '../../../views';
 import DropdownElement from '../dropdownelement';
 
-describe.only('Select', () => {
+describe('Select', () => {
     it('Should render as dropdown element', () => {
         let wrapper = shallow(<Select/>);
         expect(wrapper.type()).to.be.equal(DropdownElement);
