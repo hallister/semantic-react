@@ -57,58 +57,85 @@ Select is the dropdown with ability to select one or few values
 
 ### Multiple selection
 
-    'values' in state || setState({values: []});
-    'active' in state || setState({active: false});
-    <Select active={state.active}
-            multiple
-            selection
-            placeholder="Skills"
-            selected={state.values}
-            onSelectChange={(val, count) => {
-                                                if(count <= 1) {
-                                                    setState({ values: val, active: false});
-                                                } else {
-                                                    setState({ values: val });
-                                                }
-                                             }}
-            onClick={() => setState({active: true})}
-            onRequestClose={() => setState({active: false})}
-    >
-        <Option value="angular">Angular</Option>
-        <Option value="react">React</Option>
-        <Option value="semantic">Semantic UI</Option>
-        <Option value="animation">Animation</Option>
-    </Select>
+    class MySelection extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                values: [],
+                active: false
+            }
+        }
+        onSelectChange(val, count) {
+            if(count <= 1) {
+                this.setState({ values: val, active: false});
+            } else {
+                this.setState({ values: val });
+            }
+        }
+        render() {
+            return (
+                <Select active={this.state.active}
+                        multiple
+                        selection
+                        placeholder="Skills"
+                        selected={this.state.values}
+                        onSelectChange={this.onSelectChange.bind(this)}
+                        onClick={() => this.setState({active: true})}
+                        onRequestClose={() => this.setState({active: false})}
+                >
+                    <Option value="angular">Angular</Option>
+                    <Option value="react">React</Option>
+                    <Option value="semantic">Semantic UI</Option>
+                    <Option value="animation">Animation</Option>
+                </Select>
+            );
+        }
+    }
+    <MySelection />
+
 
 ### Multiple search selection
 
-    'values' in state || setState({values: []});
-    'active' in state || setState({active: false});
-    'search' in state || setState({search: ''});
-    const Flag = require('../../elements').Flag;
-    <Select active={state.active}
-            multiple
-            search
-            selected={state.values}
-            selection
-            placeholder="Select Country"
-            onSelectChange={(val, count) => {
-                                                if(count <= 1) {
-                                                    setState({ values: val, active: false});
-                                                } else {
-                                                    setState({ values: val });
-                                                }
-                                             }}
-            onClick={() => setState({active: true})}
-            onRequestClose={() => setState({active: false})}
-            onSearchStringChange={search => setState({search: search})}
-            searchString={state.search}
-    >
-        <Option value="us"><Flag name="us"/>USA</Option>
-        <Option value="us-alt"><Flag name="us"/>Alternative USA</Option>
-        <Option value="es"><Flag name="es"/>Spain</Option>
-        <Option value="ga"><Flag name="ga"/>Gabon</Option>
-    </Select>
+    const {Flag} = require('../../elements');
+    class MySelection extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                values: [],
+                active: false,
+                search: ''
+            }
+        }
+        onSelectChange(val, count) {
+            if(count <= 1) {
+                this.setState({ values: val, active: false});
+            } else {
+                this.setState({ values: val });
+            }
+        }
+        render() {
+            return (
+                <Select active={this.state.active}
+                        search
+                        multiple
+                        selection
+                        placeholder="Skills"
+                        selected={this.state.values}
+                        onSelectChange={this.onSelectChange.bind(this)}
+                        onClick={() => this.setState({active: true})}
+                        onRequestClose={() => this.setState({active: false})}
+                        onSearchStringChange={search => this.setState({search: search})}
+                        searchString={this.state.search}
+                >
+                    <Option value="us"><Flag name="us"/>USA</Option>
+                    <Option value="us-alt"><Flag name="us"/>Alternative USA</Option>
+                    <Option value="es"><Flag name="es"/>Spain</Option>
+                    <Option value="ga"><Flag name="ga"/>Gabon</Option>
+                </Select>
+            );
+        }
+    }
+    <MySelection />
 
 
 # TODO: rewrite these examples
