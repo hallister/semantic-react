@@ -17,7 +17,7 @@ export default class DropdownMenu extends React.Component {
     static propTypes = {
         ...DropdownElement.propTypes,
         /**
-         * Should menu be opened when first rendered
+         * Active/Close menu
          */
         active: React.PropTypes.bool,
         /**
@@ -43,9 +43,27 @@ export default class DropdownMenu extends React.Component {
          */
         menuComponent: elementType,
         /**
-         * Menu item click callback
+         * Menu active value
          */
-        onMenuItemClick: React.PropTypes.func
+        menuValue: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.string,
+            React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]))
+        ]),
+        /**
+         * Callback for active item change. Will not be fired if menuValue was omitted
+         * Will pass new menuValue or array of new menuValue
+         * If all items were unselected would pass null if menuValue is single value or empty array if menuValue is array
+         */
+        onMenuChange: React.PropTypes.func,
+        /**
+         * Callback for menu item click
+         */
+        onMenuItemClick: React.PropTypes.func,
+        /**
+         * Callback will be called when menu wants to be closed (for ex. from outside click)
+         */
+        onRequestClose: React.PropTypes.func
     };
 
     static defaultProps = {
@@ -58,7 +76,9 @@ export default class DropdownMenu extends React.Component {
         leaveAnimation: {
             height: 0
         },
-        onMenuItemClick: () => {}
+        onMenuItemClick: () => {},
+        onMenuChange: () => {},
+        onRequestClose: () => {}
     };
 
     constructor(props) {
@@ -69,61 +89,21 @@ export default class DropdownMenu extends React.Component {
          */
         this.menuRef = null;
         
-        this.state = {
-            active: props.active
-        }
     }
     
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.active && this.state.active !== nextProps.active) {
-            this.setState({
-                active: nextProps.active
-            })
-        }
-    }
-
-    /**
-     * Dropdown click
-     * @param {React.MouseEvent} e
-     */
-    onDropdownElementClick = (e) => {
-        // clicking the arrow/search box or dropdown area
-        e.stopPropagation();
-        e.preventDefault();
-
-        this.setState({
-            active: !this.state.active
-        });
-    };
-
-    /**
-     * Menu item click
-     * @param value
-     */
-    onMenuItemClick = (value) => {
-        // click an option
-
-        this.setState({
-            active: false
-        });
-        
-        this.props.onMenuItemClick(value);
-    };
-
     /**
      * Outside dropdown click
      * @param {React.MouseEvent} e
      */
     onOutsideDropdownClick = (e) => {
-        if (!this.state.active || !this.menuRef) {
+        const { active, onRequestClose } = this.props;
+        if (!active) {
             return;
         }
-        const menuElement = ReactDOM.findDOMNode(this.menuRef);
-        if (menuElement) {
-            if (!isNodeInRoot(e.target, menuElement)) {
-                this.setState({
-                    active: false
-                })
+        const dropdownElement = ReactDOM.findDOMNode(this);
+        if (dropdownElement) {
+            if (!isNodeInRoot(e.target, dropdownElement)) {
+                onRequestClose();
             }
         }
     };
@@ -160,7 +140,7 @@ export default class DropdownMenu extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let {
-            active, enterAnimation, leaveAnimation, children, icon, label, menuComponent, onMenuItemClick, ...other
+            active, enterAnimation, leaveAnimation, children, icon, label, menuComponent, menuValue, onMenuChange, onMenuItemClick, ...other
         } = this.props;
         /* eslint-enable no-use-before-define */
 
@@ -170,8 +150,7 @@ export default class DropdownMenu extends React.Component {
         return (
             <DropdownElement
                 {...other}
-                active={this.state.active}
-                onClick={this.onDropdownElementClick}
+                active={active}
             >
                 {/* This will embed <noscript></noscript> inside dropdown div. Shouldn't cause any problems */}
                 <EventListener elementName="document"
@@ -181,12 +160,14 @@ export default class DropdownMenu extends React.Component {
                 {this.renderMenuIcon()}
                 <Transition
                     component={false}
-                    enter={this.props.enterAnimation}
-                    leave={this.props.leaveAnimation}
+                    enter={enterAnimation}
+                    leave={leaveAnimation}
                 >
-                    {this.state.active &&
+                    {active &&
                     <MenuComponent key="menu"
-                                   onMenuItemClick={this.onMenuItemClick}
+                                   menuValue={menuValue}
+                                   onMenuItemClick={onMenuItemClick}
+                                   onMenuChange={onMenuChange}
                                    ref={ref => this.menuRef = ref}
                                    style={{ overflow: 'hidden' }}
                     >

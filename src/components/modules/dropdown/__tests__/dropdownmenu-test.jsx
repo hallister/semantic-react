@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-max-props-per-line */
 /* global sinon */
 import React from 'react';
+import ReactTestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import { Icon, Text, Button } from '../../../elements';
@@ -35,11 +36,6 @@ describe('DropdownMenu', () => {
         expect(wrapper.find(Icon)).to.have.prop('name', 'dropdown');
     });
 
-    it('Should have state active in false by default', () => {
-        let wrapper = shallow(<DropdownMenu/>);
-        expect(wrapper).to.have.state('active', false); 
-    });
-
     it('Could render specified icon', () => {
         let wrapper = shallow(<DropdownMenu icon="cloud"/>);
         expect(wrapper.find(Icon)).to.have.prop('name', 'cloud');
@@ -67,6 +63,13 @@ describe('DropdownMenu', () => {
         });
     });
 
+    describe('When dropdown is not active', () => {
+        it('Shouldn\'t render the menu', () => {
+            let wrapper = shallow(<DropdownMenu/>);
+            expect(wrapper.find(Menu)).to.not.be.exist;
+        });
+    });
+
     describe('When dropdown active', () => {
         it('Should render menu', () => {
             let wrapper = shallow(<DropdownMenu active/>);
@@ -84,73 +87,69 @@ describe('DropdownMenu', () => {
             let wrapper = shallow(<DropdownMenu active menuComponent="section"/>);
             expect(wrapper.find('section')).to.be.exist;
         });
-    });
 
-    it('Will change state if active prop was changed', () => {
-        let wrapper = shallow(<DropdownMenu/>);
-        expect(wrapper).to.have.state('active', false);
-        wrapper.setProps({ active: true });
-        expect(wrapper).to.have.state('active', true);
-    });
+        it('Should attach callbacks to the menu', () => {
+            let onMenuItemClickStub = sinon.stub();
+            let onMenuChangeStub = sinon.stub();
+            let wrapper = shallow(<DropdownMenu active onMenuItemClick={onMenuItemClickStub} onMenuChange={onMenuChangeStub}/>);
+            expect(wrapper.find(Menu)).to.have.prop('onMenuItemClick', onMenuItemClickStub);
+            expect(wrapper.find(Menu)).to.have.prop('onMenuChange', onMenuChangeStub);
+        });
 
-    describe('When clicking on dropdown element', () => {
-        it('Should invert state', () => {
-            let wrapper = shallow(<DropdownMenu/>);
-            expect(wrapper).to.have.state('active', false);
-            wrapper.simulate('click', fakeEvent);
-            expect(wrapper).to.have.state('active', true);
+        it('Should pass menuValue to menu', () => {
+            let wrapper = shallow(<DropdownMenu active menuValue={1}/>);
+            expect(wrapper.find(Menu)).to.have.prop('menuValue', 1);
             
-            wrapper = shallow(<DropdownMenu active/>);
-            wrapper.simulate('click', fakeEvent);
-            expect(wrapper).to.have.state('active', false);
+            wrapper.setProps({
+                menuValue: [1, 2]
+            });
+            expect(wrapper.find(Menu)).to.have.prop('menuValue').deep.equal([1, 2]);
         });
     });
 
-    describe('When menu item clicked', () => {
-        it('Should send active state to false', () => {
-            let wrapper = shallow(
-                <DropdownMenu active>
-                    <MenuItem menuValue={1}>First</MenuItem>
-                </DropdownMenu>
-            );
-            expect(wrapper).to.have.state('active', true);
-            wrapper.find(Menu).prop('onMenuItemClick')(1);
-            expect(wrapper).to.have.state('active', false);
-        });
-
-        it('Should fire onMenuItemClick prop callback', () => {
-            let callbackStub = sinon.stub();
-            let wrapper = shallow(
-                <DropdownMenu active onMenuItemClick={callbackStub}>
-                    <MenuItem menuValue={1}>First</MenuItem>
-                </DropdownMenu>
-            );
-            wrapper.find(Menu).prop('onMenuItemClick')(1);
-            expect(callbackStub).to.have.been.called;
-        });
-    });
 
     describe('When clicking outside of menu', () => {
-        it('Should set active state to false', () => {
-            const container = document.createElement('div');
+        let container;
+        let extraNode;
+        beforeEach(() => {
+            container = document.createElement('div');
             container.id = 'test';
             document.body.appendChild(container);
+            extraNode = document.createElement('button');
+            document.body.appendChild(extraNode);
+        });
+        afterEach(() => {
+            document.body.removeChild(extraNode);
+            document.body.removeChild(container);
+        });
+        it('Should call onRequestClose callback', () => {
+            const callbackSpy = sinon.spy();
             // Full DOM rendering here
             let wrapper = mount(
-                <DropdownMenu active>
+                <DropdownMenu active onRequestClose={callbackSpy}>
                     <MenuItem menuValue={1}>First</MenuItem>
                 </DropdownMenu>,
                 { attachTo: container }
             );
 
-            expect(wrapper).to.have.state('active', true);
-            const extraNode = document.createElement('button');
-            document.body.appendChild(extraNode);
             let event = new MouseEvent('mousedown', { target: extraNode });
             document.dispatchEvent(event);
-            expect(wrapper).to.have.state('active', false);
-            document.body.removeChild(extraNode);
-            document.body.removeChild(container);
+            expect(callbackSpy).to.have.been.called;
+            
+        });
+
+        it('Shouldn\'t call onRequestClose callback when clicking on the dropdown itself', () => {
+            const callbackSpy = sinon.spy();
+            let wrapper = mount(
+                <DropdownMenu active onRequestClose={callbackSpy}>
+                    <MenuItem menuValue={1}>First</MenuItem>
+                </DropdownMenu>,
+                { attachTo: container }
+            );
+            let dropdownNode = ReactTestUtils.findRenderedDOMComponentWithClass(wrapper.instance(), 'ui dropdown');
+            let event = new MouseEvent('mousedown', { target: dropdownNode });
+            dropdownNode.dispatchEvent(event);
+            expect(callbackSpy).to.have.not.been.called;
         });
     });
     

@@ -4,7 +4,7 @@ var path = require('path');
 
 module.exports = function(config) {
     config.set({
-        frameworks: ['mocha', 'chai', 'sinon'],
+        frameworks: ['mocha', 'sinon'],
         files: [
           'src/app.tests.js'
         ],
