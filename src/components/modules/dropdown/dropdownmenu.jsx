@@ -140,7 +140,8 @@ export default class DropdownMenu extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let {
-            active, enterAnimation, leaveAnimation, children, icon, label, menuComponent, menuValue, onMenuChange, onMenuItemClick, ...other
+            active, enterAnimation, leaveAnimation, children, icon, label, menuComponent, menuValue, 
+            onMenuChange, onMenuItemClick, onRequestClose, ...other
         } = this.props;
         /* eslint-enable no-use-before-define */
 

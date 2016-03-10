@@ -1,13 +1,36 @@
 /* eslint-disable react/jsx-max-props-per-line */
 /* global sinon */
 import React from 'react';
+import ReactTestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import Select from '../select';
 import Option from '../option';
 import { Label, Icon, Header } from '../../../elements';
 import { Menu } from '../../../views';
+import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 import DropdownElement from '../dropdownelement';
+
+const consumedProps = {
+    enterAnimation: {},
+    leaveAnimation: {},
+    name: 'test',
+    icon: 'test',
+    placeholder: 'test',
+    search: true,
+    searchGlyphWidth: 3,
+    searchIgnoreCase: true,
+    searchPosition: 'dropdown',
+    searchHeader: 'test',
+    searchNoResultsMessage: 'tet',
+    searchString: 'test',
+    selected: ['tet'],
+    selection: true,
+    multiple: true,
+    onSelectChange: () => {},
+    onRequestClose: () => {},
+    onSearchStringChange: () => {}
+};
 
 describe('Select', () => {
     it('Should render as dropdown element', () => {
@@ -15,38 +38,15 @@ describe('Select', () => {
         expect(wrapper.type()).to.be.equal(DropdownElement);
     });
 
-    it('Should have active state set to false by default', () => {
-        let wrapper = shallow(<Select/>);
-        expect(wrapper).to.have.state('active', false);
-    });
-
-    it('Should set active set from active property', () => {
-        let wrapper = shallow(<Select active/>);
-        expect(wrapper).to.have.state('active', true);
-    });
-
-    it('Should change state if active property was changed', () => {
-        let wrapper = shallow(<Select active={false}/>);
-        expect(wrapper).to.have.state('active', false);
-        wrapper.setProps({
-            active: true
-        });
-        expect(wrapper).to.have.state('active', true);
-    });
-
-    it('Should pass active state to dropdown element', () => {
+    it('Should pass active property to dropdown element', () => {
         let wrapper = shallow(<Select active/>);
         expect(wrapper.find(DropdownElement)).to.have.prop('active', true);
-        wrapper.setState({
+        wrapper.setProps({
             active: false
         });
         expect(wrapper.find(DropdownElement)).to.have.prop('active', false);
     });
-
-    it('Could be searchable', () => {
-        let wrapper = shallow(<Select search/>);
-        expect(wrapper).to.have.className('search');
-    });
+    
 
     it('Could be formatted as selection', () => {
         let wrapper = shallow(<Select selection/>);
@@ -58,9 +58,9 @@ describe('Select', () => {
         expect(wrapper).to.have.className('multiple');
     });
 
-    it('Should have empty selected state by default', () => {
-        let wrapper = shallow(<Select/>);
-        expect(wrapper).to.have.state('selected').empty;
+    it('Could be searchable', () => {
+        let wrapper = shallow(<Select search/>);
+        expect(wrapper).to.have.className('search');
     });
 
     describe('It should render input', () => {
@@ -73,16 +73,14 @@ describe('Select', () => {
             let wrapper = shallow(<Select name="test"/>);
             let input = wrapper.find('input').filter({ type: 'hidden' });
             expect(input).to.have.prop('name', 'test');
-            expect(input).to.have.prop('value', '');
         });
 
-        it('Should assign value of current selected state to input value', () => {
-            let wrapper = shallow(<Select name="test"/>);
-            wrapper.setState({ selected: ['1'] });
+        it('Should assign value of current selected prop to input value', () => {
+            let wrapper = shallow(<Select name="test" selected={[1]}/>);
             expect(wrapper.find('input').filter({ type: 'hidden' })).to.have.prop('value', '1');
-            wrapper.setState({ selected: [1, 2] });
+            wrapper.setProps({ selected: [1, 2] });
             expect(wrapper.find('input').filter({ type: 'hidden' })).to.have.prop('value', '1,2');
-            wrapper.setState({ selected: ['test', 'test2'] });
+            wrapper.setProps({ selected: ['test', 'test2'] });
             expect(wrapper.find('input').filter({ type: 'hidden' })).to.have.prop('value', 'test,test2');
         });
     });
@@ -90,15 +88,12 @@ describe('Select', () => {
     describe('It should render labels', () => {
         it('Should render label with content of selected menu items', () => {
             let wrapper = shallow(
-                <Select multiple>
+                <Select multiple selected={[1, 2]}>
                     <Option value={1}>Simple val</Option>
                     <Option value={2}><h1>Internal content</h1></Option>
                     <Option value={3}>Not selected</Option>
                 </Select>
             );
-            wrapper.setState({
-                selected: [1, 2]
-            });
             expect(wrapper).to.have.exactly(2).descendants(Label);
             expect(wrapper.find(Label).at(0)).to.have.descendants(Icon);
             expect(wrapper.find(Label).at(0)).to.have.html().match(/Simple val/);
@@ -109,15 +104,12 @@ describe('Select', () => {
 
         it('Shouldn\'t render labels if dropdown is not multiple', () => {
             let wrapper = shallow(
-                <Select>
+                <Select selected={[1]}>
                     <Option value={1}>Simple val</Option>
                     <Option value={2}><h1>Internal content</h1></Option>
                     <Option value={3}>Not selected</Option>
                 </Select>
             );
-            wrapper.setState({
-                selected: [1]
-            });
             expect(wrapper).to.have.not.descendants(Label);
         });
     });
@@ -138,64 +130,51 @@ describe('Select', () => {
             describe('When have selected value', () => {
                 it('Should render text with content of corresponding menu item if not multiple', () => {
                     let wrapper = shallow(
-                        <Select selection placeholder="Select one">
+                        <Select selection selected={[2]} placeholder="Select one">
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
                     );
-                    wrapper.setState({
-                        selected: [2]
-                    });
                     expect(wrapper.find('.default.text')).to.be.not.exist;
                     expect(wrapper.find('.text')).to.be.exist;
                     expect(wrapper.find('.text')).to.have.html().match(/<h1>Complex<\/h1>/);
 
                     // without placeholder
                     wrapper = shallow(
-                        <Select selection>
+                        <Select selection selected={[2]}>
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
                     );
-                    wrapper.setState({
-                        selected: [2]
-                    });
                     expect(wrapper.find('.text')).to.be.exist;
                     expect(wrapper.find('.text')).to.have.html().match(/<h1>Complex<\/h1>/);
                 });
 
                 it('Should render filtered text stub if search and search string is not empty', () => {
                     let wrapper = shallow(
-                        <Select search selection placeholder="Select one">
+                        <Select search searchString="kk" selection selected={[2]} placeholder="Select one">
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
                     );
-                    wrapper.setState({
-                        selected: [2],
-                        searchString: 'kk'
-                    });
                     expect(wrapper.find('.text.filtered')).to.be.exist;
                     
                 });
 
                 it('Should render placeholder with default text class anyway if multiple', () => {
                     let wrapper = shallow(
-                        <Select multiple selection placeholder="Select one">
+                        <Select multiple selection selected={[2]} placeholder="Select one">
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
                     );
-                    wrapper.setState({
-                        selected: [2]
-                    });
                     expect(wrapper.find('.default.text')).to.be.exist;
                     expect(wrapper.find('.default.text')).to.have.html().match(/Select one/);
                     
                     // same applies when search
-                    wrapper.setProps({ search: true });
-                    wrapper.setState({
-                        searchString: 'kkk'
+                    wrapper.setProps({ 
+                        search: true ,
+                        searchString: "kkk"
                     });
                     expect(wrapper.find('.default.text')).to.be.exist;
                     expect(wrapper.find('.default.text')).to.have.html().match(/Select one/);
@@ -221,41 +200,32 @@ describe('Select', () => {
             describe('When have selected value', () => {
                 it('Should render text with content of corresponding menu item if not multiple', () => {
                     let wrapper = shallow(
-                        <Select selection={false} placeholder="Select one">
+                        <Select selected={[2]} selection={false} placeholder="Select one">
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
                     );
-                    wrapper.setState({
-                        selected: [2]
-                    });
                     expect(wrapper.find('.text')).to.be.exist;
                     expect(wrapper.find('.text')).to.have.html().match(/<h1>Complex<\/h1>/);
 
                     // without placeholder
                     wrapper = shallow(
-                        <Select selection={false}>
+                        <Select selected={[2]} selection={false}>
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
                     );
-                    wrapper.setState({
-                        selected: [2]
-                    });
                     expect(wrapper.find('.text')).to.be.exist;
                     expect(wrapper.find('.text')).to.have.html().match(/<h1>Complex<\/h1>/);
                 });
 
                 it('Should render placeholder with text class anyway if multiple', () => {
                     let wrapper = shallow(
-                        <Select selection={false} multiple placeholder="Select one">
+                        <Select selection={false} selected={[2]} multiple placeholder="Select one">
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
                     );
-                    wrapper.setState({
-                        selected: [2]
-                    });
                     expect(wrapper.find('.text')).to.be.exist;
                     expect(wrapper.find('.text')).to.have.html().match(/Select one/);
                 });
@@ -277,30 +247,25 @@ describe('Select', () => {
     });
 
     describe('It should render menu', () => {
-        it('Should render if state active', () => {
-            let wrapper = shallow(<Select/>);
-            wrapper.setState({
-                active: true
-            });
+        it('Should render if given active prop', () => {
+            let wrapper = shallow(<Select active/>);
             expect(wrapper.find(Menu)).to.be.exist;
         });
 
-        it('Shouldn\'t render it if state is not active', () => {
+        it('Shouldn\'t render it if active prop was false or not given', () => {
             let wrapper = shallow(<Select/>);
-            wrapper.setState({
-                active: false
-            });
+            expect(wrapper.find(Menu)).to.be.not.exist;
+            wrapper.setProps({ active: false });
             expect(wrapper.find(Menu)).to.be.not.exist;
         });
 
         it('Should render children under Menu', () => {
             let wrapper = shallow(
-                <Select>
+                <Select active>
                     <Option value={1}>First</Option>
                     <Option value={2}>Second</Option>
                 </Select>
             );
-            wrapper.setState({ active: true });
             expect(wrapper.find(Menu)).to.have.exactly(2).descendants(Option);
         });
     });
@@ -308,9 +273,6 @@ describe('Select', () => {
     describe('Should render search input', () => {
         it('Should render search input in dropdown', () => {
             let wrapper = shallow(<Select search/>);
-            wrapper.setState({
-                active: true
-            });
             expect(wrapper.find('input').filter('.search')).to.be.exist;
             expect(wrapper.find(Menu).find('.search')).to.be.not.exist;
         });
@@ -331,38 +293,35 @@ describe('Select', () => {
             });
         });
 
+        it('Should assign searchString to input value', () => {
+            let wrapper = shallow(<Select active search searchString="test"/>);
+            expect(wrapper.find('input').filter('.search')).to.have.value('test')
+        });
+
         describe('It should set width style', () => {
             it('Should set width style if searchPosition is dropdown', () => {
-                let wrapper = shallow(<Select search multiple searchPosition="dropdown"/>);
-                wrapper.setState({
-                    searchString: '1'
-                });
+                let wrapper = shallow(<Select search searchString="1" multiple searchPosition="dropdown"/>);
                 expect(wrapper.find('input').filter('.search')).to.have.style('width', '1.0714em');
-                wrapper.setState({
+                
+                wrapper.setProps({
                     searchString: '12'
                 });
                 expect(wrapper.find('input').filter('.search')).to.have.style('width', '2.1428em');
             });
 
             it('Shouldn\'t set width style if searchPosition is menu', () => {
-                let wrapper = shallow(<Select active search multiple searchPosition="menu"/>);
-                wrapper.setState({
-                    searchString: '1'
-                });
+                let wrapper = shallow(<Select active search multiple searchString="1" searchPosition="menu"/>);
                 expect(wrapper.find(Menu).find('.search')).to.have.not.style('width');
             });
 
             it('Should\'t set width style for not multiple dropdown', () => {
-                let wrapper = shallow(<Select search searchPosition="dropdown"/>);
-                wrapper.setState({
-                    searchString: '12'
-                });
+                let wrapper = shallow(<Select search searchString="12" searchPosition="dropdown"/>);
                 expect(wrapper.find('input').filter('.search')).to.have.not.style('width');
             });
         });
 
         it('Shouldn\'t render search input if dropdown is not searchable', () => {
-            let wrapper = shallow(<Select/>);
+            let wrapper = shallow(<Select active/>);
             expect(wrapper.find('.search')).to.be.not.exist;
         });
     });
@@ -370,22 +329,18 @@ describe('Select', () => {
     describe('It should process children', () => {
         it('Shouldn\'t render selected options when select is multiple', () => {
             let wrapper = shallow(
-                <Select multiple>
+                <Select active multiple selected={[2, 3]}>
                     <Option value={1}>One</Option>
                     <Option value={2}>Two</Option>
                     <Option value={3}>Three</Option>
                     <Option value={4}>Four</Option>
                 </Select>
             );
-            wrapper.setState({
-                active: true,
-                selected: [2, 3]
-            });
             expect(wrapper.find(Menu)).to.have.exactly(2).descendants(Option);
             expect(wrapper.find(Menu).find(Option).at(0)).to.have.prop('value', 1);
             expect(wrapper.find(Menu).find(Option).at(1)).to.have.prop('value', 4);
 
-            wrapper.setState({
+            wrapper.setProps({
                 active: true,
                 selected: [1]
             });
@@ -395,18 +350,13 @@ describe('Select', () => {
 
         it('Should render and mark active selected options', () => {
             let wrapper = shallow(
-                <Select selection>
+                <Select active selected={[3]} selection>
                     <Option value={1}>One</Option>
                     <Option value={2}>Two</Option>
                     <Option value={3}>Three</Option>
                     <Option value={4}>Four</Option>
                 </Select>
             );
-            wrapper.setState({
-                active: true,
-                selected: [3]
-            });
-            
             expect(wrapper.find(Menu)).to.have.exactly(4).descendants(Option);
             expect(wrapper.find(Option).filter({ value: 3 })).to.have.prop('active', true);
         });
@@ -416,7 +366,7 @@ describe('Select', () => {
     describe('Should filter childrens if dropdown is searchable by search input', () => {
         it('Should filter by value', () => {
             let wrapper = shallow(
-                <Select search>
+                <Select active searchString="1" search>
                     <Option value={1}>One</Option>
                     <Option value={2}>Two</Option>
                     <Option value={3}>Three</Option>
@@ -424,14 +374,10 @@ describe('Select', () => {
                 </Select>
             );
             
-            wrapper.setState({
-                active: true,
-                searchString: '1'
-            });
-            
             expect(wrapper.find(Menu).find(Option)).to.have.length(1);
             expect(wrapper.find(Menu).find(Option)).to.have.prop('value', 1);
-            wrapper.setState({
+            
+            wrapper.setProps({
                 active: true,
                 searchString: '2'
             });
@@ -441,7 +387,7 @@ describe('Select', () => {
         
         it('Should filter by option content', () => {
             let wrapper = shallow(
-                <Select search>
+                <Select active search searchString="On">
                     <Option value={1}>One</Option>
                     <Option value={2}>Two</Option>
                     <Option value={3}>Three</Option>
@@ -449,14 +395,10 @@ describe('Select', () => {
                 </Select>
             );
 
-            wrapper.setState({
-                active: true,
-                searchString: 'On'
-            });
-            
             expect(wrapper.find(Menu).find(Option)).to.have.length(1);
             expect(wrapper.find(Menu).find(Option)).to.have.prop('value', 1);
-            wrapper.setState({
+            
+            wrapper.setProps({
                 active: true,
                 searchString: 'T'
             });
@@ -467,7 +409,7 @@ describe('Select', () => {
 
         it('Should ignore case if specified', () => {
             let wrapper = shallow(
-                <Select search searchIgnoreCase>
+                <Select active search searchIgnoreCase searchString="ONE">
                     <Option value={1}>One</Option>
                     <Option value={2}>Two</Option>
                     <Option value={3}>Three</Option>
@@ -475,17 +417,13 @@ describe('Select', () => {
                 </Select>
             );
 
-            wrapper.setState({
-                active: true,
-                searchString: 'ONE'
-            });
             expect(wrapper.find(Menu).find(Option)).to.have.length(1);
             expect(wrapper.find(Menu).find(Option)).to.have.prop('value', 1);
         });
 
         it('Should display no results message if there are no search results', () => {
             let wrapper = shallow(
-                <Select search searchIgnoreCase>
+                <Select active search searchIgnoreCase searchString="DDDDDD">
                     <Option value={1}>One</Option>
                     <Option value={2}>Two</Option>
                     <Option value={3}>Three</Option>
@@ -493,11 +431,6 @@ describe('Select', () => {
                 </Select>
             );
 
-            wrapper.setState({
-                active: true,
-                searchString: 'DDDDDD'
-            });
-            
             expect(wrapper.find(Menu)).to.have.not.descendants(Option);
             expect(wrapper.find(Menu).find('.message')).to.be.exist;
             expect(wrapper.find(Menu).find('.message')).to.have.text('No Results found.');
@@ -505,7 +438,7 @@ describe('Select', () => {
 
         it('No results message could be specified', () => {
             let wrapper = shallow(
-                <Select search searchNoResultsMessage="testnoresults">
+                <Select active search searchString="DSFDSFD" searchNoResultsMessage="testnoresults">
                     <Option value={1}>One</Option>
                     <Option value={2}>Two</Option>
                     <Option value={3}>Three</Option>
@@ -513,374 +446,280 @@ describe('Select', () => {
                 </Select>
             );
 
-            wrapper.setState({
-                active: true,
-                searchString: 'DDDDDD'
-            });
-
             expect(wrapper.find(Menu).find('.message')).to.have.text('testnoresults');
         });
         
     });
 
-    describe('When clicking on dropdown', () => {
-        const eventStub = {
-            stopPropagation: sinon.stub(),
-            preventDefault: sinon.stub()
-        };
-        it('Should invert active state for single selection non search dropdown', () => {
-            let wrapper = shallow(<Select/>);
-            expect(wrapper).to.have.state('active', false);
-            
-            wrapper.simulate('click', eventStub);
-            expect(wrapper).to.have.state('active', true);
-            
-            wrapper.simulate('click', eventStub);
-            expect(wrapper).to.have.state('active', false);
-        });
-
-        describe('It shouldn\'t set active state to false if previous state was true', () => {
-            it('For multiple dropdown', () => {
-                let wrapper = shallow(<Select multiple/>);
-                wrapper.setState({
-                    active: true
-                });
-                wrapper.simulate('click', eventStub);
-                expect(wrapper).to.have.state('active', true);
-            });
-
-            it('For search dropdown', () => {
-                let wrapper = shallow(<Select search/>);
-                wrapper.setState({
-                    active: true
-                });
-                wrapper.simulate('click', eventStub);
-                expect(wrapper).to.have.state('active', true);
-            });
-        });
-
-        it('Should invert state for search dropdown with menu search position', () => {
-            let wrapper = shallow(<Select search searchPosition="menu"/>);
-            wrapper.setState({
-                active: true
-            });
-            wrapper.simulate('click', eventStub);
-            expect(wrapper).to.have.state('active', false);
-        });
-    });
-
-    describe('When clicking outside', () => {
-        it('Should set dropdown active state to false', () => {
-            const container = document.createElement('div');
-            container.id = 'test';
-            document.body.appendChild(container);
-            // Full DOM rendering here
-            let wrapper = mount(
-                <Select active/>,
-                { attachTo: container }
-            );
-
-            expect(wrapper).to.have.state('active', true);
-            const extraNode = document.createElement('button');
-            document.body.appendChild(extraNode);
-            let event = new MouseEvent('mousedown', { target: extraNode });
-            document.dispatchEvent(event);
-            expect(wrapper).to.have.state('active', false);
-            document.body.removeChild(extraNode);
-            document.body.removeChild(container);
-        });
-
-        it('Should clear search string if dropdown is not multiple', () => {
-            const container = document.createElement('div');
-            container.id = 'test';
-            document.body.appendChild(container);
-            // Full DOM rendering here
-            let wrapper = mount(
-                <Select search active/>,
-                { attachTo: container }
-            );
-            wrapper.setState({
-                searchString: 'test'
-            });
-            
-            const extraNode = document.createElement('button');
-            document.body.appendChild(extraNode);
-            let event = new MouseEvent('mousedown', { target: extraNode });
-            document.dispatchEvent(event);
-            expect(wrapper).to.have.state('searchString', '');
-            document.body.removeChild(extraNode);
-            document.body.removeChild(container);
-            
-        });
-    });
 
     // Here FULL DOM since select is checking children count for rendered menu via ref
     describe('When clicking on option', () => {
+        let onRequestCloseSpy;
+        let onSelectChangeSpy;
+        let onSearchStringChangeSpy;
+        beforeEach(() => {
+            onRequestCloseSpy = sinon.spy();
+            onSelectChangeSpy = sinon.spy();
+            onSearchStringChangeSpy = sinon.spy();
+        });
         describe('If dropdown is multiple', () => {
-            it('Should update selected state but not active state', () => {
+            
+            it('Should fire onSelectChange callback with new selections but not onRequestClose if there few items in menu', () => {
                 let wrapper = mount(
-                    <Select active multiple>
+                    <Select active multiple onSelectChange={onSelectChangeSpy} onRequestClose={onRequestCloseSpy}>
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                     </Select>
                 );
-                expect(wrapper).to.have.state('selected').deep.equal([]);
-                expect(wrapper).to.have.state('active', true);
                 wrapper.find(Menu).prop('onMenuItemClick')('test');
-                expect(wrapper).to.have.state('selected').deep.equal(['test']);
-                expect(wrapper).to.have.state('active', true);
-            });
-
-            it('Should update selected state and set active state if there is only one child in menu', () => {
-                let wrapper = mount(
-                    <Select active multiple>
-                        <Option value="test">Test</Option>
-                        <Option value="test2">Test2</Option>
-                    </Select>
-                );
-                wrapper.setState({
+                expect(onSelectChangeSpy).to.have.been.calledWith(['test']);
+                expect(onRequestCloseSpy).to.have.not.been.called;
+                
+                onSelectChangeSpy.reset();
+                onRequestCloseSpy.reset();
+                
+                wrapper.setProps({
                     selected: ['test']
                 });
-                expect(wrapper).to.have.state('selected').deep.equal(['test']);
-                expect(wrapper).to.have.state('active', true);
-                
                 wrapper.find(Menu).prop('onMenuItemClick')('test2');
-                
-                expect(wrapper).to.have.state('selected').deep.equal(['test', 'test2']);
-                expect(wrapper).to.have.state('active', false);
+                expect(onSelectChangeSpy).to.have.been.calledWith(['test', 'test2']);
             });
 
-            it('Should clean searchString in state only if there is only one child in menu', () => {
+            it('Should fire onSelectChange and onRequestClose if there is only one child in menu', () => {
                 let wrapper = mount(
-                    <Select active search multiple>
+                    <Select active selected={['test']} multiple onSelectChange={onSelectChangeSpy} onRequestClose={onRequestCloseSpy}>
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                     </Select>
                 );
-                wrapper.setState({
-                    selected: ['test'],
-                    searchString: 'test'
-                });
                 wrapper.find(Menu).prop('onMenuItemClick')('test2');
-                expect(wrapper).to.have.state('searchString', '');
                 
-                wrapper = mount(
-                    <Select active search multiple>
-                        <Option value="test">Test</Option>
-                        <Option value="test2">Test2</Option>
-                        <Option value="test3">Test3</Option>
-                    </Select>
-                );
-                wrapper.setState({
-                    selected: ['test'],
-                    searchString: 'test'
-                });
-                wrapper.find(Menu).prop('onMenuItemClick')('test2');
-                expect(wrapper).to.have.state('searchString', 'test');
+                expect(onSelectChangeSpy).to.have.been.calledWith(['test', 'test2']);
+                expect(onRequestCloseSpy).to.have.been.called;
             });
+
+            describe('When dropdown is searchable', () => {
+                it('Should call onSearchStringChange callback with empty string if there is only one child in menu', () => {
+                    let wrapper = mount(
+                        <Select active
+                                search
+                                multiple 
+                                onSelectChange={onSelectChangeSpy} 
+                                onRequestClose={onRequestCloseSpy} 
+                                onSearchStringChange={onSearchStringChangeSpy}
+                                selected={['test']}
+                                searchString="test"
+                        >
+                            <Option value="test">Test</Option>
+                            <Option value="test2">Test2</Option>
+                        </Select>
+                    );
+                    wrapper.find(Menu).prop('onMenuItemClick')('test2');
+                    expect(onSearchStringChangeSpy).to.have.been.calledWith('');
+                    
+                    onSearchStringChangeSpy.reset();
+                    wrapper = mount(
+                        <Select active 
+                                search 
+                                multiple
+                                onSelectChange={onSelectChangeSpy}
+                                onRequestClose={onRequestCloseSpy}
+                                onSearchStringChange={onSearchStringChangeSpy}
+                                selected={['test']}
+                                searchString="test"
+                        >
+                            <Option value="test">Test</Option>
+                            <Option value="test2">Test2</Option>
+                            <Option value="test3">Test3</Option>
+                        </Select>
+                    );
+                    wrapper.find(Menu).prop('onMenuItemClick')('test2');
+                    expect(onSearchStringChangeSpy).to.not.have.been.called;
+                });
+            });
+
             
         });
 
         describe('If dropdown is not multiple', () => {
-            it('should set selected state to the new value and active state to false', () => {
+            it('It should fire onSelectChange and onRequestClose callbacks', () => {
                 let wrapper = mount(
-                    <Select active>
+                    <Select active onSelectChange={onSelectChangeSpy} onRequestClose={onRequestCloseSpy}>
                         <Option value="test">Test</Option>
                     </Select>
                 );
-                
-                expect(wrapper).to.have.state('selected').deep.equal([]);
-                expect(wrapper).to.have.state('active', true);
                 
                 wrapper.find(Menu).prop('onMenuItemClick')('test');
-                
-                expect(wrapper).to.have.state('selected').deep.equal(['test']);
-                expect(wrapper).to.have.state('active', false);
+                expect(onSelectChangeSpy).to.have.been.calledWith(['test']);
+                expect(onRequestCloseSpy).to.have.been.called;
             });
 
-            it('Should replace old value', () => {
+            it('Should call onSelectChange with the new value', () => {
                 let wrapper = mount(
-                    <Select active>
+                    <Select active selected={["test"]} onSelectChange={onSelectChangeSpy}>
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                     </Select>
                 );
-                wrapper.setState({
-                    active: true,
-                    selected: ['test']
-                });
-
                 wrapper.find(Menu).prop('onMenuItemClick')('test2');
-                expect(wrapper).to.have.state('selected').deep.equal(['test2']);
+                expect(onSelectChangeSpy).to.have.been.calledWith(['test2']);
             });
 
-            it('Should clean searchString', () => {
+            it('Should call onSearchStringChange with empty string', () => {
                 let wrapper = mount(
-                    <Select active search selection>
+                    <Select active 
+                            search 
+                            selection 
+                            onSearchStringChange={onSearchStringChangeSpy} 
+                            selected={['test']} 
+                            searchString="test"
+                    >
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                     </Select>
                 );
-                wrapper.setState({
-                    active: true,
-                    selected: ['test'],
-                    searchString: 'test'
-                });
-
                 wrapper.find(Menu).prop('onMenuItemClick')('test2');
-                expect(wrapper).to.have.state('searchString', '');
+                expect(onSearchStringChangeSpy).to.have.been.calledWith('');
             });
-        });
-
-        it('Should fire onSelectChange callback with new selected values', () => {
-            let onSelectChangeStub = sinon.stub();
-            let wrapper = shallow(
-                <Select active multiple onSelectChange={onSelectChangeStub}>
-                    <Option value="test">Test</Option>
-                    <Option value="test2">Test2</Option>
-                </Select>
-            );
-            wrapper.find(Menu).prop('onMenuItemClick')('test');
-            expect(onSelectChangeStub).to.have.been.calledWith(['test']);
-            wrapper.find(Menu).prop('onMenuItemClick')('test2');
-            expect(onSelectChangeStub).to.have.been.calledWith(['test', 'test2']);
         });
     });
 
     describe('When clicking on close label on selected item', () => {
-        it('Should remove item from selected state', () => {
+
+        it('Should send onRequestChange callback with removed item', () => {
+            let onSelectChangeSpy = sinon.spy();
             let wrapper = shallow(
-                <Select active multiple>
+                <Select active multiple selected={['test2', 'test3']} onSelectChange={onSelectChangeSpy}>
                     <Option value="test">Test</Option>
                     <Option value="test2">Test2</Option>
                     <Option value="test3">Test3</Option>
                     <Option value="test4">Test4</Option>
                 </Select>
             );
-            wrapper.setState({
-                selected: ['test2', 'test3']
-            });
-            
             wrapper.find(Label).at(0).find(Icon).simulate('click');
-            expect(wrapper).to.have.state('selected').deep.equal(['test3']);
+            expect(onSelectChangeSpy).to.have.been.calledWith(['test3']);
         });
     });
 
     describe('When key down on search input', () => {
-        let clock;
+        let onSelectChangeSpy;
         beforeEach(() => {
-            clock = sinon.useFakeTimers();
+            onSelectChangeSpy = sinon.spy();
         });
-        
-        afterEach(() => {
-            clock.restore();
-        });
-        
         describe('When backspace key was pressed', () => {
-            it('Should remove one character from search string', () => {
+            it('Should call onSelectChange callback with removed last item if there are few selected values', () => {
                 let wrapper = mount(
-                    <Select active multiple search>
+                    <Select active multiple search selected={['test2', 'test3']} onSelectChange={onSelectChangeSpy}>
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                         <Option value="test3">Test3</Option>
                         <Option value="test4">Test4</Option>
                     </Select>
                 );
-                wrapper.setState({
-                    selected: ['test2', 'test3'],
-                    searchString: 'long'
-                });
-
-                wrapper.instance().searchRef.value = 'lon';
-                wrapper.find('input').filter('.search').simulate('keyup', { which: 8 });
-                clock.tick(200);
-                expect(wrapper).to.have.state('searchString', 'lon');
+                wrapper.find('input').filter('.search').simulate('keydown', { which: 8 });
+                expect(onSelectChangeSpy).to.have.been.calledWith(['test2']);
             });
 
-            describe('When search string is empty', () => {
-                it('Should remove last selected option if presented', () => {
-                    let wrapper = mount(
-                        <Select active multiple search>
-                            <Option value="test">Test</Option>
-                            <Option value="test2">Test2</Option>
-                            <Option value="test3">Test3</Option>
-                            <Option value="test4">Test4</Option>
-                        </Select>
-                    );
-                    wrapper.setState({
-                        selected: ['test2', 'test3']
-                    });
-                    
-                    wrapper.find('input').filter('.search').simulate('keyup', { which: 8 });
-                    clock.tick(200);
-                    expect(wrapper).to.have.state('selected').deep.equal(['test2']);
-                });
+            it('Shouldn\'t call onSelectChange if there is no selected value', () => {
+                let wrapper = mount(
+                    <Select active multiple search onSelectChange={onSelectChangeSpy}>
+                        <Option value="test">Test</Option>
+                        <Option value="test2">Test2</Option>
+                        <Option value="test3">Test3</Option>
+                        <Option value="test4">Test4</Option>
+                    </Select>
+                );
+                wrapper.find('input').filter('.search').simulate('keydown', { which: 8 });
+                expect(onSelectChangeSpy).to.not.have.been.called;
+            });
 
-                it('Shouldn\'t remove last select option if dropdown is not multiple', () => {
-                    let wrapper = mount(
-                        <Select active search>
-                            <Option value="test">Test</Option>
-                            <Option value="test2">Test2</Option>
-                            <Option value="test3">Test3</Option>
-                            <Option value="test4">Test4</Option>
-                        </Select>
-                    );
-                    wrapper.setState({
-                        selected: ['test2']
-                    });
-                    wrapper.find('input').filter('.search').simulate('keyup', { which: 8 });
-                    clock.tick(200);
-                    expect(wrapper).to.have.state('selected').deep.equal(['test2']);
-                });
+            it('Shouldn\'t call onSelectChange if dropdown is not multiple', () => {
+                let wrapper = mount(
+                    <Select active search selected={['test2']} onSelectChange={onSelectChangeSpy}>
+                        <Option value="test">Test</Option>
+                        <Option value="test2">Test2</Option>
+                        <Option value="test3">Test3</Option>
+                        <Option value="test4">Test4</Option>
+                    </Select>
+                );
+                wrapper.find('input').filter('.search').simulate('keydown', { which: 8 });
+                expect(onSelectChangeSpy).to.not.have.been.called;
             });
         });
 
         describe('When enter key was pressed', () => {
             it('Should get first value from first menu child and call onMenuItemClick with this value', () => {
                 let wrapper = mount(
-                    <Select active search>
+                    <Select active search searchString="test">
                         <Option value="ddd">DDD</Option>
                         <Option value="test1">Test</Option>
                         <Option value="test3">Test3</Option>
                         <Option value="test4">Test4</Option>
                     </Select>
                 );
-                wrapper.setState({
-                    searchString: 'test'
-                });
                 let spy = sinon.stub(wrapper.instance(), 'onMenuItemClick');
 
-                wrapper.find('input').filter('.search').simulate('keyup', { which: 13 });
-                clock.tick(200);
+                wrapper.find('input').filter('.search').simulate('keydown', { which: 13 });
                 expect(spy).to.have.been.calledWith('test1');
-                expect(wrapper).to.have.state('searchString', '');
-            });
-        });
-
-        describe('When other key was pressed', () => {
-            it('Should set search string from search input', () => {
-                let wrapper = mount(
-                    <Select active multiple search>
-                        <Option value="test">Test</Option>
-                        <Option value="test2">Test2</Option>
-                        <Option value="test3">Test3</Option>
-                        <Option value="test4">Test4</Option>
-                    </Select>
-                );
-                wrapper.setState({
-                    selected: ['test2', 'test3']
-                });
-                
-                expect(wrapper).to.have.state('searchString', '');
-                wrapper.instance().searchRef.value = 'test';
-                wrapper.find('input').filter('.search').simulate('keyup', { which: 64 });
-                clock.tick(200);
-                expect(wrapper).to.have.state('searchString', 'test');
-                wrapper.instance().searchRef.value = 'test5';
-                wrapper.find('input').filter('.search').simulate('keyup', { which: 64 });
-                clock.tick(200);
-                expect(wrapper).to.have.state('searchString', 'test5');
             });
         });
     });
+
+    describe('When search input changes', () => {
+        it('Should call onSearchStringChange with new search value', () => {
+            let onSearchStringChangeSpy = sinon.spy();
+            let wrapper = mount(
+                <Select active search searchString="test" onSearchStringChange={onSearchStringChangeSpy}>
+                    <Option value="ddd">DDD</Option>
+                    <Option value="test1">Test</Option>
+                    <Option value="test3">Test3</Option>
+                    <Option value="test4">Test4</Option>
+                </Select>
+            );
+            wrapper.find('input').filter('.search').simulate('change', { target: { value: 'tes' } });
+            expect(onSearchStringChangeSpy).to.have.been.calledWith('tes');
+        });
+    });
+    
+    describe('When clicking outside', () => {
+        let container;
+        let extraNode;
+        let onRequestClose;
+        beforeEach(() => {
+            onRequestClose = sinon.spy();
+            container = document.createElement('div');
+            container.id = 'test';
+            document.body.appendChild(container);
+            extraNode = document.createElement('button');
+            document.body.appendChild(extraNode);
+        });
+        afterEach(() => {
+            document.body.removeChild(extraNode);
+            document.body.removeChild(container);
+        });
+        it('Should call onRequestClose callback', () => {
+            let wrapper = mount(
+                <Select active onRequestClose={onRequestClose}/>,
+                { attachTo: container }
+            );
+
+            document.body.appendChild(extraNode);
+            let event = new MouseEvent('mousedown', { target: extraNode });
+            document.dispatchEvent(event);
+            expect(onRequestClose).to.have.been.called;
+        });
+
+        it('Shouldn\'t call onRequestClose callback when clicking on the select itself', () => {
+            let wrapper = mount(
+                <Select active onRequestClose={onRequestClose}/>,
+                { attachTo: container }
+            );
+            let selectNode = ReactTestUtils.findRenderedDOMComponentWithClass(wrapper.instance(), 'ui dropdown');
+            let event = new MouseEvent('mousedown', { target: selectNode });
+            selectNode.dispatchEvent(event);
+            expect(onRequestClose).to.have.not.been.called;
+        });
+    });
+    
+    itShouldConsumeOwnAndPassCustomProps(Select, consumedProps);
 });

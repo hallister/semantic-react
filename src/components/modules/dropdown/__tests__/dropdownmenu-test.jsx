@@ -21,7 +21,10 @@ const consumedProps = {
     label: 'test',
     leaveAnimation: {},
     menuComponent: 'a',
-    onMenuItemClick: () => {}
+    menuValue: ['test'],
+    onMenuItemClick: () => {},
+    onMenuChange: () => {},
+    onRequestClose: () => {}
 };
 
 describe('DropdownMenu', () => {

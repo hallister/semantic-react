@@ -69,6 +69,14 @@ export default class Select extends React.Component {
          */
         searchNoResultsMessage: React.PropTypes.string,
         /**
+         * Search string
+         */
+        searchString: React.PropTypes.string,
+        /**
+         * Selected value
+         */
+        selected: React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])),
+        /**
          * Behave dropdown as HTML select
          */
         selection: React.PropTypes.bool,
@@ -79,7 +87,16 @@ export default class Select extends React.Component {
         /**
          * Callback will be called when current selected value was changed. Will pass array of selected values
          */
-        onSelectChange: React.PropTypes.func
+        onSelectChange: React.PropTypes.func,
+        /**
+         * Callback will be called when selection dropdown wants to be closed. However you can decide to not close it
+         */
+        onRequestClose: React.PropTypes.func,
+        /**
+         * Callback will be called when search string is being changed. You probably just need to pass it back to component
+         */
+        onSearchStringChange: React.PropTypes.func
+        
     };
     
     static defaultProps = {
@@ -91,7 +108,9 @@ export default class Select extends React.Component {
         searchPosition: 'dropdown',
         searchIgnoreCase: true,
         searchNoResultsMessage: 'No Results found.',
+        searchString: '',
         selection: true,
+        selected: [],
         multiple: false,
         enterAnimation: {
             height: 'auto'
@@ -99,7 +118,9 @@ export default class Select extends React.Component {
         leaveAnimation: {
             height: 0
         },
-        onSelectChange: () => {}
+        onSelectChange: () => {},
+        onRequestClose: () => {},
+        onSearchStringChange: () => {}
     };
     
     constructor(props) {
@@ -111,73 +132,21 @@ export default class Select extends React.Component {
         this.menuRef = null;
         this.searchRef = null;
         this.noResultsMessageRef = null;
-        
-        this.state = {
-            active: props.active,
-            selected: [],
-            searchString: ''
-        };
-    }
-    
-    componentDidMount() {
-        if (this.props.search && this.searchRef && this.state.active) {
-            this.searchRef.focus();
-        }
     }
     
     
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.active && this.state.active !== nextProps.active) {
-            this.setState({
-                active: nextProps.active
-            });
-        }
-    }
-    
-    componentDidUpdate() {
-        if (this.props.search && this.searchRef && this.state.active) {
-            this.searchRef.focus();
-        }
-    }
-
-    
-    /**
-     * Handler for clicking on dropdown
-     */
-    onDropdownClick = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        if (!this.state.active) {
-            this.setState({
-                active: true
-            });
-            // we don't want to close dropdown for multiple or search with dropdown search position dropdowns
-        } else if (!this.props.multiple && !(this.props.search && this.props.searchPosition === 'dropdown')) {
-            this.setState({
-                active: false
-            });
-        }
-    };
-
     /**
      * Handler for outside click
      */
     onOutsideDropdownClick = (event) => {
-        if (!this.state.active) {
+        const { active, onRequestClose } = this.props;
+        if (!active) {
             return;
         }
-        const menuElement = ReactDOM.findDOMNode(this);
-        if (menuElement) {
-            if (!isNodeInRoot(event.target, menuElement)) {
-                // need to reset value manually
-                if (this.searchRef && !this.props.multiple) {
-                    this.searchRef.value = '';
-                }
-                this.setState({
-                    active: false,
-                    // clean search string for single selections too
-                    searchString: (this.props.multiple) ? this.state.searchString : ''
-                });
+        const element = ReactDOM.findDOMNode(this);
+        if (element) {
+            if (!isNodeInRoot(event.target, element)) {
+                onRequestClose();
             }
         }
     };
@@ -187,53 +156,43 @@ export default class Select extends React.Component {
      * @param value
      */
     onMenuItemClick = (value) => {
-        if (this.state.selected.indexOf(value) === -1) {
-            let newState = {};
-            if (this.props.multiple) {
+        let { search, selected, multiple, onSelectChange, onRequestClose, onSearchStringChange } = this.props;
+        if (selected.indexOf(value) === -1) {
+            if (multiple) {
                 // Append value for multiple
-                newState = {
-                    selected: [...this.state.selected, value]
-                };
+                onSelectChange([...selected, value]);
             } else {
                 // replace for single
-                newState = {
-                    selected: [value]
-                }
+                onSelectChange([value]);
             }
             
             // Intelligently handle multiple select here:
-            // Do not close if selecting and there are more than 1 element left in menu
+            // Do not request close if selecting and there are more than 1 element left in menu
             // Set focus to search box if searchable
             // Close if menu has only 1 element
-            if (this.props.multiple && this.menuRef) {
+            if (multiple && this.menuRef) {
                 let optionsCount = React.Children.count(this.menuRef.props.children);
                 if (optionsCount <= 1) {
                     // Can close menu here
-                    newState.active = false;
+                    onRequestClose();
                     // also clean search string here
-                    newState.searchString = '';
-                    if (this.searchRef) {
-                        this.searchRef.value = '';
-                    }
+                    onSearchStringChange('');
                 } else {
                     // we have few more elements here, put focus if searchable
                     /* eslint-disable no-lonely-if */
-                    if (this.props.search && this.searchRef) {
+                    if (search && this.searchRef) {
                         this.searchRef.focus();
                     }
                     /* eslint-enable no-lonely-if */
                 }
             } else {
                 // Non multiple select or ref is not available?
-                newState.active = false;
-                // always clean searchstring for single selection dropdowns
-                newState.searchString = '';
+                onRequestClose();
+                // always clean search string for single selection dropdowns
                 if (this.searchRef) {
-                    this.searchRef.value = '';
+                    onSearchStringChange('');
                 }
             }
-            this.setState(newState);
-            this.props.onSelectChange(newState.selected);
         }
     };
 
@@ -242,26 +201,28 @@ export default class Select extends React.Component {
      * @param value
      */
     onLabelCloseIconClick(value) {
-        let index = this.state.selected.indexOf(value);
+        const { selected, onSelectChange } = this.props;
+        const index = selected.indexOf(value);
         if (index !== -1) {
-            this.setState({
-                selected: [...this.state.selected.filter(val => val !== value)]
-            });
+            onSelectChange([...selected.filter(val => val !== value)]);
         }
     }
 
     /**
      * Handler for search input change
+     * @param {React.KeyboardEvent} event
      */
-    onSearchInputChange = () => {
+    onSearchInputChange = (event) => {
+        const { onSearchStringChange } = this.props;
         
+        onSearchStringChange(event.target.value);
     };
     
     /**
      * Handler for search input key events
      * @param {React.KeyboardEvent} event
      */
-    onSearchInputKeyUp = (event) => {
+    onSearchInputKeyDown = (event) => {
         switch (event.which) {
             // Enter
             case 13:
@@ -272,36 +233,18 @@ export default class Select extends React.Component {
                     if (child && child.props.value) {
                         // enter should do the same as menu item click
                         this.onMenuItemClick(child.props.value);
-                        // but clean search box additionally
-                        if (this.searchRef) {
-                            this.searchRef.value = '';
-                        }
-                        this.setState({
-                            searchString: ''
-                        });
                     }
                 }
                 break;
             // Backspace
             case 8:
-                if (this.state.searchString === '') {
-                    if (this.props.multiple && this.state.selected.length > 0) {
-                        this.setState({
-                            selected: [...this.state.selected.slice(0, -1)]
-                        });
+                const { multiple, searchString, selected, onSelectChange } = this.props;
+                if (searchString === '') {
+                    if (multiple && selected.length > 0) {
+                        onSelectChange([...selected.slice(0, -1)])
                     }
-                } else if (this.searchRef) {
-                    this.setState({
-                        searchString: this.searchRef.value
-                    });
-                }
+                } 
                 break;
-            default:
-                if (this.searchRef) {
-                    this.setState({
-                        searchString: this.searchRef.value
-                    });
-                }
         }
     };
     
@@ -310,8 +253,9 @@ export default class Select extends React.Component {
      * Renders dropdown hidden input 
      */
     renderDropdownInput() {
-        const { name } = this.props;
-        const value = this.state.selected.join(',');
+        const { name, selected } = this.props;
+        const value = selected.join(',');
+        
         return (
             <input name={name} 
                    type="hidden" 
@@ -323,14 +267,16 @@ export default class Select extends React.Component {
      * Renders dropdown labels for multiple type dropdowns
      */
     renderDropdownLabels() {
+        const { multiple, selected } = this.props;
         // Selection labels should appear only for multiple dropdowns
-        if (!this.props.multiple) {
+        if (!multiple) {
             return null;
         }
         
+        
         return React.Children.map(this.props.children, child => {
             // Process only option or option like childs and if it's selected
-            if (child.props.value && this.state.selected.indexOf(child.props.value) !== -1) {
+            if (child.props.value && selected.indexOf(child.props.value) !== -1) {
                 return (
                     <Transition component={false}
                                 enter={{ scale: 1 }}
@@ -354,37 +300,31 @@ export default class Select extends React.Component {
      * Render dropdown placeholder text
      */
     renderDropdownText() {
-        const { placeholder, search, searchPosition, selection } = this.props;
-        // Render placeholder if not selected 
-        if (this.state.selected.length === 0) {
+        const { multiple, placeholder, search, selected, searchString, searchPosition, selection } = this.props;
+        // Render placeholder if not selected anything or multiple
+        if (selected.length === 0 || multiple) {
             if (typeof placeholder !== 'undefined') {
                 // Selection type should use default text, non selection text
                 return (
-                    <div className={this.props.selection ? 'default text' : 'text'}>{placeholder}</div>
+                    <div className={selection ? 'default text' : 'text'}>{placeholder}</div>
                 )
             } else {
                 return null;
             }
         } else {
-            // Need to render children content in text here if not multiple otherwise render placeholder anyway
-            /* eslint-disable no-lonely-if */
-            if (this.props.multiple) {
-                return (
-                    <div className={this.props.selection ? 'default text' : 'text'}>{placeholder}</div>
-                );
-            } else {
-                let content = <div className="text filtered"></div>;
-                if (!search || this.state.searchString === '') {
-                    // traverse in childs, find necessary node
-                    React.Children.forEach(this.props.children, child => {
-                        if (child.props.value && this.state.selected.indexOf(child.props.value) !== -1) {
-                            content = <div className="text">{child.props.children}</div>
-                        }
-                    });
-                }
-                return content;
+            // Single selection here
+            // Render selected children in text div here if selected anything
+            let content = <div className="text filtered"></div>;
+            // Do not render when performing search
+            if (!search || !searchString) {
+                // traverse in childs, find necessary node
+                React.Children.forEach(this.props.children, child => {
+                    if (child.props.value && selected.indexOf(child.props.value) !== -1) {
+                        content = <div className="text">{child.props.children}</div>
+                    }
+                });
             }
-            /* eslint-enable no-lonely-if */
+            return content;
         }
     }
 
@@ -402,23 +342,27 @@ export default class Select extends React.Component {
      * Renders search input
      */
     renderSearchInput() {
+        const { search, searchGlyphWidth, searchString, searchPosition, multiple } = this.props;
+        
         // Do not render if not searchable
-        if (!this.props.search) {
+        if (!search) {
             return null;
         }
         
-        const searchWidth = this.props.searchGlyphWidth * this.state.searchString.length;
+        const searchWidth = searchGlyphWidth * searchString.length;
         // single selection dropdown shouldn't apply width style
-        const style = searchWidth && this.props.searchPosition === 'dropdown' && this.props.multiple ? { width: `${searchWidth}em` } : {};
-        if (this.props.searchPosition === 'dropdown') {
+        const style = searchWidth && searchPosition === 'dropdown' && multiple ? { width: `${searchWidth}em` } : {};
+        if (searchPosition === 'dropdown') {
             return (
                 <input autoComplete="off"
                        className="search"
                        key="searchInput"
-                       onKeyUp={throttle(this.onSearchInputKeyUp, 150)}
+                       onKeyDown={this.onSearchInputKeyDown}
+                       onChange={this.onSearchInputChange}
                        ref={ref => this.searchRef = ref}
                        style={style}
-                       tabIndex={0}/>
+                       tabIndex={0}
+                       value={searchString}/>
             )
         } else {
             // Search in menu has slightly different layout
@@ -426,10 +370,13 @@ export default class Select extends React.Component {
                 <div className="ui icon search input">
                     <Icon name="search"/>
                     <input placeholder="Search..."
-                           onKeyUp={throttle(this.onSearchInputKeyUp, 150)}
+                           key="searchInput"
+                           onKeyDown={this.onSearchInputKeyDown}
+                           onChange={this.onSearchInputChange}
                            ref={ref => this.searchRef = ref}
                            tabIndex={0}
-                           type="text"/>
+                           type="text"
+                           value={searchString}/>
                 </div>
             )
         }
@@ -451,9 +398,7 @@ export default class Select extends React.Component {
      * Filters children options to exclude selected elements or elements which doesn't match to search
      */
     renderFilteredChildren() {
-        const selected = this.state.selected;
-        const { search, searchIgnoreCase, multiple } = this.props;
-        const searchString = this.state.searchString;
+        const { search, searchIgnoreCase, selected, searchString, multiple } = this.props;
         const searchRegex  = new RegExp(searchString, searchIgnoreCase ? 'gi' : 'g');
         
         let newChildren = [];
@@ -506,10 +451,13 @@ export default class Select extends React.Component {
     }
     
     render() {
+        /* eslint-disable no-use-before-define */
         const {
-            children, enterAnimation, leaveAnimation, icon, name, search, searchPosition, searchHeader, searchNoResultsMessage,
-            ...other
+            active, children, enterAnimation, leaveAnimation, icon, name, search, searchPosition, searchHeader, 
+            searchString, searchGlyphWidth, searchIgnoreCase, searchNoResultsMessage, placeholder, selected, selection,
+            multiple, onSelectChange, onRequestClose, onSearchStringChange, ...other
         } = this.props;
+        /* eslint-enable no-use-before-define */
         
         // make new array for menu childrens
         let menuChildrens = [];
@@ -523,7 +471,7 @@ export default class Select extends React.Component {
         
         let filteredChilds = this.renderFilteredChildren();
         // Display no results message instead of children if needed
-        if ((!filteredChilds || filteredChilds.length === 0) && (search && this.state.searchString != '')) {
+        if ((!filteredChilds || filteredChilds.length === 0) && (search && searchString != '')) {
             filteredChilds = [
                 <div className="message" 
                      key="noResultsMessage" 
@@ -541,8 +489,8 @@ export default class Select extends React.Component {
         return (
             <DropdownElement
                 {...other}
+                active={active}
                 onClick={this.onDropdownClick}
-                active={this.state.active}
             >
                 {/* This will embed <noscript></noscript> inside dropdown div. Shouldn't cause any problems */}
                 <EventListener elementName="document"
@@ -560,7 +508,7 @@ export default class Select extends React.Component {
                     enter={enterAnimation}
                     leave={leaveAnimation}
                 >
-                    {this.state.active &&
+                    {active &&
                     <Menu key="menu"
                           onMenuItemClick={this.onMenuItemClick}
                           ref={ref => this.menuRef = ref}
