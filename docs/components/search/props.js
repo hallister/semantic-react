@@ -95,7 +95,7 @@ exports.results = {
                 "name": "string"
             },
             "required": false,
-            "description": ""
+            "description": "value - input"
         },
         "style": {
             "type": {
@@ -256,6 +256,18 @@ exports.search = {
             },
             "required": false,
             "description": ""
+        },
+        "value": {
+            "type": {
+                "name": "string",
+                "value": 
+            },
+            "defaultValue": {
+                "value": "''",
+                "computed": false
+            }
+            "required": false,
+            "description": "value - input"
         }
     }
 }

@@ -68,7 +68,7 @@ export function hasDescendant(children, component) {
 
 
 export function hasFirstChild(children, component) {
-    if (typeof children === 'string') {
+    if (typeof children === 'string' || React.Children.count(children) === 0) {
         return false;
     }
 
