@@ -883,7 +883,7 @@ namespace SemanticReact {
          * Callback for menu item click (regardless active or not active)
          * @param value
          */
-        onMenuItemClick?(value: string | number): void;
+        onMenuItemClick?(value?: string | number): void;
         /**
          * Callback for active item change. Will not be fired if menuValue was omitted
          * Will pass new menuValue or array of new menuValue
@@ -943,19 +943,46 @@ namespace SemanticReact {
 
 // Dropdown base interface
     export interface DropdownBaseProps<T> extends BaseProps<T> {
+        /**
+         * Indicates status of dropdown. true for opened, false for closed
+         */
         active?: boolean;
+        /**
+         * A compact dropdown has no minimum width
+         */
         compact?: boolean;
+        /**
+         * A disabled dropdown menu or item does not allow user interaction
+         */
         disabled?: boolean;
+        /**
+         * An errored dropdown can alert a user to a problem
+         */
         error?: boolean;
-        floating?: boolean;
+        /**
+         * A dropdown can take the full width of its parent
+         */
         fluid?: boolean;
-        inverted?: boolean;
-        multiple?: boolean;
+        /**
+         * A dropdown can be formatted to appear inline in other content
+         */
+        inline?: boolean;
+        /**
+         * A dropdown menu can appear to be floating below an element.
+         */
+        floating?: boolean;
+        /**
+         * A dropdown can show that it is currently loading data
+         */
+        loading?: boolean;
+        /**
+         * A dropdown can be formatted so that its menu is pointing
+         */
         pointing?: "left" | "right" | "top left" | "top right" | "bottom left" | "bottom right" | boolean;
-        search?: boolean;
+        /**
+         * A dropdown can have its menu scroll
+         */
         scrolling?: boolean;
-        selection?: boolean;
-        visible?: boolean;
     }
 // <Dropdown />
     export interface DropdownProps extends DropdownBaseProps<Dropdown> {
@@ -964,13 +991,50 @@ namespace SemanticReact {
     }
 // <DropdownMenu />
     export interface DropdownMenuProps extends DropdownBaseProps<DropdownMenu> {
+        /**
+         * Active/Close menu
+         */
         active?: boolean;
-        dropdownComponent?: any;
+        /**
+         * Enter animations transforms
+         */
         enterAnimation?: any;
+        /**
+         * Menu icon
+         */
         icon?: string;
+        /**
+         * Menu label
+         */
         label?: string;
+        /**
+         * Leave animation
+         */
         leaveAnimation?: any;
+        /**
+         * Specify component to be used as Menu.
+         * Usually is should be menu but with custom options applied (for example inverted).
+         * DropdownMenu will pass some props to your Menu component, so you're responsive for passing it down to the level
+         */
         menuComponent?: any;
+        /**
+         * Menu active value
+         */
+        menuValue?: number | string | Array<number|string>;
+        /**
+         * Callback for active item change. Will not be fired if menuValue was omitted
+         * Will pass new menuValue or array of new menuValue
+         * If all items were unselected would pass null if menuValue is single value or empty array if menuValue is array
+         */
+        onMenuChange?(value?: number|string | Array<number,string>): void;
+        /**
+         * Callback for menu item click
+         */
+        onMenuItemClick?(value?: number|string): void;
+        /**
+         * Callback will be called when menu wants to be closed (for ex. from outside click)
+         */
+        onRequestClose?(): void;
     }
     export class DropdownMenu extends React.Component<DropdownMenuProps, any> {
     }
@@ -984,13 +1048,86 @@ namespace SemanticReact {
     }
 // <Select />
     export interface SelectProps extends DropdownBaseProps<Select> {
+        /**
+         * Should be dropdown opened
+         */
+        active?: boolean;
+        /**
+         * Enter animation
+         */
         enterAnimation?: Object;
-        glyphWidth?: number;
-        ignoreCase?: boolean;
+        /**
+         * Leave animation
+         */
         leaveAnimation?: Object;
+        /**
+         * Name for dropdown input
+         */
         name?: string;
-        noResults?: string;
+        /**
+         * Icon name for dropdown
+         */
+        icon?: string;
+        /**
+         * String used as placeholder if dropdown has no selected value
+         * Will be grayed (<div class="default text">) if dropdown is selection
+         * or normally displayed (<div class="text">) otherwise
+         */
         placeholder?: string;
+        /**
+         * Searchable dropdown
+         */
+        search?: boolean;
+        /**
+         * Search glyph width
+         */
+        searchGlyphWidth?: number;
+        /**
+         * Ignore case when performing search
+         */
+        searchIgnoreCase?: boolean;
+        /**
+         * Search box position
+         */
+        searchPosition?: "dropdown" | "menu";
+        /**
+         * Search header, valid only for searchPosition="menu"
+         */
+        searchHeader?: string;
+        /**
+         * Specify message which will be displayed when search has no results
+         */
+        searchNoResultsMessage?: string;
+        /**
+         * Search string
+         */
+        searchString?: string;
+        /**
+         * Selected value
+         */
+        selected?: Array<string|number>;
+        /**
+         * Behave dropdown as HTML select
+         * @default true
+         */
+        selection?: boolean;
+        /**
+         * Allow multiple selection
+         */
+        multiple?: boolean;
+        /**
+         * Callback will be called when current selected value was changed.
+         * Will pass array of new selected values as first param and total options count as second
+         */
+        onSelectChange?(newValue: Array<string|number>, totalOptionsCount: number): void;
+        /**
+         * Callback will be called when selection dropdown wants to be closed. For now only for outside of dropdown clicks
+         */
+        onRequestClose?(): void;
+        /**
+         * Callback will be called when search string is being changed. You probably just need to pass it back to component
+         */
+        onSearchStringChange?(newSearch: string): void;
     }
     export class Select extends React.Component<SelectProps, any> {
     }

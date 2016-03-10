@@ -2,7 +2,16 @@ Select is the dropdown with ability to select one or few values
 
 ### Simple select
 
-     <Select selection placeholder="Select me">
+    'values' in state || setState({values: []});
+    'active' in state || setState({active: false});
+     <Select active={state.active}
+             selection
+             selected={state.values}
+             placeholder="Select me"
+             onSelectChange={val => setState({values: val, active: false})}
+             onClick={() => setState({active: !state.active})}
+             onRequestClose={() => setState({active: false})}
+     >
          <Option value={1}>First</Option>
          <Option value={2}>Second</Option>
      </Select>
@@ -10,7 +19,16 @@ Select is the dropdown with ability to select one or few values
 ### Option could contain other markup
 
     const Icon = require('../../elements').Icon;
-    <Select selection placeholder="Select me">
+    'values' in state || setState({values: []});
+    'active' in state || setState({active: false});
+    <Select active={state.active}
+            selection
+            selected={state.values}
+            placeholder="Select me"
+            onSelectChange={val => setState({values: val, active: false})}
+            onClick={() => setState({active: !state.active})}
+            onRequestClose={() => setState({active: false})}
+    >
         <Option value={1}><Icon name="twitter"/>First</Option>
         <Option value={2}><Icon name="cloud"/>Second</Option>
     </Select>
@@ -18,7 +36,20 @@ Select is the dropdown with ability to select one or few values
 ### Selection with search
 
     const Flag = require('../../elements').Flag;
-    <Select search selection placeholder="Countries">
+    'values' in state || setState({values: []});
+    'active' in state || setState({active: false});
+    'search' in state || setState({search: ''});
+    <Select active={state.active}
+            search
+            selection
+            placeholder="Countries"
+            selected={state.values}
+            onSelectChange={val => setState({values: val, active: false})}
+            onClick={() => setState({active: true})}
+            onRequestClose={() => setState({active: false})}
+            onSearchStringChange={search => setState({search: search})}
+            searchString={state.search}
+    >
         <Option value="us"><Flag name="us"/>USA</Option>
         <Option value="es"><Flag name="es"/>Spain</Option>
         <Option value="ga"><Flag name="ga"/>Gabon</Option>
@@ -26,7 +57,23 @@ Select is the dropdown with ability to select one or few values
 
 ### Multiple selection
 
-    <Select multiple selection placeholder="Skills">
+    'values' in state || setState({values: []});
+    'active' in state || setState({active: false});
+    <Select active={state.active}
+            multiple
+            selection
+            placeholder="Skills"
+            selected={state.values}
+            onSelectChange={(val, count) => {
+                                                if(count <= 1) {
+                                                    setState({ values: val, active: false});
+                                                } else {
+                                                    setState({ values: val });
+                                                }
+                                             }}
+            onClick={() => setState({active: true})}
+            onRequestClose={() => setState({active: false})}
+    >
         <Option value="angular">Angular</Option>
         <Option value="react">React</Option>
         <Option value="semantic">Semantic UI</Option>
@@ -35,8 +82,28 @@ Select is the dropdown with ability to select one or few values
 
 ### Multiple search selection
 
+    'values' in state || setState({values: []});
+    'active' in state || setState({active: false});
+    'search' in state || setState({search: ''});
     const Flag = require('../../elements').Flag;
-    <Select multiple search selection placeholder="Select Country">
+    <Select active={state.active}
+            multiple
+            search
+            selected={state.values}
+            selection
+            placeholder="Select Country"
+            onSelectChange={(val, count) => {
+                                                if(count <= 1) {
+                                                    setState({ values: val, active: false});
+                                                } else {
+                                                    setState({ values: val });
+                                                }
+                                             }}
+            onClick={() => setState({active: true})}
+            onRequestClose={() => setState({active: false})}
+            onSearchStringChange={search => setState({search: search})}
+            searchString={state.search}
+    >
         <Option value="us"><Flag name="us"/>USA</Option>
         <Option value="us-alt"><Flag name="us"/>Alternative USA</Option>
         <Option value="es"><Flag name="es"/>Spain</Option>
@@ -44,6 +111,7 @@ Select is the dropdown with ability to select one or few values
     </Select>
 
 
+# TODO: rewrite these examples
 ## Dropdown could be used with custom component (Mainly with buttons):
 simple button
 
