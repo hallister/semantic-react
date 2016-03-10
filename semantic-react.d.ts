@@ -1116,11 +1116,12 @@ namespace SemanticReact {
          */
         multiple?: boolean;
         /**
-         * Callback will be called when current selected value was changed. Will pass array of selected values
+         * Callback will be called when current selected value was changed.
+         * Will pass array of new selected values as first param and total options count as second
          */
-        onSelectChange?(newValue: Array<string|number>): void;
+        onSelectChange?(newValue: Array<string|number>, totalOptionsCount: number): void;
         /**
-         * Callback will be called when selection dropdown wants to be closed. However you can decide to not close it
+         * Callback will be called when selection dropdown wants to be closed. For now only for outside of dropdown clicks
          */
         onRequestClose?(): void;
         /**

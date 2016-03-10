@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import throttle from 'lodash.throttle';
+import shallowCompare from 'react-addons-shallow-compare';
 import EventListener from 'react-event-listener';
 import Transition from 'react-motion-ui-pack';
 import DropdownElement from './dropdownelement';
@@ -85,11 +85,12 @@ export default class Select extends React.Component {
          */
         multiple: React.PropTypes.bool,
         /**
-         * Callback will be called when current selected value was changed. Will pass array of selected values
+         * Callback will be called when current selected value was changed. 
+         * Will pass array of new selected values as first param and total options count as second
          */
         onSelectChange: React.PropTypes.func,
         /**
-         * Callback will be called when selection dropdown wants to be closed. However you can decide to not close it
+         * Callback will be called when selection dropdown wants to be closed. For now only for outside of dropdown clicks
          */
         onRequestClose: React.PropTypes.func,
         /**
@@ -134,6 +135,23 @@ export default class Select extends React.Component {
         this.noResultsMessageRef = null;
     }
     
+    componentDidMount() {
+        const { active, search } = this.props;
+        if (search && this.searchRef && active) {
+            this.searchRef.focus();
+        }
+    }
+    
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
+    
+    componentDidUpdate() {
+        const { active, search } = this.props;
+        if (search && this.searchRef && active) {
+            this.searchRef.focus();
+        }
+    }
     
     /**
      * Handler for outside click
@@ -156,14 +174,15 @@ export default class Select extends React.Component {
      * @param value
      */
     onMenuItemClick = (value) => {
-        let { search, selected, multiple, onSelectChange, onRequestClose, onSearchStringChange } = this.props;
+        let { search, selected, multiple, onSelectChange, onSearchStringChange } = this.props;
+        const optionsCount = (this.menuRef) ? React.Children.count(this.menuRef.props.children) : 0;
         if (selected.indexOf(value) === -1) {
             if (multiple) {
                 // Append value for multiple
-                onSelectChange([...selected, value]);
+                onSelectChange([...selected, value], optionsCount);
             } else {
                 // replace for single
-                onSelectChange([value]);
+                onSelectChange([value], optionsCount);
             }
             
             // Intelligently handle multiple select here:
@@ -171,11 +190,8 @@ export default class Select extends React.Component {
             // Set focus to search box if searchable
             // Close if menu has only 1 element
             if (multiple && this.menuRef) {
-                let optionsCount = React.Children.count(this.menuRef.props.children);
                 if (optionsCount <= 1) {
-                    // Can close menu here
-                    onRequestClose();
-                    // also clean search string here
+                    // Clean search string
                     onSearchStringChange('');
                 } else {
                     // we have few more elements here, put focus if searchable
@@ -186,8 +202,6 @@ export default class Select extends React.Component {
                     /* eslint-enable no-lonely-if */
                 }
             } else {
-                // Non multiple select or ref is not available?
-                onRequestClose();
                 // always clean search string for single selection dropdowns
                 if (this.searchRef) {
                     onSearchStringChange('');
@@ -202,9 +216,10 @@ export default class Select extends React.Component {
      */
     onLabelCloseIconClick(value) {
         const { selected, onSelectChange } = this.props;
+        const optionsCount = (this.menuRef) ? React.Children.count(this.menuRef.props.children) : 0;
         const index = selected.indexOf(value);
         if (index !== -1) {
-            onSelectChange([...selected.filter(val => val !== value)]);
+            onSelectChange([...selected.filter(val => val !== value)], optionsCount);
         }
     }
 
@@ -490,7 +505,6 @@ export default class Select extends React.Component {
             <DropdownElement
                 {...other}
                 active={active}
-                onClick={this.onDropdownClick}
             >
                 {/* This will embed <noscript></noscript> inside dropdown div. Shouldn't cause any problems */}
                 <EventListener elementName="document"

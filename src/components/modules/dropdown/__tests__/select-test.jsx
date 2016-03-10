@@ -464,7 +464,7 @@ describe('Select', () => {
         });
         describe('If dropdown is multiple', () => {
             
-            it('Should fire onSelectChange callback with new selections but not onRequestClose if there few items in menu', () => {
+            it('Should fire onSelectChange callback with new selections and total children count', () => {
                 let wrapper = mount(
                     <Select active multiple onSelectChange={onSelectChangeSpy} onRequestClose={onRequestCloseSpy}>
                         <Option value="test">Test</Option>
@@ -472,7 +472,7 @@ describe('Select', () => {
                     </Select>
                 );
                 wrapper.find(Menu).prop('onMenuItemClick')('test');
-                expect(onSelectChangeSpy).to.have.been.calledWith(['test']);
+                expect(onSelectChangeSpy).to.have.been.calledWith(['test'], 2);
                 expect(onRequestCloseSpy).to.have.not.been.called;
                 
                 onSelectChangeSpy.reset();
@@ -482,21 +482,9 @@ describe('Select', () => {
                     selected: ['test']
                 });
                 wrapper.find(Menu).prop('onMenuItemClick')('test2');
-                expect(onSelectChangeSpy).to.have.been.calledWith(['test', 'test2']);
+                expect(onSelectChangeSpy).to.have.been.calledWith(['test', 'test2'], 1);
             });
 
-            it('Should fire onSelectChange and onRequestClose if there is only one child in menu', () => {
-                let wrapper = mount(
-                    <Select active selected={['test']} multiple onSelectChange={onSelectChangeSpy} onRequestClose={onRequestCloseSpy}>
-                        <Option value="test">Test</Option>
-                        <Option value="test2">Test2</Option>
-                    </Select>
-                );
-                wrapper.find(Menu).prop('onMenuItemClick')('test2');
-                
-                expect(onSelectChangeSpy).to.have.been.calledWith(['test', 'test2']);
-                expect(onRequestCloseSpy).to.have.been.called;
-            });
 
             describe('When dropdown is searchable', () => {
                 it('Should call onSearchStringChange callback with empty string if there is only one child in menu', () => {
@@ -542,7 +530,7 @@ describe('Select', () => {
         });
 
         describe('If dropdown is not multiple', () => {
-            it('It should fire onSelectChange and onRequestClose callbacks', () => {
+            it('It should fire onSelectChange with new value and total children count', () => {
                 let wrapper = mount(
                     <Select active onSelectChange={onSelectChangeSpy} onRequestClose={onRequestCloseSpy}>
                         <Option value="test">Test</Option>
@@ -550,19 +538,18 @@ describe('Select', () => {
                 );
                 
                 wrapper.find(Menu).prop('onMenuItemClick')('test');
-                expect(onSelectChangeSpy).to.have.been.calledWith(['test']);
-                expect(onRequestCloseSpy).to.have.been.called;
+                expect(onSelectChangeSpy).to.have.been.calledWith(['test'], 1);
             });
 
             it('Should call onSelectChange with the new value', () => {
                 let wrapper = mount(
-                    <Select active selected={["test"]} onSelectChange={onSelectChangeSpy}>
+                    <Select active selected={['test']} onSelectChange={onSelectChangeSpy}>
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                     </Select>
                 );
                 wrapper.find(Menu).prop('onMenuItemClick')('test2');
-                expect(onSelectChangeSpy).to.have.been.calledWith(['test2']);
+                expect(onSelectChangeSpy).to.have.been.calledWith(['test2'], 2);
             });
 
             it('Should call onSearchStringChange with empty string', () => {
@@ -586,7 +573,7 @@ describe('Select', () => {
 
     describe('When clicking on close label on selected item', () => {
 
-        it('Should send onRequestChange callback with removed item', () => {
+        it('Should call onSelectChange callback without removed item', () => {
             let onSelectChangeSpy = sinon.spy();
             let wrapper = shallow(
                 <Select active multiple selected={['test2', 'test3']} onSelectChange={onSelectChangeSpy}>
