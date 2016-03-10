@@ -883,7 +883,7 @@ namespace SemanticReact {
          * Callback for menu item click (regardless active or not active)
          * @param value
          */
-        onMenuItemClick?(value: string | number): void;
+        onMenuItemClick?(value?: string | number): void;
         /**
          * Callback for active item change. Will not be fired if menuValue was omitted
          * Will pass new menuValue or array of new menuValue
@@ -964,12 +964,50 @@ namespace SemanticReact {
     }
 // <DropdownMenu />
     export interface DropdownMenuProps extends DropdownBaseProps<DropdownMenu> {
+        /**
+         * Active/Close menu
+         */
         active?: boolean;
+        /**
+         * Enter animations transforms
+         */
         enterAnimation?: any;
+        /**
+         * Menu icon
+         */
         icon?: string;
+        /**
+         * Menu label
+         */
         label?: string;
+        /**
+         * Leave animation
+         */
         leaveAnimation?: any;
+        /**
+         * Specify component to be used as Menu.
+         * Usually is should be menu but with custom options applied (for example inverted).
+         * DropdownMenu will pass some props to your Menu component, so you're responsive for passing it down to the level
+         */
         menuComponent?: any;
+        /**
+         * Menu active value
+         */
+        menuValue?: number | string | Array<number|string>;
+        /**
+         * Callback for active item change. Will not be fired if menuValue was omitted
+         * Will pass new menuValue or array of new menuValue
+         * If all items were unselected would pass null if menuValue is single value or empty array if menuValue is array
+         */
+        onMenuChange?(value?: number|string | Array<number,string>): void;
+        /**
+         * Callback for menu item click
+         */
+        onMenuItemClick?(value?: number|string): void;
+        /**
+         * Callback will be called when menu wants to be closed (for ex. from outside click)
+         */
+        onRequestClose?(): void;
     }
     export class DropdownMenu extends React.Component<DropdownMenuProps, any> {
     }
