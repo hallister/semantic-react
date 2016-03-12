@@ -1,5 +1,4 @@
 /* eslint-env node, mocha */
-/* global sinon */
 import React from 'react';
 import { Icon } from '../../../elements';
 import { Rating } from '../../../modules';
@@ -71,21 +70,21 @@ describe('Rating', () => {
     });
 
     describe('When clicking on rating', () => {
-        const eventStub = {
-            stopPropagation: sinon.stub(),
-            preventDefault: sinon.stub()
-        };
+        // const eventStub = {
+        //     stopPropagation: sinon.stub(),
+        //     preventDefault: sinon.stub()
+        // };
         it('should change value', () => {
             let wrapper = shallow(<Rating max={5} />);
             expect(wrapper).to.have.not.descendants('.active');
 
             // FIXME Cannot get it to click on an icon
-            //wrapper.find(Icon).at(0).simulate('click', eventStub);
-            //wrapper.find(Icon).first().prop('onClick')();
-            //expect(wrapper).to.have.exactly(1).descendants('.active');
+            // wrapper.find(Icon).at(0).simulate('click', eventStub);
+            // wrapper.find(Icon).first().prop('onClick')();
+            // expect(wrapper).to.have.exactly(1).descendants('.active');
 
-            //wrapper.find(Icon).prop('onIconClick')(4);
-            //expect(wrapper).to.have.exactly(5).descendants('.active');
+            // wrapper.find(Icon).prop('onIconClick')(4);
+            // expect(wrapper).to.have.exactly(5).descendants('.active');
         });
     });
 

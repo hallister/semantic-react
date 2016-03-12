@@ -187,13 +187,19 @@ describe('Menu', () => {
         let childrens = [];
         childrens.push(<MenuItem className="first"
                                  key={1} 
-                                 menuValue={1}>First</MenuItem>);
+                                 menuValue={1}
+                       >First</MenuItem>
+        );
         childrens.push(<MenuItem className="second"
                                  key={2} 
-                                 menuValue={2}>Second</MenuItem>);
+                                 menuValue={2}
+                       >Second</MenuItem>
+        );
         childrens.push(<MenuItem className="third"
                                  key={3} 
-                                 menuValue={3}>Third</MenuItem>);
+                                 menuValue={3}
+                       >Third</MenuItem>
+        );
         
         
         it('Should render MenuItem as active when MenuItem value is matched by provided value', () => {

@@ -117,7 +117,7 @@ describe('Select', () => {
     describe('It should render dropdown text', () => {
         describe('When dropdown is selection', () => {
             it('Should render placeholder with default text class when no value was selected', () => {
-                let wrapper = shallow(<Select selection placeholder="Select one"/>);
+                let wrapper = shallow(<Select placeholder="Select one" selection/>);
                 expect(wrapper.find('.default.text')).to.be.exist;
                 expect(wrapper.find('.default.text')).to.have.html().match(/Select one/);
             });
@@ -130,7 +130,7 @@ describe('Select', () => {
             describe('When have selected value', () => {
                 it('Should render text with content of corresponding menu item if not multiple', () => {
                     let wrapper = shallow(
-                        <Select selection selected={[2]} placeholder="Select one">
+                        <Select placeholder="Select one" selected={[2]} selection>
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
@@ -141,7 +141,7 @@ describe('Select', () => {
 
                     // without placeholder
                     wrapper = shallow(
-                        <Select selection selected={[2]}>
+                        <Select selected={[2]} selection>
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
@@ -152,29 +152,29 @@ describe('Select', () => {
 
                 it('Should render filtered text stub if search and search string is not empty', () => {
                     let wrapper = shallow(
-                        <Select search searchString="kk" selection selected={[2]} placeholder="Select one">
+                        <Select placeholder="Select one" search searchString="kk" selected={[2]} selection>
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
                     );
                     expect(wrapper.find('.text.filtered')).to.be.exist;
-                    
+
                 });
 
                 it('Should render placeholder with default text class anyway if multiple', () => {
                     let wrapper = shallow(
-                        <Select multiple selection selected={[2]} placeholder="Select one">
+                        <Select multiple placeholder="Select one" selected={[2]} selection>
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
                     );
                     expect(wrapper.find('.default.text')).to.be.exist;
                     expect(wrapper.find('.default.text')).to.have.html().match(/Select one/);
-                    
+
                     // same applies when search
-                    wrapper.setProps({ 
-                        search: true ,
-                        searchString: "kkk"
+                    wrapper.setProps({
+                        search: true,
+                        searchString: 'kkk'
                     });
                     expect(wrapper.find('.default.text')).to.be.exist;
                     expect(wrapper.find('.default.text')).to.have.html().match(/Select one/);
@@ -185,7 +185,7 @@ describe('Select', () => {
         
         describe('When dropdown is not selection', () => {
             it('Should render placeholder with text class when not value was selected', () => {
-                let wrapper = shallow(<Select selection={false} placeholder="Select one"/>);
+                let wrapper = shallow(<Select placeholder="Select one" selection={false}/>);
                 expect(wrapper.find('.text')).to.be.exist;
                 expect(wrapper.find('.text')).to.have.html().match(/Select one/);
                 expect(wrapper.find('.default.text')).to.be.not.exist;
@@ -200,7 +200,7 @@ describe('Select', () => {
             describe('When have selected value', () => {
                 it('Should render text with content of corresponding menu item if not multiple', () => {
                     let wrapper = shallow(
-                        <Select selected={[2]} selection={false} placeholder="Select one">
+                        <Select placeholder="Select one" selected={[2]} selection={false}>
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
@@ -221,7 +221,7 @@ describe('Select', () => {
 
                 it('Should render placeholder with text class anyway if multiple', () => {
                     let wrapper = shallow(
-                        <Select selection={false} selected={[2]} multiple placeholder="Select one">
+                        <Select multiple placeholder="Select one" selected={[2]} selection={false}>
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
@@ -287,7 +287,7 @@ describe('Select', () => {
             });
 
             it('Should render search header if specified', () => {
-                let wrapper = shallow(<Select active search searchPosition="menu" searchHeader="Test"/>);
+                let wrapper = shallow(<Select active search searchHeader="Test" searchPosition="menu"/>);
                 expect(wrapper.find(Menu).find(Header)).to.have.html().match(/Test/);
                 expect(wrapper.find(Menu).find('.search')).to.be.exist;
             });
@@ -300,7 +300,7 @@ describe('Select', () => {
 
         describe('It should set width style', () => {
             it('Should set width style if searchPosition is dropdown', () => {
-                let wrapper = shallow(<Select search searchString="1" multiple searchPosition="dropdown"/>);
+                let wrapper = shallow(<Select multiple search searchPosition="dropdown" searchString="1"/>);
                 expect(wrapper.find('input').filter('.search')).to.have.style('width', '1.0714em');
                 
                 wrapper.setProps({
@@ -310,12 +310,12 @@ describe('Select', () => {
             });
 
             it('Shouldn\'t set width style if searchPosition is menu', () => {
-                let wrapper = shallow(<Select active search multiple searchString="1" searchPosition="menu"/>);
+                let wrapper = shallow(<Select active multiple search searchPosition="menu" searchString="1"/>);
                 expect(wrapper.find(Menu).find('.search')).to.have.not.style('width');
             });
 
             it('Should\'t set width style for not multiple dropdown', () => {
-                let wrapper = shallow(<Select search searchString="12" searchPosition="dropdown"/>);
+                let wrapper = shallow(<Select search searchPosition="dropdown" searchString="12"/>);
                 expect(wrapper.find('input').filter('.search')).to.have.not.style('width');
             });
         });
@@ -366,7 +366,7 @@ describe('Select', () => {
     describe('Should filter childrens if dropdown is searchable by search input', () => {
         it('Should filter by value', () => {
             let wrapper = shallow(
-                <Select active searchString="1" search>
+                <Select active search searchString="1">
                     <Option value={1}>One</Option>
                     <Option value={2}>Two</Option>
                     <Option value={3}>Three</Option>
@@ -438,7 +438,7 @@ describe('Select', () => {
 
         it('No results message could be specified', () => {
             let wrapper = shallow(
-                <Select active search searchString="DSFDSFD" searchNoResultsMessage="testnoresults">
+                <Select active search searchNoResultsMessage="testnoresults" searchString="DSFDSFD">
                     <Option value={1}>One</Option>
                     <Option value={2}>Two</Option>
                     <Option value={3}>Three</Option>
@@ -466,7 +466,7 @@ describe('Select', () => {
             
             it('Should fire onSelectChange callback with new selections and total children count', () => {
                 let wrapper = mount(
-                    <Select active multiple onSelectChange={onSelectChangeSpy} onRequestClose={onRequestCloseSpy}>
+                    <Select active multiple onRequestClose={onRequestCloseSpy} onSelectChange={onSelectChangeSpy}>
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                     </Select>
@@ -490,13 +490,13 @@ describe('Select', () => {
                 it('Should call onSearchStringChange callback with empty string if there is only one child in menu', () => {
                     let wrapper = mount(
                         <Select active
-                                search
-                                multiple 
-                                onSelectChange={onSelectChangeSpy} 
-                                onRequestClose={onRequestCloseSpy} 
+                                multiple
+                                onRequestClose={onRequestCloseSpy}
                                 onSearchStringChange={onSearchStringChangeSpy}
-                                selected={['test']}
+                                onSelectChange={onSelectChangeSpy}
+                                search
                                 searchString="test"
+                                selected={['test']}
                         >
                             <Option value="test">Test</Option>
                             <Option value="test2">Test2</Option>
@@ -508,13 +508,13 @@ describe('Select', () => {
                     onSearchStringChangeSpy.reset();
                     wrapper = mount(
                         <Select active 
-                                search 
                                 multiple
-                                onSelectChange={onSelectChangeSpy}
                                 onRequestClose={onRequestCloseSpy}
                                 onSearchStringChange={onSearchStringChangeSpy}
-                                selected={['test']}
+                                onSelectChange={onSelectChangeSpy}
+                                search
                                 searchString="test"
+                                selected={['test']}
                         >
                             <Option value="test">Test</Option>
                             <Option value="test2">Test2</Option>
@@ -532,7 +532,7 @@ describe('Select', () => {
         describe('If dropdown is not multiple', () => {
             it('It should fire onSelectChange with new value and total children count', () => {
                 let wrapper = mount(
-                    <Select active onSelectChange={onSelectChangeSpy} onRequestClose={onRequestCloseSpy}>
+                    <Select active onRequestClose={onRequestCloseSpy} onSelectChange={onSelectChangeSpy}>
                         <Option value="test">Test</Option>
                     </Select>
                 );
@@ -543,7 +543,7 @@ describe('Select', () => {
 
             it('Should call onSelectChange with the new value', () => {
                 let wrapper = mount(
-                    <Select active selected={['test']} onSelectChange={onSelectChangeSpy}>
+                    <Select active onSelectChange={onSelectChangeSpy} selected={['test']}>
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                     </Select>
@@ -555,11 +555,11 @@ describe('Select', () => {
             it('Should call onSearchStringChange with empty string', () => {
                 let wrapper = mount(
                     <Select active 
-                            search 
-                            selection 
-                            onSearchStringChange={onSearchStringChangeSpy} 
-                            selected={['test']} 
+                            onSearchStringChange={onSearchStringChangeSpy}
+                            search
                             searchString="test"
+                            selected={['test']}
+                            selection
                     >
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
@@ -576,7 +576,7 @@ describe('Select', () => {
         it('Should call onSelectChange callback without removed item', () => {
             let onSelectChangeSpy = sinon.spy();
             let wrapper = shallow(
-                <Select active multiple selected={['test2', 'test3']} onSelectChange={onSelectChangeSpy}>
+                <Select active multiple onSelectChange={onSelectChangeSpy} selected={['test2', 'test3']}>
                     <Option value="test">Test</Option>
                     <Option value="test2">Test2</Option>
                     <Option value="test3">Test3</Option>
@@ -596,7 +596,7 @@ describe('Select', () => {
         describe('When backspace key was pressed', () => {
             it('Should call onSelectChange callback with removed last item if there are few selected values', () => {
                 let wrapper = mount(
-                    <Select active multiple search selected={['test2', 'test3']} onSelectChange={onSelectChangeSpy}>
+                    <Select active multiple onSelectChange={onSelectChangeSpy} search selected={['test2', 'test3']}>
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                         <Option value="test3">Test3</Option>
@@ -609,7 +609,7 @@ describe('Select', () => {
 
             it('Shouldn\'t call onSelectChange if there is no selected value', () => {
                 let wrapper = mount(
-                    <Select active multiple search onSelectChange={onSelectChangeSpy}>
+                    <Select active multiple onSelectChange={onSelectChangeSpy} search>
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                         <Option value="test3">Test3</Option>
@@ -622,7 +622,7 @@ describe('Select', () => {
 
             it('Shouldn\'t call onSelectChange if dropdown is not multiple', () => {
                 let wrapper = mount(
-                    <Select active search selected={['test2']} onSelectChange={onSelectChangeSpy}>
+                    <Select active onSelectChange={onSelectChangeSpy} search selected={['test2']}>
                         <Option value="test">Test</Option>
                         <Option value="test2">Test2</Option>
                         <Option value="test3">Test3</Option>
@@ -656,7 +656,7 @@ describe('Select', () => {
         it('Should call onSearchStringChange with new search value', () => {
             let onSearchStringChangeSpy = sinon.spy();
             let wrapper = mount(
-                <Select active search searchString="test" onSearchStringChange={onSearchStringChangeSpy}>
+                <Select active onSearchStringChange={onSearchStringChangeSpy} search searchString="test">
                     <Option value="ddd">DDD</Option>
                     <Option value="test1">Test</Option>
                     <Option value="test3">Test3</Option>
@@ -685,7 +685,7 @@ describe('Select', () => {
             document.body.removeChild(container);
         });
         it('Should call onRequestClose callback', () => {
-            let wrapper = mount(
+            mount(
                 <Select active onRequestClose={onRequestClose}/>,
                 { attachTo: container }
             );

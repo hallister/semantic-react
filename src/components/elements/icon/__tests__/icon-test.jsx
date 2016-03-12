@@ -70,14 +70,14 @@ describe('Icon', () => {
 
     describe('should align', () => {
         it('should align left', () => {
-            let wrapper = shallow(<Icon name="cloud"
-                                        left />);
+            let wrapper = shallow(<Icon left
+                                        name="cloud"/>);
             expect(wrapper).to.have.className('left');
         });
 
         it('should align right', () => {
             let wrapper = shallow(<Icon name="cloud"
-                                        right />);
+                                        right/>);
             expect(wrapper).to.have.className('right');
         });
     });

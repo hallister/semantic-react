@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Transition from 'react-motion-ui-pack';
 import EventListener from 'react-event-listener';
-import classNames from 'classnames';
-import { validateClassProps, isNodeInRoot } from '../../utilities';
+import { isNodeInRoot } from '../../utilities';
 import { Icon, Text } from '../../elements';
 import { Menu } from '../../views';
 import DropdownElement from './dropdownelement';
@@ -167,8 +166,8 @@ export default class DropdownMenu extends React.Component {
                     {active &&
                     <MenuComponent key="menu"
                                    menuValue={menuValue}
-                                   onMenuItemClick={onMenuItemClick}
                                    onMenuChange={onMenuChange}
+                                   onMenuItemClick={onMenuItemClick}
                                    ref={ref => this.menuRef = ref}
                                    style={{ overflow: 'hidden' }}
                     >

@@ -83,7 +83,7 @@ export default class Search extends React.Component {
         this.props.onChange(e);
     }
 
-    onFocus(e) {
+    onFocus() {
         this.setState({
             focus: true
         });
@@ -95,23 +95,19 @@ export default class Search extends React.Component {
 
     renderInput() {
         return (
-            <div className={this.getClassesInput()} key='searchInput' >
+            <div className={this.getClassesInput()}
+                 key="searchInput"
+            >
                 <input className="prompt"
                     onBlur={this.onBlur.bind(this)}
                     onChange={this.onChange.bind(this)}
                     onFocus={this.onFocus.bind(this)}
                     placeholder={this.props.placeholder}
-                    value={this.props.value}
-                    type="text" />
+                    type="text"
+                    value={this.props.value}/>
                 {this.renderInputIcon()}
             </div>
         );
-    }
-
-    getClassesInput() {
-        return classNames('ui input', {
-            icon: Boolean(this.props.icon)
-        });
     }
 
     renderInputIcon() {
@@ -128,7 +124,7 @@ export default class Search extends React.Component {
             key: 'searchResults',
             onSearchClick: this.onSearchClick.bind(this),
             results: this.state.focus ? this.props.results : [],
-            search: this.props.value || '',
+            search: this.props.value || ''
         };
 
         return (
@@ -162,6 +158,12 @@ export default class Search extends React.Component {
                 this.renderResults()
             ]
         );
+    }
+
+    getClassesInput() {
+        return classNames('ui input', {
+            icon: Boolean(this.props.icon)
+        });
     }
 
     getClasses() {
