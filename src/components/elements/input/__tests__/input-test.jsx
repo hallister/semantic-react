@@ -106,16 +106,6 @@ describe('Input', () => {
         expect(wrapper).to.have.className('small');
     });
 
-    // FIXME This always passes
-    it('should not allow unknown sizes', () => {
-        sinon.test(function() {
-            let spy = sinon.stub(console, 'warn');
-            shallow(<Input size="bad" />); // FIXME try "small" and it still passes :/
-            expect(spy).to.have.been.called;
-            spy.restore();
-        });
-    });
-
     describe('should be stateful', () => {
         it('has an error state', () => {
             let wrapper = shallow(<Input state="error" />);

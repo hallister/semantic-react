@@ -84,15 +84,5 @@ describe('Buttons', () => {
 
     });
 
-    // FIXME This always passes
-    it('should not allow unknown sizes', () => {
-        sinon.test(function() {
-            let spy = sinon.stub(console, 'warn');
-            shallow(<Buttons size="bad">{buttonsChildren}</Buttons>); // FIXME try "small" and it still passes :/
-            expect(spy).to.have.been.called;
-            spy.restore();
-        });
-    });
-
     itShouldConsumeOwnAndPassCustomProps(Buttons, consumedProps);
 });

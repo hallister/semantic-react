@@ -133,16 +133,6 @@ describe('Button', () => {
 
     });
 
-    // FIXME This always passes
-    it('should not allow unknown sizes', () => {
-        sinon.test(function() {
-            let spy = sinon.stub(console, 'warn');
-            shallow(<Button size="bad" />); // FIXME try "small" and it still passes :/
-            expect(spy).to.have.been.called;
-            spy.restore();
-        });
-    });
-
     it('should support colors', () => {
         let wrapper = shallow(<Button color="yellow" />);
         expect(wrapper).to.have.className('yellow');
