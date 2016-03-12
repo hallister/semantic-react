@@ -26,7 +26,7 @@ export default class Icon extends React.Component {
         left: React.PropTypes.bool,
         link: React.PropTypes.bool,
         loading: React.PropTypes.bool,
-        name: React.PropTypes.string.isRequired,
+        name: React.PropTypes.string, // Unnamed icons allowed when subcomponent (see Rating)
         onClick: React.PropTypes.func,
         right: React.PropTypes.bool,
         rotated: React.PropTypes.oneOf(['clockwise', 'counterclockwise']),
