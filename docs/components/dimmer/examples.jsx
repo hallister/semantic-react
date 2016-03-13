@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimmer, Dimmable } from '../../../src/components/modules';
-import { Button, Segment, Header, Content } from '../../../src/components/elements';
+import { Button, Segment, Header } from '../../../src/components/elements';
 
 class TestDimmer extends React.Component {
     constructor(props) {
@@ -16,9 +16,9 @@ class TestDimmer extends React.Component {
             <div>
                 <Button onClick={this.handleButtonClick.bind(this)}>Click me</Button>
                 <Segment attached 
-                         dimmed={this.state.active}
                          blurring
                          component={Dimmable}
+                         dimmed={this.state.active}
                 >
                     <Header>Overlayable section</Header>
                     <p>Section text</p>

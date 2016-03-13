@@ -29,14 +29,14 @@ class TestPopupButton extends React.Component {
             <div>
                 <Button onClick={this.onBtnClick.bind(this)}>Test</Button>
                 <Popup active={this.state.popup}
-                       target={this.state.element}
                        inverted
-                       wide={false}
-                       size="small"
                        lastResortPosition="top left"
+                       onRequestClose={this.onClickAway.bind(this)}
                        position="bottom right"
                        preventElementClicks={false}
-                       onRequestClose={this.onClickAway.bind(this)}
+                       size="small"
+                       target={this.state.element}
+                       wide={false}
                 >
                     This is very long exampleThis is very long exampleThis is very long exampleThis is very long exampleThis is very long exampleThis is very long example
                 </Popup>

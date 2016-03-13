@@ -2,21 +2,21 @@ import React from 'react';
 import { Icon, Button } from '../../elements';
 
 function renderChildren(children, name, social, iconColor) {
-        let componentChildren = [];
+    let componentChildren = [];
 
-        componentChildren.push(
-            <Icon
-                color={social ? null : iconColor}
-                key="icon"
-                name={name} />
-        );
+    componentChildren.push(
+        <Icon
+            color={social ? null : iconColor}
+            key="icon"
+            name={name} />
+    );
 
-        React.Children.forEach(children, child => {
-            componentChildren.push(child);
-        });
+    React.Children.forEach(children, child => {
+        componentChildren.push(child);
+    });
 
-        return componentChildren;
-    }
+    return componentChildren;
+}
 
 let IconButton = ({ children, iconColor, name, social, ...other }) => {
 
