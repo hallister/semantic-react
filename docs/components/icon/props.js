@@ -105,13 +105,6 @@ exports.icon = {
             "required": false,
             "description": ""
         },
-        "left": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "Left variation of the icon (if any)"
-        },
         "link": {
             "type": {
                 "name": "bool"
@@ -133,19 +126,37 @@ exports.icon = {
             "required": true,
             "description": ""
         },
+        "pointing": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'down'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'left'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'right'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'up'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Use the left/right/up/down variation of the icon (if it exists)"
+        },
         "onClick": {
             "type": {
                 "name": "func"
             },
             "required": false,
             "description": ""
-        },
-        "right": {
-            "type": {
-                "name": "bool"
-            },
-            "required": false,
-            "description": "Right variation of the icon (if any)"
         },
         "rotated": {
             "type": {

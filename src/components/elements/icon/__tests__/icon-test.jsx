@@ -17,10 +17,9 @@ let consumedProps = {
     fitted: true,
     flipped: 'horizontally',
     inverted: true,
-    left: true,
     link: true,
     loading: true,
-    right: true,
+    pointing: 'up',
     rotated: 'clockwise',
     size: 'small'
 };
@@ -68,16 +67,16 @@ describe('Icon', () => {
         });
     });
 
-    describe('should align', () => {
-        it('should align left', () => {
-            let wrapper = shallow(<Icon left
-                                        name="cloud"/>);
+    describe('should point', () => {
+        it('should point left', () => {
+            let wrapper = shallow(<Icon name="chevron"
+                                        pointing="left"/>);
             expect(wrapper).to.have.className('left');
         });
 
-        it('should align right', () => {
-            let wrapper = shallow(<Icon name="cloud"
-                                        right/>);
+        it('should point right', () => {
+            let wrapper = shallow(<Icon name="chevron"
+                                        pointing="right"/>);
             expect(wrapper).to.have.className('right');
         });
     });

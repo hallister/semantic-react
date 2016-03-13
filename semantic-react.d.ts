@@ -204,7 +204,7 @@ namespace SemanticReact {
         /**
          * Adds a SemanticUI name class to the icon.
          */
-        name?: string;
+        name: string;
     }
     export class IconButton extends React.Component<IconButtonProps, any> {
     }
@@ -296,15 +296,12 @@ namespace SemanticReact {
         fitted?: boolean;
         flipped?: "horizontally" | "vertically";
         inverted?: boolean;
-        left?: boolean;
         link?: boolean;
         loading?: boolean;
-        name: string;
-        right?: boolean;
+        name?: string;
+        pointing?: "down" | "left" | "right" | "up";
         rotated?: "clockwise" | "counterclockwise";
         size?: SizeType;
-        left?: boolean;
-        right?: boolean;
     }
     export class Icon extends React.Component<IconProps, any> {
     }

@@ -23,12 +23,11 @@ export default class Icon extends React.Component {
         fitted: React.PropTypes.bool,
         flipped: React.PropTypes.oneOf(['horizontally', 'vertically']),
         inverted: React.PropTypes.bool,
-        left: React.PropTypes.bool,
         link: React.PropTypes.bool,
         loading: React.PropTypes.bool,
         name: React.PropTypes.string, // Unnamed icons allowed when subcomponent (see Rating)
         onClick: React.PropTypes.func,
-        right: React.PropTypes.bool,
+        pointing: React.PropTypes.oneOf(['down', 'left', 'right', 'up']),
         rotated: React.PropTypes.oneOf(['clockwise', 'counterclockwise']),
         size: React.PropTypes.string
     };
@@ -41,7 +40,7 @@ export default class Icon extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let { bordered, circular, color, component, corner, defaultClasses,
-              disabled, fitted, flipped, inverted, left, link, loading, name, right, rotated,
+              disabled, fitted, flipped, inverted, link, loading, name, pointing, rotated,
               size, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
@@ -63,11 +62,9 @@ export default class Icon extends React.Component {
             corner: this.props.corner,
             disabled: this.props.disabled,
             fitted: this.props.fitted,
-            left: this.props.left,
             link: this.props.link || this.props.onClick,
             inverted: this.props.inverted,
             loading: this.props.loading,
-            right: this.props.right,
 
             // component
             icon: this.props.defaultClasses
@@ -79,6 +76,7 @@ export default class Icon extends React.Component {
         classes[this.props.size] = !!this.props.size;
         classes[this.props.color] = !!this.props.color;
         classes[this.props.name] = !!this.props.name;
+        classes[this.props.pointing] = !!this.props.pointing;
 
         return validateClassProps(classes, this.props, validProps);
     }

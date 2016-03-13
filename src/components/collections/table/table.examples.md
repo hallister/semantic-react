@@ -42,12 +42,12 @@ A standard table
         <Tr>
             <th colSpan={3}>
                 <Menu floated="right" pagination>
-                    <Item link><Icon left name="chevron"></Icon></Item>
+                    <Item link><Icon pointing="left" name="chevron"></Icon></Item>
                     <Item link>1</Item>
                     <Item link>2</Item>
                     <Item link>3</Item>
                     <Item link>4</Item>
-                    <Item link><Icon right name="chevron"></Icon></Item>
+                    <Item link><Icon pointing="right" name="chevron"></Icon></Item>
                 </Menu>
             </th>
         </Tr>
