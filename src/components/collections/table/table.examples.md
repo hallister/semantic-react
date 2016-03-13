@@ -73,14 +73,14 @@ A standard table
         <Tr>
             <Td><Header aligned="center">A</Header></Td>
             <Td singleLine>Power Output</Td>
-            <Td><Rating star value={3} max={3}/></Td>
+            <Td><Rating star initialValue={3} max={3}/></Td>
             <Td aligned="right">80%<br/><a href="#">18 studies</a></Td>
             <Td>Creatine supplementation is the reference compound for increasing muscular creatine levels; there is variability in this increase, however, with some nonresponders.</Td>
         </Tr>
         <Tr>
             <Td><Header aligned="center">A</Header></Td>
             <Td singleLine>Weight</Td>
-            <Td><Rating star value={3} max={3}/></Td>
+            <Td><Rating star initialValue={3} max={3} onChange={(index) => { }}/></Td>
             <Td aligned="right">100%<br/><a href="#">65 studies</a></Td>
             <Td>Creatine is the reference compound for power improvement, with numbers from one meta-analysis to assess potency.</Td>
         </Tr>

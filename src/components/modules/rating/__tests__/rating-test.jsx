@@ -11,10 +11,10 @@ let consumedProps = {
     component: 'div',
     defaultClasses: true,
     heart: true,
+    initialValue: 5,
     max: 5,
     size: 'small',
-    star: true,
-    value: 5
+    star: true
 };
 
 describe('Rating', () => {
@@ -48,25 +48,21 @@ describe('Rating', () => {
     });
 
     it('can have a value of zero', () => {
-        let wrapper = shallow(<Rating value={0} />);
+        let wrapper = shallow(<Rating initialValue={0} />);
         expect(wrapper).to.have.not.descendants('.active');
     });
 
-    it('can have a value set', () => {
-        let wrapper = shallow(<Rating value={1} />);
-        expect(wrapper).to.have.exactly(1).descendants('.active');
-    });
+    describe('When setting an initial value on rating', () => {
+        it('can have an initial value set', () => {
+            let wrapper = shallow(<Rating initialValue={1} />);
+            expect(wrapper).to.have.exactly(1).descendants('.active');
+        });
 
-    it('does not let value override max', () => {
-        let wrapper = shallow(<Rating max={3}
-                                      value={4} />);
-        expect(wrapper).to.have.exactly(3).descendants('.active');
-    });
-
-    it('can change value', () => {
-        let wrapper = shallow(<Rating max={3}
-                                      value={4} />);
-        expect(wrapper).to.have.exactly(3).descendants('.active');
+        it('does not let initial value override max', () => {
+            let wrapper = shallow(<Rating initialValue={4}
+                                          max={3}/>);
+            expect(wrapper).to.have.exactly(3).descendants('.active');
+        });
     });
 
     describe('When clicking on rating', () => {
@@ -75,7 +71,8 @@ describe('Rating', () => {
         //     preventDefault: sinon.stub()
         // };
         it('should change value', () => {
-            let wrapper = shallow(<Rating max={5} />);
+            let wrapper = shallow(<Rating max={5}
+                                          onChange={() => { }}/>);
             expect(wrapper).to.have.not.descendants('.active');
 
             // FIXME Cannot get it to click on an icon
@@ -87,7 +84,6 @@ describe('Rating', () => {
             // expect(wrapper).to.have.exactly(5).descendants('.active');
         });
     });
-
 
     it('should have various sizes', () => {
         let wrapper = shallow(<Rating size="small" />);

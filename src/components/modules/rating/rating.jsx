@@ -12,38 +12,41 @@ export default class Rating extends React.Component {
         ]),
         defaultClasses: React.PropTypes.bool,
         heart: React.PropTypes.bool,
+        /*
+         * The initial rating.
+         * @see https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
+         */
+        initialValue: React.PropTypes.number,
         max: React.PropTypes.number,
+        /*
+         * The callback to call when the user clicks an Icon. The icons' active classes are updated unless this function returns false.
+         */
         onChange: React.PropTypes.func,
         size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
-        star: React.PropTypes.bool,
-        value: React.PropTypes.number
-    };
+        star: React.PropTypes.bool
+    }
 
     static defaultProps = {
         children: null,
         component: 'div',
         defaultClasses: true,
-        max: 5,
-        value: 0
-    };
+        initialValue: 0,
+        max: 5
+    }
 
-    handleChange(index) {
-        if (index === this.props.active) {
-            this.props.onChange(0);
-            return;
-        }
-
-        this.props.onChange(index);
+    constructor(props) {
+        super(props);
+        this.state = { value: props.initialValue };
     }
 
     renderChildren() {
         let children = [];
         let classes = {
             icon: true
-        }
+        };
 
         for (let i = 1; i <= this.props.max; i++) {
-            classes.active = this.props.value >= i;
+            classes.active = this.state.value >= i;
 
             if (this.props.onChange) {
                 children.push(
@@ -67,7 +70,7 @@ export default class Rating extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { component, defaultClasses, heart, max, size, star, value, ...other } = this.props;
+        let { component, defaultClasses, heart, max, size, star, initialValue, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -79,19 +82,24 @@ export default class Rating extends React.Component {
         );
     }
 
-    getClasses() {
-        let classes = {
-            ui: this.props.defaultClasses,
+    handleChange(index) {
+        if (index === this.state.value) {
+            this.props.onChange(0);
+            return;
+        }
 
-            // variations
+        if (this.props.onChange(index) !== false) {
+            this.setState({ value: index });
+        }
+    }
+
+    getClasses() {
+        return {
+            ui: this.props.defaultClasses,
+            [this.props.size]: !!this.props.size,
             star: this.props.star,
             heart: this.props.heart,
             rating: this.props.defaultClasses
         }
-
-        // string types
-        classes[this.props.size] = !!this.props.size;
-
-        return classes;
     }
 }
