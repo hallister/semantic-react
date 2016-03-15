@@ -63,8 +63,8 @@ export default class Results extends React.Component {
 
             return (
                 <a className="result"
-                    onMouseDown={this.onClick.bind(this, title)}
-                    key={key}
+                   key={key}
+                   onMouseDown={this.onClick.bind(this, title)}
                 >
                     <Content>
                         <div className="title">

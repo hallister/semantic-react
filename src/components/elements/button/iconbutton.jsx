@@ -28,7 +28,7 @@ let IconButton = ({ children, iconColor, name, social, ...other }) => {
         >
             {renderChildren(children, name, social, iconColor)}
         </Button>
-    );
+        );
 };
 
 IconButton.propTypes = {

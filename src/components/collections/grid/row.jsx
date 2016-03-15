@@ -39,7 +39,7 @@ function getClasses(props) {
         }
     }
     
-    return validateClassProps(classes, props, validProps, {valigned: 'aligned'});
+    return validateClassProps(classes, props, validProps, { valigned: 'aligned' });
 }
 
 /**

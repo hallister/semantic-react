@@ -193,19 +193,13 @@ export default class Select extends React.Component {
                 if (optionsCount <= 1) {
                     // Clean search string
                     onSearchStringChange('');
-                } else {
+                } else if (search && this.searchRef) {
                     // we have few more elements here, put focus if searchable
-                    /* eslint-disable no-lonely-if */
-                    if (search && this.searchRef) {
-                        this.searchRef.focus();
-                    }
-                    /* eslint-enable no-lonely-if */
+                    this.searchRef.focus();
                 }
-            } else {
+            } else if (this.searchRef) {
                 // always clean search string for single selection dropdowns
-                if (this.searchRef) {
-                    onSearchStringChange('');
-                }
+                onSearchStringChange('');
             }
         }
     };
@@ -239,30 +233,29 @@ export default class Select extends React.Component {
      */
     onSearchInputKeyDown = (event) => {
         switch (event.which) {
-            // Enter
-            case 13:
-                // only do something if we have search results available and not displaying not results message
-                if (this.menuRef && !this.noResultsMessageRef && React.Children.count(this.menuRef.props.children) > 0) {
-                    // get the first children
-                    let child = React.Children.toArray(this.menuRef.props.children)[0];
-                    if (child && child.props.value) {
-                        // enter should do the same as menu item click
-                        this.onMenuItemClick(child.props.value);
-                    }
+        // Enter
+        case 13:
+            // only do something if we have search results available and not displaying not results message
+            if (this.menuRef && !this.noResultsMessageRef && React.Children.count(this.menuRef.props.children) > 0) {
+                // get the first children
+                let child = React.Children.toArray(this.menuRef.props.children)[0];
+                if (child && child.props.value) {
+                    // enter should do the same as menu item click
+                    this.onMenuItemClick(child.props.value);
                 }
-                break;
-            // Backspace
-            case 8:
-                const { multiple, searchString, selected, onSelectChange } = this.props;
-                if (searchString === '') {
-                    if (multiple && selected.length > 0) {
-                        onSelectChange([...selected.slice(0, -1)])
-                    }
-                } 
-                break;
+            }
+            break;
+        // Backspace
+        case 8:
+            const { multiple, searchString, selected, onSelectChange } = this.props;
+            if (searchString === '') {
+                if (multiple && selected.length > 0) {
+                    onSelectChange([...selected.slice(0, -1)])
+                }
+            }
+            break;
         }
     };
-    
 
     /**
      * Renders dropdown hidden input 
@@ -315,7 +308,10 @@ export default class Select extends React.Component {
      * Render dropdown placeholder text
      */
     renderDropdownText() {
-        const { multiple, placeholder, search, selected, searchString, searchPosition, selection } = this.props;
+        /* eslint-disable no-use-before-define */
+        const { multiple, placeholder, search, selected, searchString, selection } = this.props;
+        /* eslint-enable no-use-before-define */
+
         // Render placeholder if not selected anything or multiple
         if (selected.length === 0 || multiple) {
             if (typeof placeholder !== 'undefined') {
@@ -372,8 +368,8 @@ export default class Select extends React.Component {
                 <input autoComplete="off"
                        className="search"
                        key="searchInput"
-                       onKeyDown={this.onSearchInputKeyDown}
                        onChange={this.onSearchInputChange}
+                       onKeyDown={this.onSearchInputKeyDown}
                        ref={ref => this.searchRef = ref}
                        style={style}
                        tabIndex={0}
@@ -384,10 +380,10 @@ export default class Select extends React.Component {
             return (
                 <div className="ui icon search input">
                     <Icon name="search"/>
-                    <input placeholder="Search..."
-                           key="searchInput"
-                           onKeyDown={this.onSearchInputKeyDown}
+                    <input key="searchInput"
                            onChange={this.onSearchInputChange}
+                           onKeyDown={this.onSearchInputKeyDown}
+                           placeholder="Search..."
                            ref={ref => this.searchRef = ref}
                            tabIndex={0}
                            type="text"

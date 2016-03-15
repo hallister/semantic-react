@@ -259,13 +259,12 @@ exports.search = {
         },
         "value": {
             "type": {
-                "name": "string",
-                "value": 
+                "name": "string"
             },
             "defaultValue": {
                 "value": "''",
                 "computed": false
-            }
+            },
             "required": false,
             "description": "value - input"
         }

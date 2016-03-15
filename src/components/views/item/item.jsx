@@ -1,4 +1,6 @@
 import React from 'react';
+import { Icon } from '../../elements';
+import { hasChild } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -17,7 +19,7 @@ export default class Item extends React.Component {
          */
         onClick: React.PropTypes.func
     };
-    
+
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
@@ -28,7 +30,7 @@ export default class Item extends React.Component {
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
-        
+
         return React.createElement(
             component,
             other,
@@ -38,6 +40,8 @@ export default class Item extends React.Component {
 
     getClasses() {
         return {
+            // variations
+            icon: hasChild(this.props.children, Icon),
             link: this.props.link || this.props.onClick,
             // component
             item: this.props.defaultClasses

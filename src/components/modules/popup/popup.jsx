@@ -212,8 +212,8 @@ export default class Popup extends React.Component {
                             {...other}
                             key="popup"
                             position={this.state.position}
-                            style={popupStyle}
-                            ref="popup" />
+                            ref="popup"
+                            style={popupStyle}/>
                         }
                     </Transition>
                 </noscript>
@@ -358,48 +358,48 @@ export default class Popup extends React.Component {
         if (currentPositionIndex === -1) {
             return null;
         }
-        
+
         switch (this.props.prefer) {
-            case 'adjacent':
+        case 'adjacent':
+        default:
+            let nextPosition = null;
+            // We know now that at least one untried position should be available here
+            /* eslint-disable no-constant-condition */
+            while (true) {
+                // Reset index if we're off from array
+                if (currentPositionIndex + 1 > POSITIONS.length) {
+                    currentPositionIndex = 0;
+                }
+                nextPosition = POSITIONS[currentPositionIndex];
+                if (this.positionsTried.indexOf(nextPosition) === -1) {
+                    break;
+                }
+                currentPositionIndex++;
+            }
+            /* eslint-enable no-constant-condition */
+            return nextPosition;
+        case 'opposite':
+            // just return opposite direction
+            switch (this.state.position) {
+            case 'left center':
+                return (this.positionsTried.indexOf('right center') === -1) ? 'right center' : null;
+            case 'right center':
+                return (this.positionsTried.indexOf('left center') === -1) ? 'left center' : null;
+            case 'top left':
+                return (this.positionsTried.indexOf('bottom left') === -1) ? 'bottom left' : null;
+            case 'top center':
+                return (this.positionsTried.indexOf('bottom center') === -1) ? 'bottom center' : null;
+            case 'top right':
+                return (this.positionsTried.indexOf('bottom right') === -1) ? 'bottom right' : null;
+            case 'bottom left':
+                return (this.positionsTried.indexOf('top left') === -1) ? 'top left' : null;
+            case 'bottom center':
+                return (this.positionsTried.indexOf('top center') === -1) ? 'top center' : null;
+            case 'bottom right':
+                return (this.positionsTried.indexOf('top right') === -1) ? 'top right' : null;
             default:
-                let nextPosition = null;
-                // We know now that at least one untried position should be available here
-                /* eslint-disable */
-                while (true) {
-                    // Reset index if we're off from array
-                    if (currentPositionIndex + 1 > POSITIONS.length) {
-                        currentPositionIndex = 0;
-                    }
-                    nextPosition = POSITIONS[currentPositionIndex];
-                    if (this.positionsTried.indexOf(nextPosition) === -1) {
-                        break;
-                    }
-                    currentPositionIndex++;
-                }
-                /* eslint-enable */
-                return nextPosition;
-            case 'opposite':
-                // just return opposite direction
-                switch (this.state.position) {
-                    case 'left center':
-                        return (this.positionsTried.indexOf('right center') === -1) ? 'right center' : null;
-                    case 'right center':
-                        return (this.positionsTried.indexOf('left center') === -1) ? 'left center' : null;
-                    case 'top left':
-                        return (this.positionsTried.indexOf('bottom left') === -1) ? 'bottom left' : null;
-                    case 'top center':
-                        return (this.positionsTried.indexOf('bottom center') === -1) ? 'bottom center' : null;
-                    case 'top right':
-                        return (this.positionsTried.indexOf('bottom right') === -1) ? 'bottom right' : null;
-                    case 'bottom left':
-                        return (this.positionsTried.indexOf('top left') === -1) ? 'top left' : null;
-                    case 'bottom center':
-                        return (this.positionsTried.indexOf('top center') === -1) ? 'top center' : null;
-                    case 'bottom right':
-                        return (this.positionsTried.indexOf('top right') === -1) ? 'top right' : null;
-                    default:
-                        return null;
-                }
+                return null;
+            }
         }
     }
 
@@ -427,47 +427,47 @@ export default class Popup extends React.Component {
         let distanceAway = this.props.distanceAway;
 
         switch (position) {
-            case 'top left':
-                return {
-                    left: targetPosition.left + offset,
-                    top: targetPosition.top - popupDimensions.height - margin - distanceAway
-                };
-            case 'top center':
-                return {
-                    left: targetPosition.center - popupDimensions.center + offset,
-                    top: targetPosition.top - popupDimensions.height - margin - distanceAway
-                };
-            case 'top right':
-                return {
-                    left: targetPosition.right - popupDimensions.width - offset,
-                    top: targetPosition.top - popupDimensions.height - margin - distanceAway
-                };
-            case 'left center':
-                return {
-                    left: targetPosition.left - popupDimensions.width - margin - distanceAway,
-                    top: targetPosition.middle - popupDimensions.middle + offset
-                };
-            case 'right center':
-                // not needed here to take margins into account
-                return {
-                    left: targetPosition.right + distanceAway,
-                    top: targetPosition.middle - popupDimensions.middle + offset
-                };
-            case 'bottom left':
-                return {
-                    left: targetPosition.left + offset,
-                    top: targetPosition.bottom + distanceAway
-                };
-            case 'bottom center':
-                return {
-                    left: targetPosition.center - popupDimensions.center + offset,
-                    top: targetPosition.bottom + distanceAway
-                };
-            case 'bottom right':
-                return {
-                    left: targetPosition.right - popupDimensions.width - offset,
-                    top: targetPosition.bottom + distanceAway
-                };
+        case 'top left':
+            return {
+                left: targetPosition.left + offset,
+                top: targetPosition.top - popupDimensions.height - margin - distanceAway
+            };
+        case 'top center':
+            return {
+                left: targetPosition.center - popupDimensions.center + offset,
+                top: targetPosition.top - popupDimensions.height - margin - distanceAway
+            };
+        case 'top right':
+            return {
+                left: targetPosition.right - popupDimensions.width - offset,
+                top: targetPosition.top - popupDimensions.height - margin - distanceAway
+            };
+        case 'left center':
+            return {
+                left: targetPosition.left - popupDimensions.width - margin - distanceAway,
+                top: targetPosition.middle - popupDimensions.middle + offset
+            };
+        case 'right center':
+            // not needed here to take margins into account
+            return {
+                left: targetPosition.right + distanceAway,
+                top: targetPosition.middle - popupDimensions.middle + offset
+            };
+        case 'bottom left':
+            return {
+                left: targetPosition.left + offset,
+                top: targetPosition.bottom + distanceAway
+            };
+        case 'bottom center':
+            return {
+                left: targetPosition.center - popupDimensions.center + offset,
+                top: targetPosition.bottom + distanceAway
+            };
+        case 'bottom right':
+            return {
+                left: targetPosition.right - popupDimensions.width - offset,
+                top: targetPosition.bottom + distanceAway
+            };
         }
     }
 

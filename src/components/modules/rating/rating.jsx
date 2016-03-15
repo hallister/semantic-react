@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Icon } from '../../elements';
 
 export default class Rating extends React.Component {
     static propTypes = {
@@ -10,50 +11,53 @@ export default class Rating extends React.Component {
             React.PropTypes.string
         ]),
         defaultClasses: React.PropTypes.bool,
-        max: React.PropTypes.number,
-        size: React.PropTypes.string,
         heart: React.PropTypes.bool,
-        star: React.PropTypes.bool,
-        value: React.PropTypes.number,
-        onChange: React.PropTypes.func
-    };
+        /*
+         * The initial rating.
+         * @see https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
+         */
+        initialValue: React.PropTypes.number,
+        max: React.PropTypes.number,
+        /*
+         * The callback to call when the user clicks an Icon. The icons' active classes are updated unless this function returns false.
+         */
+        onChange: React.PropTypes.func,
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
+        star: React.PropTypes.bool
+    }
 
     static defaultProps = {
         children: null,
         component: 'div',
         defaultClasses: true,
-        max: 5,
-        value: 0
-    };
+        initialValue: 0,
+        max: 5
+    }
 
-    handleChange(index) {
-        if (index === this.props.active) {
-            this.props.onChange(0);
-            return;
-        }
-
-        this.props.onChange(index);
+    constructor(props) {
+        super(props);
+        this.state = { value: props.initialValue };
     }
 
     renderChildren() {
         let children = [];
         let classes = {
             icon: true
-        }
+        };
 
         for (let i = 1; i <= this.props.max; i++) {
-            classes.active = this.props.value >= i;
+            classes.active = this.state.value >= i;
 
             if (this.props.onChange) {
                 children.push(
-                    <i
+                    <Icon
                         className={classNames(classes)}
                         key={i}
                         onClick={this.handleChange.bind(this, i)} />
                 )
             } else {
                 children.push(
-                    <i
+                    <Icon
                         className={classNames(classes)}
                         key={i} />
                 )
@@ -66,7 +70,7 @@ export default class Rating extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { defaultClasses, heart, max, size, star, ...other } = this.props;
+        let { component, defaultClasses, heart, max, size, star, initialValue, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -76,6 +80,17 @@ export default class Rating extends React.Component {
             other,
             this.renderChildren()
         );
+    }
+
+    handleChange(index) {
+        if (index === this.state.value) {
+            this.props.onChange(0);
+            return;
+        }
+
+        if (this.props.onChange(index) !== false) {
+            this.setState({ value: index });
+        }
     }
 
     getClasses() {

@@ -186,7 +186,7 @@ namespace SemanticReact {
         /**
          * Adds a SemanticUI size class.
          */
-        size?: string;
+        size?: SizeType;
         /**
          * Forces child components to render vertically.
          */
@@ -204,7 +204,7 @@ namespace SemanticReact {
         /**
          * Adds a SemanticUI name class to the icon.
          */
-        name?: string;
+        name: string;
     }
     export class IconButton extends React.Component<IconButtonProps, any> {
     }
@@ -298,11 +298,10 @@ namespace SemanticReact {
         inverted?: boolean;
         link?: boolean;
         loading?: boolean;
-        name: string;
+        name?: string;
+        pointing?: "down" | "left" | "right" | "up";
         rotated?: "clockwise" | "counterclockwise";
         size?: SizeType;
-        left?: boolean;
-        right?: boolean;
     }
     export class Icon extends React.Component<IconProps, any> {
     }
@@ -315,8 +314,10 @@ namespace SemanticReact {
         fitted?: boolean;
         flipped?: "horizontally" | "vertically";
         inverted?: boolean;
+        left?: boolean;
         link?: boolean;
         loading?: boolean;
+        right?: boolean;
         rotated?: "clockwise" | "counterclockwise";
         size?: SizeType;
     }
@@ -899,10 +900,6 @@ namespace SemanticReact {
          * A menu can point to show its relationship to nearby content
          */
         pointing?: boolean;
-        /**
-         * A menu can be formatted to float right
-         */
-        right?: boolean;
         /**
          * A menu can adjust its appearance to de-emphasize its contents
          */

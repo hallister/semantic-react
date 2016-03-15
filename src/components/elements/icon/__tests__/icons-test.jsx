@@ -82,6 +82,18 @@ describe('Icons', () => {
         });
     });
 
+    describe('should align', () => {
+        it('should align left', () => {
+            let wrapper = shallow(<Icons left>{children}</Icons>);
+            expect(wrapper).to.have.className('left');
+        });
+
+        it('should align right', () => {
+            let wrapper = shallow(<Icons right>{children}</Icons>);
+            expect(wrapper).to.have.className('right');
+        });
+    });
+
     it('should be noticable on dark backgrounds', () => {
         let wrapper = shallow(<Icons inverted>{children}</Icons>);
         expect(wrapper).to.have.className('inverted');

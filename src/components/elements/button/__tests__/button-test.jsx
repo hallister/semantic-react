@@ -1,5 +1,4 @@
 /* eslint-env node, mocha */
-
 import React from 'react';
 import { Button, Icon } from '../../../elements';
 import { expect } from 'chai';
@@ -21,6 +20,8 @@ let consumedProps = {
     inverted: true,
     labeled: true,
     loading: true,
+    primary: true,
+    secondary: true,
     size: 'small',
     social: 'facebook',
     state: 'active'
@@ -155,6 +156,16 @@ describe('Button', () => {
     it('should allow a single icon as a child', () => {
         let wrapper = shallow(<Button><Icon name="cloud" /></Button>);
         expect(wrapper.find(Icon)).to.exist;
+    });
+
+    it('should allow the button to be primary', () => {
+        let wrapper = shallow(<Button primary />);
+        expect(wrapper).to.have.className('primary');
+    });
+
+    it('should allow the button to be secondary', () => {
+        let wrapper = shallow(<Button secondary />);
+        expect(wrapper).to.have.className('secondary');
     });
 
     itShouldConsumeOwnAndPassCustomProps(Button, consumedProps);

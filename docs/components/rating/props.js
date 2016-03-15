@@ -57,6 +57,13 @@ exports.rating = {
             "required": false,
             "description": ""
         },
+        "initialValue": {
+            "type": {
+                "name": "number"
+            },
+            "required": false,
+            "description": "The (initial) value of the component"
+        },
         "max": {
             "type": {
                 "name": "number"
@@ -68,12 +75,53 @@ exports.rating = {
                 "computed": false
             }
         },
-        "size": {
+        "onChange": {
             "type": {
-                "name": "string"
+                "name": "func"
             },
             "required": false,
-            "description": ""
+            "description": "Callback on click to star"
+        },
+        "size": {
+            "type": {
+                "name": "enum",
+                "value": [
+                    {
+                        "value": "'mini'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'tiny'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'small'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'medium'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'large'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'big'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'huge'",
+                        "computed": false
+                    },
+                    {
+                        "value": "'massive'",
+                        "computed": false
+                    }
+                ]
+            },
+            "required": false,
+            "description": "Adds a SemanticUI size class."
         },
         "star": {
             "type": {
@@ -81,20 +129,6 @@ exports.rating = {
             },
             "required": false,
             "description": ""
-        },
-        "value": {
-            "type": {
-                "name": "number"
-            },
-            "required": false,
-            "description": "Current stars count"
-        },
-        "onChange": {
-            "type": {
-                "name": "func"
-            },
-            "required": false,
-            "description": "Callback on click to star"
         }
     }
 }

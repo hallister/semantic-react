@@ -10,11 +10,6 @@ import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 import DropdownMenu from '../dropdownmenu';
 import DropdownElement from '../dropdownelement';
 
-const fakeEvent = {
-    preventDefault: sinon.stub(),
-    stopPropagation: sinon.stub()
-};
-
 const consumedProps = {
     enterAnimation: {},
     icon: 'test',
@@ -52,14 +47,14 @@ describe('DropdownMenu', () => {
 
     describe('When component was specified', () => {
         it('Shouldn\'t render icon and label if component is custom one', () => {
-            let wrapper = shallow(<DropdownMenu label="Dropdown" icon="cloud" component={Button}/>);
+            let wrapper = shallow(<DropdownMenu component={Button} icon="cloud" label="Dropdown"/>);
             expect(wrapper).to.have.prop('component', Button);
             expect(wrapper).to.not.contain(<Text>Dropdown</Text>);
             expect(wrapper.find(Icon)).to.not.exist;
         });
 
         it('Should render icon and label if component is the html element', () => {
-            let wrapper = shallow(<DropdownMenu label="Dropdown" icon="cloud" component="a"/>);
+            let wrapper = shallow(<DropdownMenu component="a" icon="cloud" label="Dropdown"/>);
             expect(wrapper).to.have.prop('component', 'a');
             expect(wrapper).to.contain(<Text>Dropdown</Text>);
             expect(wrapper.find(Icon)).to.exist;
@@ -94,7 +89,7 @@ describe('DropdownMenu', () => {
         it('Should attach callbacks to the menu', () => {
             let onMenuItemClickStub = sinon.stub();
             let onMenuChangeStub = sinon.stub();
-            let wrapper = shallow(<DropdownMenu active onMenuItemClick={onMenuItemClickStub} onMenuChange={onMenuChangeStub}/>);
+            let wrapper = shallow(<DropdownMenu active onMenuChange={onMenuChangeStub} onMenuItemClick={onMenuItemClickStub}/>);
             expect(wrapper.find(Menu)).to.have.prop('onMenuItemClick', onMenuItemClickStub);
             expect(wrapper.find(Menu)).to.have.prop('onMenuChange', onMenuChangeStub);
         });
@@ -128,7 +123,7 @@ describe('DropdownMenu', () => {
         it('Should call onRequestClose callback', () => {
             const callbackSpy = sinon.spy();
             // Full DOM rendering here
-            let wrapper = mount(
+            mount(
                 <DropdownMenu active onRequestClose={callbackSpy}>
                     <MenuItem menuValue={1}>First</MenuItem>
                 </DropdownMenu>,

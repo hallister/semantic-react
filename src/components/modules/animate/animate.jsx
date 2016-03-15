@@ -6,7 +6,7 @@ import raf from 'raf';
 let noop = function() {};
 
 export function Animate(ComposedComponent) {
-    return class animation extends React.Component {
+    return class Animation extends React.Component {
         static animatable = true;
 
         static displayName = ComposedComponent.displayName || ComposedComponent.name;

@@ -1,5 +1,4 @@
 /* eslint-env node, mocha */
-
 import React from 'react';
 import { Buttons, Button, IconButton } from '../../../elements';
 import { expect } from 'chai';
@@ -75,6 +74,13 @@ describe('Buttons', () => {
     it('should force an equal width group with one child to be fluid', () => {
         let wrapper = shallow(<Buttons equal><Button /></Buttons>);
         expect(wrapper).to.have.className('fluid');
+    });
+
+    it('should have various sizes', () => {
+        let wrapper = shallow(<Buttons size="small">{buttonsChildren}</Buttons>);
+        expect(wrapper).to.have.className('small');
+        expect(wrapper).to.have.not.className('size');
+
     });
 
     itShouldConsumeOwnAndPassCustomProps(Buttons, consumedProps);

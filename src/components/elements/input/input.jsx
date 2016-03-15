@@ -26,7 +26,7 @@ export default class Input extends React.Component {
         loading: React.PropTypes.bool,
         name: React.PropTypes.string,
         placeholder: React.PropTypes.string,
-        size: React.PropTypes.string,
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         state: React.PropTypes.oneOf(['disabled', 'error']),
         transparent: React.PropTypes.bool
     };
@@ -84,7 +84,6 @@ export default class Input extends React.Component {
             action: this.props.action,
             fluid: this.props.fluid,
             inverted: this.props.inverted,
-            size: this.props.size,
             transparent: this.props.transparent
         };
 
@@ -140,8 +139,8 @@ export default class Input extends React.Component {
         let inputHTML = (
             <input
                 key="input"
-                placeholder={this.props.placeholder}
-                name={this.props.name} />
+                name={this.props.name}
+                placeholder={this.props.placeholder} />
         );
 
         if (labelClasses.corner) {

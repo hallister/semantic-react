@@ -6,6 +6,7 @@ let validProps = {
     aligned: ['top', 'middle', 'bottom'],
     floated: ['right', 'left'],
     spaced: ['right', 'left']
+    // No 'size' here to avoid validateClassProps() picking it up and adding classes
 };
 
 // can't do SVG since JSX/React breaks on SVG images
@@ -27,7 +28,7 @@ export default class Image extends React.Component {
         floated: React.PropTypes.oneOf(['right', 'left']),
         fluid: React.PropTypes.bool,
         shape: React.PropTypes.oneOf(['circular', 'rounded']),
-        size: React.PropTypes.string,
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         spaced: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['right', 'left']),
             React.PropTypes.bool
@@ -116,6 +117,7 @@ export default class Image extends React.Component {
 
         };
 
+        // string types
         classes[this.props.size] = !!this.props.size;
 
         return validateClassProps(classes, this.props, validProps);

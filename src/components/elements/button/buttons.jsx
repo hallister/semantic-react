@@ -6,6 +6,7 @@ import classNames from 'classnames';
 let validProps = {
     attached: ['bottom', 'top'],
     floated: ['right', 'left']
+    // No 'size' here to avoid validateClassProps() picking it up and adding classes
 };
 
 export default class Buttons extends React.Component {
@@ -62,7 +63,7 @@ export default class Buttons extends React.Component {
         /**
          * Forces to component to float left or right.
          */
-        floated: React.PropTypes.oneOf(['right', 'left']),
+        floated: React.PropTypes.oneOf(['left', 'right']),
 
         /**
          * Overrides default behavior and adds the icon class to the component.
@@ -83,7 +84,7 @@ export default class Buttons extends React.Component {
         /**
          * Adds a SemanticUI size class.
          */
-        size: React.PropTypes.string,
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
 
         /**
          * Forces child components to render vertically.

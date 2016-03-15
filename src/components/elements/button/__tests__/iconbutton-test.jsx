@@ -1,5 +1,4 @@
 /* eslint-env node, mocha */
-/* global sinon */
 import React from 'react';
 import { IconButton, Button, Icon } from '../../../elements';
 import { expect } from 'chai';
@@ -9,16 +8,7 @@ import { itShouldPassUnusedDataProps } from '../../../test-utils';
 describe('IconButton', () => {
     describe('should render in the DOM', () => {
 
-        it('should expect a name', () => {
-            sinon.test(function() {
-                let spy = sinon.stub(console, 'error');
-                shallow(<IconButton />);
-                expect(spy).to.have.been.called;
-                spy.restore();
-            });
-        });
-
-        it('renders as <Button>', () => {
+        it('renders as <IconButton>', () => {
             let wrapper = shallow(<IconButton name="cloud" />);
             expect(wrapper.is(Button)).to.be.true;
             expect(wrapper).to.have.prop('icon', true);

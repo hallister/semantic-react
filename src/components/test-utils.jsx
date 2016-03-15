@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-max-props-per-line */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 const standardProps = {
     style: {

@@ -3,15 +3,14 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Dimmer from '../dimmer';
 import { Loader, Content } from '../../../elements';
-import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
-
-const consumedProps = {
-    active: true,
-    enterAnimation: {},
-    leaveAnimation: {},
-    page: true,
-    inverted: true
-}
+// import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
+// const consumedProps = {
+//     active: true,
+//     enterAnimation: {},
+//     leaveAnimation: {},
+//     page: true,
+//     inverted: true
+// }
 
 describe('Dimmer', () => {
     it('Shouldn\'t be rendered if not active', () => {
@@ -59,6 +58,7 @@ describe('Dimmer', () => {
             expect(wrapper.find('.dimmer')).to.contain(<h1>TEST</h1>);
         });
     });
-    
+
+    // FIXME?
     // itShouldConsumeOwnAndPassCustomProps(Dimmer, consumedProps);
 });
