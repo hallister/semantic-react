@@ -152,6 +152,9 @@ export default class Menu extends React.Component {
     renderChildren() {
         // should deep traverse?
         return React.Children.map(this.props.children, child => {
+            // It may be empty
+            if (!child) return child;
+            
             // Process if a child has menuValue property
             if (typeof child.props.menuValue !== 'undefined') {
                 return React.cloneElement(child, {
