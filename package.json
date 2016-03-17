@@ -11,16 +11,15 @@
     "typings.json"
   ],
   "scripts": {
-    "start": "NODE_ENV=development && node scripts/exec.js docs:gen && node server.js",
-    "start:win": "set NODE_ENV=development&& node scripts/exec.js docs:gen&& node server.js",
-    "build": "set NODE_ENV=production && node scripts/exec.js build",
+    "start": "node scripts/exec.js docs:gen && node server.js",
+    "build": "node scripts/exec.js build",
     "build:min": "node scripts/exec.js build:min",
-    "lib": "NODE_ENV=production && babel --source-maps --ignore=__tests__ src/components/ -d lib/",
+    "lib": "NODE_ENV=production babel --source-maps --ignore=__tests__ src/components/ -d lib/",
     "lib:win": "set NODE_ENV=production && babel --source-maps --ignore=__tests__ src/components/ -d lib/",
     "docs:gen": "node scripts/exec.js docs:gen",
     "test": "node scripts/exec.js test",
     "test:watch": "NODE_ENV=test ./node_modules/.bin/karma start --auto-watch --no-single-run karma.config.js",
-    "test:watch:win": "set NODE_ENV=test&& node_modules\\.bin\\karma start --auto-watch --no-single-run karma.config.js",
+    "test:watch:win": "set NODE_ENV=test && node_modules\\.bin\\karma start --auto-watch --no-single-run karma.config.js",
     "styleguide-server": "styleguidist server",
     "styleguide-build": "styleguidist build"
   },
