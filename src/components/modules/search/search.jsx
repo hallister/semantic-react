@@ -121,7 +121,6 @@ export default class Search extends React.Component {
             animate: this.state.focus && this.props.value !== '',
             emptyHeader: this.props.emptyHeader,
             emptyMessage: this.props.emptyMessage,
-            key: 'searchResults',
             onSearchClick: this.onSearchClick.bind(this),
             results: this.state.focus ? this.props.results : [],
             search: this.props.value || ''
@@ -131,8 +130,9 @@ export default class Search extends React.Component {
             <Transition component={false}
                         enter={this.props.enterAnimation}
                         leave={this.props.leaveAnimation}
+                        key="searchResults"
             >
-                {(this.state.focus && this.searchInput.value !== '') &&
+                {(this.state.focus && this.props.value !== '') &&
                     <Results {...props}/>
                 }
 
@@ -170,11 +170,10 @@ export default class Search extends React.Component {
         return {
             ui: this.props.defaultClasses,
             search: this.props.defaultClasses,
-
-            // state
+            
             loading: this.props.loading,
             focus: this.state.focus,
-
+            
             category: !Array.isArray(this.props.results)
         };
     }
