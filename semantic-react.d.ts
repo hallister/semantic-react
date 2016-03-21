@@ -10,7 +10,7 @@ namespace SemanticReact {
         /**
          * Children nodes
          */
-        children?: React.ReactNode[];
+        children?: any;
         /**
          * Additional CSS ui classes
          */
@@ -1023,7 +1023,7 @@ namespace SemanticReact {
          * Will pass new menuValue or array of new menuValue
          * If all items were unselected would pass null if menuValue is single value or empty array if menuValue is array
          */
-        onMenuChange?(value?: number|string | Array<number,string>): void;
+        onMenuChange?(value?: number|string | Array<number|string>): void;
         /**
          * Callback for menu item click
          */
