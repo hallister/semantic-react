@@ -6,6 +6,7 @@
   "files": [
     "dist",
     "lib",
+    "src",
     "radium.js",
     "semantic-react.d.ts",
     "typings.json"
