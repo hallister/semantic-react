@@ -118,24 +118,25 @@ export default class Search extends React.Component {
 
     renderResults() {
         let props = {
+            key: "searchResults",
             animate: this.state.focus && this.props.value !== '',
             emptyHeader: this.props.emptyHeader,
             emptyMessage: this.props.emptyMessage,
-            key: "searchResults",
             onSearchClick: this.onSearchClick.bind(this),
             results: this.state.focus ? this.props.results : [],
             search: this.props.value || ''
         };
 
         return (
-            <Transition component={false}
-                        enter={this.props.enterAnimation}
-                        leave={this.props.leaveAnimation}
+            <Transition
+                key="transition"
+                component={false}
+                enter={this.props.enterAnimation}
+                leave={this.props.leaveAnimation}
             >
                 {(this.state.focus && this.props.value !== '') &&
                     <Results {...props}/>
                 }
-
             </Transition>
         );
     }
