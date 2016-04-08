@@ -9,7 +9,8 @@
     "src",
     "radium.js",
     "semantic-react.d.ts",
-    "typings.json"
+    "typings.json",
+    ".babelrc"
   ],
   "scripts": {
     "start": "node scripts/exec.js docs:gen && node server.js",
