@@ -28,9 +28,7 @@ let consumedProps = {
     defaultClasses: true,
     equal: true,
     floated: 'right',
-    icon: true,
     inverted: true,
-    labeled: true,
     size: 'small',
     vertical: true
 };

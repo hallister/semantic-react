@@ -1,6 +1,6 @@
 /* eslint-env node, mocha */
 import React from 'react';
-import { SocialButton, IconButton } from '../../../elements';
+import { SocialButton, Icon, Button, IconButton } from '../../../elements';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { itShouldPassUnusedDataProps } from '../../../test-utils';
@@ -11,8 +11,20 @@ describe('SocialButton', () => {
         it('renders as a <IconButton>', () => {
             let wrapper = shallow(<SocialButton name="facebook" />);
             expect(wrapper.is(IconButton)).to.be.true;
-            expect(wrapper).to.have.prop('social', true);
-            expect(wrapper).to.have.prop('icon', true);
+            expect(wrapper).to.have.className('facebook');
+            expect(wrapper).to.have.prop('name', 'facebook');
+        });
+        
+        it('renders as <Button> with icon if has any children', () => {
+            let wrapper = shallow(
+                <SocialButton name="facebook">
+                    Facebook
+                </SocialButton>
+            );
+            expect(wrapper.is(Button)).to.be.true;
+            expect(wrapper).to.have.className('facebook');
+            expect(wrapper.find(Icon)).to.be.exist;
+            expect(wrapper.find(Icon)).to.have.prop('name', 'facebook');
         });
 
         it('passes the custom component to <Button>', () => {

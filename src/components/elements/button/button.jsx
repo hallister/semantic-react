@@ -1,214 +1,166 @@
 import React from 'react';
-import { Icon } from '../../elements';
-import { hasChild, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import { validateClassProps } from '../../utilities';
+import DefaultProps from './../../defaultProps';
 
-let validProps = {
+const validProps = {
     animated: ['vertical', 'fade'],
     attached: ['left', 'right', 'bottom', 'top'],
-    labeled: ['left', 'right'],
     floated: ['left', 'right']
-    // No 'size' here to avoid validateClassProps() picking it up and adding classes
 };
 
-export default class Button extends React.Component {
-    static propTypes = {
-        /**
-         * Adds a fade or slide animation on hover.
-         */
-        animated: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['fade', 'vertical']),
-            React.PropTypes.bool
-        ]),
+/**
+ * Assign button classes
+ * @param props
+ * @param context
+ */
+function getClasses(props, context) {
+    let classes = {
+        // default
+        ui: props.defaultClasses,
 
-        /**
-         * It's attached to some other attachable component.
-         */
-        attached: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['left', 'right', 'bottom', 'top']),
-            React.PropTypes.bool
-        ]),
+        // position based props
+        floated: props.floated,
+        attached: props.attached,
 
-        /**
-         * Adds simple styling to the component.
-         */
-        basic: React.PropTypes.bool,
+        // types
+        animated: props.animated,
+        basic: props.basic,
+        inverted: props.inverted,
 
-        /**
-         * The child nodes of the component.
-         */
-        children: React.PropTypes.node,
+        // variations
+        circular: props.circular,
+        compact: props.compact,
+        fluid: props.fluid,
 
-        /**
-         * Gives a circular shape to the component.
-         */
-        circular: React.PropTypes.bool,
-
-        /**
-         * Adds additional classes to the component.
-         */
-        className: React.PropTypes.node,
-
-        /**
-         * Adds a SemanticUI color class.
-         */
-        color: React.PropTypes.string,
-
-        /**
-         * Reduces the padding on the component.
-         */
-        compact: React.PropTypes.bool,
-
-        /**
-         * Overrides the component with a custom component string ('div') or ReactElement.
-         */
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.func,
-            React.PropTypes.string
-        ]),
-
-        /**
-         * Adds the default classes for the component.
-         */
-        defaultClasses: React.PropTypes.bool,
-
-        /**
-         * Forces to component to float left or right.
-         */
-        floated: React.PropTypes.oneOf(['left', 'right']),
-
-        /**
-         * The component fills the parent components horizontal space.
-         */
-        fluid: React.PropTypes.bool,
-
-        /**
-         * Overrides default behavior and adds the icon class to the component.
-         */
-        icon: React.PropTypes.bool,
-
-        /**
-         * Styles the component for a dark background.
-         */
-        inverted: React.PropTypes.bool,
-
-        /**
-         * Defines whether the label is to the right or left of the component (LabeledButton).
-         */
-        labeled: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['right', 'left']),
-            React.PropTypes.bool
-        ]),
-
-        /**
-         * Displays a loading indicator on the component.
-         */
-        loading: React.PropTypes.bool,
-
-        /**
-         * A button can be formatted to show different levels of emphasis
-         * Setting your brand colors to primary and secondary color variables in site.variables will allow you to use
-         * your color theming for UI elements
-         */
-        primary: React.PropTypes.bool,
-
-        /**
-         * A button can be formatted to show different levels of emphasis
-         * Setting your brand colors to primary and secondary color variables in site.variables will allow you to use
-         * your color theming for UI elements
-         */
-        secondary: React.PropTypes.bool,
-
-        /**
-         * Adds a SemanticUI size class.
-         */
-        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
-
-        /**
-         * Adds a SemanticUI social class (SocialButton).
-         */
-        social: React.PropTypes.string,
-
-        /**
-         * Indicates whether the button is currently highlighted or disabled.
-         */
-        state: React.PropTypes.oneOf(['active', 'disabled'])
+        // component
+        button: props.defaultClasses
     };
 
-    static contextTypes = {
-        isAttached: React.PropTypes.bool,
-        isIconButtons: React.PropTypes.bool,
-        isLabeledButtons: React.PropTypes.bool
-    };
+    // string types
+    classes[props.color] = !!props.color;
+    classes[props.size] = !!props.size;
+    classes[props.social] = !!props.social;
+    classes[props.emphasis] = !!props.emphasis;
+    classes[props.state] = !!props.state;
 
-    static defaultProps = {
-        defaultClasses: true
-    };
-
-
-    render() {
-        let Component = (this.props.attached || this.context.isAttached || this.props.animated || React.Children.count(this.props.children) > 1) ? 'div' : 'button';
-
-        // consume props
-        /* eslint-disable no-use-before-define */
-        let { animated, attached, basic, children, circular, color, component,
-              compact, className, defaultClasses, primary, secondary, floated, fluid, icon,
-              inverted, labeled, loading, size, social, state,
-              ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-
-        // add class names
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component || Component,
-            other,
-            this.props.children
-        );
-    }
-
-    isIconButton() {
-        return hasChild(this.props.children, Icon) && React.Children.count(this.props.children) === 1;
-    }
-
-    getClasses() {
-        let classes = {
-            // default
-            ui: this.props.defaultClasses,
-
-            // position based props
-            floated: this.props.floated,
-            labeled: this.props.labeled && !this.context.isLabeledButtons,
-            attached: this.props.attached,
-
-            // types
-            animated: this.props.animated,
-            basic: this.props.basic,
-            icon: (this.props.icon || this.isIconButton()) && !this.context.isIconButtons,
-            inverted: this.props.inverted,
-
-            // states
-            active: this.props.state === 'active',
-            disabled: this.props.state === 'disabled',
-            loading: this.props.loading,
-
-            // variations
-            circular: this.props.circular,
-            compact: this.props.compact,
-            primary: this.props.primary,
-            secondary: this.props.secondary,
-            fluid: this.props.fluid,
-
-            // component
-            button: this.props.defaultClasses
-        };
-
-        // string types
-        classes[this.props.color] = !!this.props.color;
-        classes[this.props.size] = !!this.props.size;
-        classes[this.props.social] = !!this.props.social;
-
-        return validateClassProps(classes, this.props, validProps);
-    }
+    return validateClassProps(classes, props, validProps);
 }
+
+/**
+ * Basic button. Icon and labeled buttons have own components
+ */
+let Button = (props, context) => {
+    // consume props
+    let { animated, attached, basic, children, circular, color, component,
+        compact, defaultClasses, emphasis, floated, fluid, 
+        inverted, size, state, toggle,
+        ...other
+    } = props;
+    
+    let Component = (attached || context.isAttached || animated || React.Children.count(props.children) > 1) ? 'div' : 'button';
+    if (component) {
+        Component = component;
+    }
+    
+    other.className = classNames(other.className, getClasses(props, context));
+    
+    return (
+        <Component {...other}>
+            {children}
+        </Component>
+    );
+};
+
+/**
+ * Button props
+ */
+Button.propTypes = {
+    ...DefaultProps.propTypes,
+    /**
+     * Adds a fade or slide animation on hover.
+     */
+    animated: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['fade', 'vertical']),
+        React.PropTypes.bool
+    ]),
+
+    /**
+     * It's attached to some other attachable component.
+     */
+    attached: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['left', 'right', 'bottom', 'top']),
+        React.PropTypes.bool
+    ]),
+
+    /**
+     * Adds simple styling to the component.
+     */
+    basic: React.PropTypes.bool,
+
+    /**
+     * A button can be circular
+     */
+    circular: React.PropTypes.bool,
+
+    /**
+     * Adds a SemanticUI color class.
+     */
+    color: React.PropTypes.string,
+
+    /**
+     * Reduces the padding on the component.
+     */
+    compact: React.PropTypes.bool,
+
+    /**
+     * A button can be formatted to show different levels of emphasis
+     */
+    emphasis: React.PropTypes.oneOf(['primary', 'secondary', 'positive', 'negative']),
+
+    /**
+     * Forces to component to float left or right.
+     */
+    floated: React.PropTypes.oneOf(['left', 'right']),
+
+    /**
+     * The component fills the parent components horizontal space.
+     */
+    fluid: React.PropTypes.bool,
+
+    /**
+     * Styles the component for a dark background.
+     */
+    inverted: React.PropTypes.bool,
+
+    /**
+     * Adds a SemanticUI size class.
+     */
+    size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
+
+    /**
+     * Indicates whether the button is currently highlighted or disabled.
+     */
+    state: React.PropTypes.oneOf(['active', 'disabled', 'loading']),
+
+    /**
+     * A button can be formatted to toggle on and off
+     */
+    toggle: React.PropTypes.bool
+};
+
+/**
+ * Default props
+ */
+Button.defaultProps = {
+    defaultClasses: true
+};
+
+/**
+ * Context types
+ */
+Button.contextTypes = {
+    isAttached: React.PropTypes.bool
+};
+
+export default Button;

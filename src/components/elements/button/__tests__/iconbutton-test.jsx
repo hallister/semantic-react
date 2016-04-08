@@ -3,15 +3,19 @@ import React from 'react';
 import { IconButton, Button, Icon } from '../../../elements';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { itShouldPassUnusedDataProps } from '../../../test-utils';
+import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
+
+const consumedProps = {
+    name: 'cloud',
+    iconColor: 'green'
+};
 
 describe('IconButton', () => {
     describe('should render in the DOM', () => {
 
-        it('renders as <IconButton>', () => {
+        it('renders as <Button>', () => {
             let wrapper = shallow(<IconButton name="cloud" />);
             expect(wrapper.is(Button)).to.be.true;
-            expect(wrapper).to.have.prop('icon', true);
         });
 
         it('passes the custom component to <Button>', () => {
@@ -47,5 +51,5 @@ describe('IconButton', () => {
     });
 
 
-    itShouldPassUnusedDataProps(IconButton, {});
+    itShouldConsumeOwnAndPassCustomProps(IconButton, consumedProps);
 });

@@ -1,41 +1,34 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Icon, Button } from '../../elements';
 
-function renderChildren(children, name, social, iconColor) {
-    let componentChildren = [];
-
-    componentChildren.push(
-        <Icon
-            color={social ? null : iconColor}
-            key="icon"
-            name={name} />
-    );
-
-    React.Children.forEach(children, child => {
-        componentChildren.push(child);
-    });
-
-    return componentChildren;
+function getClasses(props) {
+    let classes = {
+        icon: true
+    };
+    return classes;
 }
 
-let IconButton = ({ children, iconColor, name, social, ...other }) => {
-
+/**
+ * Icon button es un button con icon, en serio
+ */
+let IconButton = (props) => {
+    const { children, iconColor, name, ...other } = props;
+    other.className = classNames(other.className, getClasses(props));
+    
     return (
         <Button
             {...other}
-            icon
-            social={social ? name : ''}
         >
-            {renderChildren(children, name, social, iconColor)}
+            <Icon color={iconColor}
+                  name={name}/>
+            {children}
         </Button>
-        );
+    );
 };
 
 IconButton.propTypes = {
-    /**
-     * The child nodes of the component.
-     */
-    children: React.PropTypes.node,
+    ...Button.propTypes,
 
     /**
      * Adds a SemanticUI color class to the icon.
@@ -45,12 +38,11 @@ IconButton.propTypes = {
     /**
      * Adds a SemanticUI name class to the icon.
      */
-    name: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired
+};
 
-    /**
-     * Renders as a social button if true (see SocialButton);
-     */
-    social: React.PropTypes.bool
+IconButton.defaultProps = {
+    ...Button.defaultProps
 };
 
 export default IconButton;
