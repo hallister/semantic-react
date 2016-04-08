@@ -22,7 +22,8 @@
     "test:watch": "NODE_ENV=test ./node_modules/.bin/karma start --auto-watch --no-single-run karma.config.js",
     "test:watch:win": "set NODE_ENV=test && node_modules\\.bin\\karma start --auto-watch --no-single-run karma.config.js",
     "styleguide-server": "styleguidist server",
-    "styleguide-build": "styleguidist build"
+    "styleguide-build": "styleguidist build",
+    "postinstall": "npm run lib"
   },
   "keywords": [
     "react",
