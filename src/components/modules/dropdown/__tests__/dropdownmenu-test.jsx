@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-max-props-per-line */
 /* global sinon */
 import React from 'react';
+import sinon from 'sinon';
 import ReactTestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';

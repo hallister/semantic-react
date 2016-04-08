@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-max-props-per-line */
 /* global sinon */
 import React from 'react';
+import sinon from 'sinon';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Menu from '../menu';
@@ -11,7 +12,7 @@ describe('Menu', () => {
         let wrapper = shallow(<Menu />);
         expect(wrapper).to.have.tagName('div');
         expect(wrapper).to.have.className('ui menu');
-    });  
+    });   
     
     it('It renders as custom component', () => {
         let wrapper = shallow(<Menu component="ul"/>);
