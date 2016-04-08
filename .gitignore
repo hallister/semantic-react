@@ -20,5 +20,11 @@ typings
 # Coverage
 dist/coverage
 
+# Visual studio code
+.vscode
+
+# Lib
+lib
+
 # Server overrides
 server.js
