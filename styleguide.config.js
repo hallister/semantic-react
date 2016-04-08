@@ -45,7 +45,8 @@ module.exports = {
         webpackConfig.devtool = 'source-map';
         webpackConfig.resolve.extensions.push('.es6');
         
-        webpackConfig.resolveLoader.modulesDirectories = ['src/loaders', ...webpackConfig.resolveLoader.modulesDirectories];
+        // Add enhanced props loader
+        webpackConfig.resolveLoader.modulesDirectories.unshift('src/loaders');
 
         // webpackConfig.resolve.alias['rsg-components/TableOfContents'] = path.join(__dirname, 'src/styleguide/TableOfContents');
         return webpackConfig;
