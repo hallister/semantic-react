@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "module": "system",
+        "target": "ES5"
+    },
+    "exclude": [
+        "node_modules",
+        "lib",
+        "dist"
+    ]
+}
