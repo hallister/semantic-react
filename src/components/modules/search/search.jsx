@@ -71,7 +71,7 @@ export default class Search extends React.Component {
         };
     }
 
-    onBlur() {
+    onBlur = () => {
         if (this.state.focus) {
             this.setState({
                 focus: false
@@ -79,17 +79,17 @@ export default class Search extends React.Component {
         }
     }
 
-    onChange(e) {
+    onChange = (e) => {
         this.props.onChange(e);
     }
 
-    onFocus() {
+    onFocus = () => {
         this.setState({
             focus: true
         });
     }
 
-    onSearchClick(e, child) {
+    onSearchClick = (e, child) => {
         this.props.onSearchClick(e, child);
     }
 
@@ -99,9 +99,9 @@ export default class Search extends React.Component {
                  key="searchInput"
             >
                 <input className="prompt"
-                    onBlur={this.onBlur.bind(this)}
-                    onChange={this.onChange.bind(this)}
-                    onFocus={this.onFocus.bind(this)}
+                    onBlur={this.onBlur}
+                    onChange={this.onChange}
+                    onFocus={this.onFocus}
                     placeholder={this.props.placeholder}
                     type="text"
                     value={this.props.value}/>
@@ -118,24 +118,25 @@ export default class Search extends React.Component {
 
     renderResults() {
         let props = {
+            key: "searchResults",
             animate: this.state.focus && this.props.value !== '',
             emptyHeader: this.props.emptyHeader,
             emptyMessage: this.props.emptyMessage,
-            key: "searchResults",
-            onSearchClick: this.onSearchClick.bind(this),
+            onSearchClick: this.onSearchClick,
             results: this.state.focus ? this.props.results : [],
             search: this.props.value || ''
         };
 
         return (
-            <Transition component={false}
-                        enter={this.props.enterAnimation}
-                        leave={this.props.leaveAnimation}
+            <Transition
+                key="transition"
+                component={false}
+                enter={this.props.enterAnimation}
+                leave={this.props.leaveAnimation}
             >
                 {(this.state.focus && this.props.value !== '') &&
                     <Results {...props}/>
                 }
-
             </Transition>
         );
     }
