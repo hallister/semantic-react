@@ -31,12 +31,15 @@ module.exports = {
         webpackConfig.module.loaders.push(
             {
                 test: /\.(jsx|es6)$/,
-                loaders: ['babel'],
+                loader: 'babel',
                 include: [
                     dir,
                     styleguideComponentsDir
                 ],
-                exclude: /(__tests__|node_modules)/
+                exclude: /(__tests__|node_modules)/,
+                query: {
+                    presets: ['react-hmre']
+                }
             }
         );
         webpackConfig.devtool = 'source-map';
