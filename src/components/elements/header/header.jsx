@@ -64,7 +64,8 @@ export default class Header extends React.Component {
         isListChild: React.PropTypes.bool,
         isHeaderChild: React.PropTypes.bool,
         isAccordionChild: React.PropTypes.bool,
-        isMenuChild: React.PropTypes.bool
+        isMenuChild: React.PropTypes.bool,
+        isCardChild: React.PropTypes.bool
     };
 
     // any header/sub header under a header is a sub header
@@ -107,7 +108,7 @@ export default class Header extends React.Component {
     getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses  && !this.context.isListChild && !this.context.isHeaderChild && !this.context.isMenuChild,
+            ui: this.props.defaultClasses && !this.context.isListChild && !this.context.isHeaderChild && !this.context.isMenuChild && !this.context.isCardChild,
 
             // types
             icon: hasChild(this.props.children, Icon) && this.props.aligned == 'center',
