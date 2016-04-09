@@ -1,7 +1,7 @@
 import React from 'react';
-import { LabeledButton, IconButton } from '../../elements';
-import { Numbers, validateClassProps, isEveryChild } from '../../utilities';
+import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     attached: ['bottom', 'top'],
@@ -9,8 +9,12 @@ let validProps = {
     // No 'size' here to avoid validateClassProps() picking it up and adding classes
 };
 
+/**
+ * Group of buttons
+ */
 export default class Buttons extends React.Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
         /**
          * It's attached to some other attachable component.
          */
@@ -20,16 +24,6 @@ export default class Buttons extends React.Component {
          * Adds simple styling to the component.
          */
         basic: React.PropTypes.bool,
-
-        /**
-         * The child nodes of the component.
-         */
-        children: React.PropTypes.node,
-
-        /**
-         * Adds additional classes to the component.
-         */
-        className: React.PropTypes.node,
 
         /**
          * Adds a SemanticUI color class.
@@ -42,20 +36,6 @@ export default class Buttons extends React.Component {
         compact: React.PropTypes.bool,
 
         /**
-         * Overrides the component with a custom component string ('div') or
-         * ReactElement.
-         */
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-
-        /**
-         * Adds the default classes for the component.
-         */
-        defaultClasses: React.PropTypes.bool,
-
-        /**
          * Forces all children to an equal width.
          */
         equal: React.PropTypes.bool,
@@ -66,20 +46,9 @@ export default class Buttons extends React.Component {
         floated: React.PropTypes.oneOf(['left', 'right']),
 
         /**
-         * Overrides default behavior and adds the icon class to the component.
-         */
-        icon: React.PropTypes.bool,
-
-        /**
          * Styles the component for a dark background.
          */
         inverted: React.PropTypes.bool,
-
-        /**
-         * Overrides default behavior and adds the labeled class to the
-         * component.
-         */
-        labeled: React.PropTypes.bool,
 
         /**
          * Adds a SemanticUI size class.
@@ -93,28 +62,23 @@ export default class Buttons extends React.Component {
     };
 
     static childContextTypes = {
-        isAttached: React.PropTypes.bool,
-        isIconButtons: React.PropTypes.bool,
-        isLabeledButtons: React.PropTypes.bool
+        isAttached: React.PropTypes.bool
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true
+        ...DefaultProps.defaultProps
     };
 
     getChildContext() {
         return {
-            isAttached: !!this.props.attached,
-            isIconButtons: !!this.props.icon,
-            isLabeledButtons: !!this.props.labeled
+            isAttached: !!this.props.attached
         };
     }
 
     render() {
         /* eslint-disable no-use-before-define */
         let { attached, basic, children, className, color, compact, component,
-              defaultClasses, equal, floated, icon, inverted, labeled, size,
+              defaultClasses, equal, floated, inverted, size,
               vertical, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
@@ -134,9 +98,7 @@ export default class Buttons extends React.Component {
 
             // types
             basic: this.props.basic,
-            icon: this.props.icon || isEveryChild(this.props.children, IconButton),
             inverted: this.props.inverted,
-            labeled: this.props.labeled || isEveryChild(this.props.children, LabeledButton),
 
             // variations
             attached: this.props.attached,

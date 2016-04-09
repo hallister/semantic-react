@@ -1,24 +1,32 @@
 import React from 'react';
-import { IconButton } from '../../elements';
+import classNames from 'classnames';
+import { IconButton, Button, Icon } from '../../elements';
 
+
+/**
+ * Social button is simple social colored button with social icon. This is ordinary button, 
+ */
 let SocialButton = ({ children, name, ...other }) => {
-    return (
-        <IconButton {...other}
-            icon={React.Children.count(children) === 0}
-            name={name}
-            social
-        >
-            {children}
-        </IconButton>
-    );
+    const hasChildren = React.Children.count(children) > 0;
+    other.className = classNames(other.className, name);
+    // Render button if has any children (i.e. caption), otherwise render icon button
+    if (hasChildren) {
+        return (
+            <Button {...other}>
+                <Icon name={name}/>
+                {children}
+            </Button>
+        )
+    } else {
+        return (
+            <IconButton {...other}
+                name={name} />
+        )
+    }
 };
 
 SocialButton.propTypes = {
-    /**
-     * The child nodes of the component.
-     */
-    children: React.PropTypes.node,
-
+    ...Button.propTypes,
     /**
      * Adds a SemanticUI name class to the icon.
      */

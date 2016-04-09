@@ -4,7 +4,7 @@ var path = require('path');
 
 module.exports = function(config) {
     config.set({
-        frameworks: ['mocha', 'sinon'],
+        frameworks: ['mocha'],
         files: [
           'src/app.tests.js'
         ],
@@ -18,7 +18,7 @@ module.exports = function(config) {
            'src/app.tests.js': ['webpack', 'sourcemap'],
            'src/components/semantic-react.jsx': ['coverage']
         },
-        reporters: [ 'spec', 'coverage' ],
+        reporters: [ 'mocha', 'coverage' ],
         coverageReporter: {
             instrumenters: { isparta : require('isparta') },
             instrumenter: {

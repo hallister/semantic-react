@@ -11,5 +11,7 @@ chai.use(sinonChai);
 const testsContext = require.context('.', true, /-test\.(js|jsx)$/);
 testsContext.keys().forEach(testsContext);
 
+global.SVGElement = function () { };
+
 // const componentsContext = require.context('.', true, /\.(jsx|es6)$/);
 // componentsContext.keys().forEach(componentsContext);

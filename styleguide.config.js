@@ -7,13 +7,16 @@ module.exports = {
     components: function () {
         return glob.sync(path.resolve(__dirname, 'src/components/**/*.jsx')).filter(function (module) {
             // exclude tests files
-            return !(/__tests__/.test(module));
+            return !(/(__tests__|examples)/.test(module));
         });
     },
     skipComponentsWithoutExample: true,
     serverPort: 4000,
     getExampleFilename: function (componentPath) {
-        return componentPath.replace(/\.jsx?$/, '.examples.md');
+        var parsed = path.parse(componentPath);
+        var exampleDir = path.join(parsed.dir, 'examples');
+        return path.join(exampleDir, parsed.name + '.examples.md');
+        // return componentPath.replace(/\.jsx?$/, '.examples.md');
     },
     getComponentPathLine: function (componentPath) {
         /** @var {string} */
@@ -31,20 +34,26 @@ module.exports = {
         webpackConfig.module.loaders.push(
             {
                 test: /\.(jsx|es6)$/,
-                loaders: ['babel'],
+                loader: 'babel',
                 include: [
                     dir,
                     styleguideComponentsDir
                 ],
-                exclude: /(__tests__|node_modules)/
+                exclude: /(__tests__|node_modules|examples)/,
+                query: {
+                    presets: ['react-hmre']
+                }
             }
         );
+        
         webpackConfig.devtool = 'source-map';
         webpackConfig.resolve.extensions.push('.es6');
         
-        webpackConfig.resolveLoader.modulesDirectories = ['src/loaders', ...webpackConfig.resolveLoader.modulesDirectories];
+        // Add enhanced props loader
+        webpackConfig.resolveLoader.modulesDirectories.unshift('src/loaders');
 
         // webpackConfig.resolve.alias['rsg-components/TableOfContents'] = path.join(__dirname, 'src/styleguide/TableOfContents');
+        webpackConfig.resolve.alias['rsg-components/StyleGuide'] = path.join(__dirname, 'src/styleguide/StyleGuide');
         return webpackConfig;
     }
 };

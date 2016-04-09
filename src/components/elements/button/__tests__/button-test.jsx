@@ -14,17 +14,13 @@ let consumedProps = {
     compact: true,
     component: 'div',
     defaultClasses: true,
+    emphasis: 'positive',
     floated: 'right',
     fluid: true,
-    icon: true,
     inverted: true,
-    labeled: true,
-    loading: true,
-    primary: true,
-    secondary: true,
     size: 'small',
-    social: 'facebook',
-    state: 'active'
+    state: 'active',
+    toggle: true
 };
 
 describe('Button', () => {
@@ -72,7 +68,7 @@ describe('Button', () => {
         });
 
         it('has a loading state', () => {
-            let wrapper = shallow(<Button loading />);
+            let wrapper = shallow(<Button state="loading" />);
             expect(wrapper).to.have.className('loading');
         });
     });
@@ -157,15 +153,31 @@ describe('Button', () => {
         let wrapper = shallow(<Button><Icon name="cloud" /></Button>);
         expect(wrapper.find(Icon)).to.exist;
     });
-
-    it('should allow the button to be primary', () => {
-        let wrapper = shallow(<Button primary />);
-        expect(wrapper).to.have.className('primary');
-    });
-
-    it('should allow the button to be secondary', () => {
-        let wrapper = shallow(<Button secondary />);
-        expect(wrapper).to.have.className('secondary');
+    
+    describe('should have emphasis', () => {
+        it('primary', () => {
+            let wrapper = shallow(<Button emphasis="primary" />);
+            expect(wrapper).to.have.className('primary');
+            expect(wrapper).to.have.not.className('emphasis');
+        });
+        
+        it('secondary', () => {
+            let wrapper = shallow(<Button emphasis="secondary" />);
+            expect(wrapper).to.have.className('secondary');
+            expect(wrapper).to.have.not.className('emphasis');
+        });
+        
+        it('positive', () => {
+            let wrapper = shallow(<Button emphasis="positive" />);
+            expect(wrapper).to.have.className('positive');
+            expect(wrapper).to.have.not.className('emphasis');
+        });
+        
+        it('negative', () => {
+            let wrapper = shallow(<Button emphasis="negative" />);
+            expect(wrapper).to.have.className('negative');
+            expect(wrapper).to.have.not.className('emphasis');
+        });
     });
 
     itShouldConsumeOwnAndPassCustomProps(Button, consumedProps);

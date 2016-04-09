@@ -45,7 +45,7 @@
         "no-undef": 2, // disallow use of undeclared variables unless mentioned in a /*global */ block
         "no-undef-init": 2, // disallow use of undefined when initializing variables
         "no-undefined": 2, // disallow use of undefined variable (off by default)
-        "no-unused-vars": 1, // disallow declaration of variables that are not used in the code
+        "no-unused-vars": 0, // disallow declaration of variables that are not used in the code
         "no-use-before-define": 1, // disallow use of variables before they are defined
 
         //
@@ -82,13 +82,13 @@
         //
         "jsx-quotes": [2, "prefer-double"],
         "react/jsx-curly-spacing": [1, "never"],
-        "react/jsx-max-props-per-line": 2,
+        "react/jsx-max-props-per-line": [1, {"maximum": 3}],
         "react/jsx-boolean-value": 1,
         "react/jsx-no-undef": 2,
         "react/jsx-no-duplicate-props": 1,
         "react/jsx-no-literals": 0,
         "react/jsx-sort-prop-types": 0,
-        "react/jsx-sort-props": 1,
+        "react/jsx-sort-props": 0,
         "react/jsx-indent-props": [0, 4],
         "react/jsx-uses-react": 2,
         "react/jsx-uses-vars": 2,

@@ -1,6 +1,7 @@
 /* eslint-env node, mocha */
 /* global sinon */
 import React from 'react';
+import sinon from 'sinon';
 import { Icons, Icon } from '../../../elements';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';

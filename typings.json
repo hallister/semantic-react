@@ -2,18 +2,18 @@
   "name": "semantic-react",
   "main": "./semantic-react.d.ts",
   "ambientDependencies": {
-    "react": "registry:dt/react#0.14.0+20160302224448",
-    "react-dom": "registry:dt/react-dom#0.0.0+20151118193745"
+    "react": "registry:dt/react#0.14.0+20160319053454",
+    "react-dom": "registry:dt/react-dom#0.14.0+20160316155526"
   },
   "ambientDevDependencies": {
-    "mocha": "registry:dt/mocha#2.2.5+20151023103246",
-    "webpack-env": "registry:dt/webpack-env#0.0.0+20151103181648"
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654",
+    "webpack-env": "registry:dt/webpack-env#1.12.2+20160316155526"
   },
   "devDependencies": {
-    "chai": "registry:npm/chai#3.4.0+20160308201903",
+    "chai": "registry:npm/chai#3.5.0+20160402210230",
     "chai-enzyme": "github:asvetliakov/typings-chai-enzyme",
-    "enzyme": "github:asvetliakov/typings-enzyme",
-    "sinon": "registry:npm/sinon#1.16.0+20160211003958"
+    "enzyme": "registry:npm/enzyme#2.2.0+20160322031343",
+    "sinon": "registry:npm/sinon#1.16.0+20160309002336"
   },
   "dependencies": {}
 }

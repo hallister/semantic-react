@@ -1,158 +1,100 @@
 import React from 'react';
 import { Icon, Label, Button } from '../../elements';
-import { hasChild, hasFirstChild, spliceChildren } from '../../utilities';
+import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import elementType from 'react-prop-types/lib/elementType';
 
-export default class LabeledButton extends React.Component {
-    static propTypes = {
-        active: React.PropTypes.bool,
-        basic: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        circular: React.PropTypes.bool,
-        className: React.PropTypes.node,
-        color: React.PropTypes.string,
-        compact: React.PropTypes.bool,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
-        fluid: React.PropTypes.bool,
-        icon: React.PropTypes.bool,
-        inverted: React.PropTypes.bool,
-        labeled: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.bool
-        ]),
-        loading: React.PropTypes.bool,
-        negative: React.PropTypes.bool,
-        positive: React.PropTypes.bool,
-        primary: React.PropTypes.bool,
-        secondary: React.PropTypes.bool,
-        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
-        social: React.PropTypes.string
-    };
+const validProps = {
+    labeled: ['left', 'right']
+};
 
-    static contextTypes = {
-        isAttached: React.PropTypes.bool,
-        hasIconClass: React.PropTypes.bool
-    };
-
-
-    static defaultProps = {
-        defaultClasses: true
-    };
-
-    /*
-     *  Handles buttons with an image for a label
-     */
-    renderButton() {
-        /* eslint-disable no-use-before-define */
-        let { ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-        other.icon = true;
-        other.labeled = this.props.labeled || true;
-
-        return <Button {...other}>{this.props.children}</Button>;
-    }
-
-    /*
-     *  Wraps any non-label component(s) in a div with
-     */
-    renderChildren() {
-        let children = [];
-
-        // split children into Label and not Label arrays
-        let components = spliceChildren(this.props.children, Label);
-
-        // labeled is consumed by the parent button
-        /* eslint-disable no-use-before-define */
-        let { labeled, ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-
-        other.className = classNames(this.props.className, this.getClasses());
-
-        let icon = (
-            <div
-                {...other}
-                key="icon"
-            >
-                {components.remaining}
-            </div>
-        );
-
-        // if Label was spliced at index 0, put it first
-        if (components.index == 0) {
-            children.push(components.component);
-            children.push(icon);
-        // otherwise last
-        } else {
-            children.push(icon);
-            children.push(components.component);
-        }
-
-        return children;
-    }
-
-    render() {
-        // this must be an icon label
-        if (!hasChild(this.props.children, Label)) {
-            return this.renderButton();
-        }
-
-        // most button props are consumed by the child
-        /* eslint-disable no-use-before-define */
-        let { active, basic, color, circular, compact, fluid,  inverted,
-              size, ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-
-        other.className = classNames(other.className);
-
-        // if the label was the first child, its direction must be left
-        if (hasFirstChild(this.props.children, Label)) {
-            other.labeled = 'left';
-
-        // labels are on the right by default
-        } else {
-            other.labeled = true;
-        }
-
-        return <Button {...other}>{this.renderChildren()}</Button>
-    }
-
-    getClasses() {
-        let classes = {
-            // default
-            ui: this.props.defaultClasses,
-
-            // position based props
-            labeled: this.props.labeled,
-
-            // types
-            animated: false,
-            basic: this.props.basic,
-            icon: hasChild(this.props.children, Icon) && React.Children.count(this.props.children) === 2,
-            inverted: this.props.inverted,
-
-            // states
-            active: this.props.active,
-            loading: this.props.loading,
-
-            // variations
-            circular: this.props.circular,
-            compact: this.props.compact,
-            fluid: false,
-
-            // component
-            button: this.props.defaultClasses
-        };
-
-        // string types
-        classes[this.props.color] = !!this.props.color;
-        classes[this.props.size] = !!this.props.size;
-        classes[this.props.social] = !!this.props.social;
-
-        return classes;
-    }
+/**
+ * Returns default component for label
+ * @param {string} type
+ */
+function getDefaultLabelComponent(type) {
+    return (type === 'icon') ? Icon : Label;
 }
+
+/**
+ * Returns class name
+ * @param props
+ */
+function getClasses(props) {
+    let classes = {
+        ui: props.labelType !== 'icon', // no need to add ui since <Button> will add it
+        icon: props.labelType === 'icon',
+        button: props.labelType !== 'icon'
+    };
+    return validateClassProps(classes, props, validProps);
+}
+
+/**
+ * Labeled button renders button with label, either text label or icon
+ */
+let LabeledButton = (props) => {
+    const { children, labeled, labelType, label, labelComponent, ...other } = props;
+    let LabelComponent = (labelComponent) ? labelComponent : getDefaultLabelComponent(labelType);
+
+
+    if (labelType === 'icon') {
+        // Easy markup, it's the standard button with labeled icon prefix, the icon order doesn't matter
+        other.className = classNames(other.className, getClasses(props));
+        return (
+            <Button {...other}>
+                <LabelComponent name={label}/>
+                {children}
+            </Button>
+        )
+    } else {
+        // Text labeled button, this is slightly harder, label order does matter, also need to be prefixed with <div>
+        const className = classNames(getClasses(props));
+        let markup = [];
+        /* eslint-disable react/jsx-max-props-per-line */
+        // Should be label basic by default?
+        if (labeled === 'left') {
+            markup.push(<LabelComponent basic key="label">{label}</LabelComponent>);
+            markup.push(<Button key="button" {...other}>{children}</Button>)
+        } else {
+            markup.push(<Button key="button" {...other}>{children}</Button>);
+            markup.push(<LabelComponent basic key="label">{label}</LabelComponent>);
+        }
+        /* eslint-enable react/jsx-max-props-per-line */
+        // TODO: Should allow to customize this div??
+        return (
+            <div className={className}>
+                {markup}
+            </div>
+        )
+    }
+
+};
+
+LabeledButton.propTypes = {
+    ...Button.propTypes,
+    /**
+     * Label position, default to right
+     */
+    labeled: React.PropTypes.oneOf(['left', 'right']),
+    /**
+     * Type of label, could be text label or icon
+     */
+    labelType: React.PropTypes.oneOf(['text', 'icon']),
+    /**
+     * Label, if given string will be used as label text or icon name (if labelType is icon).
+     */
+    label: React.PropTypes.string.isRequired,
+    /**
+     * Label component. Default will be Icon for labelType icon and Label for labelType label
+     */
+    labelComponent: elementType
+};
+
+LabeledButton.defaultProps = {
+    labeled: 'right',
+    labelType: 'text'
+};
+
+
+export default LabeledButton;
+

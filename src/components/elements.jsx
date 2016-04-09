@@ -4,11 +4,6 @@ export { default as LabeledButton } from './elements/button/labeledbutton';
 export { default as IconButton } from './elements/button/iconbutton';
 export { default as SocialButton } from './elements/button/socialbutton';
 
-export { default as PrimaryButton } from './elements/button/primarybutton';
-export { default as SuccessButton } from './elements/button/successbutton';
-export { default as WarningButton }  from './elements/button/warningbutton';
-export { default as DangerButton } from './elements/button/dangerbutton';
-
 export { default as Divider } from './elements/divider/divider';
 
 export { default as Flag } from './elements/flag/flag';
