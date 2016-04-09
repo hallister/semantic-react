@@ -1,83 +1,109 @@
 import React from 'react';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     flipped: ['horizontally', 'vertically'],
     rotated: ['clockwise', 'counterclockwise']
 };
 
-export default class Icon extends React.Component {
-    static propTypes = {
-        bordered: React.PropTypes.bool,
-        circular: React.PropTypes.bool,
-        className: React.PropTypes.node,
-        color: React.PropTypes.string,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        corner: React.PropTypes.bool,
-        defaultClasses: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
-        fitted: React.PropTypes.bool,
-        flipped: React.PropTypes.oneOf(['horizontally', 'vertically']),
-        inverted: React.PropTypes.bool,
-        link: React.PropTypes.bool,
-        loading: React.PropTypes.bool,
-        name: React.PropTypes.string, // Unnamed icons allowed when subcomponent (see Rating)
-        onClick: React.PropTypes.func,
-        pointing: React.PropTypes.oneOf(['down', 'left', 'right', 'up']),
-        rotated: React.PropTypes.oneOf(['clockwise', 'counterclockwise']),
-        size: React.PropTypes.string
+export function getClasses(props) {
+    let classes = {
+        // default
+        // variations
+        bordered: props.bordered,
+        circular: props.circular,
+        corner: props.corner,
+        disabled: props.state === 'disabled',
+        fitted: props.fitted,
+        link: props.link || props.onClick,
+        inverted: props.inverted,
+        loading: props.state === 'loading',
+
+        // component
+        icon: props.defaultClasses
     };
 
-    static defaultProps = {
-        component: 'i',
-        defaultClasses: true
-    };
+    // handle all string or mixed string/bool props
 
-    render() {
-        /* eslint-disable no-use-before-define */
-        let { bordered, circular, color, component, corner, defaultClasses,
-              disabled, fitted, flipped, inverted, link, loading, name, pointing, rotated,
-              size, ...other } = this.props;
-        /* eslint-enable no-use-before-define */
+    // classes[this.props.aligned] = !!this.props.aligned;
+    classes[props.size] = !!props.size;
+    classes[props.color] = !!props.color;
+    classes[props.name] = !!props.name;
+    classes[props.pointing] = !!props.pointing;
 
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other
-        );
-    }
-
-    getClasses() {
-        let classes = {
-            // default
-
-            // variations
-            bordered: this.props.bordered,
-            circular: this.props.circular,
-            corner: this.props.corner,
-            disabled: this.props.disabled,
-            fitted: this.props.fitted,
-            link: this.props.link || this.props.onClick,
-            inverted: this.props.inverted,
-            loading: this.props.loading,
-
-            // component
-            icon: this.props.defaultClasses
-        };
-
-        // handle all string or mixed string/bool props
-
-        // classes[this.props.aligned] = !!this.props.aligned;
-        classes[this.props.size] = !!this.props.size;
-        classes[this.props.color] = !!this.props.color;
-        classes[this.props.name] = !!this.props.name;
-        classes[this.props.pointing] = !!this.props.pointing;
-
-        return validateClassProps(classes, this.props, validProps);
-    }
+    return validateClassProps(classes, props, validProps);
 }
+
+/**
+ * Icon
+ */
+let Icon = (props) => {
+    const {
+        component, defaultClasses, children, bordered, circular, color, corner, state, fitted, flipped,
+        inverted, link, name, size, rotated, ...other
+    } = props;
+    let Component = component;
+    other.className = classNames(other.className, getClasses(props));
+    return (<Component {...other}>{children}</Component>);
+};
+
+Icon.propTypes = {
+    ...DefaultProps.propTypes,
+    /**
+     * An icon can be formatted to appear bordered
+     */
+    bordered: React.PropTypes.bool,
+    /**
+     * An icon can be formatted to appear circular
+     */
+    circular: React.PropTypes.bool,
+    /**
+     * An icon can be formatted with different colors
+     */
+    color: React.PropTypes.string,
+    /**
+     * Render as corner icon if used in <Icons/>
+     */
+    corner: React.PropTypes.bool,
+    /**
+     * Icon could be disabled or used as simple loader
+     */
+    state: React.PropTypes.oneOf(['disabled', 'loading']),
+    /**
+     * An icon can be fitted, without any space to the left or right of it.
+     */
+    fitted: React.PropTypes.bool,
+    /**
+     * An icon can be flipped
+     */
+    flipped: React.PropTypes.oneOf(['horizontally', 'vertically']),
+    /**
+     * An icon can have its colors inverted for contrast
+     */
+    inverted: React.PropTypes.bool,
+    /**
+     * Could be formatted as link
+     */
+    link: React.PropTypes.bool,
+    /**
+     * Icon name
+     */
+    name: React.PropTypes.string,
+    /**
+     * Icon size
+     */
+    size: React.PropTypes.string,
+    /**
+     * An icon can be rotated
+     */
+    rotated: React.PropTypes.oneOf(['clockwise', 'counterclockwise'])
+};
+
+Icon.defaultProps = {
+    ...DefaultProps.propTypes,
+    component: 'i'
+};
+
+export default Icon;
