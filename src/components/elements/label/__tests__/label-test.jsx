@@ -30,7 +30,7 @@ describe('Label', () => {
         });
         
         it('renders as custom component', () => {
-            let wrapper = shallow(<Label component='a'>test</Label>);
+            let wrapper = shallow(<Label component="a">test</Label>);
             expect(wrapper).to.have.tagName('a');
             expect(wrapper).to.have.className('ui label');
         });
