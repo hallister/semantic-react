@@ -1,63 +1,74 @@
 import React from 'react';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
-// Currently header/dividers are only headers. Maybe do both?
-export default class Divider extends React.Component {
-    static propTypes = {
-        aligned: React.PropTypes.oneOf(['horizontal', 'vertical']),
-        children: React.PropTypes.node,
-        className: React.PropTypes.node,
-        clearing: React.PropTypes.bool,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
-        header: React.PropTypes.bool,
-        hidden: React.PropTypes.bool,
-        inverted: React.PropTypes.bool,
-        spacing: React.PropTypes.oneOf(['fitted', 'padded'])
+function getClasses(props) {
+    return {
+        // default
+        ui: props.defaultClasses,
+
+        // types
+        header: props.header,
+        horizontal: props.aligned === 'horizontal',
+        vertical: props.aligned === 'vertical',
+
+        // variations
+        clearing: props.clearing,
+        fitted: props.spacing === 'fitted',
+        hidden: props.hidden,
+        inverted: props.inverted,
+        section: props.spacing === 'padded',
+
+        // component
+        divider: props.defaultClasses
     };
-
-    static defaultProps = {
-        component: 'div',
-        defaultClasses: true
-    };
-
-    render() {
-        /* eslint-disable no-use-before-define */
-        let { aligned, children, className, clearing, component, defaultClasses,
-              header, hidden, inverted, spacing, ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            this.props.children
-        );
-    }
-
-    getClasses() {
-        return {
-            // default
-            ui: this.props.defaultClasses,
-
-            // types
-            header: this.props.header,
-            horizontal: this.props.aligned === 'horizontal',
-            vertical: this.props.aligned === 'vertical',
-
-            // variations
-            clearing: this.props.clearing,
-            fitted: this.props.spacing === 'fitted',
-            hidden: this.props.hidden,
-            inverted: this.props.inverted,
-            section: this.props.spacing === 'padded',
-
-            // component
-            divider: this.props.defaultClasses
-        };
-    }
 }
+
+/**
+ * Divider
+ */
+let Divider = (props) => {
+    const { aligned, children, clearing, component, defaultClasses,
+        header, hidden, inverted, spacing, ...other } = props;
+    
+    let Component = component;
+    other.className = classNames(other.className, getClasses(props));
+    return (
+        <Component {...other}>{children}</Component>
+    );
+};
+
+Divider.propTypes = {
+    ...DefaultProps.propTypes,
+    /**
+     * Content segment vertically or horizontally
+     */
+    aligned: React.PropTypes.oneOf(['horizontal', 'vertical']),
+    /**
+     * A divider can clear the contents above it
+     */
+    clearing: React.PropTypes.bool,
+    /**
+     * Formats divider as header-like (taking less space and don't capitalize content)
+     */
+    header: React.PropTypes.bool,
+    /**
+     * A hidden divider divides content without creating a dividing line
+     */
+    hidden: React.PropTypes.bool,
+    /**
+     * A divider can have its colors inverted
+     */
+    inverted: React.PropTypes.bool,
+    /**
+     * Divider spacing
+     */
+    spacing: React.PropTypes.oneOf(['fitted', 'padded'])
+};
+
+Divider.defaultProps = {
+    ...DefaultProps.defaultProps
+};
+
+export default Divider;
+

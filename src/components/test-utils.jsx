@@ -22,7 +22,7 @@ export function itShouldPassUnusedDataProps(Component, props) {
     });
 }
 
-export function itShouldConsumeOwnAndPassCustomProps(Component, props) {
+export function itShouldConsumeOwnAndPassCustomProps(Component, props, testPassDataProps = true) {
     describe('should properly pass props', () => {
         it('consumes all used props', () => {
             // Funny trick to check component and it's rendered output
@@ -57,7 +57,9 @@ export function itShouldConsumeOwnAndPassCustomProps(Component, props) {
             
         });
 
-        itShouldPassUnusedDataProps(Component, props);
+        if (testPassDataProps) {
+            itShouldPassUnusedDataProps(Component, props);
+        }
     });
 }
 

@@ -12,14 +12,11 @@ let consumedProps = {
     color: 'red',
     component: 'i',
     defaultClasses: true,
-    disabled: true,
-
     fitted: true,
     flipped: 'horizontally',
     inverted: true,
     link: true,
-    loading: true,
-    pointing: 'up',
+    state: 'loading',
     rotated: 'clockwise',
     size: 'small'
 };
@@ -67,36 +64,25 @@ describe('Icon', () => {
         });
     });
 
-    describe('should point', () => {
-        it('should point left', () => {
-            let wrapper = shallow(<Icon name="chevron"
-                                        pointing="left"/>);
-            expect(wrapper).to.have.className('left');
-        });
-
-        it('should point right', () => {
-            let wrapper = shallow(<Icon name="chevron"
-                                        pointing="right"/>);
-            expect(wrapper).to.have.className('right');
-        });
-    });
-
     it('should be noticable on dark backgrounds', () => {
         let wrapper = shallow(<Icon inverted
                                     name="cloud" />);
         expect(wrapper).to.have.className('inverted');
     });
-
-    it('should appear disabled', () => {
-        let wrapper = shallow(<Icon disabled
-                                    name="cloud" />);
-        expect(wrapper).to.have.className('disabled');
-    });
-
-    it('should appear to be loading', () => {
-        let wrapper = shallow(<Icon loading
-                                    name="cloud" />);
-        expect(wrapper).to.have.className('loading');
+    
+    describe('could have state', () => {
+        it('could be disabled', () => {
+            let wrapper = shallow(<Icon state="disabled"
+                                        name="cloud" />);
+            expect(wrapper).to.have.className('disabled');
+            expect(wrapper).to.have.not.className('state');
+        });
+        
+        it('could be loading', () => {
+            let wrapper = shallow(<Icon state="loading"
+                                        name="cloud" />);
+            expect(wrapper).to.have.not.className('state');
+        });
     });
 
     it('should have various sizes', () => {

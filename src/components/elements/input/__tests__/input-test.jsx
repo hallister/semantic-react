@@ -6,38 +6,33 @@ import { shallow } from 'enzyme';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
 let consumedProps = {
-    action: true,
-    fluid: true,
-    focus: true,
-    icon: true,
+    component: 'div',
+    defaultClasses: true,
+    actionComponent: () => <Button/>,
+    actionPosition: 'right',
+    icon: 'cloud',
+    iconPosition: 'left',
+    iconComponent: () => <Icon />,
     inverted: true,
-    labeled: true,
-    loading: true,
-    name: 'cloud',
+    label: 'Test',
+    labelPosition: 'left',
+    labelComponent: () => <Label />,
     placeholder: 'Placeholder',
     size: 'small',
     state: 'disabled',
-    transparent: true
+    transparent: true,
+    value: 'test'
 };
 
-describe('Input', () => {
+describe.only('Input', () => {
     
     describe('should render in the DOM', () => {
-        it('renders as <input>', () => {
+        it('renders as div with <input> inside', () => {
             let wrapper = shallow(<Input />);
             expect(wrapper).to.have.className('ui input');
             expect(wrapper).to.have.tagName('div');
+            expect(wrapper.children()).to.have.tagName('input');
         });
-
-        it('renders as a custom HTML element', () => {
-            let wrapper = shallow(<Input component="span" />);
-            expect(wrapper).to.have.tagName('span');
-        });
-    });
-
-    it('should be an action input', () => {
-        let wrapper = shallow(<Input action />);
-        expect(wrapper).to.have.className('action');
     });
 
     it('should have fluid filling', () => {
@@ -45,53 +40,9 @@ describe('Input', () => {
         expect(wrapper).to.have.className('fluid');
     });
 
-    it('should be in focus', () => {
-        let wrapper = shallow(<Input focus />);
-        expect(wrapper).to.have.className('focus');
-    });
-
-    it('should have content', () => {
-        // console.log('Not currently functioning');
-    });
-
-    // FIXME Either icon prop shouldn't expect string, needs implementation, or it should be removed
-    // it('should have a single icon child', () => {
-    //     let wrapper = shallow(<Input icon="cloud" />);
-    //     expect(wrapper).to.have.exactly(1).descendants(Icon);
-    // });
-
-    it('should receive icon class', () => {
-        let wrapper = shallow(<Input><Icon name="cloud"/></Input>);
-        expect(wrapper).to.have.exactly(1).descendants(Icon);
-        expect(wrapper).to.have.className('icon');
-    });
-
     it('should be noticable on dark backgrounds', () => {
         let wrapper = shallow(<Input inverted />);
         expect(wrapper).to.have.className('inverted');
-    });
-
-    // FIXME Either labeled prop shouldn't expect string, needs implementation, or it should be removed
-    // it('should have a single icon child', () => {
-    //     let wrapper = shallow(<Input labeled="my label" />);
-    //     expect(wrapper).to.have.exactly(1).descendants(Label);
-    // });
-
-    it('should receive labeled class', () => {
-        let wrapper = shallow(<Input><Label /></Input>);
-        expect(wrapper).to.have.exactly(1).descendants(Label);
-        expect(wrapper).to.have.className('labeled');
-    });
-
-    // Hidden button feature
-    it('should render a button', () => {
-        let wrapper = shallow(<Input><Button /></Input>);
-        expect(wrapper).to.have.exactly(1).descendants(Button);
-    });
-
-    it('should have a name', () => {
-        let wrapper = shallow(<Input name="test" />);
-        expect(wrapper.find('input').first()).to.have.prop('name', 'test');
     });
 
     it('should have a placeholder', () => {
@@ -116,17 +67,130 @@ describe('Input', () => {
             expect(wrapper).to.have.className('disabled');
         });
 
-        it('has a loading state', () => {
-            let wrapper = shallow(<Input loading />);
-            expect(wrapper).to.have.className('loading');
+        describe('has a loding state', () => {
+            it('has a loading state', () => {
+                let wrapper = shallow(<Input state="loading" />);
+                expect(wrapper).to.have.className('loading');
+            });
+            
+            it('Adds an icon class to the input', () => {
+                let wrapper = shallow(<Input state="loading" />);
+                expect(wrapper).to.have.className('icon');
+            });
+            
+            it('Renders loading icon inside', () => {
+                let wrapper = shallow(<Input state="loading" />);
+                expect(wrapper.find(Icon)).to.be.exist;
+                expect(wrapper.find(Icon)).to.have.prop('name', 'search');
+            });
+            
+            it('Renders always search icon regardless of current icon', () => {
+                let wrapper = shallow(<Input icon="cloud" state="loading" />);
+                expect(wrapper.find(Icon).length).to.equal(1);
+                expect(wrapper.find(Icon)).to.have.prop('name', 'search');
+            });
         });
+        
+        it('has a focus state', () => {
+            let wrapper = shallow(<Input state="focus" />);
+            expect(wrapper).to.have.className('focus');
+        })
     });
 
-    it('should be transparent', () => {
+    it('may be transparent', () => {
         let wrapper = shallow(<Input transparent />);
         expect(wrapper).to.have.className('transparent');
     });
-
-    itShouldConsumeOwnAndPassCustomProps(Input, consumedProps);
+    
+    describe('Can be action input', () => {
+        it('Right action position by default', () => {
+            let wrapper = shallow(<Input actionComponent={() => <Button>Test</Button>} />);
+            expect(wrapper).to.have.className('right action');
+            expect(wrapper.children().at(1).shallow().is(Button)).to.be.true;
+        });
+        
+        it('Could be specified', () => {
+            let wrapper = shallow(<Input actionComponent={() => <Button>Test</Button>} actionPosition="left" />);
+            expect(wrapper).to.have.className('left action');
+            expect(wrapper.children().at(0).shallow().is(Button)).to.be.true;
+        });
+    });
+    
+    describe('Can be input with icon inside', () => {
+        it('Places icon at the right by default', () => {
+            let wrapper = shallow(<Input icon="cloud" />);
+            expect(wrapper).to.have.className('right icon');
+            expect(wrapper.find(Icon)).to.be.exist;
+            expect(wrapper.find(Icon)).to.have.prop('name', 'cloud');
+        });
+        
+        it('Could place icon on the left side', () => {
+            let wrapper = shallow(<Input icon="cloud" iconPosition="left" />);
+            expect(wrapper).to.have.className('left icon');
+            expect(wrapper.find(Icon)).to.be.exist;
+            expect(wrapper.find(Icon)).to.have.prop('name', 'cloud');
+        });
+        
+        it('Allows to specify custom icon component', () => {
+            let wrapper = shallow(
+                <Input icon="cloud" 
+                       iconComponent={() => <Icon size="big" circular name="cloud"/>} 
+                       iconPosition="left" />
+            );
+            expect(wrapper).to.have.className('left icon');
+            expect(wrapper.find('iconComponent')).to.be.exist;
+            expect(wrapper.find('iconComponent').shallow()).to.have.prop('circular', true);
+            expect(wrapper.find('iconComponent').shallow()).to.have.prop('size', 'big');
+        });
+    });
+    
+    describe('Can be input with label', () => {
+        it('Places label at left side by default', () => {
+            let wrapper = shallow(<Input label="Test" />);
+            expect(wrapper).to.have.className('left labeled');
+            expect(wrapper.find(Label)).to.be.exist;
+            expect(wrapper.children().at(0).is(Label)).to.be.true;
+        });
+        
+        it('Can specify label position', () => {
+            let wrapper = shallow(<Input label="Test" labelPosition="right" />);
+            expect(wrapper).to.have.className('right labeled');
+            expect(wrapper.find(Label)).to.be.exist;
+            expect(wrapper.children().at(1).is(Label)).to.be.true;
+        });
+        
+        it('Can use left corner label', () => {
+            let wrapper = shallow(<Input label="Test" labelPosition="left corner" />);
+            expect(wrapper).to.have.className('left corner labeled');
+            expect(wrapper.find(Label)).to.be.exist;
+            expect(wrapper.children().at(0).is(Label)).to.be.true;
+            expect(wrapper.find(Label)).to.have.prop('corner', 'left');
+        });
+        
+        it('Can use right corner label', () => {
+            let wrapper = shallow(<Input label="Test" labelPosition="right corner" />);
+            expect(wrapper).to.have.className('right corner labeled');
+            expect(wrapper.find(Label)).to.be.exist;
+            expect(wrapper.children().at(1).is(Label)).to.be.true;
+            expect(wrapper.find(Label)).to.have.prop('corner', 'right');
+        });
+        
+        it('Allows to use custom label component', () => {
+            let wrapper = shallow(<Input label="Test"
+                                         labelComponent={({ children }) => <Label tag>{children}</Label>}
+                                         labelPosition="right" />);
+            expect(wrapper).to.have.className('right labeled');
+            expect(wrapper.children().at(1).shallow().is(Label)).to.be.true;
+            expect(wrapper.children().at(1).shallow()).to.have.prop('tag', true);
+        });
+    });
+    
+    it('passes standard props to input', () => {
+        let wrapper = shallow(<Input value="test" type="password"/>);
+        expect(wrapper.find('input')).to.have.prop('value', 'test');
+        expect(wrapper.find('input')).to.have.prop('type', 'password');
+    });
+    
+    itShouldConsumeOwnAndPassCustomProps(Input, consumedProps, false);
 
 });

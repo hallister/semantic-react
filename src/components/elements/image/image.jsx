@@ -1,125 +1,141 @@
 import React from 'react';
+import elementType from 'react-prop-types/lib/elementType';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
-let validProps = {
+const validProps = {
     aligned: ['top', 'middle', 'bottom'],
     floated: ['right', 'left'],
     spaced: ['right', 'left']
-    // No 'size' here to avoid validateClassProps() picking it up and adding classes
 };
 
-// can't do SVG since JSX/React breaks on SVG images
-export default class Image extends React.Component {
-    static propTypes = {
-        aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
-        avatar: React.PropTypes.bool,
-        bordered: React.PropTypes.bool,
-        centered: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        className: React.PropTypes.node,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        content: React.PropTypes.bool,
-        defaultClasses: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
-        floated: React.PropTypes.oneOf(['right', 'left']),
-        fluid: React.PropTypes.bool,
-        shape: React.PropTypes.oneOf(['circular', 'rounded']),
-        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
-        spaced: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['right', 'left']),
-            React.PropTypes.bool
-        ]),
-        src: React.PropTypes.string.isRequired,
-        visible: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['hidden', 'visible']),
-            React.PropTypes.bool
-        ])
+function getClasses(props, context) {
+    let classes = {
+        // Do not set ui class if image is items child, but set anyway is items child and should has size prop
+        ui: props.defaultClasses && (!context.isItemsChild || (context.isItemsChild && props.size)),
+        image: props.defaultClasses,
+        
+        // variations
+        aligned: props.aligned,
+        avatar: props.avatar,
+        bordered: props.bordered,
+        centered: props.centered,
+        circular: props.shape === 'circular',
+        floated: props.floated,
+        fluid: props.fluid,
+        rounded: props.shape === 'rounded',
+        spaced: props.spaced
     };
-
-    // we don't want the ui in these circumstances
-    static contextTypes = {
-        isLabelChild: React.PropTypes.bool,
-        isCommentsChild: React.PropTypes.bool
-    };
-
-    static defaultProps = {
-        defaultClasses: true
-    };
-
-    renderComponent(other) {
-        let imageDiv = (
-            <img
-                key="image"
-                src={this.props.src} />
-        );
-
-        return React.createElement(
-            this.props.component || 'div',
-            other,
-            [this.props.children, imageDiv]
-        );
-    }
-
-    renderImg(other) {
-        return (
-            <img src={this.props.src}
-                {...other} />
-        );
-    }
-
-    render() {
-        /* eslint-disable no-use-before-define */
-        let { aligned, avatar, bordered, centered, children, className,
-              component, content, defaultClasses, disabled, floated, fluid,
-              shape, size, spaced, src, visible, ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-
-        other.className = classNames(this.props.className, this.getClasses());
-
-        // if a custom tag or a child is passed, it will always render
-        // a custom tag/div
-        return React.Children.count(this.props.children) > 0 || this.props.component || this.props.avatar
-             ? this.renderComponent(other)
-             : this.renderImg(other);
-    }
-
-    getClasses() {
-        let classes = {
-            // default
-            // is there a use-case for an image to be content and still have the ui/image classes?
-            ui: this.props.defaultClasses && !this.props.content,
-
-            // types
-            content: this.props.content,
-
-            // states
-            disabled: this.props.disabled,
-            hidden: this.props.visible === 'hidden' || this.props.visible === false,
-            visible: this.props.visible === 'visible' || this.props.visible === true,
-
-            // variations
-            aligned: this.props.aligned,
-            avatar: this.props.avatar,
-            bordered: this.props.bordered,
-            centered: this.props.centered,
-            circular: this.props.shape === 'circular',
-            floated: this.props.floated,
-            fluid: this.props.fluid,
-            rounded: this.props.shape === 'rounded',
-            spaced: this.props.spaced,
-
-            // component
-            image: this.props.defaultClasses && !this.props.content && this.context.isCommentsChild !== true
-
-        };
-
-        // string types
-        classes[this.props.size] = !!this.props.size;
-
-        return validateClassProps(classes, this.props, validProps);
-    }
+    
+    classes[props.state] = !!props.state;
+    classes[props.size] = !!props.size;
+    
+    return validateClassProps(classes, props, validProps);
 }
+
+/**
+ * Return true if image should be forced wrapped into div
+ * @param context
+ * @returns {boolean}
+ */
+function shouldWrapIntoDiv(context) {
+    return (context.isCommentsChild || context.isItemsChild);
+}
+
+/**
+ * Just an image
+ */
+let Image = (props, context) => {
+    const { 
+        component, children, defaultClasses, aligned, avatar, bordered, centered,
+        fluid, floated, size, spaced, src, state, shape, wrapComponent, ...other
+    } = props;
+    
+    other.className = classNames(other.className, getClasses(props, context));
+    let ImageComponent = component;
+    if (shouldWrapIntoDiv(context) || wrapComponent) {
+        const WrapComponent = (typeof wrapComponent === 'undefined' || typeof wrapComponent === 'boolean') ? 'div' : wrapComponent;
+        return (
+            <WrapComponent {...other}>
+                <ImageComponent src={src}>{children}</ImageComponent>
+            </WrapComponent>
+        );
+    } else {
+        return (
+            <ImageComponent {...other} src={src}>{children}</ImageComponent>
+        );
+    }
+};
+
+Image.propTypes = {
+    ...DefaultProps.propTypes,
+    /**
+     * An image can specify its vertical alignment
+     */
+    aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
+    /**
+     * An image may be formatted to appear inline with text as an avatar
+     */
+    avatar: React.PropTypes.bool,
+    /**
+     * An image may include a border to emphasize the edges of white or transparent content
+     */
+    bordered: React.PropTypes.bool,
+    /**
+     * An image can appear centered in a content block
+     */
+    centered: React.PropTypes.bool,
+    /**
+     * An image can take up the width of its container
+     */
+    fluid: React.PropTypes.bool,
+    /**
+     * An image can sit to the left or right of other content
+     */
+    floated: React.PropTypes.oneOf(['right', 'left']),
+    /**
+     * An image may appear at different sizes 
+     */
+    size: React.PropTypes.string,
+    /**
+     * An image can specify that it needs an additional spacing to separate it from nearby content
+     */
+    spaced: React.PropTypes.oneOfType([
+        React.PropTypes.oneOf(['right', 'left']),
+        React.PropTypes.bool
+    ]),
+    /**
+     * Image src
+     */
+    src: React.PropTypes.string.isRequired,
+    /**
+     * Image shape
+     */
+    shape: React.PropTypes.oneOf(['circular', 'rounded']),
+    /**
+     * Image state, could be disabled or hidden
+     */
+    state: React.PropTypes.oneOf(['disabled', 'visible', 'hidden']),
+    /**
+     * Wrap image component under other component, for example <a/> or <div/>
+     * In this case this component will receive image classes instead
+     */
+    wrapComponent: React.PropTypes.oneOfType([
+        React.PropTypes.bool,
+        elementType
+    ])
+};
+
+Image.defaultProps = {
+    ...DefaultProps.defaultProps,
+    component: 'img',
+    wrapComponent: false
+};
+
+Image.contextTypes = {
+    isCommentsChild: React.PropTypes.bool, // Image in Comment should be wrapper into <div/>
+    isItemsChild: React.PropTypes.bool // Image in Items should be wrapped into <div/>
+};
+
+export default Image;
