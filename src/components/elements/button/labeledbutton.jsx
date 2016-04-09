@@ -31,8 +31,6 @@ function getClasses(props) {
 
 /**
  * Labeled button renders button with label, either text label or icon
- * @param props
- * @constructor
  */
 let LabeledButton = (props) => {
     const { children, labeled, labelType, label, labelComponent, ...other } = props;
