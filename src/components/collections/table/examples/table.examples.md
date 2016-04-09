@@ -10,9 +10,6 @@ A standard table
 
 #### Celled
 
-    const { Table, Tr, Td } = require('../../collections');
-    const { Label, Icon } = require('../../elements');
-    const { Menu, Item } = require('../../views');
     <Table celled>
         <thead>
         <Tr>
@@ -56,9 +53,6 @@ A standard table
 
 #### Padded
 
-    const { Table, Tr, Td } = require('../../collections');
-    const { Header } = require('../../elements');
-    const { Rating } = require('../../modules');
     <Table celled padded>
         <thead>
         <Tr>
@@ -89,8 +83,6 @@ A standard table
 
 #### Basic
 
-    const { Table, Tr, Td } = require('../../collections');
-    const { Header, Image, Content, SubHeader } = require('../../elements');
     <Table celled collapsing basic="very">
         <thead>
         <Tr>
@@ -160,8 +152,6 @@ A standard table
 
 #### Striped
 
-    const { Table, Tr, Td } = require('../../collections');
-    const { Icon } = require('../../elements');
     <Table celled striped>
         <thead>
         <Tr>
@@ -216,7 +206,6 @@ A standard table
 A table may be formatted to emphasize a first column that defines a rows content
 * Definition tables are designed to display on a single background color. You can adjust this by changing `@definitionPageBackground`, or specifying a background color on the first cell
 
-    const { Table, Tr, Td } = require('../../collections');
     <Table definition>
         <thead>
         <Tr>
@@ -241,9 +230,6 @@ A table may be formatted to emphasize a first column that defines a rows content
 
 #### Celled & compact
 
-    const { Table, Tr, Td } = require('../../collections');
-    const { IconButton } = require('../../elements');
-    const { Checkbox } = require('../../modules');
     <Table definition celled compact>
         <thead>
         <Tr>

@@ -48,7 +48,6 @@
 
 ## You can override menu or dropdown with custom menu or component
 
-    const {IconButton} = require('../../elements');
     const MyDropdownButton = (props) => {
         return <IconButton name="cloud" {...props} />
     }

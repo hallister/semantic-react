@@ -18,7 +18,6 @@ Select is the dropdown with ability to select one or few values
 
 ### Option could contain other markup
 
-    const Icon = require('../../elements').Icon;
     'values' in state || setState({values: []});
     'active' in state || setState({active: false});
     <Select active={state.active}
@@ -35,7 +34,6 @@ Select is the dropdown with ability to select one or few values
 
 ### Selection with search
 
-    const Flag = require('../../elements').Flag;
     'values' in state || setState({values: []});
     'active' in state || setState({active: false});
     'search' in state || setState({search: ''});
@@ -96,7 +94,6 @@ Select is the dropdown with ability to select one or few values
 
 ### Multiple search selection
 
-    const {Flag} = require('../../elements');
     class MySelection extends React.Component {
         constructor(props) {
             super(props);
@@ -142,7 +139,6 @@ Select is the dropdown with ability to select one or few values
 ## Dropdown could be used with custom component (Mainly with buttons):
 simple button
 
-    const Button = require('../../elements').Button;
     <Select floating selection={false} search component={Button} placeholder="Select language">
         <Option value="ab">Fun language</Option>
         <Option value="cd">Very Fun Language</Option>
@@ -150,7 +146,6 @@ simple button
 
 labeled button
 
-    const LabeledButton = require('../../elements').LabeledButton;
     <Select selection={false} floating search component={LabeledButton} icon="world" placeholder="Select language">
         <Option value="ab">Fun language</Option>
         <Option value="cd">Very Fun Language</Option>
@@ -159,9 +154,6 @@ labeled button
 
 ## Search input could be in menu itself
 
-    const LabeledButton = require('../../elements').LabeledButton;
-    const Label = require('../../elements').Label;
-    const Divider = require('../../elements').Divider;
     <Select selection={false} floating search searchPosition="menu" component={LabeledButton} icon="filter" placeholder="Filer">
         <Divider/>
         <Option value="first"><Label circular color="red"/>HEY</Option>
@@ -170,9 +162,6 @@ labeled button
 
 With header
 
-    const LabeledButton = require('../../elements').LabeledButton;
-    const Label = require('../../elements').Label;
-    const Divider = require('../../elements').Divider;
     <div style={{ height: 75 }}>
     <Select selection={false} floating search searchPosition="menu" component={LabeledButton} icon="filter" placeholder="Filer" searchHeader="Search stuff:">
         <Divider/>

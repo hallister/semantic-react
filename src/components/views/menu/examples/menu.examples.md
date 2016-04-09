@@ -50,8 +50,6 @@
 
 ## You can wrap menuitem with custom component as well
 
-    const {Icon} = require('../../elements');
-
     class MyMenuItem extends React.Component {
         render() {
         const {active, children, ...other} = this.props;

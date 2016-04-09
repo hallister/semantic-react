@@ -22,7 +22,6 @@ A divider can segment content vertically
 
 * A vertical divider will automatically swap to a horizontal divider at mobile resolutions when used inside a `stackable grid`
 
-    const { Grid, Column } = require('../../collections');
     <Grid columns={3} relaxed="very" style={{position: "relative"}}>
         <Column>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/>Nam efficitur nibh eget commodo hendrerit. Nulla facilisi. Mauris commodo porttitor dolor.
@@ -42,7 +41,6 @@ A divider can segment content horizontally
 * Horizontal dividers can also be used in combination with [headers](#Header) and [icons](#Icon) to create different styles of dividers.
 * Dividers will automatically vary the size of their dividing rules to match the length of your text
 
-    const { Segment, Input, Icon, IconButton } = require('../../elements');
     <Segment aligned="center" basic>
         <Input left action placeholder="Order #">
             <Icon name="search" left />

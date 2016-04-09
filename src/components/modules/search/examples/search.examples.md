@@ -7,8 +7,6 @@ A Search displays a collections of data grouped into list in popup
 
 #### No icon
     
-    const { Search } = require('../../modules');
-
     'value' in state || setState({value: ''});
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
@@ -38,8 +36,6 @@ A Search displays a collections of data grouped into list in popup
 
 #### List standard
 
-    const { Search } = require('../../modules');
-
     'value' in state || setState({value: ''});
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
@@ -64,8 +60,6 @@ A Search displays a collections of data grouped into list in popup
     />
 
 #### List objects
-
-    const { Search } = require('../../modules');
 
     'value' in state || setState({value: ''});
     <Search 
@@ -97,8 +91,6 @@ A Search displays a collections of data grouped into list in popup
 
 #### Object lists
 
-    const { Search } = require('../../modules');
-
     'value' in state || setState({value: ''});
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
@@ -115,8 +107,6 @@ A Search displays a collections of data grouped into list in popup
 ---
 
 #### Loading
-
-    const { Search } = require('../../modules');
 
     'value' in state || setState({value: ''});
     <Search 
