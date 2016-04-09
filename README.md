@@ -1,5 +1,8 @@
 # Semantic React
 
+## View current documentation [WIP](http://hallister.github.io/semantic-react/)
+Many components are still undocumented, though they are fully functional
+
 This project is a complete Semantic UI (SUI) to React. Currently, the majority of SUI has been ported to React however, much of the components are still untested. Major issues going forward include testing, documentation and various enhancements.
 
 ## Approach

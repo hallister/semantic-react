@@ -17,7 +17,7 @@
     "test": "karma start --single-run --no-auto-watch karma.config.js",
     "test:watch": "karma start --auto-watch --no-single-run karma.config.js",
     "styleguide-server": "styleguidist server",
-    "styleguide-build": "styleguidist build",
+    "styleguide-build": "styleguidist build --production",
     "postinstall": "npm run lib"
   },
   "keywords": [

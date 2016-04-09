@@ -9,9 +9,126 @@ import * as modules from '../../src/components/modules';
  * Hack to avoid requiring semantic stuff in examples
  */
 export default class SemanticStyleGuide extends StyleGuide {
-    globalizeElements(collection) {
+    globalizeCollections() {
+        window.Field = collections.Field;
+        window.Fields = collections.Fields;
+        window.Form = collections.Form;
+        
+        window.Grid = collections.Grid;
+        window.Row = collections.Row;
+        window.Column = collections.Column;
+        
+        window.Message = collections.Message;
+        
+        window.Table = collections.Table;
+        window.Td = collections.Td;
+        window.Tr = collections.Tr;
+    }
+    
+    globalizeElements() {
+        window.Button = elements.Button;
+        window.Buttons = elements.Buttons;
+        window.IconButton = elements.IconButton;
+        window.LabeledButton = elements.LabeledButton;
+        window.SocialButton = elements.SocialButton;
+        
+        window.Divider = elements.Divider;
+        
+        window.Flag = elements.Flag;
+        
+        window.Header = elements.Header;
+        
+        window.SubHeader = elements.SubHeader;
+        
+        window.Icon = elements.Icon;
+        window.Icons = elements.Icons;
+        
+        window.Image = elements.Image;
+        window.Images = elements.Images;
+        
+        window.Input = elements.Input;
+        
+        window.Label = elements.Label;
+        window.Labels = elements.Labels;
+        window.Detail = elements.Detail;
+        
+        window.List = elements.List;
+        
+        window.Loader = elements.Loader;
+        
+        window.Rail = elements.Rail;
+        
+        window.Reveal = elements.Reveal;
+        
+        window.Segment = elements.Segment;
+        window.Segments = elements.Segments;
+        
+        window.Actions = elements.Actions;
+        window.Author = elements.Author;
+        window.Container = elements.Container;
+        window.Content = elements.Content;
+        // window.Date = elements.Date // conflict with standard Date()
+        window.Description = elements.Description;
+        window.Meta = elements.Meta;
+        window.Summary = elements.Summary;
+        window.Text = elements.Text;
+    }
+    
+    globalizeModules() {
+        window.Accordion = modules.Accordion;
+        window.AccordionBody = modules.AccordionBody;
+        window.AccordionTitle = modules.AccordionTitle;
+        
+        window.Checkbox = modules.Checkbox;
+        window.CheckboxFields = modules.CheckboxFields;
+        
+        window.Dimmer = modules.Dimmer;
+        window.Dimmable = modules.Dimmable;
+        
+        window.DropdownElement = modules.DropdownElement;
+        window.DropdownMenu = modules.DropdownMenu;
+        window.Select = modules.Select;
+        window.Option = modules.Option;
+        
+        window.Modal = modules.Modal;
+        window.ModalBody = modules.ModalBody;
+        
+        window.Popup = modules.Popup;
+        window.Bar = modules.Bar;
+        window.Progress = modules.Progress;
+        
+        window.Rating = modules.Rating;
+        
+        window.Search = modules.Search;
+        
+        window.Tab = modules.Tab;
+        window.TabContent = modules.TabContent;
+        window.Tabs = modules.Tabs;
+        window.TabTitle = modules.TabTitle;
+    }
+    
+    globalizeViews() {
+        window.Card = views.Card;
+        window.Cards = views.Cards;
+        
+        window.Comment = views.Comment;
+        window.Comments = views.Comments;
+        
+        window.Event = views.Event;
+        window.Feed = views.Feed;
+        
+        window.Item = views.Item;
+        window.Items = views.Items;
+        
+        window.Menu = views.Menu;
+        window.MenuItem = views.MenuItem;
+    }
+    
+    // Onfortunately, this wont work for production builds and stateless components, since optimization is stripping function names
+/*    globalizeElements(collection) {
         Object.keys(collection).forEach(function(name) {
             if (typeof collection[name] === 'function') {
+                console.log(collection[name].name);
                 // window[] = collection[name];
                 if (collection[name].name !== 'Date') {
 
@@ -19,13 +136,13 @@ export default class SemanticStyleGuide extends StyleGuide {
                 }
             } 
         });
-    }
+    }*/
     
     globalizeSemantic() {
-        this.globalizeElements(elements);
-        this.globalizeElements(collections);
-        this.globalizeElements(views);
-        this.globalizeElements(modules);
+        this.globalizeCollections();
+        this.globalizeElements();
+        this.globalizeModules();
+        this.globalizeViews();
     }
     
     render() {
