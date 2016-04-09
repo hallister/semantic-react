@@ -18,7 +18,6 @@ let consumedProps = {
     divider: true,
     emphasis: 'block',
     floated: 'right',
-    horizontal: true,
     inverted: true,
     item: true,
     size: 'small'
@@ -102,11 +101,6 @@ describe('Header', () => {
         let wrapper = shallow(<Header color="yellow" />);
         expect(wrapper).to.have.className('yellow');
         expect(wrapper).to.have.not.className('color');
-    });
-
-    it('should be horizontal', () => {
-        let wrapper = shallow(<Header horizontal />);
-        expect(wrapper).to.have.className('horizontal');
     });
 
     it('should be an item when is child of Menu', () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon, Image } from '../../elements';
 import { hasChild, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     aligned: ['right', 'left', 'justified', 'center'],
@@ -11,26 +12,50 @@ let validProps = {
 
 export default class Header extends React.Component {
     static propTypes = {
+        ...DefaultProps.defaultProps,
+        /**
+         * A header can have its text aligned to a side
+         */
         aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
+        /**
+         * A header can be attached to other content, like a segment
+         */
         attached: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['bottom', 'top']),
             React.PropTypes.bool
         ]),
-        children: React.PropTypes.node,
-        className: React.PropTypes.node,
+        /**
+         * A header can be formatted with different colors
+         */
         color: React.PropTypes.string,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
+        /**
+         * A header can show that it is inactive
+         */
         disabled: React.PropTypes.bool,
+        /**
+         * Header may be used as divider
+         */
         divider: React.PropTypes.bool,
+        /**
+         * dividing: can be formatted to divide itself from the content below it
+         * block: can be formatted to appear inside a content block
+         */
         emphasis: React.PropTypes.oneOf(['dividing', 'block']),
+        /**
+         * A header can sit to the left or right of other content
+         */
         floated: React.PropTypes.oneOf(['right', 'left']),
-        horizontal: React.PropTypes.bool,
+        /**
+         * A header can have its colors inverted for contrast
+         */
         inverted: React.PropTypes.bool,
+        /**
+         * May be used as menu item
+         */
         item: React.PropTypes.bool,
+        /**
+         * May have various sizes
+         */
         size: React.PropTypes.string
     };
 
