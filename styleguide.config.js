@@ -31,20 +31,21 @@ module.exports = {
         var dir = path.join(__dirname, 'src', 'components');
         var styleguideComponentsDir = path.join(__dirname, 'src', 'styleguide');
         
-        webpackConfig.module.loaders.push(
-            {
-                test: /\.(jsx|es6)$/,
-                loader: 'babel',
-                include: [
-                    dir,
-                    styleguideComponentsDir
-                ],
-                exclude: /(__tests__|node_modules|examples)/,
-                query: {
-                    presets: ['react-hmre']
-                }
-            }
-        );
+        var babelConfig = {
+            test: /\.(jsx|es6)$/,
+            loader: 'babel',
+            include: [
+                dir,
+                styleguideComponentsDir
+            ],
+            exclude: /(__tests__|node_modules|examples)/,
+        };
+        
+        if (process.env.NODE_ENV !== 'production') {
+            babelConfig.query.presets = ['react-hmre']
+        }
+        
+        webpackConfig.module.loaders.push(babelConfig);
         
         webpackConfig.devtool = 'source-map';
         webpackConfig.resolve.extensions.push('.es6');
