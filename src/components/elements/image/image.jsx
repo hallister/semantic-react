@@ -58,12 +58,12 @@ let Image = (props, context) => {
         const WrapComponent = (typeof wrapComponent === 'undefined' || typeof wrapComponent === 'boolean') ? 'div' : wrapComponent;
         return (
             <WrapComponent {...other}>
-                <ImageComponent src={src}/>
+                <ImageComponent src={src}>{children}</ImageComponent>
             </WrapComponent>
         );
     } else {
         return (
-            <ImageComponent {...other} src={src}/>
+            <ImageComponent {...other} src={src}>{children}</ImageComponent>
         );
     }
 };
