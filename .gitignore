@@ -31,3 +31,4 @@ server.js
 
 # Styleguide (should be commited to gh-pages instead)
 styleguide
+!src/styleguide
