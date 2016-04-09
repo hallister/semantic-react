@@ -13,40 +13,46 @@ let consumedProps = {
     bordered: true,
     centered: true,
     component: 'div',
-    content: true,
     defaultClasses: true,
-    disabled: true,
     fluid: true,
     floated: 'right',
-    src: 'test.png',
     shape: 'circular',
     spaced: 'right',
-    size: 'small',
-    visible: 'hidden'
+    state: 'disabled',
+    size: 'small'
 };
 
 describe('Image', () => {
 
-    it('should expect a src', () => {
-        sinon.test(function() {
-            let spy = sinon.stub(console, 'error');
-            shallow(<Image />);
-            expect(spy).to.have.been.called;
-            spy.restore();
-        });
-    });
-
     describe('should render in the DOM', () => {
-        it('renders as <img>', () => {
+        it('renders as <img> by default', () => {
             let wrapper = shallow(<Image src="test.png" />);
             expect(wrapper).to.have.className('ui image');
             expect(wrapper).to.have.tagName('img');
         });
 
         it('renders as a custom HTML element', () => {
-            let wrapper = shallow(<Image component="div"
+            let wrapper = shallow(<Image component="svg"
                                          src="test.png" />);
-            expect(wrapper).to.have.tagName('div');
+            expect(wrapper).to.have.tagName('svg');
+        });
+        
+        describe('Could be wrapped', () => {
+            it('Wraps under <div> by default', () => {
+                let wrapper = shallow(<Image src="test.png" wrapComponent/>);
+                expect(wrapper).to.have.tagName('div');
+                expect(wrapper).to.have.className('ui image');
+                expect(wrapper.children()).to.have.tagName('img');
+                expect(wrapper.children()).to.have.not.className('ui image');
+            });
+            
+            it('Could specify component to wrap on', () => {
+                let wrapper = shallow(<Image src="test.png" wrapComponent="a"/>);
+                expect(wrapper).to.have.tagName('a');
+                expect(wrapper).to.have.className('ui image');
+                expect(wrapper.children()).to.have.tagName('img');
+                expect(wrapper.children()).to.have.not.className('ui image');
+            });
         });
     });
 
@@ -65,28 +71,24 @@ describe('Image', () => {
     });
 
     describe('should be visible or hidden', () => {
-        it('should be visible when visible=visible', () => {
+        it('should be visible when state=visible', () => {
             let wrapper = shallow(<Image src="test.png"
-                                         visible="visible"/>);
+                                         state="visible"/>);
             expect(wrapper).to.have.className('visible');
         });
 
-        it('should be visible when visible=true', () => {
+        it('should be hidden when state=hidden', () => {
             let wrapper = shallow(<Image src="test.png"
-                                         visible/>);
-            expect(wrapper).to.have.className('visible');
-        });
-
-        it('should be hidden when visible=hidden', () => {
-            let wrapper = shallow(<Image src="test.png"
-                                         visible="hidden"/>);
+                                         state="hidden"/>);
             expect(wrapper).to.have.not.className('visible');
+            expect(wrapper).to.have.className('hidden');
         });
-
-        it('should be hidden when visible=false', () => {
+        
+        it('could be disabled when state=disabled', () => {
             let wrapper = shallow(<Image src="test.png"
-                                         visible={false}/>);
-            expect(wrapper).to.have.not.className('visible');
+                                         state="disabled"/>);
+            expect(wrapper).to.have.className('disabled');
+            
         });
     });
 
@@ -102,16 +104,6 @@ describe('Image', () => {
                                          src="test.png" />);
             expect(wrapper).to.have.className('rounded');
         });
-    });
-
-    it('should have content', () => {
-        // console.log('Not currently functioning');
-    });
-
-    it('should appear disabled', () => {
-        let wrapper = shallow(<Image disabled
-                                     src="test.png" />);
-        expect(wrapper).to.have.className('disabled');
     });
 
     it('should be an avatar', () => {
@@ -177,6 +169,34 @@ describe('Image', () => {
         let wrapper = shallow(<Image bordered
                                      src="test.png" />);
         expect(wrapper).to.have.className('bordered');
+    });
+    
+    describe('It should force wrap image to <div> for specific contexts', () => {
+        it('should wrap when has isCommentsChild in context', () => {
+            let wrapper = shallow(<Image bordered src="test.png" />, { context: { isCommentsChild: true } });
+            expect(wrapper).to.have.tagName('div');
+            expect(wrapper).to.have.className('ui image');
+            expect(wrapper.children()).to.have.tagName('img');
+        });
+        
+        it('should wrap when has isItemsChild in context', () => {
+            let wrapper = shallow(<Image bordered src="test.png" />, { context: { isItemsChild: true } });
+            expect(wrapper).to.have.tagName('div');
+            expect(wrapper.children()).to.have.tagName('img');
+        });
+    });
+    
+    describe('When child of group of Items', () => {
+        it('shouldn\'t add ui class to image', () => {
+            let wrapper = shallow(<Image bordered src="test.png" />, { context: { isItemsChild: true } });
+            expect(wrapper).to.have.not.className('ui');
+            expect(wrapper).to.have.className('image');
+        });
+        
+        it('should add ui class if image has size prop', () => {
+            let wrapper = shallow(<Image bordered src="test.png" size="small"/>, { context: { isItemsChild: true } });
+            expect(wrapper).to.have.className('ui image');
+        });
     });
 
     itShouldConsumeOwnAndPassCustomProps(Image, consumedProps);
