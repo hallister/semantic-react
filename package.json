@@ -20,6 +20,7 @@
     "styleguide-build": "styleguidist build --production",
     "postinstall": "npm run lib"
   },
+  "typings": "./index.d.ts",
   "keywords": [
     "react",
     "semantic",
