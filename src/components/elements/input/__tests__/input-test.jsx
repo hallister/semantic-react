@@ -24,7 +24,7 @@ let consumedProps = {
     value: 'test'
 };
 
-describe.only('Input', () => {
+describe('Input', () => {
     
     describe('should render in the DOM', () => {
         it('renders as div with <input> inside', () => {

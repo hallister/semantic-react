@@ -1,50 +1,66 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Icon } from '../../elements';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
+import elementType from 'react-prop-types/lib/elementType';
 
-export default class AccordionTitle extends Component {
-    static propTypes = {
-        active: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        className: React.PropTypes.node,
-        defaultClasses: React.PropTypes.bool,
-        icon: React.PropTypes.bool,
-        onClick: React.PropTypes.func
+/**
+ * Title element for Accordion
+ */
+let AccordionTitle = (props) => {
+    const {
+        component, children, defaultClasses, active, icon, iconComponent, index, initialStyle, onClick, ...other
+    } = props;
+    const Component = component;
+    const IconComponent = iconComponent || Icon;
+    
+    other.className = classNames(other.className, {
+        title: defaultClasses,
+        active: active
+    });
+    // Set style to initial style, just style will contain animating values, we don't want animate the title
+    return (
+        <Component {...other} onClick={onClick} style={initialStyle}>
+            <IconComponent name={icon}/>
+            {children}
+        </Component>
+    );
+};
 
-    };
+AccordionTitle.propTypes = {
+    ...DefaultProps.propTypes,
+    /**
+     * True for active (visible) accordion section. This is being set by Accordion itself
+     */
+    active: React.PropTypes.bool,
+    /**
+     * Icon name
+     */
+    icon: React.PropTypes.string,
+    /**
+     * Allows to override icon component
+     */
+    iconComponent: elementType,
+    /**
+     * Initial style. Shouldn't be set directly, it's being passed by Accordion component,
+     * since we don't want to animate titles
+     */
+    initialStyle: React.PropTypes.object,
+    /**
+     * Accordion index. Used by Accordion component to control which content should be hidden/displayed
+     */
+    index: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]).isRequired,
+    /**
+     * Click handler. Being set by Accordion
+     */
+    onClick: React.PropTypes.func
+    
+};
 
-    static defaultProps = {
-        defaultClasses: true,
-        icon: 'dropdown'
-    };
+AccordionTitle.defaultProps = {
+    ...DefaultProps.defaultProps,
+    active: false,
+    icon: 'dropdown'
+};
 
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        let classes = {
-            // default
-
-            // positioning
-
-            // types
-
-            // variations
-            active: this.props.active,
-
-            // component
-            title: this.props.defaultClasses
-        };
-
-        return (
-            <div 
-                className={classNames(this.props.className, classes)} 
-                onClick={this.props.onClick}
-            >
-                <Icon name={this.props.icon} />
-                {this.props.children}
-            </div>
-        )
-    }
-}
+export default AccordionTitle;
