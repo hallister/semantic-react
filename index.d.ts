@@ -1,10 +1,5 @@
-import * as React from "react";
-/**
- * Standard React html attributes interface. The default one has some overlapping with semantic specifics,
- * so duplicating here, unfortunately
- */
-
-namespace SemanticReact {
+declare module "semantic-react" {
+    import * as React from "react";
 
     export interface BaseProps<T> extends React.DOMAttributes, React.Props<any> {
         /**
@@ -36,29 +31,64 @@ namespace SemanticReact {
 
 // <Label />
     export interface LabelProps extends BaseProps<Label> {
+    /**
+     * A label can attach to a content segment
+     */
         attached?: PositionType;
+    /**
+     * A label can reduce its complexity
+     */
         basic?: boolean;
+    /**
+     * A label can be circular
+     */
         circular?: boolean;
+    /**
+     * A label can have different colors
+     */
         color?: ColorType;
-        /**
-         * @default false
-         */
+    /**
+     * A label can position itself in the corner of an element
+     * @default false
+     */
         corner?: "left" | "right" | boolean;
+    /**
+     * Empty label
+     */
+        empty?: boolean;
+    /**
+     * A label can float above another element
+     */
         floating?: boolean;
-        image?: boolean;
-        label?: string | boolean;
-        left?: boolean;
+    /**
+     * A horizontal label is formatted to label content along-side it horizontally
+     */
+        horizontal?: boolean;
+    /**
+     * Add image to the label
+     */
+        image?: string;
+    /**
+     * Format label as link (uses <a> tag)
+     */
         link?: boolean;
         /**
+         * A label can point to content next to it
          * @default false
          */
         pointing?: "below" | "left" | "right" | boolean;
-        /**
-         * @default false
-         */
+    /**
+     * A label can appear as a ribbon attaching itself to an element.
+     * @default false
+     */
         ribbon?: "right" | boolean;
-        right?: boolean;
-        size?: number | SizeType;
+    /**
+     * A label can be small or large
+     */
+        size?: SizeType;
+    /**
+     * A label can appear as a tag
+     */
         tag?: boolean;
     }
     export class Label extends React.Component<LabelProps, any> {
@@ -72,9 +102,21 @@ namespace SemanticReact {
 
 // <Labels />
     export interface LabelsProps extends BaseProps<Labels> {
+    /**
+     * Labels can share shapes 
+     */
         circular?: boolean;
+    /**
+     * Labels can share colors together
+     */
         color?: ColorType;
+    /**
+     * Labels can share sizes together
+     */
         size?: SizeType;
+    /**
+     * Labels can share tag formatting
+     */
         tag?: boolean;
     }
     export class Labels extends React.Component<LabelsProps, any> {
@@ -84,7 +126,7 @@ namespace SemanticReact {
         /**
          * Adds a fade or slide animation on hover.
          */
-        animate?: "fade" | "vertical" | boolean;
+        animated?: "fade" | "vertical" | boolean;
         /**
          * It's attached to some other attachable component.
          */
@@ -105,6 +147,10 @@ namespace SemanticReact {
          * Reduces the padding on the component.
          */
         compact?: boolean;
+    /**
+     * A button can be formatted to show different levels of emphasis
+     */
+        emphasis?: "primary" | "secondary" | "positive" | "negative" | string;
         /**
          * Forces to component to float left or right.
          */
@@ -114,33 +160,21 @@ namespace SemanticReact {
          */
         fluid?: boolean;
         /**
-         * Overrides default behavior and adds the icon class to the component.
-         */
-        icon?: boolean;
-        /**
          * Styles the component for a dark background.
          */
         inverted?: boolean;
-        /**
-         * Defines whether the label is to the right or left of the component (LabeledButton).
-         */
-        labeled?: "right" | "left" | boolean;
-        /**
-         * Displays a loading indicator on the component.
-         */
-        loading?: boolean;
         /**
          * Adds a SemanticUI size class.
          */
         size?: SizeType;
         /**
-         * Adds a SemanticUI social class (SocialButton).
-         */
-        social?: string;
-        /**
          * Indicates whether the button is currently highlighted or disabled.
          */
-        state?: "active" | "disabled";
+        state?: "active" | "disabled" | "loading" | string;
+    /**
+     * A button can be formatted to toggle on and off
+     */
+        toggle?: boolean;
     }
     export class Button extends React.Component<ButtonProps, any> {
     }
@@ -170,19 +204,11 @@ namespace SemanticReact {
         /**
          * Forces to component to float left or right.
          */
-        floated?: boolean;
-        /**
-         * Overrides default behavior and adds the icon class to the component.
-         */
-        icon?: boolean;
+        floated?: "left" | "right" | string;
         /**
          * Styles the component for a dark background.
          */
         inverted?: boolean;
-        /**
-         * Overrides default behavior and adds the labeled class to the component.
-         */
-        labeled?: boolean;
         /**
          * Adds a SemanticUI size class.
          */
@@ -210,24 +236,25 @@ namespace SemanticReact {
     }
 
 // <LabeledButton />
-    export interface LabeledButtonProps extends BaseProps<LabeledButton> {
-        active?: boolean;
-        basic?: boolean;
-        circular?: boolean;
-        color?: ColorType;
-        compact?: boolean;
-        disabled?: boolean;
-        fluid?: boolean;
-        icon?: boolean;
-        inverted?: boolean;
-        labeled?: string|boolean;
-        loading?: boolean;
-        negative?: boolean;
-        positive?: boolean;
-        primary?: boolean;
-        secondary?: boolean;
-        size?: SizeType;
-        social?: boolean;
+    export interface LabeledButtonProps extends ButtonProps {
+    /**
+     * Label position, default to right
+     * @default "right"
+     */
+        labeled?: "left" | "right" | string;
+    /**
+     * Type of label, could be text label or icon
+     * @default "text"
+     */
+        labelType?: "text" | "icon" | string;
+    /**
+     * Label, if given string will be used as label text or icon name (if labelType is icon).
+     */
+        label: string;
+    /**
+     * Label component. Default will be Icon for labelType icon and Label for labelType label
+     */
+        labelComponent?: any;
     }
     export class LabeledButton extends React.Component<LabeledButtonProps, any> {
     }
@@ -236,18 +263,36 @@ namespace SemanticReact {
         /**
          * Adds a SemanticUI name class to the icon.
          */
-        name?: string;
+        name: string;
     }
     export class SocialButton extends React.Component<SocialButtonProps, any> {
     }
 
 // <Divider />
     export interface DividerProps extends BaseProps<Divider> {
+    /**
+     * Content segment vertically or horizontally
+     */
         aligned?: "horizontal" | "vertical";
+    /**
+     * A divider can clear the contents above it
+     */
         clearing?: boolean;
+    /**
+     * Formats divider as header-like (taking less space and don't capitalize content)
+     */
         header?: boolean;
+    /**
+     * A hidden divider divides content without creating a dividing line
+     */
         hidden?: boolean;
+    /**
+     * A divider can have its colors inverted
+     */
         inverted?: boolean;
+    /**
+     * Divider spacing
+     */
         spacing?: "fitted" | "padded";
     }
     export class Divider extends React.Component<DividerProps, any> {
@@ -265,22 +310,52 @@ namespace SemanticReact {
 
 // <Header />
     export interface HeaderProps extends BaseProps<Header> {
+        /**
+         * A header can have its text aligned to a side
+         */
         aligned?: "right" | "left" | "justified" | "center";
+        /**
+         * A header can be attached to other content, like a segment
+         */
         attached?: "bottom" | "top" | boolean;
+        /**
+         * A header can be formatted with different colors
+         */
         color?: ColorType;
+        /**
+         * A header can show that it is inactive
+         */
         disabled?: boolean;
+        /**
+         * Header may be used as divider
+         */
         divider?: boolean;
+        /**
+         * dividing: can be formatted to divide itself from the content below it
+         * block: can be formatted to appear inside a content block
+         */
         emphasis?: "dividing" | "block";
+        /**
+         * A header can sit to the left or right of other content
+         */
         floated?: "right" | "left";
-        horizontal?: boolean;
+        /**
+         * A header can have its colors inverted for contrast
+         */
         inverted?: boolean;
+        /**
+         * May be used as menu item
+         */
         item?: boolean;
+        /**
+         * May have various sizes
+         */
         size?: SizeType;
     }
     export class Header extends React.Component<HeaderProps, any> {
     }
 // <SubHeader />
-    export interface SubHeaderProps extends BaseProps<SubHeader> {
+    export interface SubHeaderProps extends HeaderProps {
     }
     export class SubHeader extends React.Component<SubHeaderProps, any> {
     }
@@ -288,37 +363,62 @@ namespace SemanticReact {
 
 // <Icon />
     export interface IconProps extends BaseProps<Icon> {
+    /**
+     * An icon can be formatted to appear bordered
+     */
         bordered?: boolean;
+    /**
+     * An icon can be formatted to appear circular
+     */
         circular?: boolean;
+    /**
+     * An icon can be formatted with different colors
+     */
         color?: ColorType;
+    /**
+     * Render as corner icon if used in <Icons/>
+     */
         corner?: boolean;
-        disabled?: boolean;
+    /**
+     * Icon could be disabled or used as simple loader
+     */
+        state?: "disabled" | "loading";
+    /**
+     * An icon can be fitted, without any space to the left or right of it.
+     */
         fitted?: boolean;
+    /**
+     * An icon can be flipped
+     */
         flipped?: "horizontally" | "vertically";
+    /**
+     * An icon can have its colors inverted for contrast
+     */
         inverted?: boolean;
+    /**
+     * Could be formatted as link
+     */
         link?: boolean;
-        loading?: boolean;
+    /**
+     * Icon name
+     */
         name?: string;
-        pointing?: "down" | "left" | "right" | "up";
+    /**
+     * An icon can be rotated
+     */
         rotated?: "clockwise" | "counterclockwise";
+    /**
+     * Icon size
+     */
         size?: SizeType;
     }
     export class Icon extends React.Component<IconProps, any> {
     }
 
     export interface IconsProps extends BaseProps<Icons> {
-        bordered?: boolean;
-        circular?: boolean;
-        color?: ColorType;
-        disabled?: boolean;
-        fitted?: boolean;
-        flipped?: "horizontally" | "vertically";
-        inverted?: boolean;
-        left?: boolean;
-        link?: boolean;
-        loading?: boolean;
-        right?: boolean;
-        rotated?: "clockwise" | "counterclockwise";
+    /**
+     * Size of icon group
+     */
         size?: SizeType;
     }
     export class Icons extends React.Component<IconsProps, any> {
@@ -326,30 +426,66 @@ namespace SemanticReact {
 
 // <Image />
     export interface ImageProps extends BaseProps<Image> {
+    /**
+     * An image can specify its vertical alignment
+     */
         aligned?: "top" | "middle" | "bottom";
+    /**
+     * An image may be formatted to appear inline with text as an avatar
+     */
         avatar?: boolean;
+    /**
+     * An image may include a border to emphasize the edges of white or transparent content
+     */
         bordered?: boolean;
+    /**
+     * An image can appear centered in a content block
+     */
         centered?: boolean;
-        content?: boolean;
-        disabled?: boolean;
+    /**
+     * An image can take up the width of its container
+     */
+        fluid?: boolean;
+    /**
+     * An image can sit to the left or right of other content
+     */
         floated?: "right"| "left";
-        shape?: "circular" | "rounded";
+    /**
+     * An image may appear at different sizes 
+     */
         size?: SizeType;
+    /**
+     * An image can specify that it needs an additional spacing to separate it from nearby content
+     */
         spaced?: "right" | "left" | boolean;
+    /**
+     * Image src
+     */
         src: string;
-        visible?: "hidden" | "visible" | boolean;
+    /**
+     * Image shape
+     */
+        shape?: "circular" | "rounded";
+    /**
+     * Image state, could be disabled or hidden
+     */
+        state?: "disabled" | "hidden" | "visible";
+    /**
+     * Wrap image component under other component, for example <a/> or <div/>
+     * In this case this component will receive image classes instead
+     * @default false
+     */
+        wrapComponent?: boolean | any;
     }
     export class Image extends React.Component<ImageProps, any> {
     }
 
 // <Images />
     export interface ImagesProps extends BaseProps<Images> {
-        avatar?: boolean;
-        bordered?: boolean;
-        disabled?: boolean;
-        shape?: "circular" | "rounded";
+    /**
+     * Images size
+     */
         size?: SizeType;
-        visible?: "hidden" | "visible" | boolean;
     }
     export class Images extends React.Component<ImagesProps, any> {
     }
@@ -357,19 +493,66 @@ namespace SemanticReact {
 
 // <Input />
     export interface InputProps extends BaseProps<Input> {
-        action?: boolean;
+    /**
+     * Action component
+     */
+        actionComponent?: any;
+    /**
+     * Action position
+     */
+        actionPosition?: "left" | "right";
+    /**
+     * An input can take the size of its container
+     */
         fluid?: boolean;
-        focus?: boolean;
-        icon?: string | boolean;
+    /**
+     * Render icon
+     */
+        icon?: string;
+    /**
+     * Icon position
+     */
+        iconPosition?: "left" | "right";
+    /**
+     * Pass custom icon component
+     */
+        iconComponent?: any;
+    /**
+     * Inverted input
+     */
         inverted?: boolean;
-        labeled?: string | boolean;
-        loading?: boolean;
-        name?: string;
+    /**
+     * Render label for input
+     */
+        label?: string;
+    /**
+     * Pass custom label component
+     */
+        labelComponent?: any;
+    /**
+     * Label position
+     */
+        labelPosition: "left" | "right" | "left corner" | "right corner";
+    /**
+     * Input placeholder
+     */
         placeholder?: string;
+    /**
+     * Input size
+     */
         size?: SizeType;
-        state?: "disabled" | "error";
+    /**
+     * Input state
+     */
+        state?: "focus" | "loading" | "disabled" | "error";
+    /**
+     * Render transparent input
+     */
         transparent?: boolean;
-        type?: string;
+    /**
+     * Input value
+     */
+        value?: string;
     }
     export class Input extends React.Component<InputProps, any> {
     }
@@ -1192,6 +1375,64 @@ namespace SemanticReact {
     }
     export class Popup extends React.Component<PopupProps, any> {
     }
+    
+    // <AccordionTitle />
+    export interface AccordionTitleProps extends BaseProps<AccordionTitle> {
+    /**
+     * True for active (visible) accordion section. This is being set by Accordion itself
+     */
+        active?: boolean;
+    /**
+     * Icon name
+     */
+        icon?: string;
+    /**
+     * Allows to override icon component
+     */
+        iconComponent?: any;
+    /**
+     * Accordion index. Used by Accordion component to control which content should be hidden/displayed
+     */
+        index: number | string;
+    }
+    export class AccordionTitle extends React.Component<AccordionTitleProps, any> { }
+    
+    // <AccordionBody />
+    export interface AccordionBodyProps extends BaseProps<AccordionBody> {
+    /**
+     * True for active (visible) accordion section. This is being set by Accordion itself
+     */
+        active?: boolean;
+    }
+    export class AccordionBody extends React.Component<AccordionBodyProps, any> { }
+    
+    // <Accordion />
+    export interface AccordionProps extends BaseProps<Accordion> {
+        /**
+         * Current visible content. Strings and numbers are accepted
+         */
+        activeIndexes?: number[] | string[];
+        /**
+         * Fluid accordion
+         */
+        fluid?: boolean;
+        /**
+         * An accordion can be formatted to appear on dark backgrounds
+         */
+        inverted?: boolean;
+        /**
+         * A styled accordion adds basic formatting
+         */
+        styled?: boolean;
+        /**
+         * Callback when accordion wants to be changed
+         */
+        onAccordionChange: (index: number | string) => void;
+    }
+    export class Accordion extends React.Component<AccordionProps, any> { }
 }
 
-export = SemanticReact;
+declare module "semantic-react/radium" {
+    export * from "semantic-react";
+}
+
