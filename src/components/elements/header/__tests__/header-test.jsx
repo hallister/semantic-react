@@ -1,11 +1,11 @@
 /* eslint-env node, mocha */
 
 import React from 'react';
-import { Header } from '../../../elements';
-import { Menu } from '../../../views';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
+import Icon from './../../icon/icon';
+import Header from '../header';
 
 
 let consumedProps = {
@@ -16,6 +16,8 @@ let consumedProps = {
     defaultClasses: true,
     disabled: true,
     divider: true,
+    icon: 'users',
+    iconComponent: Icon,
     emphasis: 'block',
     floated: 'right',
     inverted: true,
@@ -103,9 +105,82 @@ describe('Header', () => {
         expect(wrapper).to.have.not.className('color');
     });
 
-    it('should be an item when is child of Menu', () => {
-        let wrapper = shallow(<Menu><Header /></Menu>);
-        expect(wrapper.find(Header)).to.have.prop('item', true);
+    describe('It could be aligned', () => {
+        it('right', () => {
+            let wrapper = shallow(<Header aligned="right"/>);
+            expect(wrapper).to.have.className('right aligned');
+        });
+        
+        it('left', () => {
+            let wrapper = shallow(<Header aligned="left"/>);
+            expect(wrapper).to.have.className('left aligned');
+        });
+        
+        it('justified', () => {
+            let wrapper = shallow(<Header aligned="justified"/>);
+            expect(wrapper).to.have.className('justified');
+            expect(wrapper).to.have.not.className('aligned');
+        });
+        
+        it('center', () => {
+            let wrapper = shallow(<Header aligned="center"/>);
+            expect(wrapper).to.have.className('center aligned');
+        });
+    });
+    
+    describe('It could be icon header', () => {
+        it('Renders as icon header', () => {
+            let wrapper = shallow(<Header icon="users"/>);
+            expect(wrapper).to.have.className('ui icon header');
+            expect(wrapper.find(Icon)).to.be.exist;
+            expect(wrapper.find(Icon)).to.have.prop('name', 'users');
+        });
+        
+        it('Allows to use custom icon component', () => {
+            let wrapper = shallow(<Header icon="users" iconComponent={(props) => <Icon circular {...props}/>}/>);
+            expect(wrapper).to.have.className('ui icon header');
+            expect(wrapper.find('iconComponent')).to.be.exist;
+            let iconComponent = wrapper.find('iconComponent').shallow();
+            expect(iconComponent).to.have.prop('name', 'users');
+            expect(iconComponent).to.have.prop('circular', true);
+        });
+    });
+    
+    it('Could be used as menu item', () => {
+        let wrapper = shallow(<Header item/>, { context: { isMenuChild: true } });
+        expect(wrapper).to.have.className('item');
+    });
+    
+    describe('It doesn\'t render ui class name', () => {
+        it('When in context of list', () => {
+            let wrapper = shallow(<Header/>, { context: { isListChild: true } });
+            expect(wrapper).to.have.not.className('ui')
+        });
+        
+        it('When in context of another header', () => {
+            let wrapper = shallow(<Header/>, { context: { isHeaderChild: true } });
+            expect(wrapper).to.have.not.className('ui')
+        });
+        
+        it('WHen in context of menu', () => {
+            let wrapper = shallow(<Header/>, { context: { isMenuChild: true } });
+            expect(wrapper).to.have.not.className('ui')
+        });
+        
+        it('When in context of card', () => {
+            let wrapper = shallow(<Header/>, { context: { isCardChild: true } });
+            expect(wrapper).to.have.not.className('ui')
+        });
+        
+        it('When in context of modal', () => {
+            let wrapper = shallow(<Header/>, { context: { isModalChild: true } });
+            expect(wrapper).to.have.not.className('ui')
+        });
+        
+        it('Renders ui class name when in context of modal and icon header', () => {
+            let wrapper = shallow(<Header icon="users"/>, { context: { isModalChild: true } });
+            expect(wrapper).to.have.className('ui');
+        });
     });
 
     itShouldConsumeOwnAndPassCustomProps(Header, consumedProps);

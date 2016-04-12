@@ -1,177 +1,212 @@
 import React from 'react';
-import { ModalBody, Dimmer } from '../../modules';
-import listensToClickOutside from 'react-onclickoutside/decorator';
+import ReactDOM from 'react-dom';
+import Transition from 'react-motion-ui-pack';
+import Portal from 'react-portal';
+import EventListener from 'react-event-listener';
+import shallowCompare from 'react-addons-shallow-compare';
+import ModalElement from './modalelement';
+import { isNodeInRoot } from '../../utilities';
+import Dimmer from '../dimmer/dimmer';
 
-class Modal extends React.Component {
+/**
+ * Modal is modal
+ */
+export default class Modal extends React.Component {
     static propTypes = {
-        active: React.PropTypes.bool,
-        basic: React.PropTypes.bool,
-        blurring: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.func,
-            React.PropTypes.string
-        ]),
-        disabled: React.PropTypes.bool,
-        enterAnimation: React.PropTypes.shape({
-            duration: React.PropTypes.number,
-            easing: React.PropTypes.string,
-            from: React.PropTypes.object,
-            to: React.PropTypes.object
-        }),
-        fullscreen: React.PropTypes.bool,
-        inverted: React.PropTypes.bool,
-        leaveAnimation: React.PropTypes.shape({
-            duration: React.PropTypes.number,
-            easing: React.PropTypes.string,
-            from: React.PropTypes.object,
-            to: React.PropTypes.object
-        }),
-        offset: React.PropTypes.number,
-        onComplete: React.PropTypes.func,
-        outsideClickClose: React.PropTypes.bool,
-        padding: React.PropTypes.number,
-        page: React.PropTypes.bool,
-        size: React.PropTypes.string
+        ...ModalElement.propTypes,
+        /**
+         * Start animation
+         */
+        enterAnimation: React.PropTypes.object,
+        /**
+         * Leave animation
+         */
+        leaveAnimation: React.PropTypes.object,
+        /**
+         * Dimmer variations
+         */
+        dimmed: React.PropTypes.oneOf(['blurring', 'inverted', 'blurring inverted']),
+        /**
+         * Callback from outside modal click
+         */
+        onRequestClose: React.PropTypes.func
     };
 
+
+    static childContextTypes = {
+        isModalChild: React.PropTypes.bool
+    };
+    
     static defaultProps = {
-        component: 'div',
+        ...ModalElement.defaultProps,
         enterAnimation: {
-            duration: 500,
-            easing: 'in-ease',
-            from: {
-                opacity: 0,
-                transform: 'scale(0,0)',
-                WebkitTransform: 'scale(0,0)'
-            },
-            to: {
-                opacity: 1,
-                transform: 'scale(1,1)',
-                WebkitTransform: 'scale(1,1)'
-            }
+            scale: 1,
+            opacity: 1
         },
         leaveAnimation: {
-            duration: 500,
-            easing: 'in-ease',
-            from: {
-                opacity: 1,
-                transform: 'scale(1,1)',
-                WebkitTransform: 'scale(1,1)'
-            },
-            to: {
-                opacity: 0,
-                transform: 'scale(0,0)',
-                WebkitTransform: 'scale(0,0)'
-            }
+            scale: 0.5,
+            opacity: 0.5
         },
-        onComplete: function noop() {},
-        outsideClickClose: true,
-        page: true
+        onRequestClose: () => { }
     };
 
     constructor(props) {
         super(props);
 
         this.state = {
-            active: false,
-            visible: false
+            active: props.active,
+            closing: false,
+            positionTop: 0,
+            scrolling: false
+        };
+
+        this.modal = null;
+    }
+
+    getChildContext() {
+        return {
+            isModalChild: true
+        };
+    }
+
+    componentDidMount() {
+        if (this.props.active) {
+            // Set initial position for modal
+            this.setPlacement();
         }
     }
 
-    componentWillReceiveProps(props) {
-        if (props.active != this.props.active && props.active !== this.state.active) {
-            if (props.active) {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.active !== this.state.active) {
+            if (nextProps.active) {
                 this.setState({
                     active: true,
-                    visible: true
+                    closing: false
                 });
             } else {
+                // need to wait some time to play animation, otherwise it will kill portal
                 this.setState({
-                    active: false
+                    closing: true
                 });
+                setTimeout(() => {
+                    this.setState({
+                        closing: false,
+                        active: false
+                    })
+                }, 500);
             }
         }
     }
-
-    shouldComponentUpdate(props, state) {
-        // this will happen when we modify the state by clicking the Backdrop
-        // we don't want to force a re-render just because the parent component
-        // got it's active state changed after the animation completed
-        if (props.active === this.props.active && state.active === this.state.active) {
-            return false;
-        } else {
-            return true;
-        }
+    
+    
+    shouldComponentUpdate(nextProps, nextState) {
+        // since we're changing state immediately after componentDidUpdate we need to prevent re-rendering loop
+        return shallowCompare(this, nextProps, nextState);
     }
 
-    onAnimationComplete() {
-        if (!this.state.active) {
-            this.setState({
-                visible: false
-            });
+    componentDidUpdate() {
+        // Set modal position after update
+        this.setPlacement();
+    }    
+    
+    onOutsideClick(event) {
+        if (!this.state.active || this.state.closing) {
+            return;
         }
-
-        this.props.onComplete(this.state.active);
-    }
-
-
-    renderModalBody() {
-        /* eslint-disable no-use-before-define */
-        let { blurring, component, disabled, leaveAnimation, inverted, outsideClickClose, page, enterAnimation, ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-
-        let props = Object.assign(other, {
-            animate: this.state.active,
-            active: this.state.visible,
-            start: this.props.enterAnimation,
-            end: this.props.leaveAnimation,
-            onComplete: this.onAnimationComplete.bind(this)
-        });
-
-        return React.createElement(
-            ModalBody,
-            props,
-            this.props.children
-        );
+        if (!this.modal) {
+            return;
+        }
+        if (isNodeInRoot(event.target, ReactDOM.findDOMNode(this.modal))) {
+            return;
+        }
+        event.stopPropagation();
+        this.props.onRequestClose(event);
     }
 
     render() {
-        /* eslint-disable no-use-before-define */
-        let { basic, children, component, leaveAnimation, fullscreen, offset, outsideClickClose, padding, size, enterAnimation, ...other } = this.props;
-        /* eslint-enable no-use-before-define */
-        other.active = this.state.active;
 
-        return React.createElement(
-            Dimmer,
-            other,
-            this.renderModalBody()
+        const { component, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, ...other } = this.props;
+
+        // Apply layer to portal to prevent clicking outside
+        const portalStyle = {
+            position: 'fixed',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+        };
+
+        const modalPosition = {
+            top: this.state.positionTop,
+            position: 'fixed'
+        };
+
+        const modalStyle = style ? { ...style, ...modalPosition } : modalPosition;
+        
+        return (
+            <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
+                style={portalStyle}
+            >
+                    <Dimmer active={this.state.active}
+                        page
+                        noWrapChildren
+                        className="modals"
+                    >
+                    <EventListener elementName="document"
+                                   onMouseDown={this.onOutsideClick.bind(this)}
+                                   onTouchStart={this.onOutsideClick.bind(this)}/>
+                        <Transition component={false}
+                            enter={enterAnimation}
+                            leave={leaveAnimation}
+                        >
+                            {(this.state.active && !this.state.closing) &&
+                                <ModalElement {...other}
+                                    ref={ref => this.modal = ref}
+                                    key="modal"
+                                    scrolling={this.state.scrolling}
+                                    style={modalStyle}
+                                >
+                                    {children}
+                                </ModalElement>
+                            }
+                        </Transition>    
+                    </Dimmer>
+            </Portal>
         );
     }
 
-    handleClickOutside() {
-        if (this.props.outsideClickClose) {
-            if (this.state.active) {
+    /**
+     * Calculate modal position to center on the screen
+     */
+    setPlacement() {
+        if (!this.state.active || this.state.closing) {
+            return;
+        }
+        if (!this.modal) {
+            return;
+        }
+
+        const htmlElement = ReactDOM.findDOMNode(this.modal);
+        // get element height
+        if (htmlElement) {
+            const height = htmlElement.offsetHeight;
+
+            // Modal is too big, set the scrolling state then
+            if (height > window.innerHeight) {
+                // semantic sets top margin for scrolling modal, 
+                // so no need to bother with position 
                 this.setState({
-                    active: false
+                    positionTop: 0,
+                    scrolling: true
+                });
+            } else {
+                const top = window.innerHeight / 2 - height / 2;
+                this.setState({
+                    positionTop: top,
+                    scrolling: false
                 });
             }
         }
-    }
 
-    getModalClasses() {
-        let classes = {
-            // variations
-            basic: this.props.basic,
-            fullscreen: this.props.fullscreen
-        }
-
-        classes[this.props.size] = !!this.props.size;
-
-        return classes;
     }
 }
-
-// Need this trick for react-docgen
-Modal = listensToClickOutside(Modal);
-export default Modal;

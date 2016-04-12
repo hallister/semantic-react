@@ -91,7 +91,6 @@ export default class SemanticStyleGuide extends StyleGuide {
         window.Option = modules.Option;
         
         window.Modal = modules.Modal;
-        window.ModalBody = modules.ModalBody;
         
         window.Popup = modules.Popup;
         window.Bar = modules.Bar;

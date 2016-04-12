@@ -48,7 +48,6 @@
     "react-event-listener": "^0.1.1",
     "react-motion": "^0.4.2",
     "react-motion-ui-pack": "^0.6.0",
-    "react-onclickoutside": "^4.5.0",
     "react-portal": "^2.0.0",
     "react-prop-types": "^0.3.0"
   },
@@ -90,7 +89,6 @@
     "mutationobserver-shim": "^0.3.1",
     "react": "^0.14.7",
     "react-addons-test-utils": "^0.14.7",
-    "react-addons-transition-group": "^0.14.7",
     "react-codemirror": "^0.2.5",
     "react-docgen": "^2.7.0",
     "react-dom": "^0.14.7",
