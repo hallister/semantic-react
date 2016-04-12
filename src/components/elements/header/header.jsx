@@ -1,8 +1,9 @@
 import React from 'react';
-import { Icon, Image } from '../../elements';
-import { hasChild, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import elementType from 'react-prop-types/lib/elementType';
+import { validateClassProps } from '../../utilities';
 import DefaultProps from '../../defaultProps';
+import Icon from './../icon/icon';
 
 let validProps = {
     aligned: ['right', 'left', 'justified', 'center'],
@@ -46,6 +47,14 @@ export default class Header extends React.Component {
          */
         floated: React.PropTypes.oneOf(['right', 'left']),
         /**
+         * Icon name for header. This will turn header into icon header (ui icon header)
+         */
+        icon: React.PropTypes.string,
+        /**
+         * Icon component
+         */
+        iconComponent: elementType,
+        /**
          * A header can have its colors inverted for contrast
          */
         inverted: React.PropTypes.bool,
@@ -65,7 +74,8 @@ export default class Header extends React.Component {
         isHeaderChild: React.PropTypes.bool,
         isAccordionChild: React.PropTypes.bool,
         isMenuChild: React.PropTypes.bool,
-        isCardChild: React.PropTypes.bool
+        isCardChild: React.PropTypes.bool,
+        isModalChild: React.PropTypes.bool
     };
 
     // any header/sub header under a header is a sub header
@@ -74,8 +84,8 @@ export default class Header extends React.Component {
     };
 
     static defaultProps = {
+        ... DefaultProps.defaultProps,
         attached: false,
-        defaultClasses: true,
         item: true // handles
     };
 
@@ -86,33 +96,46 @@ export default class Header extends React.Component {
     }
 
     render() {
-        let Component = this.props.onClick ? 'a' : 'div';
 
         /* eslint-disable no-use-before-define */
-        let { aligned, attached, children, className, color, component,
-              defaultClasses, disabled, divider, emphasis, floated,
-              horizontal, inverted, item, size,
-              ...other } = this.props;
+        let { 
+            aligned, attached, children, className, color, component,
+            defaultClasses, disabled, divider, emphasis, floated,
+            horizontal, icon, iconComponent, inverted, item, size, ...other 
+        } = this.props;
         /* eslint-enable no-use-before-define */
 
         // add class names
-        other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component || Component,
-            other,
-            this.props.children
+        other.className = classNames(other.className, this.getClasses());
+        const IconComponent = iconComponent || Icon;
+        let Component = component;
+        if (Component === 'div' && this.props.onClick) {
+            Component = 'a';
+        }
+        
+        return (
+            <Component {...other}>
+                {icon &&
+                <IconComponent name={icon}/>
+                }
+                {children}
+            </Component>
         );
+
     }
 
     getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses && !this.context.isListChild && !this.context.isHeaderChild && !this.context.isMenuChild && !this.context.isCardChild,
+            ui: this.props.defaultClasses && 
+                !this.context.isListChild && 
+                !this.context.isHeaderChild && 
+                !this.context.isMenuChild && 
+                !this.context.isCardChild && 
+                !(this.context.isModalChild && !this.props.icon),
 
             // types
-            icon: hasChild(this.props.children, Icon) && this.props.aligned == 'center',
-            image: hasChild(this.props.children, Image),
+            icon: this.props.icon,
             item: this.context.isMenuChild && this.props.item,
 
             // states
@@ -135,6 +158,11 @@ export default class Header extends React.Component {
         classes[this.props.color] = !!this.props.color;
         classes[this.props.size] = !!this.props.size;
 
-        return validateClassProps(classes, this.props, validProps);
+        classes = validateClassProps(classes, this.props, validProps);
+        if (this.props.aligned === 'justified') {
+            classes['justified aligned'] = false;
+            classes['justified'] = true;
+        }
+        return classes;
     }
 }

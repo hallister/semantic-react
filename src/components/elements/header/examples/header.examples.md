@@ -21,19 +21,30 @@
 ## Icon header:
 
     <div>
-    <Header size="tiny">
-        <Icon name="settings"/>
+    <Header size="tiny" icon="settings">
         <Content>
             Account settings
             <SubHeader>Manage your account settings and set e-mail preference</SubHeader>
         </Content>
     </Header>
 
-    <Header aligned="center">
-        <Icon name="users" circular/>
+    <Header aligned="center" 
+            icon="users" 
+            iconComponent={(props) => <Icon circular {...props}/>}
+    >
         Friends
     </Header>
     </div>
+    
+## Header with icon content
+This is slightly differ from icon header
+    
+    <Header size="small">
+        <Icon name="plug"/>
+        <Content>
+            Uptime Guarantee
+        </Content>
+    </Header>
 
 ## Image header:
 

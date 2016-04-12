@@ -17,7 +17,7 @@ SubHeader.propTypes = {
 };
 
 SubHeader.defaultProps = {
-    ...Header.defaultProps,
+    defaultClasses: true,
     item: false
 };
 

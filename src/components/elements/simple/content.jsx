@@ -25,11 +25,13 @@ export default class Content extends React.Component {
         ]),
         hidden: React.PropTypes.bool,
         meta: React.PropTypes.bool,
-        visible: React.PropTypes.bool
+        visible: React.PropTypes.bool,
+        image: React.PropTypes.bool
     };
 
     static contextTypes = {
-        isDimmerChild: React.PropTypes.bool
+        isDimmerChild: React.PropTypes.bool,
+        isModalChild: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -43,7 +45,7 @@ export default class Content extends React.Component {
     }
 
     render() {
-        let children = this.context.isDimmerChild ? this.renderDimmerChild() : this.props.children;
+        let children = this.context.isDimmerChild && !this.context.isModalChild ? this.renderDimmerChild() : this.props.children;
 
         /* eslint-disable no-use-before-define */
         let { aligned, component, defaultClasses, extra, floated, hidden, meta,
@@ -71,7 +73,8 @@ export default class Content extends React.Component {
             floated: this.props.floated,
             hidden: this.props.hidden,
             meta: this.props.meta,
-            visible: this.props.visible
+            visible: this.props.visible,
+            image: this.props.image
         };
 
         return validateClassProps(classes, this.props, validProps);

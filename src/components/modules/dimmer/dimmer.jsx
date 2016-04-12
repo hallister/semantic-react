@@ -27,7 +27,11 @@ export default class Dimmer extends React.Component {
         /**
          * Inverted dimmer
          */
-        inverted: React.PropTypes.bool
+        inverted: React.PropTypes.bool,
+        /**
+         * Disables auto-wrapping child contents into <Content>
+         */
+        noWrapChildren: React.PropTypes.bool
     };
 
     
@@ -46,13 +50,23 @@ export default class Dimmer extends React.Component {
             opacity: 0
         },
         page: false,
-        inverted: false
+        inverted: false,
+        noWrapChildren: false
     };
     
     getChildContext() {
         return {
             isDimmerChild: true
         };
+    }
+
+    renderChildren() {
+        const { children, noWrapChildren } = this.props;
+        if (noWrapChildren) {
+            return children;
+        } else {
+            return (hasChild(children, Loader)) ? children : <Content>{children}</Content>;
+        }
     }
     
     render() {
@@ -71,12 +85,7 @@ export default class Dimmer extends React.Component {
                     <Component {...other}
                         key="dimmer"
                     >
-                        {hasChild(children, Loader) ?
-                            children :
-                            <Content>
-                                {children}
-                            </Content>
-                        }
+                    {this.renderChildren()}
                     </Component>
                 }
             </Transition>

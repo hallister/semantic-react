@@ -340,6 +340,14 @@ declare module "semantic-react" {
          */
         floated?: "right" | "left";
         /**
+         * Icon name for header. This will turn header into icon header (ui icon header)
+         */
+        icon?: string;
+        /**
+         * Override icon component
+         */
+        iconComponent?: any;
+        /**
          * A header can have its colors inverted for contrast
          */
         inverted?: boolean;
@@ -676,6 +684,7 @@ declare module "semantic-react" {
         hidden?: boolean;
         meta?: boolean;
         visible?: boolean;
+        image?: boolean;
     }
     export class Content extends React.Component<ContentProps, any> {
     }
@@ -1430,6 +1439,46 @@ declare module "semantic-react" {
         onAccordionChange: (index: number | string) => void;
     }
     export class Accordion extends React.Component<AccordionProps, any> { }
+
+    export interface ModalProps extends BaseProps<Modal> {
+        /**
+         * Should be modal visible
+         */
+        active?: boolean;
+        /**
+         * A modal can reduce its complexity
+         */
+        basic?: boolean;
+        /**
+         * A modal can use the entire size of the screen (width)
+         */
+        fullscreen?: boolean;
+        /**
+         * Scrolling content
+         */
+        scrooling?: boolean;
+        /**
+         * A modal can vary in size
+         */
+        size?: string;
+        /**
+         * Start animation
+         */
+        enterAnimation?: Object;
+        /**
+         * Leave animation
+         */
+        leaveAnimation?: Object;
+        /**
+         * Dimmer variations
+         */
+        dimmed?: "blurring" | "inverted" | "blurring inverted";
+        /**
+         * Callback from outside modal click
+         */
+        onRequestClose: () => void;
+    }
+    export class Modal extends React.Component<ModalProps, any> { }
 }
 
 declare module "semantic-react/radium" {

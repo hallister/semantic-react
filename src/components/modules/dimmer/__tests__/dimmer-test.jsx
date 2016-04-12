@@ -59,6 +59,14 @@ describe('Dimmer', () => {
         });
     });
 
+    context('If prop noWrapChildren was set', () => {
+        it('Should render children without wrapping into content', () => {
+            let wrapper = shallow(<Dimmer active noWrapChildren><h1>TEST</h1></Dimmer>);
+            expect(wrapper.find(Content)).to.be.not.exist;
+            expect(wrapper.find('.dimmer')).to.contain(<h1>TEST</h1>);
+        });
+    });
+
     // FIXME?
     // itShouldConsumeOwnAndPassCustomProps(Dimmer, consumedProps);
 });
