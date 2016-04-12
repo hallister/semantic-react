@@ -18,7 +18,6 @@ describe('SubHeader', () => {
         it('renders as <Header>', () => {
             let wrapper = shallow(<SubHeader />);
             expect(wrapper).to.have.className('sub');
-            console.log(wrapper.debug());
             expect(wrapper.is(Header)).to.be.true;
         });
 
