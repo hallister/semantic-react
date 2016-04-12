@@ -43,7 +43,13 @@ class MyModal extends React.Component {
                     </Content>
                     <Actions>
                         <Button emphasis="negative" onClick={this.onCloseModal.bind(this)}>Nope</Button>
-                        <LabeledButton emphasis="positive" label="checkmark" labelType="icon" onClick={this.onCloseModal.bind(this)}>Yep, that's me</LabeledButton>
+                        <LabeledButton emphasis="positive" 
+                                       label="checkmark" 
+                                       labelType="icon" 
+                                       onClick={this.onCloseModal.bind(this)}
+                        >
+                            Yep, that's me
+                        </LabeledButton>
                     </Actions>
                 </Modal>
              </div>
