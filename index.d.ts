@@ -227,6 +227,10 @@ export interface IconButtonProps extends ButtonProps {
      */
     iconColor?: ColorType;
     /**
+     * Icon component
+     */
+    iconComponent?: any;
+    /**
      * Adds a SemanticUI name class to the icon.
      */
     name: string;
@@ -539,7 +543,7 @@ export interface InputProps extends BaseProps<Input> {
     /**
      * Label position
      */
-    labelPosition: "left" | "right" | "left corner" | "right corner";
+    labelPosition?: "left" | "right" | "left corner" | "right corner";
     /**
      * Input placeholder
      */
