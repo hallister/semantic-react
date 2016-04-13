@@ -1,8 +1,10 @@
 import React from 'react';
-import { Icon, Label, Button } from '../../elements';
-import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
+import Icon from './../icon/icon';
+import Label from './../label/label';
+import Button from './button';
+import { validateClassProps } from '../../utilities';
 
 const validProps = {
     labeled: ['left', 'right']
@@ -13,7 +15,7 @@ const validProps = {
  * @param {string} type
  */
 function getDefaultLabelComponent(type) {
-    return (type === 'icon') ? Icon : Label;
+    return (type === 'icon') ? LabeledButton.Components.Icon : LabeledButton.Components.Label; // eslint-disable-line
 }
 
 /**
@@ -41,10 +43,10 @@ let LabeledButton = (props) => {
         // Easy markup, it's the standard button with labeled icon prefix, the icon order doesn't matter
         other.className = classNames(other.className, getClasses(props));
         return (
-            <Button {...other}>
+            <LabeledButton.Components.Button {...other}>
                 <LabelComponent name={label}/>
                 {children}
-            </Button>
+            </LabeledButton.Components.Button>
         )
     } else {
         // Text labeled button, this is slightly harder, label order does matter, also need to be prefixed with <div>
@@ -54,9 +56,9 @@ let LabeledButton = (props) => {
         // Should be label basic by default?
         if (labeled === 'left') {
             markup.push(<LabelComponent basic key="label">{label}</LabelComponent>);
-            markup.push(<Button key="button" {...other}>{children}</Button>)
+            markup.push(<LabeledButton.Components.Button key="button" {...other}>{children}</LabeledButton.Components.Button>)
         } else {
-            markup.push(<Button key="button" {...other}>{children}</Button>);
+            markup.push(<LabeledButton.Components.Button key="button" {...other}>{children}</LabeledButton.Components.Button>);
             markup.push(<LabelComponent basic key="label">{label}</LabelComponent>);
         }
         /* eslint-enable react/jsx-max-props-per-line */
@@ -95,6 +97,11 @@ LabeledButton.defaultProps = {
     labelType: 'text'
 };
 
+LabeledButton.Components = {
+    Icon: Icon,
+    Label: Label,
+    Button: Button
+};
 
 export default LabeledButton;
 

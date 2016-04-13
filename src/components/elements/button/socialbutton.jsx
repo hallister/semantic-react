@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { IconButton, Button, Icon } from '../../elements';
+import IconButton from './iconbutton';
+import Button from './button';
+import Icon from './../icon/icon';
 
 
 /**
@@ -12,14 +14,14 @@ let SocialButton = ({ children, name, ...other }) => {
     // Render button if has any children (i.e. caption), otherwise render icon button
     if (hasChildren) {
         return (
-            <Button {...other}>
-                <Icon name={name}/>
+            <SocialButton.Components.Button {...other}>
+                <SocialButton.Components.Icon name={name}/>
                 {children}
-            </Button>
+            </SocialButton.Components.Button>
         )
     } else {
         return (
-            <IconButton {...other}
+            <SocialButton.Components.IconButton {...other}
                 name={name} />
         )
     }
@@ -31,6 +33,12 @@ SocialButton.propTypes = {
      * Adds a SemanticUI name class to the icon.
      */
     name: React.PropTypes.string.isRequired
+};
+
+SocialButton.Components = {
+    IconButton: IconButton,
+    Button: Button,
+    Icon: Icon
 };
 
 export default SocialButton;

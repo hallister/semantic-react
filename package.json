@@ -8,6 +8,7 @@
     "lib",
     "src",
     "radium.js",
+    "radium.d.ts",
     "index.d.ts",
     "typings.json",
     ".babelrc"

@@ -10,7 +10,7 @@ function getClasses(props) {
     };
 
     if (props.fluid) {
-        let childCount = countChildren(props.children, Field)
+        let childCount = countChildren(props.children, Fields.Components.Field); // eslint-disable-line
 
         if (childCount > 0  && childCount <= 12) {
             classes[Numbers[childCount]] = true;
@@ -57,5 +57,9 @@ Fields.defaultProps = {
     component: 'div',
     defaultClasses: true
 }
+
+Fields.Components = {
+    Field: Field
+};
 
 export default Fields;

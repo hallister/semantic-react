@@ -83,6 +83,12 @@ export default class Popup extends React.Component {
         prefer: 'adjacent'
     };
 
+    /* eslint-disable */
+    static Components = {
+        PopupElement: PopupElement
+    };
+    /* eslint-enable */
+
     constructor(props) {
         super(props);
 
@@ -208,7 +214,7 @@ export default class Popup extends React.Component {
                         leave={endAnimation}
                     >
                         {(this.state.active && !this.state.closing) &&
-                        <PopupElement
+                        <Popup.Components.PopupElement
                             {...other}
                             key="popup"
                             position={this.state.position}

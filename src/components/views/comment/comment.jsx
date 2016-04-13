@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, Content } from '../../elements';
 import classNames from 'classnames';
+import Image from './../../elements/image/image';
+import Content from './../../elements/simple/content';
 
 function renderChildren(children) {
     let commentChildren = [];
@@ -8,7 +9,7 @@ function renderChildren(children) {
 
     React.Children.forEach(children, child => {
         // remove the Image default classes
-        if (child.type === Image) {
+        if (child.type === Comment.Components.Image) { // eslint-disable-line
             commentChildren.push(
                 React.cloneElement(
                     child,
@@ -27,9 +28,9 @@ function renderChildren(children) {
     });
 
     commentChildren.push(
-        <Content key="commentContent">
+        <Comment.Components.Content key="commentContent">
             {contentChildren}
-        </Content>
+        </Comment.Components.Content>
     );
 
     return commentChildren;
@@ -57,5 +58,10 @@ Comment.propTypes = {
 Comment.defaultProps = {
     component: 'div'
 }
+
+Comment.Components = {
+    Image: Image,
+    Content: Content
+};
 
 export default Comment;

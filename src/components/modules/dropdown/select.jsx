@@ -5,8 +5,10 @@ import shallowCompare from 'react-addons-shallow-compare';
 import EventListener from 'react-event-listener';
 import Transition from 'react-motion-ui-pack';
 import DropdownElement from './dropdownelement';
-import { Label, Icon, Header } from '../../elements';
-import { Menu } from '../../views';
+import Label from './../../elements/label/label';
+import Icon from './../../elements/icon/icon';
+import Header from './../../elements/header/header';
+import Menu from './../../views/menu/menu';
 import { isNodeInRoot } from '../../utilities';
 
 /**
@@ -123,6 +125,16 @@ export default class Select extends React.Component {
         onRequestClose: () => {},
         onSearchStringChange: () => {}
     };
+
+    /* eslint-disable */
+    static Components = {
+        Label: Label,
+        Icon: Icon,
+        Header: Header,
+        Menu: Menu,
+        DropdownElement: DropdownElement
+    };
+    /* eslint-enable */
     
     constructor(props) {
         super(props);
@@ -290,14 +302,14 @@ export default class Select extends React.Component {
                                 enter={{ scale: 1 }}
                                 leave={{ scale: 0 }}
                     >
-                        <Label component="a"
+                        <Select.Components.Label component="a"
                                key={`label-${child.props.value}`}
                                style={{ display: 'inline-block' }}
                         >
                             {child.props.children}
-                            <Icon name="close"
+                            <Select.Components.Icon name="close"
                                   onClick={this.onLabelCloseIconClick.bind(this, child.props.value)}/>
-                        </Label>
+                        </Select.Components.Label>
                     </Transition>
                 );
             }
@@ -345,7 +357,7 @@ export default class Select extends React.Component {
     renderDropdownIcon() {
         const { icon } = this.props;
         return (
-            <Icon name={icon}/>
+            <Select.Components.Icon name={icon}/>
         )
     }
 
@@ -379,7 +391,7 @@ export default class Select extends React.Component {
             // Search in menu has slightly different layout
             return (
                 <div className="ui icon search input">
-                    <Icon name="search"/>
+                    <Select.Components.Icon name="search"/>
                     <input key="searchInput"
                            onChange={this.onSearchInputChange}
                            onKeyDown={this.onSearchInputKeyDown}
@@ -399,7 +411,7 @@ export default class Select extends React.Component {
     renderSearchHeader() {
         const { search, searchHeader } = this.props;
         if (search && searchHeader) {
-            return (<Header key="searchHeader">{searchHeader}</Header>);
+            return (<Select.Components.Header key="searchHeader">{searchHeader}</Select.Components.Header>);
         } else {
             return null;
         }
@@ -498,7 +510,7 @@ export default class Select extends React.Component {
         other.className = classNames(other.className, this.getClasses());
         
         return (
-            <DropdownElement
+            <Select.Components.DropdownElement
                 {...other}
                 active={active}
             >
@@ -519,16 +531,16 @@ export default class Select extends React.Component {
                     leave={leaveAnimation}
                 >
                     {active &&
-                    <Menu key="menu"
+                    <Select.Components.Menu key="menu"
                           onMenuItemClick={this.onMenuItemClick}
                           ref={ref => this.menuRef = ref}
                           style={{ overflow: 'hidden' }}
                     >
                         {menuChildrens}
-                    </Menu>
+                    </Select.Components.Menu>
                     }
                 </Transition>
-            </DropdownElement>
+            </Select.Components.DropdownElement>
         );
     }
     

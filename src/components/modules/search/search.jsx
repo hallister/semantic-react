@@ -1,8 +1,8 @@
 import React from 'react';
-import { Icon } from '../../elements';
 import Transition from 'react-motion-ui-pack';
-import Results from './results';
 import classNames from 'classnames';
+import Icon from './../../elements/icon/icon';
+import Results from './results';
 
 /*
 3 support results types:
@@ -63,6 +63,13 @@ export default class Search extends React.Component {
         value: ''
     };
 
+    /* eslint-disable */
+    static Components = {
+        Results: Results,
+        Icon: Icon
+    };
+    /* eslint-enable */
+
     constructor(props) {
         super(props);
 
@@ -113,12 +120,12 @@ export default class Search extends React.Component {
     renderInputIcon() {
         if (!this.props.icon) return null;
 
-        return <Icon name={this.props.icon} />;
+        return <Search.Components.Icon name={this.props.icon} />;
     }
 
     renderResults() {
         let props = {
-            key: "searchResults",
+            key: 'searchResults',
             animate: this.state.focus && this.props.value !== '',
             emptyHeader: this.props.emptyHeader,
             emptyMessage: this.props.emptyMessage,
@@ -135,7 +142,7 @@ export default class Search extends React.Component {
                 leave={this.props.leaveAnimation}
             >
                 {(this.state.focus && this.props.value !== '') &&
-                    <Results {...props}/>
+                    <Search.Components.Results {...props}/>
                 }
             </Transition>
         );

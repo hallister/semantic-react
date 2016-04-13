@@ -2,8 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import Transition from 'react-motion-ui-pack';
 import DefaultProps from '../../defaultProps';
-import AccordionTitle from './accordiontitle';
-import AccordionBody from './accordionbody';
 
 /**
  * Controlled accordion

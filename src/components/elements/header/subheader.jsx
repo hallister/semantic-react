@@ -7,7 +7,7 @@ import classNames from 'classnames';
  */
 let SubHeader = (props) => {
     const { component, children, defaultClasses, ...other } = props;
-    let Component = component || Header;
+    let Component = component || SubHeader.Components.Header;
     other.className = classNames(other.className, { sub: defaultClasses });
     return (<Component {...other}>{children}</Component>);
 };
@@ -19,6 +19,10 @@ SubHeader.propTypes = {
 SubHeader.defaultProps = {
     defaultClasses: true,
     item: false
+};
+
+SubHeader.Components = {
+    Header: Header
 };
 
 export default SubHeader;

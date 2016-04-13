@@ -15,7 +15,7 @@ let MenuItem = ({ active, color, menuValue, ...other }) => {
     }
     other.className = classNames(other.className, classes);
     
-    return (<Item {...other} 
+    return (<MenuItem.Components.Item {...other} 
             data-value={menuValue}
             link />
     );
@@ -43,6 +43,10 @@ MenuItem.propTypes = {
 
 MenuItem.defaultProps = {
     ...Item.defaultProps
+};
+
+MenuItem.Components = {
+    Item: Item
 };
 
 export default MenuItem;

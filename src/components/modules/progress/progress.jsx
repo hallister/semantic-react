@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Bar } from '../../modules';
 import { validateClassProps } from '../../utilities';
+import Bar from './bar';
 
 let validProps = {
     attached: ['top', 'bottom']
@@ -40,6 +40,12 @@ export default class Progress extends React.Component {
         duration: 300
     };
 
+    /* eslint-disable */
+    static Components = {
+        Bar: Bar
+    }
+    /* eslint-enable */
+
     getChildContext() {
         return {
             isProgressChild: true
@@ -55,7 +61,7 @@ export default class Progress extends React.Component {
         other.progress = this.getProgress(other.progress);
 
         return (
-            <Bar
+            <Progress.Components.Bar
                 key="progressBar"
                 {...other} />
         );

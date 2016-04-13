@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Transition from 'react-motion-ui-pack';
 import EventListener from 'react-event-listener';
-import { isNodeInRoot } from '../../utilities';
-import { Icon, Text } from '../../elements';
-import { Menu } from '../../views';
-import DropdownElement from './dropdownelement';
 import elementType from 'react-prop-types/lib/elementType'; 
+import { isNodeInRoot } from '../../utilities';
+import DropdownElement from './dropdownelement';
+import Icon from './../../elements/icon/icon';
+import Text from './../../elements/simple/text';
+import Menu from './../../views/menu/menu';
 
 
 /**
@@ -80,6 +81,15 @@ export default class DropdownMenu extends React.Component {
         onRequestClose: () => {}
     };
 
+    /* eslint-disable */
+    static Components = {
+        Icon: Icon,
+        Text: Text,
+        Menu: Menu,
+        DropdownElement: DropdownElement
+    };
+    /* eslint-enable */
+
     constructor(props) {
         super(props);
 
@@ -116,7 +126,7 @@ export default class DropdownMenu extends React.Component {
         if (typeof this.props.component === 'function') {
             return null;
         } else {
-            return <Icon name={this.props.icon}/>
+            return <DropdownMenu.Components.Icon name={this.props.icon}/>
         }
     }
 
@@ -128,7 +138,7 @@ export default class DropdownMenu extends React.Component {
         if (typeof this.props.component === 'function' || !this.props.label) {
             return null;
         } else {
-            return <Text>{this.props.label}</Text>
+            return <DropdownMenu.Components.Text>{this.props.label}</DropdownMenu.Components.Text>
         }
     }
 
@@ -144,11 +154,11 @@ export default class DropdownMenu extends React.Component {
         } = this.props;
         /* eslint-enable no-use-before-define */
 
-        const MenuComponent = menuComponent || Menu;
+        const MenuComponent = menuComponent || DropdownMenu.Components.Menu;
 
 
         return (
-            <DropdownElement
+            <DropdownMenu.Components.DropdownElement
                 {...other}
                 active={active}
             >
@@ -175,7 +185,7 @@ export default class DropdownMenu extends React.Component {
                     </MenuComponent>
                     }
                 </Transition>
-            </DropdownElement>
+            </DropdownMenu.Components.DropdownElement>
         );
     }
 }
