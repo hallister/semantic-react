@@ -50,6 +50,15 @@ describe('IconButton', () => {
         expect(wrapper).to.have.prop('color', 'yellow');
     });
 
+    it('should allow override icon component', () => {
+        let wrapper = shallow(
+            <IconButton iconColor="yellow"
+            iconComponent={(props) => <Icon circular {...props}/>}
+                                          name="cloud" />);
+        expect(wrapper.children().shallow().find(Icon)).to.have.prop('circular', true);
+        expect(wrapper.children().shallow().find(Icon)).to.have.prop('name', 'cloud');
+    });
+
 
     itShouldConsumeOwnAndPassCustomProps(IconButton, consumedProps);
 });

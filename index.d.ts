@@ -227,6 +227,10 @@ export interface IconButtonProps extends ButtonProps {
      */
     iconColor?: ColorType;
     /**
+     * Icon component
+     */
+    iconComponent?: any;
+    /**
      * Adds a SemanticUI name class to the icon.
      */
     name: string;
