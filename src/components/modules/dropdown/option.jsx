@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { MenuItem } from '../../views';
+import MenuItem from './../../views/menu/menuitem';
 
 /**
  * Select option. This should be used in <Select>
@@ -13,12 +13,12 @@ let Option = (props) => {
         other.className = classNames(other.className, { selected: true });
     }
     return (
-        <MenuItem 
+        <Option.Components.MenuItem 
             menuValue={value}
             {...other} 
         >
             {children}
-        </MenuItem>
+        </Option.Components.MenuItem>
     )
 };
 
@@ -35,6 +35,10 @@ Option.propTypes = {
 
 Option.defaultProps = {
     ...MenuItem.defaultProps
+};
+
+Option.Components = {
+    MenuItem: MenuItem
 };
 
 export default Option;

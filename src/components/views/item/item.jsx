@@ -1,8 +1,8 @@
 import React from 'react';
-import { Icon } from '../../elements';
-import { hasChild } from '../../utilities';
 import classNames from 'classnames';
+import { hasChild } from '../../utilities';
 import DefaultProps from '../../defaultProps';
+import Icon from './../../elements/icon/icon';
 
 /**
  * Item is collection of elements. It could be menu/dropdown item or part ofr <Items /> collection
@@ -24,6 +24,12 @@ export default class Item extends React.Component {
         ...DefaultProps.defaultProps
     };
 
+    /* eslint-disable */
+    static Components = {
+        Icon: Icon
+    };
+    /* eslint-enable */
+
     render() {
         /* eslint-disable no-use-before-define */
         let { component, link, ...other } = this.props;
@@ -41,7 +47,7 @@ export default class Item extends React.Component {
     getClasses() {
         return {
             // variations
-            icon: hasChild(this.props.children, Icon),
+            icon: hasChild(this.props.children, Item.Components.Icon),
             link: this.props.link || this.props.onClick,
             // component
             item: this.props.defaultClasses

@@ -1,7 +1,7 @@
 import React from 'react';
 import Tab from './tab';
 import TabTitle from './tabtitle';
-import { Item } from '../../views';
+import Item from './../../views/item/item';
 
 export default class Tabs extends React.Component {
     static propTypes = {
@@ -28,6 +28,14 @@ export default class Tabs extends React.Component {
         type: 'tab'
     };
 
+    /* eslint-disable */
+    static Components = {
+        Tab: Tab,
+        TabTitle: TabTitle,
+        Item: Item
+    };
+    /* eslint-enable */
+
     constructor(props) {
         super(props);
 
@@ -52,7 +60,7 @@ export default class Tabs extends React.Component {
 
     renderChildren() {
         return React.Children.map(this.props.children, (child, index) => {
-            if (child.type === Tab) {
+            if (child.type === Tabs.Components.Tab) {
                 return React.cloneElement(
                     child,
                     {
@@ -69,7 +77,7 @@ export default class Tabs extends React.Component {
         let tabs = [];
 
         React.Children.forEach(this.props.children, (child, index) => {
-            if (child.type == Tab) {
+            if (child.type == Tabs.Components.Tab) {
                 let props = {};
 
                 props.active = this.state.active === index;
@@ -78,7 +86,7 @@ export default class Tabs extends React.Component {
 
                 tabs.push(
                     React.createElement(
-                        Item,
+                        Tabs.Components.Item,
                         props,
                         child.props.header
                     )
@@ -87,12 +95,12 @@ export default class Tabs extends React.Component {
         });
 
         return (
-            <TabTitle
+            <Tabs.Components.TabTitle
                 key="titles"
                 type={this.props.type}
             >
                 {tabs}
-            </TabTitle>
+            </Tabs.Components.TabTitle>
         );
     }
 
@@ -114,7 +122,7 @@ export default class Tabs extends React.Component {
 
     setActiveChild() {
         React.Children.forEach(this.props.children, (child, index) => {
-            if (child.type === Tab && child.props.active) {
+            if (child.type === Tabs.Components.Tab && child.props.active) {
                 this.setState({
                     active: index
                 })

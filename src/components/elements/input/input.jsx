@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, Icon, Label } from '../../elements';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
 import DefaultProps from '../../defaultProps';
+import Icon from './../icon/icon';
+import Label from './../label/label';
 
 function getClasses(props) {
     let classes = {
@@ -49,8 +50,8 @@ let Input = (props) => {
     
     const wrapperClassName = classNames(className, getClasses(props));
     const InputComponent = component;
-    const IconComponent = iconComponent || Icon;
-    const LabelComponent = labelComponent || Label;
+    const IconComponent = iconComponent || Input.Components.Icon;
+    const LabelComponent = labelComponent || Input.Components.Label;
     const ActionComponent = actionComponent;
     
     return (
@@ -152,6 +153,11 @@ Input.defaultProps = {
     iconPosition: 'right',
     labelPosition: 'left',
     actionPosition: 'right'
+};
+
+Input.Components = {
+    Icon: Icon,
+    Label: Label
 };
 
 export default Input;

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Icon } from '../../elements';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 import elementType from 'react-prop-types/lib/elementType';
+import Icon from './../../elements/icon/icon';
 
 /**
  * Title element for Accordion
@@ -12,7 +12,7 @@ let AccordionTitle = (props) => {
         component, children, defaultClasses, active, icon, iconComponent, index, initialStyle, onClick, ...other
     } = props;
     const Component = component;
-    const IconComponent = iconComponent || Icon;
+    const IconComponent = iconComponent || AccordionTitle.Components.Icon;
     
     other.className = classNames(other.className, {
         title: defaultClasses,
@@ -61,6 +61,10 @@ AccordionTitle.defaultProps = {
     ...DefaultProps.defaultProps,
     active: false,
     icon: 'dropdown'
+};
+
+AccordionTitle.Components = {
+    Icon: Icon
 };
 
 export default AccordionTitle;

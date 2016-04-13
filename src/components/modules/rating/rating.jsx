@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Icon } from '../../elements';
+import Icon from './../../elements/icon/icon';
 
 export default class Rating extends React.Component {
     static propTypes = {
@@ -34,6 +34,12 @@ export default class Rating extends React.Component {
         max: 5
     }
 
+    /* eslint-disable */
+    static Components = {
+        Icon: Icon
+    };
+    /* eslint-enable */
+
     constructor(props) {
         super(props);
         this.state = { value: props.initialValue };
@@ -50,14 +56,14 @@ export default class Rating extends React.Component {
 
             if (this.props.onChange) {
                 children.push(
-                    <Icon
+                    <Rating.Components.Icon
                         className={classNames(classes)}
                         key={i}
                         onClick={this.handleChange.bind(this, i)} />
                 )
             } else {
                 children.push(
-                    <Icon
+                    <Rating.Components.Icon
                         className={classNames(classes)}
                         key={i} />
                 )

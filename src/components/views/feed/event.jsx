@@ -1,12 +1,14 @@
 import React from 'react';
-import { Image, Images, Icon } from '../../elements';
 import classNames from 'classnames';
+import Image from './../../elements/image/image';
+import Images from './../../elements/image/images';
+import Icon from './../../elements/icon/icon';
 
 function renderContent(children) {
     let contentChildren = [];
 
     React.Children.forEach(children, (child, index) => {
-        if (child.type === Images) {
+        if (child.type === Event.Components.Images) { // eslint-disable-line
             contentChildren.push(
                 React.cloneElement(
                     child,
@@ -16,9 +18,9 @@ function renderContent(children) {
                     }
                 )
             );
-        } else if (child.type !== Image && child.type !== Icon) {
+        } else if (child.type !== Event.Components.Image && child.type !== Event.Components.Icon) { // eslint-disable-line
             contentChildren.push(child);
-        } else if ((child.type === Image || child.type === Icon) && index > 0) {
+        } else if ((child.type === Event.Components.Image || child.type === Event.Components.Icon) && index > 0) { // eslint-disable-line
             contentChildren.push(child);
         }
     });
@@ -35,8 +37,8 @@ function renderLabel(children) {
 
     React.Children.forEach(children, (child, index) => {
         // remove the Image default classes
-        if ((child.type === Image || child.type === Icon) && index === 0) {
-            if (child.type === Image) {
+        if ((child.type === Event.Components.Image || child.type === Event.Components.Icon) && index === 0) { // eslint-disable-line
+            if (child.type === Event.Components.Image) { // eslint-disable-line
                 labelChildren.push(
                     React.cloneElement(
                         child,
@@ -87,6 +89,12 @@ Event.propTypes = {
 Event.defaultProps = {
     component: 'div'
 }
+
+Event.Components = {
+    Image: Image,
+    Images: Images,
+    Icon: Icon
+};
 
 export default Event;
 

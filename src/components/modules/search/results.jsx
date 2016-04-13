@@ -1,6 +1,6 @@
 import React from 'react';
-import { Content } from '../../elements';
 import classNames from 'classnames';
+import Content from './../../elements/simple/content';
 
 export default class Results extends React.Component {
     static propTypes = {
@@ -28,6 +28,12 @@ export default class Results extends React.Component {
         emptyHeader: 'No Results',
         emptyMessage: 'Your search returned no results'
     };
+
+    /* eslint-disable */
+    static Components = {
+        Content: Content
+    };
+    /* eslint-enable */
 
     onClick(child, e) {
         this.props.onSearchClick(e, child);
@@ -66,12 +72,12 @@ export default class Results extends React.Component {
                    key={key}
                    onMouseDown={this.onClick.bind(this, title)}
                 >
-                    <Content>
+                    <Results.Components.Content>
                         <div className="title">
                             {title}
                         </div>
                         {description}
-                    </Content>
+                    </Results.Components.Content>
                 </a>
             )
         });

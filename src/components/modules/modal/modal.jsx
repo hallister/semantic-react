@@ -4,9 +4,9 @@ import Transition from 'react-motion-ui-pack';
 import Portal from 'react-portal';
 import EventListener from 'react-event-listener';
 import shallowCompare from 'react-addons-shallow-compare';
-import ModalElement from './modalelement';
 import { isNodeInRoot } from '../../utilities';
 import Dimmer from '../dimmer/dimmer';
+import ModalElement from './modalelement';
 
 /**
  * Modal is modal
@@ -49,6 +49,13 @@ export default class Modal extends React.Component {
         },
         onRequestClose: () => { }
     };
+
+    /* eslint-disable */
+    static Components = {
+        Dimmer: Dimmer,
+        ModalElement: ModalElement
+    };
+    /* eslint-enable */
 
     constructor(props) {
         super(props);
@@ -147,7 +154,7 @@ export default class Modal extends React.Component {
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
                 style={portalStyle}
             >
-                    <Dimmer active={this.state.active}
+                    <Modal.Components.Dimmer active={this.state.active}
                         page
                         noWrapChildren
                         className="modals"
@@ -160,17 +167,17 @@ export default class Modal extends React.Component {
                             leave={leaveAnimation}
                         >
                             {(this.state.active && !this.state.closing) &&
-                                <ModalElement {...other}
+                                <Modal.Components.ModalElement {...other}
                                     ref={ref => this.modal = ref}
                                     key="modal"
                                     scrolling={this.state.scrolling}
                                     style={modalStyle}
                                 >
                                     {children}
-                                </ModalElement>
+                                </Modal.Components.ModalElement>
                             }
                         </Transition>    
-                    </Dimmer>
+                    </Modal.Components.Dimmer>
             </Portal>
         );
     }

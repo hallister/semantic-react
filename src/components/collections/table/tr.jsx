@@ -3,12 +3,12 @@ import Td from './td';
 
 let Tr = (props) => {
     return (
-        <Td
+        <Tr.Components.Td
             {...props}
             component={props.component}
         >
             {props.children}
-        </Td>
+        </Tr.Components.Td>
     );
 };
 
@@ -23,5 +23,9 @@ Tr.propTypes = {
 Tr.defaultProps = {
     component: 'tr'
 }
+
+Tr.Components = {
+    Td: Td
+};
 
 export default Tr;

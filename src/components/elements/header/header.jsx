@@ -89,6 +89,12 @@ export default class Header extends React.Component {
         item: true // handles
     };
 
+    /* eslint-disable */
+    static Components = {
+        Icon: Icon
+    }
+    /* eslint-enable */
+
     getChildContext() {
         return {
             isHeaderChild: true
@@ -107,7 +113,7 @@ export default class Header extends React.Component {
 
         // add class names
         other.className = classNames(other.className, this.getClasses());
-        const IconComponent = iconComponent || Icon;
+        const IconComponent = iconComponent || Header.Components.Icon;
         let Component = component;
         if (Component === 'div' && this.props.onClick) {
             Component = 'a';

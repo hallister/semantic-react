@@ -1,9 +1,10 @@
 import React from 'react';
 import Transition from 'react-motion-ui-pack';
-import { hasChild } from '../../utilities';
-import { Content, Loader } from '../../elements';
 import classNames from 'classnames';
+import { hasChild } from '../../utilities';
 import DefaultProps from '../../defaultProps';
+import Content from './../../elements/simple/content';
+import Loader from './../../elements/loader/loader';
 
 export default class Dimmer extends React.Component {
     static propTypes = {
@@ -53,6 +54,13 @@ export default class Dimmer extends React.Component {
         inverted: false,
         noWrapChildren: false
     };
+
+    /* eslint-disable */
+    static Components = {
+        Content: Content,
+        Loader: Loader
+    }
+    /* eslint-enable */
     
     getChildContext() {
         return {
@@ -65,7 +73,7 @@ export default class Dimmer extends React.Component {
         if (noWrapChildren) {
             return children;
         } else {
-            return (hasChild(children, Loader)) ? children : <Content>{children}</Content>;
+            return (hasChild(children, Dimmer.Components.Loader)) ? children : <Dimmer.Components.Content>{children}</Dimmer.Components.Content>;
         }
     }
     

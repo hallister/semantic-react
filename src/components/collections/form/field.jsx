@@ -1,7 +1,8 @@
 import React from 'react';
-import { Numbers, hasFirstChild } from '../../utilities';
-import { Checkbox, Checkboxes } from '../../modules';
 import classNames from 'classnames';
+import { Numbers, hasFirstChild } from '../../utilities';
+import Checkbox from './../../modules/checkbox/checkbox';
+import CheckboxFields from './../../modules/checkbox/checkboxfields';
 
 function getClasses(props) {
     let classes = {
@@ -42,7 +43,7 @@ let Field = (props) => {
         component,
         other,
         [
-            hasFirstChild(children, Checkbox) || hasFirstChild(children, Checkboxes) || !label || label == ''  ? null : renderLabel(props.label),
+            hasFirstChild(children, Field.Components.Checkbox) || hasFirstChild(children, Field.Components.CheckboxFields) || !label || label == ''  ? null : renderLabel(props.label),
             children
         ]
     );
@@ -71,6 +72,11 @@ Field.defaultProps = {
     component: 'div',
     defaultClasses: true
 }
+
+Field.Components = {
+    Checkbox: Checkbox,
+    CheckboxFields: CheckboxFields
+};
 
 export default Field;
 

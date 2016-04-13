@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image } from '../../elements';
-import { hasDescendant, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import Image from './../image/image';
+import { hasDescendant, validateClassProps } from '../../utilities';
 
 let validProps = {
     move: ['right', 'up', 'down'],
@@ -45,6 +45,12 @@ export default class Reveal extends React.Component {
         size: 'small'
     };
 
+    /* eslint-disable */
+    static Components = {
+        Image: Image
+    };
+    /* eslint-enable */
+
     render() {
         /* eslint-disable no-use-before-define */
         let { active, circular, children, className, defaultClasses, disabled, fade,
@@ -80,7 +86,7 @@ export default class Reveal extends React.Component {
 
             // sub-defaults (order can matter?)
             reveal: this.props.defaultClasses,
-            image: this.props.image || hasDescendant(this.props.children, Image)
+            image: this.props.image || hasDescendant(this.props.children, Reveal.Components.Image)
         };
 
         classes[this.props.size] = !!this.props.size;

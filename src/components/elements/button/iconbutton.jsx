@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Icon, Button } from '../../elements';
+import Button from './button';
+import Icon from '../icon/icon';
 
 function getClasses(props) {
     let classes = {
@@ -17,13 +18,13 @@ let IconButton = (props) => {
     other.className = classNames(other.className, getClasses(props));
     
     return (
-        <Button
+        <IconButton.Components.Button
             {...other}
         >
-            <Icon color={iconColor}
+            <IconButton.Components.Icon color={iconColor}
                   name={name}/>
             {children}
-        </Button>
+        </IconButton.Components.Button>
     );
 };
 
@@ -45,4 +46,8 @@ IconButton.defaultProps = {
     ...Button.defaultProps
 };
 
+IconButton.Components = {
+    Button: Button,
+    Icon: Icon
+};
 export default IconButton;

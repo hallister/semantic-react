@@ -15,15 +15,21 @@ export default class Tab extends React.Component {
         component: 'div'
     };
 
+    /* eslint-disable */
+    static Components = {
+        TabContent: TabContent
+    };
+    /* eslint-enable */
+
     render() {
         /* eslint-disable no-use-before-define */
         let { children, header, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         return (
-            <TabContent { ...other }>
+            <Tab.Components.TabContent { ...other }>
                 {this.props.children}
-            </TabContent>
+            </Tab.Components.TabContent>
         );
     }
 }

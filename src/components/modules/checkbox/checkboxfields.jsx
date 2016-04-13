@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Checkbox } from '../../modules';
 import classNames from 'classnames';
+import Checkbox from './checkbox';
 
 export default class CheckboxFields extends Component {
     static propTypes = {
@@ -29,6 +29,12 @@ export default class CheckboxFields extends Component {
         component: 'div',
         defaultClasses: true
     };
+
+    /* eslint-disable */
+    static Components = {
+        Checkbox: Checkbox
+    };
+    /* eslint-enable */
 
     constructor(props) {
         super(props);
@@ -60,7 +66,7 @@ export default class CheckboxFields extends Component {
             );
         } else {
             return React.Children.map(this.props.children, child => {
-                if (child.type == Checkbox) {
+                if (child.type == CheckboxFields.Components.Checkbox) {
                     element = this.cloneChild(index, child);
 
                     element = React.DOM.div({
