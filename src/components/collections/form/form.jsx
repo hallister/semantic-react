@@ -58,7 +58,7 @@ Form.propTypes = {
 }
 
 Form.defaultProps = {
-    component: 'div',
+    component: 'form',
     defaultClasses: true
 }
 
