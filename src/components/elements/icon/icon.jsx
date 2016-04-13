@@ -102,7 +102,7 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-    ...DefaultProps.propTypes,
+    ...DefaultProps.defaultProps,
     component: 'i'
 };
 
