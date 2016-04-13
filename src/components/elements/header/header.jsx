@@ -13,7 +13,7 @@ let validProps = {
 
 export default class Header extends React.Component {
     static propTypes = {
-        ...DefaultProps.defaultProps,
+        ...DefaultProps.propTypes,
         /**
          * A header can have its text aligned to a side
          */
@@ -84,7 +84,7 @@ export default class Header extends React.Component {
     };
 
     static defaultProps = {
-        ... DefaultProps.defaultProps,
+        ...DefaultProps.defaultProps,
         attached: false,
         item: true // handles
     };
