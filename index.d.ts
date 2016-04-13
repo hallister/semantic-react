@@ -539,7 +539,7 @@ export interface InputProps extends BaseProps<Input> {
     /**
      * Label position
      */
-    labelPosition: "left" | "right" | "left corner" | "right corner";
+    labelPosition?: "left" | "right" | "left corner" | "right corner";
     /**
      * Input placeholder
      */
