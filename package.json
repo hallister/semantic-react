@@ -52,8 +52,8 @@
     "react-prop-types": "^0.3.0"
   },
   "peerDependencies": {
-    "react": ">=0.14.7",
-    "react-dom": ">=0.14.7"
+    "react": "^0.14.0 || ^15.0.0",
+    "react-dom": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.2",
