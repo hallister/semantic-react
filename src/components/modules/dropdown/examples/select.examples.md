@@ -28,6 +28,7 @@ Select is the dropdown with ability to select one or few values
             onClick={() => setState({active: !state.active})}
             onRequestClose={() => setState({active: false})}
     >
+        <Option value={0}><Icon name="facebook"/>First</Option>
         <Option value={1}><Icon name="twitter"/>First</Option>
         <Option value={2}><Icon name="cloud"/>Second</Option>
     </Select>
