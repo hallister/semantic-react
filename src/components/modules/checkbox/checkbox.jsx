@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import DefaultProps  from '../../defaultProps';
 
 export default class Checkbox extends Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
+
         checked: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         fitted: React.PropTypes.bool,
         indeterminate: React.PropTypes.bool,
@@ -23,45 +19,32 @@ export default class Checkbox extends Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true
+        ...DefaultProps.defaultProps
     };
 
-    constructor(props) {
-        super(props);
+    onClick = (event) => {
+        if (this.props.disabled || this.props.readOnly) return;
 
-        this.state = {
-            active: this.props.checked
-        }
-    }
-
-    onClick() {
-        if (!this.state.active || (this.state.active && !this.props.radio)) {
-            this.setState({
-                active: !this.state.active
-            });
-        }
-    }
+        this.props.onClick(event);
+    };
 
     renderChildren() {
         /* eslint-disable no-use-before-define */
         let { children, defaultClasses, className, onClick,
-              radio, slider, toggle, component, readOnly, checked,
-              disabled, ...other } = this.props;
+              radio, slider, toggle, component, readOnly, checked, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         let childElements = [
-            React.DOM.input({
-                type: 'checkbox',
-                key: 'input',
-                className: 'hidden',
-                checked: this.state.active || this.props.checked,
-                readOnly: true,
-                ...other
-            }),
-            React.DOM.label({
-                key: 'label'
-            }, this.props.children)
+            <input
+                { ...other }
+                type="checkbox"
+                key="input"
+                className="hidden"
+                readOnly
+                checked={checked} />,
+            <label key="label">
+                {children}
+            </label>
         ];
 
         return childElements;
@@ -69,11 +52,11 @@ export default class Checkbox extends Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { component, defaultClasses, name, ...other } = this.props;
+        let { component, defaultClasses, name, checked, onClick, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
-        other.onClick = typeof this.props.onClick === 'function' ? this.props.onClick : this.onClick.bind(this);
+        other.onClick = this.onClick;
 
         return React.createElement(
             this.props.component,
@@ -100,7 +83,7 @@ export default class Checkbox extends Component {
 
             // state
             'read-only': this.props.readOnly,
-            checked: this.state.active || this.props.checked,
+            checked: this.props.checked,
             disabled: this.props.disabled,
             indeterminate: this.props.indeterminate
         };
