@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export interface BaseProps<T> extends React.DOMAttributes, React.Props<any> {
+export interface BaseProps<T> extends React.Props<any> {
     /**
      * Children nodes
      */
