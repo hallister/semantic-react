@@ -12,7 +12,7 @@ export interface BaseProps<T> extends React.Props<any> {
     /**
      * Use other component for composing results: <DropdownMenu component={Button}>
      */
-    component?: React.ComponentClass<any> | string | any;
+    component?: React.ReactType;
     /**
      * Apply default semantic UI classes for component, for example ui button
      * @default true
