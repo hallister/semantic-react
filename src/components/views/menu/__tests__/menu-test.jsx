@@ -12,8 +12,8 @@ describe('Menu', () => {
         let wrapper = shallow(<Menu />);
         expect(wrapper).to.have.tagName('div');
         expect(wrapper).to.have.className('ui menu');
-    });   
-    
+    });
+
     it('It renders as custom component', () => {
         let wrapper = shallow(<Menu component="ul"/>);
         expect(wrapper).to.have.tagName('ul');
@@ -24,72 +24,97 @@ describe('Menu', () => {
         let wrapper = shallow(<Menu borderless/>);
         expect(wrapper).to.have.className('borderless');
     });
-    
+
+    it('Could be colored', () => {
+        let wrapper = shallow(<Menu color="blue"/>);
+        expect(wrapper).to.have.className('blue');
+    });
+
+    it('Could be left fixed', () => {
+        let wrapper = shallow(<Menu fixed="left"/>);
+        expect(wrapper).to.have.className('left fixed');
+    });
+
+    it('Could be right fixed', () => {
+        let wrapper = shallow(<Menu fixed="right"/>);
+        expect(wrapper).to.have.className('right fixed');
+    });
+
+    it('Could be top fixed', () => {
+        let wrapper = shallow(<Menu fixed="top"/>);
+        expect(wrapper).to.have.className('top fixed');
+    });
+
+    it('Could be bottom fixed', () => {
+        let wrapper = shallow(<Menu fixed="bottom"/>);
+        expect(wrapper).to.have.className('bottom fixed');
+    });
+
     it('Could be attached at top', () => {
         let wrapper = shallow(<Menu attached="top"/>);
         expect(wrapper).to.have.className('top attached');
     });
-    
+
     it('Could be attached at bottom', () => {
         let wrapper = shallow(<Menu attached="bottom"/>);
         expect(wrapper).to.have.className('bottom attached');
     });
-    
+
     it('Could be inverted', () => {
         let wrapper = shallow(<Menu inverted/>);
         expect(wrapper).to.have.className('inverted');
     });
-    
+
     it('Could be pagination menu', () => {
         let wrapper = shallow(<Menu pagination/>);
         expect(wrapper).to.have.className('pagination');
     });
-    
+
     it('Could be pointing', () => {
         let wrapper = shallow(<Menu pointing/>);
         expect(wrapper).to.have.className('pointing');
     });
-    
+
     it('Could be secondary', () => {
         let wrapper = shallow(<Menu secondary/>);
         expect(wrapper).to.have.className('secondary');
     });
-    
+
     it('Could be tabular', () => {
         let wrapper = shallow(<Menu tabular/>);
         expect(wrapper).to.have.className('tabular');
     });
-    
+
     it('Could be vertical', () => {
         let wrapper = shallow(<Menu vertical/>);
         expect(wrapper).to.have.className('vertical');
     });
-    
+
     it('Could be fluid', () => {
         let wrapper = shallow(<Menu fluid/>);
         expect(wrapper).to.have.className('fluid');
     });
-    
+
     it('Could be fixed', () => {
         let wrapper = shallow(<Menu fixed/>);
         expect(wrapper).to.have.className('fixed');
     });
-    
+
     it('Could be fitted', () => {
         let wrapper = shallow(<Menu fitted/>);
         expect(wrapper).to.have.className('fitted');
     });
-    
+
     it('Could be fitted horizontally', () => {
         let wrapper = shallow(<Menu fitted="horizontally"/>);
         expect(wrapper).to.have.className('horizontally fitted');
     });
-    
+
     it('Could be fitted vertically', () => {
         let wrapper = shallow(<Menu fitted="vertically"/>);
         expect(wrapper).to.have.className('vertically fitted');
     });
-    
+
     it('Could be text menu', () => {
         let wrapper = shallow(<Menu text/>);
         expect(wrapper).to.have.className('text');
@@ -98,34 +123,34 @@ describe('Menu', () => {
     describe('It could be floated', () => {
         it('Left', () => {
             let wrapper = shallow(<Menu floated="left"/>);
-            expect(wrapper).to.have.className('left floated');
-        }); 
+            expect(wrapper).to.have.className('left');
+        });
 
         it('Right', () => {
             let wrapper = shallow(<Menu floated="right"/>);
-            expect(wrapper).to.have.className('right floated');
+            expect(wrapper).to.have.className('right');
         });
     });
-    
+
     describe('Could be item equal width menu', () => {
         it('Should have <number> item class when even prop was specified', () => {
             let wrapper = shallow(<Menu even><MenuItem /><MenuItem /></Menu>);
             expect(wrapper).to.have.className('item menu two');
         });
-        
+
         it('Shouldn\'t have <number> item calss when there are no MenuItems childs', () => {
             let wrapper = shallow(<Menu even />);
             expect(wrapper).to.have.not.className('item');
         });
     });
-    
+
     describe('Shouldn\'t have default ui class', () => {
         it('When menu is a child of another menu', () => {
             let wrapper = shallow(<Menu><Menu /></Menu>);
             expect(wrapper).to.have.className('ui');
             expect(wrapper.children()).to.have.not.className('ui');
         });
-        
+
         it('When menu is a child of dropdown', () => {
             let wrapper = shallow(<Menu />, { context: { isDropdownChild: true } });
             expect(wrapper).to.have.not.className('ui');
@@ -183,26 +208,26 @@ describe('Menu', () => {
             expect(onMenuItemClickStub).to.have.not.been.called;
         });
     });
-    
+
     describe('When menuValue property provided', () => {
         let childrens = [];
         childrens.push(<MenuItem className="first"
-                                 key={1} 
+                                 key={1}
                                  menuValue={1}
                        >First</MenuItem>
         );
         childrens.push(<MenuItem className="second"
-                                 key={2} 
+                                 key={2}
                                  menuValue={2}
                        >Second</MenuItem>
         );
         childrens.push(<MenuItem className="third"
-                                 key={3} 
+                                 key={3}
                                  menuValue={3}
                        >Third</MenuItem>
         );
-        
-        
+
+
         it('Should render MenuItem as active when MenuItem value is matched by provided value', () => {
             let wrapper = shallow(<Menu menuValue={1}>{childrens}</Menu>);
             expect(wrapper.find(MenuItem).at(0)).to.have.prop('active', true);
