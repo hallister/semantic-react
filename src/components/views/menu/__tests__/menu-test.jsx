@@ -123,12 +123,12 @@ describe('Menu', () => {
     describe('It could be floated', () => {
         it('Left', () => {
             let wrapper = shallow(<Menu floated="left"/>);
-            expect(wrapper).to.have.className('left floated');
+            expect(wrapper).to.have.className('left');
         });
 
         it('Right', () => {
             let wrapper = shallow(<Menu floated="right"/>);
-            expect(wrapper).to.have.className('right floated');
+            expect(wrapper).to.have.className('right');
         });
     });
 

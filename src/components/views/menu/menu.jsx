@@ -86,14 +86,6 @@ export default class Menu extends React.Component {
          */
         pointing: React.PropTypes.bool,
         /**
-         * A menu can be formatted to float left
-         */
-        left: React.PropTypes.bool,
-        /**
-         * A menu can be formatted to float right
-         */
-        right: React.PropTypes.bool,
-        /**
          * A menu can adjust its appearance to de-emphasize its contents
          */
         secondary: React.PropTypes.bool,
@@ -187,7 +179,7 @@ export default class Menu extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let { attached, borderless, color, component, even, fitted, fixed, fluid, floated, inverted, pagination,
-            pointing, left, right, secondary, tabular, text, menuValue, vertical, ...other } = this.props;
+            pointing, secondary, tabular, text, menuValue, vertical, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -228,8 +220,8 @@ export default class Menu extends React.Component {
             // numbers
 
             // position
-            left: this.props.left,
-            right: this.props.right,
+            left: false,
+            right: false,
             top: false,
             bottom: false,
 
@@ -258,6 +250,7 @@ export default class Menu extends React.Component {
         };
 
         classes[this.props.color] = !!this.props.color;
+        classes[this.props.floated] = !!this.props.floated;
 
         if (this.props.even && childCount > 0) {
             if (childCount > 0  && childCount <= 12) {
