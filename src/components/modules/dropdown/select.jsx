@@ -292,8 +292,7 @@ export default class Select extends React.Component {
         if (!multiple) {
             return null;
         }
-        
-        
+
         return React.Children.map(this.props.children, child => {
             // Process only option or option like childs and if it's selected
             if (child.props.value && selected.indexOf(child.props.value) !== -1) {
@@ -534,7 +533,7 @@ export default class Select extends React.Component {
                     <Select.Components.Menu key="menu"
                           onMenuItemClick={this.onMenuItemClick}
                           ref={ref => this.menuRef = ref}
-                          style={{ overflow: 'hidden' }}
+                          style={{ overflowX: 'hidden', overflowY: 'auto' }}
                     >
                         {menuChildrens}
                     </Select.Components.Menu>
