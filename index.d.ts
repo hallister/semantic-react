@@ -1335,10 +1335,8 @@ export interface CheckboxProps extends BaseProps<Checkbox> {
     disabled?: boolean;
     name?: string;
     onClick?: React.MouseEventHandler;
-    radio?: boolean;
     readOnly?: boolean;
-    slider?: boolean;
-    toggle?: boolean;
+    type?: "default" | "radio" | "toggle" | "slider";
 }
 export class Checkbox extends React.Component<CheckboxProps, any> {
 }

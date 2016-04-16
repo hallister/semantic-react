@@ -23,21 +23,13 @@ export default class Checkbox extends Component {
          */
         onClick: React.PropTypes.func,
         /**
-        * Checkbox - appearance
-         */
-        radio: React.PropTypes.bool,
-        /**
         * Attr name
          */
         name: React.PropTypes.string,
         /**
         * Checkbox - appearance
          */
-        slider: React.PropTypes.bool,
-        /**
-        * Checkbox - appearance
-         */
-        toggle: React.PropTypes.bool,
+        type: React.PropTypes.oneOf(['default', 'radio', 'toggle', 'slider']),
         /**
         * A fitted checkbox does not leave padding for a label
          */
@@ -46,6 +38,7 @@ export default class Checkbox extends Component {
 
     static defaultProps = {
         ...DefaultProps.defaultProps,
+        type: 'default',
         onClick: () => { }
     };
 
@@ -57,8 +50,8 @@ export default class Checkbox extends Component {
 
     renderChildren() {
         /* eslint-disable no-use-before-define */
-        let { children, defaultClasses, className, onClick,
-              radio, slider, toggle, component, readOnly, checked, ...other } = this.props;
+        let { children, defaultClasses, className, onClick, type,
+              component, readOnly, checked, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         let childElements = [
@@ -79,7 +72,7 @@ export default class Checkbox extends Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { component, defaultClasses, checked, onClick, name, ...other } = this.props;
+        let { component, defaultClasses, checked, type, onClick, name, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -101,12 +94,12 @@ export default class Checkbox extends Component {
             // positioning
 
             // types
-            radio: this.props.radio,
+            radio: this.props.type == 'radio',
+            slider: this.props.type == 'slider',
+            toggle: this.props.type == 'toggle',
 
              // variations
             fitted: this.props.fitted,
-            slider: this.props.slider,
-            toggle: this.props.toggle,
 
             // state
             'read-only': this.props.readOnly,
