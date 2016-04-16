@@ -36,7 +36,7 @@ class MyCheckboxes extends React.Component {
                 </Field>
                 <Field>
                     <Checkbox
-                        radio
+                        type="radio"
                         checked={isRadio}
                         onClick={this.onClickCheckbox.bind(this, 'isRadio')}
                     >
@@ -45,7 +45,7 @@ class MyCheckboxes extends React.Component {
                 </Field>
                 <Field>
                     <Checkbox
-                        slider
+                        type="slider"
                         checked={isSlider}
                         onClick={this.onClickCheckbox.bind(this, 'isSlider')}
                     >
@@ -54,7 +54,7 @@ class MyCheckboxes extends React.Component {
                 </Field>
                 <Field>
                     <Checkbox
-                        toggle
+                        type="toggle"
                         checked={isToggle}
                         onClick={this.onClickCheckbox.bind(this, 'isToggle')}
                     >

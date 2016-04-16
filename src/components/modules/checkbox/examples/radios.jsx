@@ -28,7 +28,7 @@ class MyRadios extends React.Component {
                     <label>Omg bananas!</label>
                     <Field>
                         <Checkbox
-                            radio
+                            type="radio"
                             checked={value === 'one'}
                             onClick={this.onClickRadio.bind(this, 'one')}
                         >
@@ -37,7 +37,7 @@ class MyRadios extends React.Component {
                     </Field>
                     <Field>
                         <Checkbox
-                            radio
+                            type="radio"
                             checked={value === 'two'}
                             onClick={this.onClickRadio.bind(this, 'two')}
                         >
