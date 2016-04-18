@@ -378,7 +378,7 @@ export { RadiumAccordionTitle as AccordionTitle };
 export { RadiumCheckbox as Checkbox };
 export { RadiumCheckboxFields as CheckboxFields };
 
-export { RadiumDimmable as Dimmer };
+export { RadiumDimmer as Dimmer };
 export { RadiumDimmable as Dimmable };
 
 export { RadiumDropdownElement as DropdownElement };
