@@ -533,7 +533,7 @@ export default class Select extends React.Component {
                     <Select.Components.Menu key="menu"
                           onMenuItemClick={this.onMenuItemClick}
                           ref={ref => this.menuRef = ref}
-                          style={{ overflow: 'hidden' }}
+                          style={{ overflowX: 'hidden', overflowY: 'auto' }}
                     >
                         {menuChildrens}
                     </Select.Components.Menu>
