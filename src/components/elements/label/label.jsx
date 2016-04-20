@@ -6,7 +6,7 @@ import DefaultProps from '../../defaultProps';
 let validProps = {
     attached: ['top', 'bottom', 'top right', 'top left', 'bottom left', 'bottom right'],
     corner: ['left', 'right'],
-    pointing: ['below', 'left', 'right'],
+    pointing: ['top', 'bottom', 'left', 'right'],
     ribbon: ['right']
 };
 
@@ -115,7 +115,7 @@ Label.propTypes = {
      * A label can point to content next to it
      */
     pointing: React.PropTypes.oneOfType([
-        React.PropTypes.oneOf(['below', 'left', 'right']),
+        React.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
         React.PropTypes.bool
     ]),
     /**

@@ -75,7 +75,7 @@ export interface LabelProps extends BaseProps<Label> {
      * A label can point to content next to it
      * @default false
      */
-    pointing?: "below" | "left" | "right" | boolean;
+    pointing?: "top" | "bottom" | "left" | "right" | boolean;
     /**
      * A label can appear as a ribbon attaching itself to an element.
      * @default false

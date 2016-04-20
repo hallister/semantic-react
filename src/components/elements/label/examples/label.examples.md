@@ -52,7 +52,7 @@
             </Field>
             <Divider/>
             <Field>
-                <Label pointing="below">Please enter the value</Label>
+                <Label pointing="bottom">Please enter the value</Label>
                 <Input placeholder="Last name"/>
             </Field>
             <Divider/>
@@ -75,7 +75,7 @@
             </Field>
             <Divider/>
             <Field>
-                <Label color="blue" basic pointing="below">Please enter the value</Label>
+                <Label color="blue" basic pointing="bottom">Please enter the value</Label>
                 <Input placeholder="Last name"/>
             </Field>
             <Divider/>
