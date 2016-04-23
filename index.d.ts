@@ -1459,7 +1459,7 @@ export interface ModalProps extends BaseProps<Modal> {
     /**
      * Scrolling content
      */
-    scrooling?: boolean;
+    scrolling?: boolean;
     /**
      * A modal can vary in size
      */
