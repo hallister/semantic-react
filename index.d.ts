@@ -1457,7 +1457,7 @@ export interface ModalProps extends BaseProps<Modal> {
      */
     fullscreen?: boolean;
     /**
-     * Scrolling content
+     * Scrolling content. This flag will be set automatically if modal's content is too big
      */
     scrolling?: boolean;
     /**
