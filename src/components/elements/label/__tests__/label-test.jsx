@@ -118,12 +118,12 @@ describe('Label', () => {
         });
         
         it('top', () => {
-            let wrapper = shallow(<Label pointing="below"/>);
+            let wrapper = shallow(<Label pointing="top"/>);
             expect(wrapper).to.have.className('top pointing');
         });
         
         it('bottom', () => {
-            let wrapper = shallow(<Label pointing="below"/>);
+            let wrapper = shallow(<Label pointing="bottom"/>);
             expect(wrapper).to.have.className('bottom pointing');
         });
         
