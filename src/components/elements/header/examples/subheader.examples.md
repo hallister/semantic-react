@@ -1,4 +1,5 @@
 ## SubHeader
+## Deprecated, use just Header inside another Header instead
 Almost like header
 
     <div>

@@ -180,6 +180,7 @@ export default class Header extends React.Component {
             horizontal: this.props.horizontal,
             inverted: this.props.inverted,
 
+            sub: this.context.isHeaderChild && this.props.defaultClasses,
             // component
             header: this.props.defaultClasses
         };

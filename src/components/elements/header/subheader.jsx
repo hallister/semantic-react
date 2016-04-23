@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 /**
  * Sub header, same as header but with 'sub' class name
+ * Deprecated
  */
 let SubHeader = (props) => {
     const { component, children, defaultClasses, ...other } = props;

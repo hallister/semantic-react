@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {expect} from 'chai';
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import {itShouldConsumeOwnAndPassCustomProps} from '../../../test-utils';
 import Icon from '../../icon/icon';
 import Image from '../../image/image';
@@ -197,6 +197,17 @@ describe('Header', () => {
             expect(wrapper).to.have.className('ui');
         });
     });
+    
+    // Use full dom rendering here since we need context of header inside in header
+    describe('When header inside another header', () => {
+        it('Should has sub class name', () => {
+            let wrapper = mount(
+                <Header><Header/></Header>
+            );
+            expect(wrapper.childAt(0)).to.have.className('sub');
+            expect(wrapper.childAt(0)).to.have.not.className('ui');
+        });
+    })
 
     itShouldConsumeOwnAndPassCustomProps(Header, consumedProps);
 });

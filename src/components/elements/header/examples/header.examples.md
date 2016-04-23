@@ -24,7 +24,7 @@
     <Header size="tiny" icon="settings">
         <Content>
             Account settings
-            <SubHeader>Manage your account settings and set e-mail preference</SubHeader>
+            <Header>Manage your account settings and set e-mail preference</Header>
         </Content>
     </Header>
 
@@ -67,7 +67,7 @@ This is slightly differ from icon header
             <Image src="http://semantic-ui.com/images/icons/plugin.png"/>
             <Content>
                 Plug-ins
-                <SubHeader>Check out our plug-in marketplace</SubHeader>
+                <Header>Check out our plug-in marketplace</Header>
             </Content>
         </Header>
      </div>
