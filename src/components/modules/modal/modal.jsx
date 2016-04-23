@@ -29,7 +29,11 @@ export default class Modal extends React.Component {
         /**
          * Callback from outside modal click
          */
-        onRequestClose: React.PropTypes.func
+        onRequestClose: React.PropTypes.func,
+        /**
+         * Overlay zIndex
+         */
+        zIndex: React.PropTypes.number
     };
 
 
@@ -47,7 +51,8 @@ export default class Modal extends React.Component {
             scale: 0.5,
             opacity: 0.5
         },
-        onRequestClose: () => { }
+        onRequestClose: () => { },
+        zIndex: 1000
     };
 
     /* eslint-disable */
@@ -132,7 +137,7 @@ export default class Modal extends React.Component {
 
     render() {
 
-        const { component, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, ...other } = this.props;
+        const { component, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, zIndex, ...other } = this.props;
 
         // Apply layer to portal to prevent clicking outside
         const portalStyle = {
@@ -140,7 +145,8 @@ export default class Modal extends React.Component {
             top: 0,
             bottom: 0,
             left: 0,
-            right: 0
+            right: 0,
+            zIndex: zIndex
         };
 
         const modalPosition = {

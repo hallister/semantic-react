@@ -1479,6 +1479,11 @@ export interface ModalProps extends BaseProps<Modal> {
     /**
      * Callback from outside modal click
      */
-    onRequestClose: () => void;
+    onRequestClose?: () => void;
+    /**
+     * Overlay zIndex
+     * @default 1000
+     */
+    zIndex?: number;
 }
 export class Modal extends React.Component<ModalProps, any> { }
