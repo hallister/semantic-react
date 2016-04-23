@@ -1,9 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
-import { validateClassProps } from '../../utilities';
+import { validateClassProps, hasChild } from '../../utilities';
 import DefaultProps from '../../defaultProps';
-import Icon from './../icon/icon';
+import Icon from '../icon/icon';
+import Image from '../image/image';
 
 let validProps = {
     aligned: ['right', 'left', 'justified', 'center'],
@@ -91,7 +92,8 @@ export default class Header extends React.Component {
 
     /* eslint-disable */
     static Components = {
-        Icon: Icon
+        Icon: Icon,
+        Image: Image
     }
     /* eslint-enable */
 
@@ -129,16 +131,37 @@ export default class Header extends React.Component {
         );
 
     }
+    
+    shouldHaveUiClass() {
+        if (!this.props.defaultClasses) {
+            return false;
+        }
+        if (this.context.isListChild || this.context.isHeaderChild || 
+            this.context.isMenuChild || this.context.isCardChild
+        ) {
+            return false;
+        }
+        
+        // Modal header shouldn't have ui class only for simple modals, i.e. icon header or header with image/icon 
+        // content should HAS ui class
+        if (this.context.isModalChild) {
+            // Icon header
+            if (this.props.icon) {
+                return true;
+            }
+            // Header with icon / image content should has UI class
+            if (hasChild(this.props.children, Header.Components.Icon) || hasChild(this.props.children, Header.Components.Image)) {
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
 
     getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses && 
-                !this.context.isListChild && 
-                !this.context.isHeaderChild && 
-                !this.context.isMenuChild && 
-                !this.context.isCardChild && 
-                !(this.context.isModalChild && !this.props.icon),
+            ui: this.shouldHaveUiClass(),
 
             // types
             icon: this.props.icon,
