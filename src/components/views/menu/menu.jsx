@@ -5,6 +5,7 @@ import DefaultProps from '../../defaultProps';
 
 let validProps = {
     attached: ['top', 'bottom'],
+    fixed: ['top', 'bottom', 'right', 'left'],
     fitted: ['horizontally', 'vertically'],
     floated: ['right', 'left']
 };
@@ -38,7 +39,10 @@ export default class Menu extends React.Component {
         /**
          * A menu can be fixed to a side of its context
          */
-        fixed: React.PropTypes.bool,
+        fixed: React.PropTypes.oneOfType([
+            React.PropTypes.bool,
+            React.PropTypes.oneOf(['right', 'left', 'top', 'bottom'])
+        ]),
         /**
          * Float left or right
          */
@@ -47,6 +51,10 @@ export default class Menu extends React.Component {
          * A vertical menu may take the size of its container. (A horizontal menu does this by default)
          */
         fluid: React.PropTypes.bool,
+        /**
+         * A menu can be formatted with different colors
+         */
+        color: React.PropTypes.string,
         /**
          * A menu may have its colors inverted to show greater contrast
          */
@@ -66,7 +74,7 @@ export default class Menu extends React.Component {
          */
         onMenuChange: React.PropTypes.func,
         /**
-         * Callback for menu item click 
+         * Callback for menu item click
          */
         onMenuItemClick: React.PropTypes.func,
         /**
@@ -77,10 +85,6 @@ export default class Menu extends React.Component {
          * A menu can point to show its relationship to nearby content
          */
         pointing: React.PropTypes.bool,
-        /**
-         * A menu can be formatted to float right
-         */
-        right: React.PropTypes.bool,
         /**
          * A menu can adjust its appearance to de-emphasize its contents
          */
@@ -113,22 +117,22 @@ export default class Menu extends React.Component {
         onMenuItemClick: () => {},
         onMenuChange: () => {}
     };
-    
+
     constructor(props) {
         super(props);
     }
-    
+
     getChildContext() {
         return {
             isMenuChild: true
         };
     }
-    
+
 
     onMenuItemClick(value, event) {
         event.stopPropagation();
         event.preventDefault();
-        
+
         this.props.onMenuItemClick(value);
         // Call onMenuChange callback when needed
         if (typeof this.props.menuValue !== 'undefined') {
@@ -141,20 +145,20 @@ export default class Menu extends React.Component {
                     // select menu item
                     this.props.onMenuChange([...this.props.menuValue, value]);
                 }
-                // Single menu selection 
+                // Single menu selection
             } else {
                 // calling with null if clicking on same item, because we might want to unselect menu item
                 this.props.onMenuChange(this.props.menuValue !== value ? value : null);
             }
         }
     }
-    
+
     renderChildren() {
         // should deep traverse?
         return React.Children.map(this.props.children, child => {
             // It may be empty
             if (!child) return child;
-            
+
             // Process if a child has menuValue property
             if (typeof child.props.menuValue !== 'undefined') {
                 return React.cloneElement(child, {
@@ -174,8 +178,8 @@ export default class Menu extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { attached, borderless, component, even, fitted, fixed, fluid, floated, inverted, pagination,
-            pointing, right, secondary, tabular, text, menuValue, vertical, ...other } = this.props;
+        let { attached, borderless, color, component, even, fitted, fixed, fluid, floated, inverted, pagination,
+            pointing, secondary, tabular, text, menuValue, vertical, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -185,7 +189,7 @@ export default class Menu extends React.Component {
         } else {
             component = this.props.component;
         }
-        
+
         let children = this.renderChildren();
 
         return React.createElement(
@@ -205,7 +209,7 @@ export default class Menu extends React.Component {
         if (Array.isArray(this.props.menuValue) && this.props.menuValue.indexOf(value) !== -1) return true;
         return !!(!Array.isArray(this.props.menuValue) && this.props.menuValue === value);
     }
-    
+
     getClasses() {
         let childCount = React.Children.count(this.props.children);
 
@@ -216,7 +220,8 @@ export default class Menu extends React.Component {
             // numbers
 
             // position
-            right: this.props.right,
+            left: false,
+            right: false,
             top: false,
             bottom: false,
 
@@ -243,6 +248,9 @@ export default class Menu extends React.Component {
             // component
             menu: this.props.defaultClasses
         };
+
+        classes[this.props.color] = !!this.props.color;
+        classes[this.props.floated] = !!this.props.floated;
 
         if (this.props.even && childCount > 0) {
             if (childCount > 0  && childCount <= 12) {

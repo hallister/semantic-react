@@ -292,11 +292,10 @@ export default class Select extends React.Component {
         if (!multiple) {
             return null;
         }
-        
-        
+
         return React.Children.map(this.props.children, child => {
             // Process only option or option like childs and if it's selected
-            if (child.props.value && selected.indexOf(child.props.value) !== -1) {
+            if (selected.indexOf(child.props.value) !== -1) {
                 return (
                     <Transition component={false}
                                 enter={{ scale: 1 }}
@@ -342,7 +341,7 @@ export default class Select extends React.Component {
             if (!search || !searchString) {
                 // traverse in childs, find necessary node
                 React.Children.forEach(this.props.children, child => {
-                    if (child.props.value && selected.indexOf(child.props.value) !== -1) {
+                    if (typeof child.props.value !== 'undefined' && selected.indexOf(child.props.value) !== -1) {
                         content = <div className="text">{child.props.children}</div>
                     }
                 });
@@ -427,7 +426,7 @@ export default class Select extends React.Component {
         let newChildren = [];
         React.Children.forEach(this.props.children, child => {
             // only process option like childs
-            if (child.props.value) {
+            if (typeof child.props.value !== 'undefined') {
                 let match = true;
                 if (search && searchString !== '') {
                     // value could be int or string. In case of int convert it to string
@@ -534,7 +533,7 @@ export default class Select extends React.Component {
                     <Select.Components.Menu key="menu"
                           onMenuItemClick={this.onMenuItemClick}
                           ref={ref => this.menuRef = ref}
-                          style={{ overflow: 'hidden' }}
+                          style={{ overflowX: 'hidden', overflowY: 'auto' }}
                     >
                         {menuChildrens}
                     </Select.Components.Menu>

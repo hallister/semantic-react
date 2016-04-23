@@ -119,7 +119,16 @@ export default class Modal extends React.Component {
     componentDidUpdate() {
         // Set modal position after update
         this.setPlacement();
-    }    
+    }
+
+    onPressEsc(event) {
+        if (event.keyCode !== 27) {
+            return;
+        }
+
+        event.stopPropagation();
+        this.props.onRequestClose(event);
+    }
     
     onOutsideClick(event) {
         if (!this.state.active || this.state.closing) {
@@ -166,6 +175,7 @@ export default class Modal extends React.Component {
                         className="modals"
                     >
                     <EventListener elementName="document"
+                                   onKeyDown={this.onPressEsc.bind(this)}
                                    onMouseDown={this.onOutsideClick.bind(this)}
                                    onTouchStart={this.onOutsideClick.bind(this)}/>
                         <Transition component={false}

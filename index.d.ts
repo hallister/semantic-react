@@ -102,7 +102,7 @@ export class Detail extends React.Component<DetailProps, any> {
 // <Labels />
 export interface LabelsProps extends BaseProps<Labels> {
     /**
-     * Labels can share shapes 
+     * Labels can share shapes
      */
     circular?: boolean;
     /**
@@ -462,7 +462,7 @@ export interface ImageProps extends BaseProps<Image> {
      */
     floated?: "right" | "left";
     /**
-     * An image may appear at different sizes 
+     * An image may appear at different sizes
      */
     size?: SizeType;
     /**
@@ -1058,7 +1058,7 @@ export interface MenuProps extends BaseProps<Menu> {
     /**
      * A menu can be fixed to a side of its context
      */
-    fixed?: boolean;
+    fixed?: "top" | "bottom" | "left" | "right" | boolean;
     /**
      * A vertical menu may take the size of its container. (A horizontal menu does this by default)
      */
@@ -1067,6 +1067,10 @@ export interface MenuProps extends BaseProps<Menu> {
      * Float left or right
      */
     floated?: "right" | "left";
+    /**
+     * A menu can have colors
+     */
+    color?: ColorType;
     /**
      * A menu may have its colors inverted to show greater contrast
      */
@@ -1329,12 +1333,10 @@ export interface CheckboxProps extends BaseProps<Checkbox> {
     checked?: boolean;
     fitted?: boolean;
     disabled?: boolean;
-    indeterminate?: boolean;
     name?: string;
-    radio?: boolean;
+    onClick?: React.MouseEventHandler;
     readOnly?: boolean;
-    slider?: boolean;
-    toggle?: boolean;
+    type?: "default" | "radio" | "toggle" | "slider";
 }
 export class Checkbox extends React.Component<CheckboxProps, any> {
 }
