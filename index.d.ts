@@ -1483,6 +1483,14 @@ export interface ModalProps extends BaseProps<Modal> {
      */
     onRequestClose?: () => void;
     /**
+     * Callback for modal opening
+     */
+    onModalOpened?: () => void;
+    /**
+     * Callback for modal closing
+     */
+    onModalClosed?: () => void;
+    /**
      * Overlay zIndex
      * @default 1000
      */
