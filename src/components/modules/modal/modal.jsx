@@ -31,6 +31,14 @@ export default class Modal extends React.Component {
          */
         onRequestClose: React.PropTypes.func,
         /**
+         * Callback for modal opening
+         */
+        onModalOpened: React.PropTypes.func,
+        /**
+         * Callback for modal closing
+         */
+        onModalClosed: React.PropTypes.func,
+        /**
          * Overlay zIndex
          */
         zIndex: React.PropTypes.number
@@ -52,6 +60,8 @@ export default class Modal extends React.Component {
             opacity: 0.5
         },
         onRequestClose: () => { },
+        onModalOpened: () => { },
+        onModalClosed: () => { },
         zIndex: 1000
     };
 
@@ -146,7 +156,10 @@ export default class Modal extends React.Component {
 
     render() {
 
-        const { component, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, zIndex, ...other } = this.props;
+        const { 
+            component, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, zIndex, 
+            onModalOpened, onModalClosed, ...other 
+        } = this.props;
 
         // Apply layer to portal to prevent clicking outside
         const portalStyle = {
@@ -167,7 +180,9 @@ export default class Modal extends React.Component {
         
         return (
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
-                style={portalStyle}
+                    style={portalStyle}
+                    onOpen={onModalOpened}
+                    onClose={onModalClosed}
             >
                     <Modal.Components.Dimmer active={this.state.active}
                         page
