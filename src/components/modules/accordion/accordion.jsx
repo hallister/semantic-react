@@ -148,7 +148,7 @@ export default class Accordion extends React.Component {
             <Transition component={component}
                 enter={this.enterAnimation}
                 leave={this.leaveAnimation}
-                props={other}
+                { ...other }
             >
                 {newChildren}
             </Transition>
