@@ -29,7 +29,19 @@ export default class Modal extends React.Component {
         /**
          * Callback from outside modal click
          */
-        onRequestClose: React.PropTypes.func
+        onRequestClose: React.PropTypes.func,
+        /**
+         * Callback for modal opening
+         */
+        onModalOpened: React.PropTypes.func,
+        /**
+         * Callback for modal closing
+         */
+        onModalClosed: React.PropTypes.func,
+        /**
+         * Overlay zIndex
+         */
+        zIndex: React.PropTypes.number
     };
 
 
@@ -47,7 +59,10 @@ export default class Modal extends React.Component {
             scale: 0.5,
             opacity: 0.5
         },
-        onRequestClose: () => { }
+        onRequestClose: () => { },
+        onModalOpened: () => { },
+        onModalClosed: () => { },
+        zIndex: 1000
     };
 
     /* eslint-disable */
@@ -141,7 +156,10 @@ export default class Modal extends React.Component {
 
     render() {
 
-        const { component, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, ...other } = this.props;
+        const { 
+            component, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, zIndex, 
+            onModalOpened, onModalClosed, ...other 
+        } = this.props;
 
         // Apply layer to portal to prevent clicking outside
         const portalStyle = {
@@ -149,7 +167,8 @@ export default class Modal extends React.Component {
             top: 0,
             bottom: 0,
             left: 0,
-            right: 0
+            right: 0,
+            zIndex: zIndex
         };
 
         const modalPosition = {
@@ -161,7 +180,9 @@ export default class Modal extends React.Component {
         
         return (
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
-                style={portalStyle}
+                    style={portalStyle}
+                    onOpen={onModalOpened}
+                    onClose={onModalClosed}
             >
                     <Modal.Components.Dimmer active={this.state.active}
                         page

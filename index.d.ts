@@ -75,7 +75,7 @@ export interface LabelProps extends BaseProps<Label> {
      * A label can point to content next to it
      * @default false
      */
-    pointing?: "below" | "left" | "right" | boolean;
+    pointing?: "top" | "bottom" | "left" | "right" | boolean;
     /**
      * A label can appear as a ribbon attaching itself to an element.
      * @default false
@@ -1459,9 +1459,9 @@ export interface ModalProps extends BaseProps<Modal> {
      */
     fullscreen?: boolean;
     /**
-     * Scrolling content
+     * Scrolling content. This flag will be set automatically if modal's content is too big
      */
-    scrooling?: boolean;
+    scrolling?: boolean;
     /**
      * A modal can vary in size
      */
@@ -1481,6 +1481,19 @@ export interface ModalProps extends BaseProps<Modal> {
     /**
      * Callback from outside modal click
      */
-    onRequestClose: () => void;
+    onRequestClose?: () => void;
+    /**
+     * Callback for modal opening
+     */
+    onModalOpened?: () => void;
+    /**
+     * Callback for modal closing
+     */
+    onModalClosed?: () => void;
+    /**
+     * Overlay zIndex
+     * @default 1000
+     */
+    zIndex?: number;
 }
 export class Modal extends React.Component<ModalProps, any> { }

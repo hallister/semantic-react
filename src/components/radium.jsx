@@ -13,6 +13,7 @@ import Radium from 'radium';
 // collections
 import Column from './collections/grid/column';
 import Grid from './collections/grid/grid';
+import Row from './collections/grid/row';
 
 import Message from './collections/message/message';
 
@@ -124,6 +125,7 @@ import Items from './views/item/items';
 
 let RadiumColumn = Radium(Column);
 let RadiumGrid = Radium(Grid);
+let RadiumRow = Radium(Row);
 
 let RadiumMessage = Radium(Message);
 
@@ -253,6 +255,7 @@ RadiumSocialButton.Components.Button = RadiumButton;
 RadiumSocialButton.Components.Icon = RadiumIcon;
 
 RadiumHeader.Components.Icon = RadiumIcon;
+RadiumHeader.Components.Image = RadiumImage;
 RadiumSubHeader.Components.Header = RadiumHeader;
 
 RadiumInput.Components.Icon = RadiumIcon;
@@ -312,6 +315,7 @@ RadiumMenuItem.Components.Item = RadiumItem;
 // collections
 export { RadiumColumn as Column };
 export { RadiumGrid as Grid };
+export { RadiumRow as Row };
 
 export { RadiumMessage as Message };
 
