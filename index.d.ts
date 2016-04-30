@@ -1237,7 +1237,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, any> {
 
 // <Option />
 export interface OptionProps extends ItemProps {
-    value: string;
+    value: string|number;
     selected?: boolean;
 }
 export class Option extends React.Component<OptionProps, any> {
