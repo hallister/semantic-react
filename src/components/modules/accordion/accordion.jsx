@@ -28,7 +28,15 @@ export default class Accordion extends React.Component {
         /**
          * A styled accordion adds basic formatting
          */
-        styled: React.PropTypes.bool
+        styled: React.PropTypes.bool,
+        /**
+         * Enter animations transforms
+         */
+        enterAnimation: React.PropTypes.object,
+        /**
+         * Leave animation
+         */
+        leaveAnimation: React.PropTypes.object
     };
 
     static contextTypes = {
@@ -39,7 +47,6 @@ export default class Accordion extends React.Component {
         isAccordionChild: React.PropTypes.bool
     };
 
-
     static defaultProps = {
         ...DefaultProps.defaultProps,
         activeIndexes: [],
@@ -48,6 +55,7 @@ export default class Accordion extends React.Component {
 
     constructor(props) {
         super(props);
+
         // Disallow to override animation style for now, since paddingTop and paddingBottom need to be animated too
         // I don't want to bother with dealing with unit measures for now, so just hardcode semantic EM values here and in body component
         this.enterAnimation = {
@@ -84,7 +92,6 @@ export default class Accordion extends React.Component {
             isAccordionChild: true
         };
     }
-
 
     /**
      * Accordion title click handler
@@ -140,14 +147,17 @@ export default class Accordion extends React.Component {
 
     render() {
         const {
-            component, children, defaultClasses, activeIndexes, fluid, inverted, onAccordionChange, styled, ...other
+            component, children, defaultClasses, activeIndexes, fluid, inverted,
+            onAccordionChange, styled, enterAnimation, leaveAnimation, ...other
         } = this.props;
         const newChildren = this.renderChildren();
+
         other.className = classNames(other.className, this.getClasses());
+
         return (
             <Transition component={component}
-                enter={this.enterAnimation}
-                leave={this.leaveAnimation}
+                enter={enterAnimation || this.enterAnimation}
+                leave={leaveAnimation || this.leaveAnimation}
                 { ...other }
             >
                 {newChildren}
