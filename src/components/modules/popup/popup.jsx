@@ -201,7 +201,7 @@ export default class Popup extends React.Component {
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
                     style={this.props.preventElementClicks ? portalStyle : {}}
             >
-                <noscript>
+                <div>
                     <EventListener elementName="document"
                                    onMouseDown={this.onOutsideClick.bind(this)}
                                    onTouchStart={this.onOutsideClick.bind(this)}/>
@@ -222,7 +222,7 @@ export default class Popup extends React.Component {
                             style={popupStyle}/>
                         }
                     </Transition>
-                </noscript>
+                </div>
             </Portal>
         );
     }
