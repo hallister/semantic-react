@@ -201,28 +201,28 @@ export default class Popup extends React.Component {
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
                     style={this.props.preventElementClicks ? portalStyle : {}}
             >
-                <noscript>
+                <EventListener elementName="window"
+                               onResize={this.handleResize}
+                               onScroll={this.handleScroll}>
                     <EventListener elementName="document"
                                    onMouseDown={this.onOutsideClick.bind(this)}
-                                   onTouchStart={this.onOutsideClick.bind(this)}/>
-                    <EventListener elementName="window"
-                                   onResize={this.handleResize}
-                                   onScroll={this.handleScroll}/>
-                    <Transition
-                        component={false}
-                        enter={startAnimation}
-                        leave={endAnimation}
-                    >
-                        {(this.state.active && !this.state.closing) &&
-                        <Popup.Components.PopupElement
-                            {...other}
-                            key="popup"
-                            position={this.state.position}
-                            ref="popup"
-                            style={popupStyle}/>
-                        }
-                    </Transition>
-                </noscript>
+                                   onTouchStart={this.onOutsideClick.bind(this)}>
+                        <Transition
+                            component={false}
+                            enter={startAnimation}
+                            leave={endAnimation}
+                        >
+                            {(this.state.active && !this.state.closing) &&
+                            <Popup.Components.PopupElement
+                                {...other}
+                                key="popup"
+                                position={this.state.position}
+                                ref="popup"
+                                style={popupStyle}/>
+                            }
+                        </Transition>
+                    </EventListener>
+                </EventListener>
             </Portal>
         );
     }
