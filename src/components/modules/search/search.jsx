@@ -4,19 +4,27 @@ import classNames from 'classnames';
 import Icon from './../../elements/icon/icon';
 import Results from './results';
 
+const KEYS = {
+    upArrow: 38,
+    downArrow: 40,
+    enter: 13
+};
+
 /*
 3 support results types:
 
-{
-    title: 'test',
-    description: 'testing'
-}
+['test', 'test']
+
+[
+    {
+        title: 'test',
+        description: 'testing'
+    }
+]
 
 {
     animal: ['cat', 'dog']
 }
-
-['test', 'test']
 */
 export default class Search extends React.Component {
     static propTypes = {
@@ -37,7 +45,7 @@ export default class Search extends React.Component {
         leaveAnimation: React.PropTypes.object,
         loading: React.PropTypes.bool,
         onChange: React.PropTypes.func.isRequired,
-        onSearchClick: React.PropTypes.func,
+        onChoice: React.PropTypes.func,
         placeholder: React.PropTypes.string,
         results: React.PropTypes.oneOfType([
             React.PropTypes.array,
@@ -58,7 +66,7 @@ export default class Search extends React.Component {
             scale: 0
         },
         icon: 'search',
-        onSearchClick: function noop() {},
+        onChoice: function noop() {},
         placeholder: 'Search...',
         value: ''
     };
@@ -74,30 +82,213 @@ export default class Search extends React.Component {
         super(props);
 
         this.state = {
-            focus: false
+            focus: false,
+            indexFocusCategory: null,
+            indexFocusItem: null
         };
     }
 
-    onBlur = () => {
-        if (this.state.focus) {
-            this.setState({
-                focus: false
-            });
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value || nextProps.results !== this.props.results) {
+            this.clearIndexFocus();
         }
+    }
+
+    onFocus = () => {
+        this.setFocus(true);
+
+        this.clearIndexFocus();
     }
 
     onChange = (e) => {
         this.props.onChange(e);
+
+        this.setFocus(true);
+
+        this.clearIndexFocus();
     }
 
-    onFocus = () => {
-        this.setState({
-            focus: true
-        });
+    onChoice = (e, child) => {
+        this.props.onChoice(e, child);
+
+        this.setFocus(false);
+        this.clearIndexFocus();
     }
 
-    onSearchClick = (e, child) => {
-        this.props.onSearchClick(e, child);
+    onBlur = () => {
+        this.setFocus(false);
+        this.clearIndexFocus();
+    }
+
+    onKeyDown = (e) => {
+        let results = this.props.results;
+
+        if (Array.isArray(results)) {
+            this.changeFocusItemTypeArray(e);
+
+            return;
+        }
+
+        if (typeof results === 'object') {
+            this.changeFocusItemTypeObject(e);
+        }
+    }
+
+    changeFocusItemTypeArray(e) {
+        let { indexFocusItem } = this.state;
+        let { results } = this.props;
+        let lengthResults = results.length - 1;
+        
+
+        // ArrowDown
+<<<<<<< HEAD
+        if (e.keyCode === KEYS.upArrow) {
+=======
+        if (e.keyCode === KEYS.downArrow) {
+>>>>>>> bbc659f... fix-search-preventDefault
+            e.preventDefault();
+
+            if (indexFocusItem !== lengthResults) {
+                this.setState({
+                    indexFocusItem: indexFocusItem === null ? 0 : ++indexFocusItem
+                });
+            }
+        }
+
+        // ArrowUp
+<<<<<<< HEAD
+        if (e.keyCode === KEYS.downArrow) {
+=======
+        if (e.keyCode === KEYS.upArrow) {
+>>>>>>> bbc659f... fix-search-preventDefault
+            e.preventDefault();
+
+            if (indexFocusItem >= 1) {
+                this.setState({
+                    indexFocusItem: --indexFocusItem
+                });
+            }
+        }
+
+        // Enter
+        if (e.keyCode === KEYS.enter) {
+            let child = results[indexFocusItem];
+
+            if (typeof child !== 'undefined') {
+                this.onChoice(e, this.getChild(child));
+            }
+        }
+    }
+
+    changeFocusItemTypeObject(e) {
+        let { indexFocusItem, indexFocusCategory } = this.state;
+        let { results } = this.props;
+        let categories = Object.keys(results);
+        let categoriesLength = categories.length - 1;
+
+        // ArrowDown
+<<<<<<< HEAD
+        if (e.keyCode === KEYS.upArrow) {
+=======
+        if (e.keyCode === KEYS.downArrow) {
+>>>>>>> bbc659f... fix-search-preventDefault
+            e.preventDefault();
+
+            if (indexFocusCategory === null) {
+                this.setState({
+                    indexFocusItem: 0,
+                    indexFocusCategory: 0
+                });
+
+                return;
+            }
+
+            let lengthCurrentArray = results[categories[indexFocusCategory]].length - 1;
+
+            if (indexFocusItem !== lengthCurrentArray) {
+                this.setState({
+                    indexFocusItem: ++indexFocusItem,
+                    indexFocusCategory: indexFocusCategory
+                });
+
+                return;
+            }
+
+            if (categoriesLength !== indexFocusCategory) {
+                this.setState({
+                    indexFocusItem: 0,
+                    indexFocusCategory: ++indexFocusCategory
+                });
+
+                return;
+            }
+        }
+
+        // ArrowUp
+<<<<<<< HEAD
+        if (e.keyCode === KEYS.downArrow) {
+=======
+        if (e.keyCode === KEYS.upArrow) {
+>>>>>>> bbc659f... fix-search-preventDefault
+            e.preventDefault();
+
+            if (indexFocusCategory === null) {
+                this.setState({
+                    indexFocusItem: results[categories[categories.length - 1]].length - 1,
+                    indexFocusCategory: categories.length - 1
+                });
+
+                return;
+            }
+
+            if (indexFocusItem >= 1) {
+                this.setState({
+                    indexFocusItem: --indexFocusItem,
+                    indexFocusCategory: indexFocusCategory
+                });
+
+                return;
+            }
+
+            if (indexFocusCategory >= 1) {
+                this.setState({
+                    indexFocusItem: results[categories[--indexFocusCategory]].length - 1,
+                    indexFocusCategory: indexFocusCategory
+                });
+
+                return;
+            }
+        }
+
+        // Enter
+        if (e.keyCode === KEYS.enter) {
+            let child = results[categories[indexFocusCategory]][indexFocusItem];
+
+            if (typeof child !== 'undefined') {
+                this.onChoice(e, this.getChild(child));
+            }
+        }
+    }
+
+    getChild(data) {
+        return typeof data === 'object' ? data.title : data;
+    }
+
+    setFocus(newState) {
+        if (this.state.focus !== newState) {
+            this.setState({
+                focus: newState
+            });
+        }
+    }
+
+    clearIndexFocus() {
+        if (this.state.indexFocusItem !== null) {
+            this.setState({
+                indexFocusItem: null,
+                indexFocusCategory: null
+            });
+        }
     }
 
     renderInput() {
@@ -109,6 +300,7 @@ export default class Search extends React.Component {
                     onBlur={this.onBlur}
                     onChange={this.onChange}
                     onFocus={this.onFocus}
+                    onKeyDown={this.onKeyDown}
                     placeholder={this.props.placeholder}
                     type="text"
                     value={this.props.value}/>
@@ -126,12 +318,13 @@ export default class Search extends React.Component {
     renderResults() {
         let props = {
             key: 'searchResults',
-            animate: this.state.focus && this.props.value !== '',
             emptyHeader: this.props.emptyHeader,
             emptyMessage: this.props.emptyMessage,
-            onSearchClick: this.onSearchClick,
+            onChoice: this.onChoice,
             results: this.state.focus ? this.props.results : [],
-            search: this.props.value || ''
+            search: this.props.value || '',
+            indexFocusItem: this.state.indexFocusItem,
+            indexFocusCategory: this.state.indexFocusCategory
         };
 
         return (
@@ -152,7 +345,7 @@ export default class Search extends React.Component {
         /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, emptyHeader,
               emptyMessage, enterAnimation, icon, leaveAnimation, loading,
-              onChange, onSearchClick, placeholder, results,
+              onChange, placeholder, results, onChoice,
               ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
