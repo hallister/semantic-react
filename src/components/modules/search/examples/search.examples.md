@@ -11,7 +11,7 @@ A Search displays a collections of data grouped into list in popup
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
         icon=''
-        onSearchClick={(e, currentValue) => setState({value: currentValue})}
+        onChoice={(e, currentValue) => setState({value: currentValue})}
         value={state.value}
         placeholder="Search plz"
         results={[
@@ -39,7 +39,7 @@ A Search displays a collections of data grouped into list in popup
     'value' in state || setState({value: ''});
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
-        onSearchClick={(e, currentValue) => setState({value: currentValue})}
+        onChoice={(e, currentValue) => setState({value: currentValue})}
         value={state.value}
         placeholder="Search plz"
         results={[
@@ -64,7 +64,7 @@ A Search displays a collections of data grouped into list in popup
     'value' in state || setState({value: ''});
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
-        onSearchClick={(e, currentValue) => setState({value: currentValue})}
+        onChoice={(e, currentValue) => setState({value: currentValue})}
         value={state.value}
         placeholder="Search plz"
         results={[
@@ -94,7 +94,7 @@ A Search displays a collections of data grouped into list in popup
     'value' in state || setState({value: ''});
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
-        onSearchClick={(e, currentValue) => setState({value: currentValue})}
+        onChoice={(e, currentValue) => setState({value: currentValue})}
         value={state.value}
         placeholder="Search plz"
         results={{
@@ -111,7 +111,7 @@ A Search displays a collections of data grouped into list in popup
     'value' in state || setState({value: ''});
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
-        onSearchClick={(e, currentValue) => setState({value: currentValue})}
+        onChoice={(e, currentValue) => setState({value: currentValue})}
         value={state.value}
         loading={true}
         placeholder="Search plz"
