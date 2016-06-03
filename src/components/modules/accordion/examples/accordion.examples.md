@@ -32,3 +32,8 @@ Since you're controlling values byself, you can display few secions at same time
 ./multiple.jsx
 ```
 
+If don't need animation
+
+```require
+./do-not-animated.jsx
+```
