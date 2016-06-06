@@ -1439,6 +1439,14 @@ export interface AccordionProps extends BaseProps<Accordion> {
      */
     styled?: boolean;
     /**
+     * Enter animations transforms
+     */
+    enterAnimation?: any;
+    /**
+     * Leave animation
+     */
+    leaveAnimation?: any;
+    /**
      * Callback when accordion wants to be changed
      */
     onAccordionChange: (index: number | string) => void;
