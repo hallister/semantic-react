@@ -189,7 +189,7 @@ export default class Modal extends React.Component {
                         noWrapChildren
                         className="modals"
                     >
-                    <EventListener elementName="document"
+                    <EventListener target={document}
                                    onKeyDown={this.onPressEsc.bind(this)}
                                    onMouseDown={this.onOutsideClick.bind(this)}
                                    onTouchStart={this.onOutsideClick.bind(this)}/>

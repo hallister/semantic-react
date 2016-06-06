@@ -514,7 +514,7 @@ export default class Select extends React.Component {
                 active={active}
             >
                 {/* This will embed <noscript></noscript> inside dropdown div. Shouldn't cause any problems */}
-                <EventListener elementName="document"
+                <EventListener target={document}
                                onMouseDown={this.onOutsideDropdownClick}
                                onTouchStart={this.onOutsideDropdownClick}/>
                 {this.renderDropdownInput()}
