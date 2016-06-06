@@ -3,7 +3,6 @@ A Search displays a collections of data grouped into list in popup
 4 Themes
 
 ## Types
----
 
 #### No icon
     
@@ -32,7 +31,6 @@ A Search displays a collections of data grouped into list in popup
     />
 
 ## Types results
----
 
 #### List standard
 
@@ -104,7 +102,6 @@ A Search displays a collections of data grouped into list in popup
     />
 
 ## States
----
 
 #### Loading
 

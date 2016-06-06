@@ -32,7 +32,7 @@ module.exports = {
         var styleguideComponentsDir = path.join(__dirname, 'src', 'styleguide');
         
         var babelConfig = {
-            test: /\.(jsx|es6)$/,
+            test: /\.(jsx|js)$/,
             loader: 'babel',
             include: [
                 dir,
@@ -47,7 +47,7 @@ module.exports = {
         
         webpackConfig.module.loaders.push(babelConfig);
         
-        webpackConfig.devtool = 'source-map';
+        webpackConfig.devtool = 'inline-source-map';
         webpackConfig.resolve.extensions.push('.es6');
         
         // Add enhanced props loader
