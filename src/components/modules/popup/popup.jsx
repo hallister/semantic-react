@@ -201,12 +201,14 @@ export default class Popup extends React.Component {
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
                     style={this.props.preventElementClicks ? portalStyle : {}}
             >
-                <EventListener elementName="window"
+                <EventListener target="window"
                                onResize={this.handleResize}
-                               onScroll={this.handleScroll}>
-                    <EventListener elementName="document"
+                               onScroll={this.handleScroll}
+                >
+                    <EventListener target={document}
                                    onMouseDown={this.onOutsideClick.bind(this)}
-                                   onTouchStart={this.onOutsideClick.bind(this)}>
+                                   onTouchStart={this.onOutsideClick.bind(this)}
+                    >
                         <Transition
                             component={false}
                             enter={startAnimation}
