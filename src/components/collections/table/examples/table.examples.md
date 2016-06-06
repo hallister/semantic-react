@@ -3,7 +3,7 @@ A table displays a collections of data grouped into rows
 4 Themes
 
 ## Types
----
+
 ### Table
 A standard table
 * Tables will automatically stack their layouts for mobile devices. To disable this behavior, use the `unstackable` variation or `tablet stackable` to allow responsive adjustments for tablet.
