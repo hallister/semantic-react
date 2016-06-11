@@ -75,7 +75,7 @@ export function hasFirstChild(children, component) {
     if (React.Children.count(children) === 1) {
         return React.Children.only(Array.isArray(children) ? children[0] : children).type === component;
     } else {
-        return (children[0].type === component);
+        return (children && children[0].type === component);
     }
 }
 
