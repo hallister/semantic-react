@@ -13,7 +13,7 @@ let validProps = {
 function getClasses(props, context) {
     let classes = {
         // default
-        ui: props.defaultClasses && !context.isCardsChild && !context.isProgressChild,
+        ui: props.defaultClasses && !context.isCardsChild && !context.isProgressChild && !context.isStatisticChild,
 
         // types
         attached: props.attached,
@@ -142,7 +142,8 @@ Label.defaultProps = {
 
 Label.contextTypes = {
     isCardsChild: React.PropTypes.bool,
-    isProgressChild: React.PropTypes.bool
+    isProgressChild: React.PropTypes.bool,
+    isStatisticChild: React.PropTypes.bool
 };
 
 export default Label;
