@@ -44,7 +44,7 @@ describe('Accordion', () => {
     it('Passes props as props property', () => {
         let wrapper = shallow(<Accordion data-test="test"><div>test</div></Accordion>);
         expect(wrapper.is(Transition)).to.be.true;
-        expect(wrapper).to.have.prop('props').that.have.property('data-test', 'test');
+        expect(wrapper).to.have.prop('data-test', 'test');
     });
 
     it('Can be fluid', () => {
