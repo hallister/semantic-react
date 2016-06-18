@@ -1,5 +1,6 @@
 import React from 'react';
-import Transition from 'react-motion-ui-pack';
+import shallowCompare from 'react-addons-shallow-compare';
+import { Motion, spring } from 'react-motion';
 import classNames from 'classnames';
 import { hasChild } from '../../utilities';
 import DefaultProps from '../../defaultProps';
@@ -16,11 +17,19 @@ export default class Dimmer extends React.Component {
         /**
          * Enter animation
          */
-        enterAnimation: React.PropTypes.object,
+        enterAnimation: React.PropTypes.shape({
+            stiffness: React.PropTypes.number,
+            damping: React.PropTypes.number,
+            precision: React.PropTypes.number
+        }),
         /**
          * Leave animation
          */
-        leaveAnimation: React.PropTypes.object,
+        leaveAnimation: React.PropTypes.shape({
+            stiffness: React.PropTypes.number,
+            damping: React.PropTypes.number,
+            precision: React.PropTypes.number
+        }),
         /**
          * Page dimmer. Doesn't require dimmable section
          */
@@ -45,10 +54,14 @@ export default class Dimmer extends React.Component {
         ...DefaultProps.defaultProps,
         active: false,
         enterAnimation: {
-            opacity: 1
+            stiffness: 250,
+            damping: 40,
+            precision: 0.1
         },
         leaveAnimation: {
-            opacity: 0
+            stiffness: 250,
+            damping: 40,
+            precision: 0.1
         },
         page: false,
         inverted: false,
@@ -59,14 +72,45 @@ export default class Dimmer extends React.Component {
     static Components = {
         Content: Content,
         Loader: Loader
-    }
+    };
     /* eslint-enable */
-    
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            animating: false
+        };
+
+        this.dimmerActiveStyle = {
+            display: 'block'
+        };
+
+        this.dimmerHiddenStyle = {
+            display: 'none'
+        };
+    }
+
     getChildContext() {
         return {
             isDimmerChild: true
         };
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.active !== nextProps.active) {
+            this.setState({ animating: true });
+        }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
+
+    onAnimationRest = () => {
+        this.setState({ animating: false });
+    };
+
 
     renderChildren() {
         const { children, noWrapChildren } = this.props;
@@ -84,20 +128,27 @@ export default class Dimmer extends React.Component {
         
         let Component = component;
         other.className = classNames(other.className, this.getClasses());
+
+        const initialStyle = other.style ? other.style : {};
+        /* eslint-disable */
+        const dimmerStyle = active ? this.dimmerActiveStyle :
+            this.state.animating ? this.dimmerActiveStyle : this.dimmerHiddenStyle;
+        /* eslint-enable */
         return (
-            <Transition component={false}
-                        enter={enterAnimation}
-                        leave={leaveAnimation}
+            <Motion defaultStyle={{ opacity: active ? 1 : 0.3 }}
+                    style={{ opacity: active ? spring(1, enterAnimation) : spring(0, leaveAnimation) }}
+                    onRest={this.onAnimationRest}
             >
-                {active &&
+                {interpolatedStyle =>
                     <Component {...other}
-                        key="dimmer"
+                               key="dimmer"
+                               style={{ ...initialStyle, ...dimmerStyle, ...interpolatedStyle }}
                     >
-                    {this.renderChildren()}
+                        {this.renderChildren()}
                     </Component>
                 }
-            </Transition>
-        )
+            </Motion>
+        );
     }
     
     getClasses() {
