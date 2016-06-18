@@ -129,11 +129,30 @@ Select is the dropdown with ability to select one or few values
                     <Option value="us-alt"><Flag name="us"/>Alternative USA</Option>
                     <Option value="es"><Flag name="es"/>Spain</Option>
                     <Option value="ga"><Flag name="ga"/>Gabon</Option>
+                    <Option value="us2"><Flag name="us"/>USA</Option>
+                    <Option value="us-alt2"><Flag name="us"/>Alternative USA</Option>
+                    <Option value="es2"><Flag name="es"/>Spain</Option>
+                    <Option value="ga2"><Flag name="ga"/>Gabon</Option>
+                    <Option value="us3"><Flag name="us"/>USA</Option>
+                    <Option value="us-alt3"><Flag name="us"/>Alternative USA</Option>
+                    <Option value="es3"><Flag name="es"/>Spain</Option>
+                    <Option value="ga3"><Flag name="ga"/>Gabon</Option>
+                    <Option value="us4"><Flag name="us"/>USA</Option>
+                    <Option value="us-alt4"><Flag name="us"/>Alternative USA</Option>
+                    <Option value="es4"><Flag name="es"/>Spain</Option>
+                    <Option value="ga5"><Flag name="ga"/>Gabon</Option>
                 </Select>
             );
         }
     }
+    <Segment>
     <MySelection />
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    </Segment>
 
 
 # TODO: rewrite these examples

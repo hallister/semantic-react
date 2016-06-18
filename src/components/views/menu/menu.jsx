@@ -1,4 +1,5 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -118,21 +119,18 @@ export default class Menu extends React.Component {
         onMenuChange: () => {}
     };
 
-    constructor(props) {
-        super(props);
-    }
-
     getChildContext() {
         return {
             isMenuChild: true
         };
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
-    onMenuItemClick(value, event) {
-        event.stopPropagation();
-        event.preventDefault();
 
+    onMenuItemClick = (value) => {
         this.props.onMenuItemClick(value);
         // Call onMenuChange callback when needed
         if (typeof this.props.menuValue !== 'undefined') {
@@ -151,7 +149,7 @@ export default class Menu extends React.Component {
                 this.props.onMenuChange(this.props.menuValue !== value ? value : null);
             }
         }
-    }
+    };
 
     renderChildren() {
         // should deep traverse?
@@ -165,7 +163,7 @@ export default class Menu extends React.Component {
                     // If child has active property, then pass it
                     active: (typeof child.props.active !== 'undefined') ? child.props.active : this.isActiveItem(child.props.menuValue),
                     key: child.props.menuValue,
-                    onClick: this.onMenuItemClick.bind(this, child.props.menuValue)
+                    onClick: this.onMenuItemClick
                 });
             } else {
                 // Menu could contain non items, for example divider, pass it untouched (only add key)
@@ -179,23 +177,16 @@ export default class Menu extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let { attached, borderless, color, component, even, fitted, fixed, fluid, floated, inverted, pagination,
-            pointing, secondary, tabular, text, menuValue, vertical, ...other } = this.props;
+            pointing, secondary, tabular, text, menuValue, vertical, cacheItems, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
+        const Component = component;
 
-        if (this.props.component == Menu) {
-            component = 'div';
-        } else {
-            component = this.props.component;
-        }
-
-        let children = this.renderChildren();
-
-        return React.createElement(
-            component,
-            other,
-            children
+        return (
+            <Component {...other}>
+                {this.renderChildren()}
+            </Component>
         );
     }
 
@@ -242,8 +233,8 @@ export default class Menu extends React.Component {
             text: this.props.text,
 
             // dropdown
-            visible: this.context.isDropdownChild,
-            transition: this.context.isDropdownChild,
+            // visible: this.context.isDropdownChild,
+            // transition: this.context.isDropdownChild,
 
             // component
             menu: this.props.defaultClasses

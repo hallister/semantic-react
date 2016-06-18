@@ -1,52 +1,65 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Item from '../item/item';
-
 
 /**
  * Menu/Dropdown item
  */
-let MenuItem = ({ active, color, menuValue, ...other }) => {
-    let classes = {
-        active: active
+export default class MenuItem extends React.Component {
+    static propTypes = {
+        ...Item.propTypes,
+        /**
+         * Is item active
+         */
+        active: React.PropTypes.bool,
+        /**
+         * Item color
+         */
+        color: React.PropTypes.string,
+        /**
+         * Item value (used in controlled menu)
+         */
+        menuValue: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.string
+        ]).isRequired
     };
-    if (color) {
-        classes[color] = !!color;
+    static defaultProps = {
+        ...Item.defaultProps
+    };
+
+    /* eslint-disable */
+    static Components = {
+        Item: Item
+    };
+    /* eslint-enable */
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
-    other.className = classNames(other.className, classes);
-    
-    return (<MenuItem.Components.Item {...other} 
-            data-value={menuValue}
-            link />
-    );
-    
-};
 
-MenuItem.propTypes = {
-    ...Item.propTypes,
-    /**
-     * Is item active
-     */
-    active: React.PropTypes.bool,
-    /**
-     * Item color
-     */
-    color: React.PropTypes.string,
-    /**
-     * Item value (used in controlled menu)
-     */
-    menuValue: React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
-    ])
-};
+    onClick = (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        const { onClick, menuValue } = this.props;
+        if (onClick) onClick(menuValue);
+    };
 
-MenuItem.defaultProps = {
-    ...Item.defaultProps
-};
+    render() {
+        const { active, color, menuValue, ...other } = this.props;
+        const classes = {
+            active: active
+        };
+        if (color) {
+            classes[color] = !!color;
+        }
+        other.className = classNames(other.className, classes);
 
-MenuItem.Components = {
-    Item: Item
-};
-
-export default MenuItem;
+        return (<MenuItem.Components.Item {...other}
+                                          onClick={this.onClick}
+                                          data-value={menuValue}
+                                          link />
+        );
+    }
+}

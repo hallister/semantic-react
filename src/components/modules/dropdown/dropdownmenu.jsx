@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Transition from 'react-motion-ui-pack';
 import EventListener from 'react-event-listener';
-import elementType from 'react-prop-types/lib/elementType'; 
+import elementType from 'react-prop-types/lib/elementType';
+import { Motion, spring } from 'react-motion';
+import Measure from 'react-measure';
 import { isNodeInRoot } from '../../utilities';
 import DropdownElement from './dropdownelement';
 import Icon from './../../elements/icon/icon';
 import Text from './../../elements/simple/text';
 import Menu from './../../views/menu/menu';
-
 
 /**
  * Dropdown menu with animations
@@ -21,9 +21,14 @@ export default class DropdownMenu extends React.Component {
          */
         active: React.PropTypes.bool,
         /**
-         * Enter animations transforms
+         * Spring configuration for enter animation
+         * default is { stiffness: 700, damping: 50, precision: 40 }
          */
-        enterAnimation: React.PropTypes.object,
+        enterAnimation: React.PropTypes.shape({
+            stiffness: React.PropTypes.number,
+            damping: React.PropTypes.number,
+            precision: React.PropTypes.number
+        }),
         /**
          * Menu icon
          */
@@ -33,12 +38,17 @@ export default class DropdownMenu extends React.Component {
          */
         label: React.PropTypes.string,
         /**
-         * Leave animation
+         * Spring configuration for leave animation
+         * default is { stiffness: 700, damping: 50, precision: 40 }
          */
-        leaveAnimation: React.PropTypes.object,
+        leaveAnimation: React.PropTypes.shape({
+            stiffness: React.PropTypes.number,
+            damping: React.PropTypes.number,
+            precision: React.PropTypes.number
+        }),
         /**
          * Specify component to be used as Menu.
-         * Usually is should be menu but with custom options applied (for example inverted). 
+         * Usually is should be menu but with custom options applied (for example inverted).
          * DropdownMenu will pass some props to your Menu component, so you're responsive for passing it down to the level
          */
         menuComponent: elementType,
@@ -71,14 +81,21 @@ export default class DropdownMenu extends React.Component {
         active: false,
         icon: 'dropdown',
         enterAnimation: {
-            height: 'auto'
+            stiffness: 700,
+            damping: 50,
+            precision: 40
         },
         leaveAnimation: {
-            height: 0
+            stiffness: 700,
+            damping: 50,
+            precision: 40
         },
-        onMenuItemClick: () => {},
-        onMenuChange: () => {},
-        onRequestClose: () => {}
+        onMenuItemClick: () => {
+        },
+        onMenuChange: () => {
+        },
+        onRequestClose: () => {
+        }
     };
 
     /* eslint-disable */
@@ -92,14 +109,27 @@ export default class DropdownMenu extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            menuHeight: 1,
+            animating: false
+        };
 
-        /**
-         * Menu reference
-         */
-        this.menuRef = null;
-        
+        this.visibleMenuStyle = {
+            overflow: 'hidden',
+            display: 'block'
+        };
+
+        this.hiddenMenuStyle = {
+            display: 'none'
+        }
     }
-    
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.active != nextProps.active) {
+            this.setState({ animating: true });
+        }
+    }
+
     /**
      * Outside dropdown click
      * @param {React.MouseEvent} e
@@ -117,6 +147,15 @@ export default class DropdownMenu extends React.Component {
         }
     };
 
+    onMenuMeasure = (dimensions) => {
+        if (dimensions.height && this.state.menuHeight !== dimensions.height) {
+            this.setState({ menuHeight: dimensions.height });
+        }
+    };
+
+    onAnimationRest = () => {
+        this.setState({ animating: false });
+    };
 
     /**
      * Renders dropdown icon
@@ -149,13 +188,15 @@ export default class DropdownMenu extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let {
-            active, enterAnimation, leaveAnimation, children, icon, label, menuComponent, menuValue, 
+            active, enterAnimation, leaveAnimation, children, icon, label, menuComponent, menuValue,
             onMenuChange, onMenuItemClick, onRequestClose, ...other
         } = this.props;
         /* eslint-enable no-use-before-define */
 
         const MenuComponent = menuComponent || DropdownMenu.Components.Menu;
 
+        const menuStyle = active ? this.visibleMenuStyle :
+            this.state.animating ? this.visibleMenuStyle : this.hiddenMenuStyle;
 
         return (
             <DropdownMenu.Components.DropdownElement
@@ -163,28 +204,32 @@ export default class DropdownMenu extends React.Component {
                 active={active}
             >
                 {/* This will embed <noscript></noscript> inside dropdown div. Shouldn't cause any problems */}
-                <EventListener target={document}
-                               onMouseDown={this.onOutsideDropdownClick}
-                               onTouchStart={this.onOutsideDropdownClick}/>
+                    <EventListener target={document}
+                                   capture
+                                   onMouseDown={this.onOutsideDropdownClick}
+                                   onTouchStart={this.onOutsideDropdownClick}/>
                 {this.renderMenuText()}
                 {this.renderMenuIcon()}
-                <Transition
-                    component={false}
-                    enter={enterAnimation}
-                    leave={leaveAnimation}
-                >
-                    {active &&
-                    <MenuComponent key="menu"
-                                   menuValue={menuValue}
-                                   onMenuChange={onMenuChange}
-                                   onMenuItemClick={onMenuItemClick}
-                                   ref={ref => this.menuRef = ref}
-                                   style={{ overflow: 'hidden' }}
+                    <Motion defaultStyle={{ height: active ? this.state.menuHeight : 0 }}
+                            style={{ height: active ? spring(this.state.menuHeight, enterAnimation) : spring(0, leaveAnimation) }}
+                            onRest={this.onAnimationRest}
                     >
-                        {children}
-                    </MenuComponent>
-                    }
-                </Transition>
+                            {interpolatedStyle =>
+                                <Measure whitelist={['height']}
+                                         onMeasure={this.onMenuMeasure}
+                                         accurate
+                                >
+                                    <MenuComponent key="menu"
+                                                   menuValue={menuValue}
+                                                   onMenuChange={onMenuChange}
+                                                   onMenuItemClick={onMenuItemClick}
+                                                   style={{ ...menuStyle, height: interpolatedStyle.height }}
+                                    >
+                                                   {children}
+                                    </MenuComponent>
+                                </Measure>
+                            }
+                    </Motion>
             </DropdownMenu.Components.DropdownElement>
         );
     }

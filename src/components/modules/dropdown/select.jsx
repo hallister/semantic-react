@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import shallowCompare from 'react-addons-shallow-compare';
 import EventListener from 'react-event-listener';
-import Transition from 'react-motion-ui-pack';
+import { Motion, spring } from 'react-motion';
+import Measure from 'react-measure';
 import DropdownElement from './dropdownelement';
 import Label from './../../elements/label/label';
 import Icon from './../../elements/icon/icon';
@@ -23,13 +24,21 @@ export default class Select extends React.Component {
          */
         active: React.PropTypes.bool,
         /**
-         * Enter animation
+         * Enter animation spring configuration
          */
-        enterAnimation: React.PropTypes.object,
+        enterAnimation: React.PropTypes.shape({
+            stiffness: React.PropTypes.number,
+            damping: React.PropTypes.number,
+            precision: React.PropTypes.number
+        }),
         /**
-         * Leave animation
+         * Leave animation spring configuration
          */
-        leaveAnimation: React.PropTypes.object,
+        leaveAnimation: React.PropTypes.shape({
+            stiffness: React.PropTypes.number,
+            damping: React.PropTypes.number,
+            precision: React.PropTypes.number
+        }),
         /**
          * Name for dropdown input
          */
@@ -40,7 +49,7 @@ export default class Select extends React.Component {
         icon: React.PropTypes.string,
         /**
          * String used as placeholder if dropdown has no selected value
-         * Will be grayed (<div class="default text">) if dropdown is selection 
+         * Will be grayed (<div class="default text">) if dropdown is selection
          * or normally displayed (<div class="text">) otherwise
          */
         placeholder: React.PropTypes.string,
@@ -87,7 +96,7 @@ export default class Select extends React.Component {
          */
         multiple: React.PropTypes.bool,
         /**
-         * Callback will be called when current selected value was changed. 
+         * Callback will be called when current selected value was changed.
          * Will pass array of new selected values as first param and total options count as second
          */
         onSelectChange: React.PropTypes.func,
@@ -99,9 +108,9 @@ export default class Select extends React.Component {
          * Callback will be called when search string is being changed. You probably just need to pass it back to component
          */
         onSearchStringChange: React.PropTypes.func
-        
+
     };
-    
+
     static defaultProps = {
         ...DropdownElement.defaultProps,
         active: false,
@@ -116,14 +125,21 @@ export default class Select extends React.Component {
         selected: [],
         multiple: false,
         enterAnimation: {
-            height: 'auto'
+            stiffness: 700,
+            damping: 50,
+            precision: 40
         },
         leaveAnimation: {
-            height: 0
+            stiffness: 700,
+            damping: 50,
+            precision: 40
         },
-        onSelectChange: () => {},
-        onRequestClose: () => {},
-        onSearchStringChange: () => {}
+        onSelectChange: () => {
+        },
+        onRequestClose: () => {
+        },
+        onSearchStringChange: () => {
+        }
     };
 
     /* eslint-disable */
@@ -135,7 +151,7 @@ export default class Select extends React.Component {
         DropdownElement: DropdownElement
     };
     /* eslint-enable */
-    
+
     constructor(props) {
         super(props);
 
@@ -145,26 +161,49 @@ export default class Select extends React.Component {
         this.menuRef = null;
         this.searchRef = null;
         this.noResultsMessageRef = null;
+
+        this.state = {
+            menuHeight: 1,
+            animating: false
+        };
+
+        this.menuVisibleStyle = {
+            display: 'block',
+            overflowX: 'hidden',
+            overflowY: 'auto'
+        };
+
+        this.menuHiddenStyle = {
+            display: 'none',
+            overflowX: 'hidden',
+            overflowY: 'auto'
+        };
     }
-    
+
     componentDidMount() {
         const { active, search } = this.props;
         if (search && this.searchRef && active) {
             this.searchRef.focus();
         }
     }
-    
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.active != nextProps.active) {
+            this.setState({ animating: true });
+        }
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
         return shallowCompare(this, nextProps, nextState);
     }
-    
+
     componentDidUpdate() {
         const { active, search } = this.props;
         if (search && this.searchRef && active) {
             this.searchRef.focus();
         }
     }
-    
+
     /**
      * Handler for outside click
      */
@@ -196,7 +235,7 @@ export default class Select extends React.Component {
                 // replace for single
                 onSelectChange([value], optionsCount);
             }
-            
+
             // Intelligently handle multiple select here:
             // Do not request close if selecting and there are more than 1 element left in menu
             // Set focus to search box if searchable
@@ -235,51 +274,62 @@ export default class Select extends React.Component {
      */
     onSearchInputChange = (event) => {
         const { onSearchStringChange } = this.props;
-        
+
         onSearchStringChange(event.target.value);
     };
-    
+
     /**
      * Handler for search input key events
      * @param {React.KeyboardEvent} event
      */
     onSearchInputKeyDown = (event) => {
         switch (event.which) {
-        // Enter
-        case 13:
-            // only do something if we have search results available and not displaying not results message
-            if (this.menuRef && !this.noResultsMessageRef && React.Children.count(this.menuRef.props.children) > 0) {
-                // get the first children
-                let child = React.Children.toArray(this.menuRef.props.children)[0];
-                if (child && child.props.value) {
-                    // enter should do the same as menu item click
-                    this.onMenuItemClick(child.props.value);
+            // Enter
+            case 13:
+                // only do something if we have search results available and not displaying not results message
+                if (this.menuRef && !this.noResultsMessageRef && React.Children.count(this.menuRef.props.children) > 0) {
+                    // get the first children
+                    let child = React.Children.toArray(this.menuRef.props.children)[0];
+                    if (child && child.props.value) {
+                        // enter should do the same as menu item click
+                        this.onMenuItemClick(child.props.value);
+                    }
                 }
-            }
-            break;
-        // Backspace
-        case 8:
-            const { multiple, searchString, selected, onSelectChange } = this.props;
-            if (searchString === '') {
-                if (multiple && selected.length > 0) {
-                    onSelectChange([...selected.slice(0, -1)])
+                break;
+            // Backspace
+            case 8:
+                const { multiple, searchString, selected, onSelectChange } = this.props;
+                if (searchString === '') {
+                    if (multiple && selected.length > 0) {
+                        onSelectChange([...selected.slice(0, -1)])
+                    }
                 }
-            }
-            break;
+                break;
+        }
+    };
+
+    onAnimationRest = () => {
+        this.setState({ animating: false });
+    };
+
+
+    onMenuMeasure = (dimensions) => {
+        if (dimensions.height && this.state.menuHeight !== dimensions.height) {
+            this.setState({ menuHeight: dimensions.height });
         }
     };
 
     /**
-     * Renders dropdown hidden input 
+     * Renders dropdown hidden input
      */
     renderDropdownInput() {
         const { name, selected } = this.props;
         const value = selected.join(',');
-        
+
         return (
-            <input name={name} 
-                   type="hidden" 
-                   value={value} />
+            <input name={name}
+                   type="hidden"
+                   value={value}/>
         );
     }
 
@@ -297,19 +347,23 @@ export default class Select extends React.Component {
             // Process only option or option like childs and if it's selected
             if (selected.indexOf(child.props.value) !== -1) {
                 return (
-                    <Transition component={false}
-                                enter={{ scale: 1 }}
-                                leave={{ scale: 0 }}
+                    <Motion defaultStyle={{ opacity: 0.5, scale: 0.5 }}
+                            style={{
+                                opacity: spring(1, { stiffness: 300, damping: 50 }),
+                                scale: spring(1, { stiffness: 700, damping: 50, precision: 0.1 })
+                            }}
                     >
-                        <Select.Components.Label component="a"
-                               key={`label-${child.props.value}`}
-                               style={{ display: 'inline-block' }}
-                        >
-                            {child.props.children}
-                            <Select.Components.Icon name="close"
-                                  onClick={this.onLabelCloseIconClick.bind(this, child.props.value)}/>
-                        </Select.Components.Label>
-                    </Transition>
+                            {interpolatedStyle =>
+                                <Select.Components.Label component="a"
+                                                         key={`label-${child.props.value}`}
+                                                         style={{ ...interpolatedStyle, display: 'inline-block' }}
+                                >
+                                                         {child.props.children}
+                                                             <Select.Components.Icon name="close"
+                                                                                     onClick={this.onLabelCloseIconClick.bind(this, child.props.value)}/>
+                                </Select.Components.Label>
+                            }
+                    </Motion>
                 );
             }
         });
@@ -365,12 +419,12 @@ export default class Select extends React.Component {
      */
     renderSearchInput() {
         const { search, searchGlyphWidth, searchString, searchPosition, multiple } = this.props;
-        
+
         // Do not render if not searchable
         if (!search) {
             return null;
         }
-        
+
         const searchWidth = searchGlyphWidth * searchString.length;
         // single selection dropdown shouldn't apply width style
         const style = searchWidth && searchPosition === 'dropdown' && multiple ? { width: `${searchWidth}em` } : {};
@@ -421,8 +475,8 @@ export default class Select extends React.Component {
      */
     renderFilteredChildren() {
         const { search, searchIgnoreCase, selected, searchString, multiple } = this.props;
-        const searchRegex  = new RegExp(searchString, searchIgnoreCase ? 'gi' : 'g');
-        
+        const searchRegex = new RegExp(searchString, searchIgnoreCase ? 'gi' : 'g');
+
         let newChildren = [];
         React.Children.forEach(this.props.children, child => {
             // only process option like childs
@@ -433,7 +487,7 @@ export default class Select extends React.Component {
                     const value = (typeof child.props.value === 'number') ? Number.parseInt(child.props.value) : child.props.value;
                     match = (searchRegex.test(value) || searchRegex.test(child.props.children));
                 }
-                
+
                 // Match for non search selection will be always true
                 if (match) {
                     // For multiple type render only non selected options
@@ -471,16 +525,16 @@ export default class Select extends React.Component {
         });
         return newChildren;
     }
-    
+
     render() {
         /* eslint-disable no-use-before-define */
         const {
-            active, children, enterAnimation, leaveAnimation, icon, name, search, searchPosition, searchHeader, 
+            active, children, enterAnimation, leaveAnimation, icon, name, search, searchPosition, searchHeader,
             searchString, searchGlyphWidth, searchIgnoreCase, searchNoResultsMessage, placeholder, selected, selection,
             multiple, onSelectChange, onRequestClose, onSearchStringChange, ...other
         } = this.props;
         /* eslint-enable no-use-before-define */
-        
+
         // make new array for menu childrens
         let menuChildrens = [];
         // render search and header in menu
@@ -490,59 +544,80 @@ export default class Select extends React.Component {
             }
             menuChildrens.push(this.renderSearchInput());
         }
-        
+
         let filteredChilds = this.renderFilteredChildren();
         // Display no results message instead of children if needed
         if ((!filteredChilds || filteredChilds.length === 0) && (search && searchString != '')) {
             filteredChilds = [
-                <div className="message" 
-                     key="noResultsMessage" 
+                <div className="message"
+                     key="noResultsMessage"
                      ref={ref => this.noResultsMessageRef = ref}
                 >
-                    {searchNoResultsMessage}
+                     {searchNoResultsMessage}
                 </div>
             ]; // eslint-disable-line
         }
-        
+
         menuChildrens = menuChildrens.concat(filteredChilds);
-        
+
         other.className = classNames(other.className, this.getClasses());
-        
+
+        /* eslint-disable */
+        const menuStyle = active ? this.menuVisibleStyle :
+            this.state.animating ? this.menuVisibleStyle : this.menuHiddenStyle;
+        /* eslint-enable */
+
+        // We want to animate only visible part of select, this is 6 items or 8 if scrolling option was given
+        // Semantic-UI has max-height set in CSS
+        const maxAnimatingHeight = (this.state.menuHeight / React.Children.count(this.props.children)) * ((other.scrolling) ? 8 : 6);
+        // Animate height to this value
+        const animateHeightTo = this.state.menuHeight > maxAnimatingHeight ? maxAnimatingHeight : this.state.menuHeight;
+
         return (
             <Select.Components.DropdownElement
                 {...other}
                 active={active}
             >
                 {/* This will embed <noscript></noscript> inside dropdown div. Shouldn't cause any problems */}
-                <EventListener target={document}
-                               onMouseDown={this.onOutsideDropdownClick}
-                               onTouchStart={this.onOutsideDropdownClick}/>
+                    <EventListener target={document}
+                                   onMouseDown={this.onOutsideDropdownClick}
+                                   onTouchStart={this.onOutsideDropdownClick}/>
                 {this.renderDropdownInput()}
                 {this.renderDropdownLabels()}
                 {this.renderDropdownText()}
                 {this.renderDropdownIcon()}
-                {search && searchPosition === 'dropdown' && 
+                {search && searchPosition === 'dropdown' &&
                 this.renderSearchInput()
                 }
-                <Transition
-                    component={false}
-                    enter={enterAnimation}
-                    leave={leaveAnimation}
+                <Motion defaultStyle={{ height: active ? animateHeightTo : 0 }}
+                        style={{ height: active ? spring(animateHeightTo, enterAnimation) : spring(0, leaveAnimation) }}
+                        onRest={this.onAnimationRest}
                 >
-                    {active &&
-                    <Select.Components.Menu key="menu"
-                          onMenuItemClick={this.onMenuItemClick}
-                          ref={ref => this.menuRef = ref}
-                          style={{ overflowX: 'hidden', overflowY: 'auto' }}
-                    >
-                        {menuChildrens}
-                    </Select.Components.Menu>
-                    }
-                </Transition>
+                        {interpolatedStyle =>
+                            <Measure whitelist={['height']}
+                                     onMeasure={this.onMenuMeasure}
+                                     accurate
+                            >
+                                <Select.Components.Menu key="menu"
+                                                        onMenuItemClick={this.onMenuItemClick}
+                                                        ref={ref => this.menuRef = ref}
+                                                        style={{
+                                                            ...menuStyle,
+                                                            ...interpolatedStyle,
+                                                            // Display scroll if select is too large
+                                                            overflowY: (this.state.menuHeight > maxAnimatingHeight) ? 'auto' : 'hidden'
+                                                        }}
+                                >
+                                    {menuChildrens}
+                                </Select.Components.Menu>
+                            </Measure>
+
+                        }
+                </Motion>
             </Select.Components.DropdownElement>
         );
     }
-    
+
     getClasses() {
         return {
             search: this.props.search,

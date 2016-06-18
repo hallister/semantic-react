@@ -3,6 +3,7 @@
 import React from 'react';
 import sinon from 'sinon';
 import ReactTestUtils from 'react-addons-test-utils';
+import { Motion } from 'react-motion';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import Select from '../select';
@@ -95,12 +96,10 @@ describe('Select', () => {
                     <Option value={3}>Not selected</Option>
                 </Select>
             );
-            expect(wrapper).to.have.exactly(2).descendants(Label);
-            expect(wrapper.find(Label).at(0)).to.have.descendants(Icon);
-            expect(wrapper.find(Label).at(0)).to.have.html().match(/Simple val/);
-
-            expect(wrapper.find(Label).at(1)).to.have.descendants(Icon);
-            expect(wrapper.find(Label).at(1)).to.have.html().match(/<h1>Internal content/);
+            expect(wrapper).to.have.exactly(3).descendants(Motion);
+            const firstLabelWrapper = wrapper.find(Motion).at(0).shallow();
+            expect(firstLabelWrapper.find(Label)).to.be.exist;
+            expect(firstLabelWrapper.find(Label)).to.have.html().match(/Simple val/);
         });
 
         it('Shouldn\'t render labels if dropdown is not multiple', () => {
@@ -111,7 +110,7 @@ describe('Select', () => {
                     <Option value={3}>Not selected</Option>
                 </Select>
             );
-            expect(wrapper).to.have.not.descendants(Label);
+            expect(wrapper).to.have.exactly(1).descendants(Motion);
         });
     });
 
@@ -249,15 +248,8 @@ describe('Select', () => {
 
     describe('It should render menu', () => {
         it('Should render if given active prop', () => {
-            let wrapper = shallow(<Select active/>);
+            let wrapper = shallow(<Select active/>).find(Motion).shallow();
             expect(wrapper.find(Menu)).to.be.exist;
-        });
-
-        it('Shouldn\'t render it if active prop was false or not given', () => {
-            let wrapper = shallow(<Select/>);
-            expect(wrapper.find(Menu)).to.be.not.exist;
-            wrapper.setProps({ active: false });
-            expect(wrapper.find(Menu)).to.be.not.exist;
         });
 
         it('Should render children under Menu', () => {
@@ -266,7 +258,7 @@ describe('Select', () => {
                     <Option value={1}>First</Option>
                     <Option value={2}>Second</Option>
                 </Select>
-            );
+            ).find(Motion).shallow();
             expect(wrapper.find(Menu)).to.have.exactly(2).descendants(Option);
         });
     });
@@ -280,7 +272,7 @@ describe('Select', () => {
 
         describe('Should render search input in menu if specified', () => {
             it('Should render search input in menu', () => {
-                let wrapper = shallow(<Select active search searchPosition="menu"/>);
+                let wrapper = shallow(<Select active search searchPosition="menu"/>).find(Motion).shallow();
                 expect(wrapper.find(Menu).find('.search.input')).to.be.exist;
                 expect(wrapper.find(Menu).find('.search.input').find(Icon)).to.have.prop('name', 'search');
                 expect(wrapper.find(Menu).find('.search.input').find('input')).to.be.exist;
@@ -288,7 +280,7 @@ describe('Select', () => {
             });
 
             it('Should render search header if specified', () => {
-                let wrapper = shallow(<Select active search searchHeader="Test" searchPosition="menu"/>);
+                let wrapper = shallow(<Select active search searchHeader="Test" searchPosition="menu"/>).find(Motion).shallow();
                 expect(wrapper.find(Menu).find(Header)).to.have.html().match(/Test/);
                 expect(wrapper.find(Menu).find('.search')).to.be.exist;
             });
@@ -311,7 +303,7 @@ describe('Select', () => {
             });
 
             it('Shouldn\'t set width style if searchPosition is menu', () => {
-                let wrapper = shallow(<Select active multiple search searchPosition="menu" searchString="1"/>);
+                let wrapper = shallow(<Select active multiple search searchPosition="menu" searchString="1"/>).find(Motion).shallow();
                 expect(wrapper.find(Menu).find('.search')).to.have.not.style('width');
             });
 
@@ -337,16 +329,18 @@ describe('Select', () => {
                     <Option value={4}>Four</Option>
                 </Select>
             );
-            expect(wrapper.find(Menu)).to.have.exactly(2).descendants(Option);
-            expect(wrapper.find(Menu).find(Option).at(0)).to.have.prop('value', 1);
-            expect(wrapper.find(Menu).find(Option).at(1)).to.have.prop('value', 4);
+            let menuWrapper = wrapper.find(Motion).at(2).shallow();
+            expect(menuWrapper.find(Menu)).to.have.exactly(2).descendants(Option);
+            expect(menuWrapper.find(Menu).find(Option).at(0)).to.have.prop('value', 1);
+            expect(menuWrapper.find(Menu).find(Option).at(1)).to.have.prop('value', 4);
 
             wrapper.setProps({
                 active: true,
                 selected: [1]
             });
-            expect(wrapper.find(Menu)).to.have.exactly(3).descendants(Option);
-            expect(wrapper.find(Menu).find(Option).filter({ value: 1 })).to.be.not.exist;
+            menuWrapper = wrapper.find(Motion).at(1).shallow();
+            expect(menuWrapper.find(Menu)).to.have.exactly(3).descendants(Option);
+            expect(menuWrapper.find(Menu).find(Option).filter({ value: 1 })).to.be.not.exist;
         });
 
         it('Should render and mark active selected options', () => {
@@ -357,7 +351,7 @@ describe('Select', () => {
                     <Option value={3}>Three</Option>
                     <Option value={4}>Four</Option>
                 </Select>
-            );
+            ).find(Motion).shallow();
             expect(wrapper.find(Menu)).to.have.exactly(4).descendants(Option);
             expect(wrapper.find(Option).filter({ value: 3 })).to.have.prop('active', true);
         });
@@ -374,16 +368,18 @@ describe('Select', () => {
                     <Option value={4}>Four</Option>
                 </Select>
             );
-            
-            expect(wrapper.find(Menu).find(Option)).to.have.length(1);
-            expect(wrapper.find(Menu).find(Option)).to.have.prop('value', 1);
+
+            let menuWrapper = wrapper.find(Motion).shallow();
+            expect(menuWrapper.find(Menu).find(Option)).to.have.length(1);
+            expect(menuWrapper.find(Menu).find(Option)).to.have.prop('value', 1);
             
             wrapper.setProps({
                 active: true,
                 searchString: '2'
             });
-            expect(wrapper.find(Menu).find(Option)).to.have.length(1);
-            expect(wrapper.find(Menu).find(Option)).to.have.prop('value', 2);
+            menuWrapper = wrapper.find(Motion).shallow();
+            expect(menuWrapper.find(Menu).find(Option)).to.have.length(1);
+            expect(menuWrapper.find(Menu).find(Option)).to.have.prop('value', 2);
         });
         
         it('Should filter by option content', () => {
@@ -395,17 +391,18 @@ describe('Select', () => {
                     <Option value={4}>Four</Option>
                 </Select>
             );
-
-            expect(wrapper.find(Menu).find(Option)).to.have.length(1);
-            expect(wrapper.find(Menu).find(Option)).to.have.prop('value', 1);
+            let menuWrapper = wrapper.find(Motion).shallow();
+            expect(menuWrapper.find(Menu).find(Option)).to.have.length(1);
+            expect(menuWrapper.find(Menu).find(Option)).to.have.prop('value', 1);
             
             wrapper.setProps({
                 active: true,
                 searchString: 'T'
             });
-            expect(wrapper.find(Menu).find(Option)).to.have.length(2);
-            expect(wrapper.find(Menu).find(Option).at(0)).to.have.prop('value', 2);
-            expect(wrapper.find(Menu).find(Option).at(1)).to.have.prop('value', 3);
+            menuWrapper = wrapper.find(Motion).shallow();
+            expect(menuWrapper.find(Menu).find(Option)).to.have.length(2);
+            expect(menuWrapper.find(Menu).find(Option).at(0)).to.have.prop('value', 2);
+            expect(menuWrapper.find(Menu).find(Option).at(1)).to.have.prop('value', 3);
         });
 
         it('Should ignore case if specified', () => {
@@ -416,7 +413,7 @@ describe('Select', () => {
                     <Option value={3}>Three</Option>
                     <Option value={4}>Four</Option>
                 </Select>
-            );
+            ).find(Motion).shallow();
 
             expect(wrapper.find(Menu).find(Option)).to.have.length(1);
             expect(wrapper.find(Menu).find(Option)).to.have.prop('value', 1);
@@ -430,7 +427,7 @@ describe('Select', () => {
                     <Option value={3}>Three</Option>
                     <Option value={4}>Four</Option>
                 </Select>
-            );
+            ).find(Motion).shallow();
 
             expect(wrapper.find(Menu)).to.have.not.descendants(Option);
             expect(wrapper.find(Menu).find('.message')).to.be.exist;
@@ -445,7 +442,7 @@ describe('Select', () => {
                     <Option value={3}>Three</Option>
                     <Option value={4}>Four</Option>
                 </Select>
-            );
+            ).find(Motion).shallow();
 
             expect(wrapper.find(Menu).find('.message')).to.have.text('testnoresults');
         });
@@ -584,7 +581,7 @@ describe('Select', () => {
                     <Option value="test4">Test4</Option>
                 </Select>
             );
-            wrapper.find(Label).at(0).find(Icon).simulate('click');
+            wrapper.find(Motion).at(0).shallow().find(Label).at(0).find(Icon).simulate('click');
             expect(onSelectChangeSpy).to.have.been.calledWith(['test3']);
         });
     });

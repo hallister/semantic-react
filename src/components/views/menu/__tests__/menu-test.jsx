@@ -252,14 +252,14 @@ describe('Menu', () => {
                 it('Should call onMenuChange callback if menu item value doesn\'t match with provided value in menu', () => {
                     let onMenuChangeStub = sinon.stub();
                     let wrapper = shallow(<Menu menuValue={1} onMenuChange={onMenuChangeStub}>{childrens}</Menu>);
-                    wrapper.find('.second').simulate('click', eventStub);
+                    wrapper.find('.second').simulate('click', 2, eventStub);
                     expect(onMenuChangeStub).to.have.been.calledWith(2);
                 });
 
                 it('Should call onMenuChange callback with null if menu item value is equal to provided value in menu', () => {
                     let onMenuChangeStub = sinon.stub();
                     let wrapper = shallow(<Menu menuValue={1} onMenuChange={onMenuChangeStub}>{childrens}</Menu>);
-                    wrapper.find('.first').simulate('click', eventStub);
+                    wrapper.find('.first').simulate('click', 1, eventStub);
                     expect(onMenuChangeStub).to.have.been.calledWith(null);
                 });
             });
@@ -268,23 +268,23 @@ describe('Menu', () => {
                 it('Should call onMenuChange callback with original array and new menuValue if it wasn\'t presented in given array', () => {
                     let onMenuChangeStub = sinon.stub();
                     let wrapper = shallow(<Menu menuValue={[1, 2]} onMenuChange={onMenuChangeStub}>{childrens}</Menu>);
-                    wrapper.find('.third').simulate('click', eventStub);
+                    wrapper.find('.third').simulate('click', 3, eventStub);
                     expect(onMenuChangeStub).to.have.been.calledWith([1, 2, 3]);
 
                     wrapper = shallow(<Menu menuValue={[]} onMenuChange={onMenuChangeStub}>{childrens}</Menu>);
-                    wrapper.find('.second').simulate('click', eventStub);
+                    wrapper.find('.second').simulate('click', 2, eventStub);
                     expect(onMenuChangeStub).to.have.been.calledWith([2]);
                 });
 
                 it('Should call onMenuChange callback with original array with removed menuValue', () => {
                     let onMenuChangeStub = sinon.stub();
                     let wrapper = shallow(<Menu menuValue={[1, 2]} onMenuChange={onMenuChangeStub}>{childrens}</Menu>);
-                    wrapper.find('.first').simulate('click', eventStub);
+                    wrapper.find('.first').simulate('click', 1, eventStub);
                     expect(onMenuChangeStub).to.have.been.calledWith([2]);
                     wrapper.setProps({
                         menuValue: [2]
                     });
-                    wrapper.find('.second').simulate('click', eventStub);
+                    wrapper.find('.second').simulate('click', 2, eventStub);
                     expect(onMenuChangeStub).to.have.been.calledWith([]);
                 });
             });
