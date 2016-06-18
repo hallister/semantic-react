@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import EventListener from 'react-event-listener';
+import shallowCompare from 'react-addons-shallow-compare';
 import elementType from 'react-prop-types/lib/elementType';
 import { Motion, spring } from 'react-motion';
 import Measure from 'react-measure';
@@ -128,6 +129,10 @@ export default class DropdownMenu extends React.Component {
         if (this.props.active != nextProps.active) {
             this.setState({ animating: true });
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     /**
