@@ -1,4 +1,5 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 
 import { Numbers, Colors, Sizes, validateClassProps } from '../../utilities';
@@ -40,6 +41,10 @@ export default class Statistics extends React.Component {
         return {
             isStatisticsChild: true
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {
