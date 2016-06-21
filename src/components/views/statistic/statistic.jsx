@@ -1,7 +1,7 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
-import { hasChild } from '../../utilities';
+import { hasChild, Sizes, Colors } from '../../utilities';
 import DefaultProps from '../../defaultProps';
 import Value from './value';
 import Label from '../../elements/label/label';
@@ -16,20 +16,40 @@ let validProps = {
 export default class Statistic extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * A string or number that represents the value of statistic
+         */
         value: React.PropTypes.oneTypeOf([
             React.PropTypes.string,
             React.PropTypes.number
         ]),
+        /**
+         * A string or number that represents the label of a statistic
+         */
         label: React.PropTypes.oneTypeOf([
             React.PropTypes.string,
             React.PropTypes.number
         ]),
+        /**
+         * A statistic can present its measurement horizontally
+         */
         horizontal: React.PropTypes.bool,
-        color: React.PropTypes.string,
+        /**
+         * A SemanticUI color class.
+         */
+        color: React.PropTypes.oneOf(Colors),
+        /**
+         * Styles the component for a dark background.
+         */
         inverted: React.PropTypes.bool,
+        /**
+         * Forces to component to float left or right.
+         */
         floated: React.PropTypes.oneOf(['right', 'left']),
-        size: React.PropTypes.string,
-        onClick: React.PropTypes.func
+        /**
+         * Adds a SemanticUI size class.
+         */
+        size: React.PropTypes.oneOf(Sizes)
     };
 
     static contextTypes = {
@@ -101,16 +121,17 @@ export default class Statistic extends React.Component {
         let classes = {
             ui: this.props.defaultClasses && !this.context.isStatisticsChild,
 
-            // component
-            statistic: this.props.defaultClasses,
+            // position,
+            left: false,
+            right: false,
 
             // variations
             horizontal: this.props.horizontal,
-            color: this.props.color,
             inverted: this.props.inverted,
             floated: this.props.floated,
-            size: this.props.size,
-            link: this.props.link || this.props.onClick
+
+            // component
+            statistic: this.props.defaultClasses
         };
 
         classes[this.props.color] = !!this.props.color;
