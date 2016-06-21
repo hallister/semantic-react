@@ -18,11 +18,11 @@ export default class Statistic extends React.Component {
         ...DefaultProps.propTypes,
         value: React.PropTypes.oneTypeOf([
             React.PropTypes.string,
-            React.PropTypes.node
+            React.PropTypes.number
         ]),
         label: React.PropTypes.oneTypeOf([
             React.PropTypes.string,
-            React.PropTypes.node
+            React.PropTypes.number
         ]),
         horizontal: React.PropTypes.bool,
         color: React.PropTypes.string,
@@ -80,10 +80,15 @@ export default class Statistic extends React.Component {
         let Component = component;
         other.className = classNames(other.className, this.getClasses());
 
-        if (typeof value === 'string') {
-            console.log("value as string: ", value);
-        } else if (typeof value === Value) {
-            console.log("value as Value node: %j", value);
+        children = children ? children : [];
+
+        let typeOfValue = typeof value;
+        let typeOfLabel = typeof label;
+        if (typeOfValue === 'string' || typeOfValue === 'number') {
+            children.push(React.createElement(Value, null, value));
+        }
+        if (typeOfLabel === 'string' || typeOfLabel === 'number') {
+            children.push(React.createElement(Label, null, label));
         }
         return (
             <Component {...other}>

@@ -34,6 +34,20 @@ describe('Statistic', () => {
         expect(wrapper).to.have.className('inverted');
     });
 
+    describe('Could be setted by value/label props instead of children', () => {
+        it('with strings', () => {
+            let wrapper = shallow(<Statistic value="v1" label="l1"/>);
+            expect(wrapper.find(Value).length).to.eq(1);
+            expect(wrapper.find(Label).length).to.eq(1);
+        });
+
+        it('with numbers', () => {
+            let wrapper = shallow(<Statistic value={15} label={10} />);
+            expect(wrapper.find(Value).length).to.eq(1);
+            expect(wrapper.find(Label).length).to.eq(1);
+        });
+    });
+
     describe('It could be floated', () => {
         it('Left', () => {
             let wrapper = shallow(<Statistic floated="left"/>);
