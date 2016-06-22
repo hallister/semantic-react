@@ -13,6 +13,6 @@ export { default as Event } from './views/feed/event';
 export { default as Item } from './views/item/item';
 export { default as Items } from './views/item/items';
 
-export { default as Value } from './views/statistic/value.jsx';
-export { default as Statistic } from './views/statistic/statistic.jsx';
-export { default as Statistics } from './views/statistic/statistics.jsx';
+export { default as Value } from './views/statistic/value';
+export { default as Statistic } from './views/statistic/statistic';
+export { default as Statistics } from './views/statistic/statistics';
