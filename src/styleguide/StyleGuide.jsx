@@ -122,6 +122,10 @@ function globalizeViews() {
 
     window.Menu = views.Menu;
     window.MenuItem = views.MenuItem;
+
+    window.Value = views.Value;
+    window.Statistic = views.Statistic;
+    window.Statistics = views.Statistics;
 }
 
 function globalizeSemantic() {
