@@ -1,7 +1,9 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
 import Bar from './bar';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     attached: ['top', 'bottom']
@@ -9,16 +11,10 @@ let validProps = {
 
 export default class Progress extends React.Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
         active: React.PropTypes.bool,
         attached: React.PropTypes.oneOf(['top', 'bottom']),
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
         color: React.PropTypes.string,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         duration: React.PropTypes.number,
         error: React.PropTypes.bool,
@@ -35,21 +31,24 @@ export default class Progress extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true,
+        ...DefaultProps.defaultProps,
         duration: 300
     };
 
     /* eslint-disable */
     static Components = {
         Bar: Bar
-    }
+    };
     /* eslint-enable */
 
     getChildContext() {
         return {
             isProgressChild: true
         };
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     renderBar() {

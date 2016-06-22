@@ -1,18 +1,14 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 export default class Card extends React.Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
         centered: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        className: React.PropTypes.node,
         col: React.PropTypes.string,
         color: React.PropTypes.string,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
         doubling: React.PropTypes.string,
         fluid: React.PropTypes.bool,
         link: React.PropTypes.bool,
@@ -28,8 +24,7 @@ export default class Card extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true
+        ...DefaultProps.defaultProps
     };
 
     constructor(props) {
@@ -40,6 +35,10 @@ export default class Card extends React.Component {
         return {
             isCardChild: true
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

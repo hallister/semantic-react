@@ -1,6 +1,8 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     attached: ['bottom', 'top'],
@@ -8,74 +10,71 @@ let validProps = {
     state: ['success', 'error']
 };
 
-function getClasses(props) {
-    let classes = {
-        ui: props.defaultClasses,
+export default class Message extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes,
+        attached: React.PropTypes.oneOfType([
+            React.PropTypes.oneOf(['bottom', 'top']),
+            React.PropTypes.bool
+        ]),
+        color: React.PropTypes.string,
+        compact: React.PropTypes.bool,
+        floating: React.PropTypes.bool,
+        hidden: React.PropTypes.bool,
+        icon: React.PropTypes.bool,
+        size: React.PropTypes.string,
+        state: React.PropTypes.oneOf(['success', 'error']),
+        type: React.PropTypes.oneOf(['info', 'warning', 'positive', 'negative']),
+        visible: React.PropTypes.bool
+    };
 
-        compact: props.compact,
-        floating: props.floating,
-        hidden: props.hidden,
-        icon: props.icon,
-        visible: props.visible,
+    static defaultProps = {
+        ...DefaultProps.defaultProps
+    };
 
-        info: props.type === 'info' && !props.state,
-        warning: props.type === 'warning' && !props.state,
-        positive: props.type === 'positive' && !props.state,
-        negative: props.type === 'negative' && !props.state,
-
-        success: props.state === 'success',
-        error: props.state === 'error',
-
-        message: props.defaultClasses
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
-    classes[props.color] = !!props.color;
-    classes[props.size] = !!props.size;
-    return validateClassProps(classes, props, validProps);
+    render() {
+        /* eslint-disable no-use-before-define */
+        let { attached, children, className, color, compact, component,
+            defaultClasses, floating, hidden, icon, size, state, type, visible,
+            ...other } = this.props;
+        /* eslint-enable no-use-before-define */
+
+        other.className = classNames(className, this.getClasses());
+
+        return React.createElement(
+            component,
+            other,
+            children
+        );
+    }
+
+    getClasses() {
+        let classes = {
+            ui: this.props.defaultClasses,
+
+            compact: this.props.compact,
+            floating: this.props.floating,
+            hidden: this.props.hidden,
+            icon: this.props.icon,
+            visible: this.props.visible,
+
+            info: this.props.type === 'info' && !this.props.state,
+            warning: this.props.type === 'warning' && !this.props.state,
+            positive: this.props.type === 'positive' && !this.props.state,
+            negative: this.props.type === 'negative' && !this.props.state,
+
+            success: this.props.state === 'success',
+            error: this.props.state === 'error',
+
+            message: this.props.defaultClasses
+        };
+
+        classes[this.props.color] = !!this.props.color;
+        classes[this.props.size] = !!this.props.size;
+        return validateClassProps(classes, this.props, validProps);
+    }
 }
-
-let message = (props) => {
-    /* eslint-disable no-use-before-define */
-    let { attached, children, className, color, compact, component,
-          defaultClasses, floating, hidden, icon, size, state, type, visible,
-          ...other } = props;
-    /* eslint-enable no-use-before-define */
-
-    other.className = classNames(className, getClasses(props));
-
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
-
-message.propTypes = {
-    attached: React.PropTypes.oneOfType([
-        React.PropTypes.oneOf(['bottom', 'top']),
-        React.PropTypes.bool
-    ]),
-    className: React.PropTypes.any,
-    color: React.PropTypes.string,
-    compact: React.PropTypes.bool,
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ]),
-    defaultClasses: React.PropTypes.bool,
-    floating: React.PropTypes.bool,
-    hidden: React.PropTypes.bool,
-    icon: React.PropTypes.bool,
-    size: React.PropTypes.string,
-    state: React.PropTypes.oneOf(['success', 'error']),
-    type: React.PropTypes.oneOf(['info', 'warning', 'positive', 'negative']),
-    visible: React.PropTypes.bool
-}
-
-message.defaultProps = {
-    component: 'div',
-    defaultClasses: true
-}
-
-export default message;
-

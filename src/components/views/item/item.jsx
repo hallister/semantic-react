@@ -1,55 +1,62 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import { hasChild } from '../../utilities';
 import DefaultProps from '../../defaultProps';
 import Icon from './../../elements/icon/icon';
 
 
-function getClasses(props) {
-    return {
-        // variations
-        icon: hasChild(props.children, Item.Components.Icon), // eslint-disable-line
-        link: props.link || props.onClick,
-        // component
-        item: props.defaultClasses
-    };
-}
-
 /**
  * Item is collection of elements. It could be menu/dropdown item or part ofr <Items /> collection
  */
-const Item = (props) => {
-    /* eslint-disable no-use-before-define */
-    const { component, children, link, ...other } = props;
-    /* eslint-enable no-use-before-define */
+export default class Item extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes,
+        /**
+         * Make item clickable
+         */
+        link: React.PropTypes.bool,
+        /**
+         * Item click handler
+         */
+        onClick: React.PropTypes.func
+    };
 
-    other.className = classNames(props.className, getClasses(props));
+    static defaultProps = {
+        ...DefaultProps.defaultProps
+    };
 
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
+    /* eslint-disable */
+    static Components = {
+        Icon: Icon
+    };
+    /* eslint-enable */
 
-Item.propTypes = {
-    ...DefaultProps.propTypes,
-    /**
-     * Make item clickable
-     */
-    link: React.PropTypes.bool,
-    /**
-     * Item click handler
-     */
-    onClick: React.PropTypes.func
-};
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
-Item.defaultProps = {
-    ...DefaultProps.defaultProps
-};
+    render() {
+        /* eslint-disable no-use-before-define */
+        const { component, children, link, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
-Item.Components = {
-    Icon: Icon
-};
+        other.className = classNames(other.className, this.getClasses());
 
-export default Item;
+        return React.createElement(
+            component,
+            other,
+            children
+        );
+    }
+
+    getClasses() {
+        return {
+            // variations
+            icon: hasChild(this.props.children, Item.Components.Icon), // eslint-disable-line
+            link: this.props.link || this.props.onClick,
+            // component
+            item: this.props.defaultClasses
+        };
+    }
+}

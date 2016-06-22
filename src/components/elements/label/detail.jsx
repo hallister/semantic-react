@@ -1,23 +1,28 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 /**
  * Label detail element
  */
-let Detail = (props) => {
-    const { component, children, defaultClasses, ...other } = props;
-    let Component = component;
-    other.className = classNames(other.className, { detail: defaultClasses });
-    return (<Component {...other}>{children}</Component>);
-};
+export default class Detail extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes
+    };
 
-Detail.propTypes = {
-    ...DefaultProps.propTypes
-};
+    static defaultProps = {
+        ...DefaultProps.defaultProps
+    };
 
-Detail.defaultProps = {
-    ...DefaultProps.defaultProps
-};
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
-export default Detail;
+    render() {
+        const { component, children, defaultClasses, ...other } = this.props;
+        let Component = component;
+        other.className = classNames(other.className, { detail: defaultClasses });
+        return (<Component {...other}>{children}</Component>);
+    }
+}

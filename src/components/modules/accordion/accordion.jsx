@@ -1,4 +1,5 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Transition from 'react-motion-ui-pack';
 import DefaultProps from '../../defaultProps';
@@ -91,6 +92,10 @@ export default class Accordion extends React.Component {
         return {
             isAccordionChild: true
         };
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     /**

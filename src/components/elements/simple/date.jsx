@@ -1,27 +1,29 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
-let Date = ({ children, className, component, ...other }) => {
-    other.className = classNames(className, { date: true });
+export default class Date extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes
+    };
 
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
+    static defaultProps = {
+        ...DefaultProps.defaultProps
+    };
 
-Date.propTypes = {
-    children: React.PropTypes.node,
-    className: React.PropTypes.any,
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ])
-};
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
-Date.defaultProps = {
-    component: 'div'
-};
+    render() {
+        const { children, className, component, ...other } = this.props;
+        other.className = classNames(className, { date: true });
 
-export default Date;
+        return React.createElement(
+            component,
+            other,
+            children
+        );
+    }
+}

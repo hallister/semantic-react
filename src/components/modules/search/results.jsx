@@ -1,16 +1,12 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Content from './../../elements/simple/content';
+import DefaultProps from '../../defaultProps';
 
 export default class Results extends React.Component {
     static propTypes = {
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.func,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
+        ...DefaultProps.propTypes,
         emptyHeader: React.PropTypes.string,
         emptyMessage: React.PropTypes.string,
         onSearchClick: React.PropTypes.func,
@@ -23,8 +19,7 @@ export default class Results extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true,
+        ...DefaultProps.defaultProps,
         emptyHeader: 'No Results',
         emptyMessage: 'Your search returned no results'
     };
@@ -34,6 +29,10 @@ export default class Results extends React.Component {
         Content: Content
     };
     /* eslint-enable */
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     onClick(child, e) {
         this.props.onSearchClick(e, child);

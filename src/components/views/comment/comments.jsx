@@ -1,52 +1,52 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
-function getClasses(props) {
-    let classes = {
-        ui: props.defaultClasses,
 
-        collapsed: props.collapsed,
-        minimal: props.minimal,
-        threaded: props.threaded,
+export default class Comments extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes,
+        collapsed: React.PropTypes.bool,
+        minimal: React.PropTypes.bool,
+        threaded: React.PropTypes.bool
+    };
 
-        comments: props.defaultClasses
+    static defaultProps = {
+        ...DefaultProps.defaultProps
+    };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
-    return classes;
+    render() {
+        /* eslint-disable no-use-before-define */
+        let { children, className, collapsed, component, defaultClasses, minimal,
+            threaded, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
+
+        other.className = classNames(className, this.getClasses());
+
+        return React.createElement(
+            component,
+            other,
+            children
+        );
+    }
+
+    getClasses() {
+        let classes = {
+            ui: this.props.defaultClasses,
+
+            collapsed: this.props.collapsed,
+            minimal: this.props.minimal,
+            threaded: this.props.threaded,
+
+            comments: this.props.defaultClasses
+        };
+
+        return classes;
+    }
 }
-
-let comments = (props) => {
-    /* eslint-disable no-use-before-define */
-    let { children, className, collapsed, component, defaultClasses, minimal,
-          threaded, ...other } = props;
-    /* eslint-enable no-use-before-define */
-
-    other.className = classNames(className, getClasses(props));
-
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
-
-comments.propTypes = {
-    children: React.PropTypes.node,
-    className: React.PropTypes.any,
-    collapsed: React.PropTypes.bool,
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ]),
-    defaultClasses: React.PropTypes.bool,
-    minimal: React.PropTypes.bool,
-    threaded: React.PropTypes.bool
-}
-
-comments.defaultProps = {
-    component: 'div',
-    defaultClasses: true
-}
-
-export default comments;
 

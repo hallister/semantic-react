@@ -1,61 +1,63 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     aligned: ['right', 'left', 'center', 'top', 'bottom']
 };
 
-function getClasses(props) {
-    let classes = {
-        collapsing: props.collapsing,
+export default class Td extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes,
+        aligned: React.PropTypes.oneOf(['right', 'left', 'center', 'top', 'bottom']),
+        collapsing: React.PropTypes.bool,
+        singleLine: React.PropTypes.bool,
+        type: React.PropTypes.oneOf(['negative', 'positive', 'warning'])
+    };
 
-        positive: props.type === 'positive' && !props.state,
-        negative: props.type === 'negative' && !props.state,
-        warning: props.type === 'warning' && !props.state,
+    static defaultProps = {
+        ...DefaultProps.defaultProps,
+        component: 'td'
+    };
 
-        active: props.state === 'active',
-        error: props.state === 'error',
-        disabled: props.state === 'disabled',
-
-        'single line': props.singleLine
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
-    classes[props.type] = !!props.type;
+    render() {
+        /* eslint-disable no-use-before-define */
+        let { children, className, collapsing, component, singleLine, state, type,
+            ...other } = this.props;
+        /* eslint-enable no-use-before-define */
 
-    return validateClassProps(classes, props, validProps);
+        other.className = classNames(className, this.getClasses());
+
+        return React.createElement(
+            component,
+            other,
+            children
+        );
+    }
+
+    getClasses() {
+        let classes = {
+            collapsing: this.props.collapsing,
+
+            positive: this.props.type === 'positive' && !this.props.state,
+            negative: this.props.type === 'negative' && !this.props.state,
+            warning: this.props.type === 'warning' && !this.props.state,
+
+            active: this.props.state === 'active',
+            error: this.props.state === 'error',
+            disabled: this.props.state === 'disabled',
+
+            'single line': this.props.singleLine
+        };
+
+        classes[this.props.type] = !!this.props.type;
+
+        return validateClassProps(classes, this.props, validProps);
+    }
 }
-
-let Td = (props) => {
-
-    /* eslint-disable no-use-before-define */
-    let { children, className, collapsing, component, singleLine, state, type,
-        ...other } = props;
-    /* eslint-enable no-use-before-define */
-
-    other.className = classNames(className, getClasses(props));
-
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
-
-Td.propTypes = {
-    aligned: React.PropTypes.oneOf(['right', 'left', 'center', 'top', 'bottom']),
-    className: React.PropTypes.any,
-    collapsing: React.PropTypes.bool,
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ]),
-    singleLine: React.PropTypes.bool,
-    type: React.PropTypes.oneOf(['negative', 'positive', 'warning'])
-}
-
-Td.defaultProps = {
-    component: 'td'
-}
-
-export default Td;

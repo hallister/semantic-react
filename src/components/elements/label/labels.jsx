@@ -1,56 +1,61 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
-
-function getClasses(props) {
-    let classes = {
-        ui: props.defaultClasses,
-        labels: props.defaultClasses,
-        circular: props.circular,
-        tag: props.tag
-    };
-    
-    classes[props.color] = !!props.color;
-    classes[props.size] = !!props.size;
-    return classes;
-}
 
 /**
  * Group of labels which can share same size, shape or color
  */
-let Labels = (props) => {
-    const { 
-        component, children, defaultClasses, circular, color, tag, size, ...other
-    } = props;
-    
-    let Component = component;
-    other.className = classNames(other.className, getClasses(props));
-    return (<Component {...other}>{children}</Component>);
-};
+export default class Labels extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes,
+        /**
+         * Labels can share shapes
+         */
+        circular: React.PropTypes.bool,
+        /**
+         * Labels can share colors together
+         */
+        color: React.PropTypes.string,
+        /**
+         * Labels can share tag formatting
+         */
+        tag: React.PropTypes.bool,
+        /**
+         * Labels can share sizes together
+         */
+        size: React.PropTypes.string
+    };
 
-Labels.propTypes = {
-    ...DefaultProps.propTypes,
-    /**
-     * Labels can share shapes 
-     */
-    circular: React.PropTypes.bool,
-    /**
-     * Labels can share colors together
-     */
-    color: React.PropTypes.string,
-    /**
-     * Labels can share tag formatting
-     */
-    tag: React.PropTypes.bool,
-    /**
-     * Labels can share sizes together
-     */
-    size: React.PropTypes.string
-};
+    static defaultProps = {
+        ...DefaultProps.defaultProps
+    };
 
-Labels.defaultProps = {
-    ...DefaultProps.defaultProps
-};
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
-export default Labels;
+    render() {
+        const {
+            component, children, defaultClasses, circular, color, tag, size, ...other
+        } = this.props;
+
+        let Component = component;
+        other.className = classNames(other.className, this.getClasses());
+        return (<Component {...other}>{children}</Component>);
+    }
+
+    getClasses() {
+        let classes = {
+            ui: this.props.defaultClasses,
+            labels: this.props.defaultClasses,
+            circular: this.props.circular,
+            tag: this.props.tag
+        };
+
+        classes[this.props.color] = !!this.props.color;
+        classes[this.props.size] = !!this.props.size;
+        return classes;
+    }
+}
 

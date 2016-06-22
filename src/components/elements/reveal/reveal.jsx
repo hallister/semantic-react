@@ -1,7 +1,9 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Image from './../image/image';
 import { hasDescendant, validateClassProps } from '../../utilities';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     move: ['right', 'up', 'down'],
@@ -10,15 +12,9 @@ let validProps = {
 
 export default class Reveal extends React.Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
         active: React.PropTypes.bool,
-        children: React.PropTypes.node,
         circular: React.PropTypes.bool,
-        className: React.PropTypes.node,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         fade: React.PropTypes.bool,
         image: React.PropTypes.bool,
@@ -37,8 +33,7 @@ export default class Reveal extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true,
+        ...DefaultProps.defaultProps,
         image: false,
         move: false,
         rotate: false,
@@ -50,6 +45,10 @@ export default class Reveal extends React.Component {
         Image: Image
     };
     /* eslint-enable */
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         /* eslint-disable no-use-before-define */

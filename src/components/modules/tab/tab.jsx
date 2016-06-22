@@ -1,18 +1,16 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import TabContent from './tabcontent';
+import DefaultProps from '../../defaultProps';
 
 export default class Tab extends React.Component {
     static propTypes = {
-        children: React.PropTypes.node,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
+        ...DefaultProps.propTypes,
         header: React.PropTypes.string.isRequired
     };
 
     static defaultProps = {
-        component: 'div'
+        ...DefaultProps.defaultProps
     };
 
     /* eslint-disable */
@@ -20,6 +18,10 @@ export default class Tab extends React.Component {
         TabContent: TabContent
     };
     /* eslint-enable */
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         /* eslint-disable no-use-before-define */

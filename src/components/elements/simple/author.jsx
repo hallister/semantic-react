@@ -1,27 +1,31 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
-let Author = ({ children, className, component, ...other }) => {
-    other.className = classNames(className, { author: true });
 
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
+export default class Author extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes
+    };
 
-Author.propTypes = {
-    children: React.PropTypes.node,
-    className: React.PropTypes.any,
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ])
-};
+    static defaultProps = {
+        ...DefaultProps.defaultProps,
+        component: 'a'
+    };
 
-Author.defaultProps = {
-    component: 'a'
-};
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
-export default Author;
+    render() {
+        const { children, className, component, ...other } = this.props;
+        other.className = classNames(className, { author: true });
+
+        return React.createElement(
+            component,
+            other,
+            children
+        );
+    }
+}

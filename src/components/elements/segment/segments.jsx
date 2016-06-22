@@ -1,16 +1,12 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 export default class Segments extends React.Component {
     static propTypes = {
-        children: React.PropTypes.node,
-        className: React.PropTypes.node,
+        ...DefaultProps.propTypes,
         compact: React.PropTypes.bool,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         piled: React.PropTypes.bool,
@@ -19,9 +15,12 @@ export default class Segments extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true
+        ...DefaultProps.defaultProps
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         /* eslint-disable no-use-before-define */

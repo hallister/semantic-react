@@ -1,16 +1,12 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Icon from './../../elements/icon/icon';
+import DefaultProps from '../../defaultProps';
 
 export default class Rating extends React.Component {
     static propTypes = {
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
+        ...DefaultProps.propTypes,
         heart: React.PropTypes.bool,
         /*
          * The initial rating.
@@ -24,15 +20,13 @@ export default class Rating extends React.Component {
         onChange: React.PropTypes.func,
         size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         star: React.PropTypes.bool
-    }
+    };
 
     static defaultProps = {
-        children: null,
-        component: 'div',
-        defaultClasses: true,
+        ...DefaultProps.defaultProps,
         initialValue: 0,
         max: 5
-    }
+    };
 
     /* eslint-disable */
     static Components = {
@@ -43,6 +37,10 @@ export default class Rating extends React.Component {
     constructor(props) {
         super(props);
         this.state = { value: props.initialValue };
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     renderChildren() {

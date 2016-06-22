@@ -1,45 +1,44 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
-function getClasses(props) {
-    return {
-        ui: props.defaultClasses,
-
-        extra: props.extra,
-
-        text: props.defaultClasses
+export default class Text extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes,
+        extra: React.PropTypes.bool
     };
+
+    static defaultProps = {
+        ...DefaultProps.defaultProps
+    };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
+
+    render() {
+        /* eslint-disable no-use-before-define */
+        let { children, className, component, defaultClasses, extra,
+            ...other } = this.props;
+        /* eslint-enable no-use-before-define */
+
+        other.className = classNames(className, this.getClasses());
+
+        return React.createElement(
+            component,
+            other,
+            children
+        );
+    }
+
+    getClasses() {
+        return {
+            ui: this.props.defaultClasses,
+
+            extra: this.props.extra,
+
+            text: this.props.defaultClasses
+        };
+    }
 }
-
-let Text = (props) => {
-    /* eslint-disable no-use-before-define */
-    let { children, className, component, defaultClasses, extra,
-          ...other } = props;
-    /* eslint-enable no-use-before-define */
-
-    other.className = classNames(className, getClasses(props));
-
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
-
-Text.propTypes = {
-    children: React.PropTypes.node,
-    className: React.PropTypes.any,
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ]),
-    defaultClasses: React.PropTypes.bool,
-    extra: React.PropTypes.bool
-};
-
-Text.defaultProps = {
-    component: 'div',
-    defaultClasses: true
-};
-
-export default Text;

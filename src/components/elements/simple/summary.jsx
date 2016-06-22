@@ -1,27 +1,29 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
-let Summary = ({ children, className, component, ...other }) => {
-    other.className = classNames(className, { summary: true });
+export default class Summary extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes
+    };
 
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
+    static defaultProps = {
+        ...DefaultProps.defaultProps
+    };
 
-Summary.propTypes = {
-    children: React.PropTypes.node,
-    className: React.PropTypes.any,
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ])
-};
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
-Summary.defaultProps = {
-    component: 'div'
-};
+    render() {
+        const { children, className, component, other } = this.props;
+        other.className = classNames(className, { summary: true });
 
-export default Summary;
+        return React.createElement(
+            component,
+            other,
+            children
+        );
+    }
+}

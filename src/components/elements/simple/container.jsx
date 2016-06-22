@@ -1,46 +1,48 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     aligned: ['right', 'left', 'justified', 'center']
 };
 
-function getClasses(props) {
-    let classes = {
-        ui: true,
-        container: true,
-        fluid: props.fluid,
-
-        aligned: props.aligned && props.aligned !== 'justified'
+export default class Container extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes,
+        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
+        fluid: React.PropTypes.bool
     };
 
-    return validateClassProps(classes, props, validProps);
+    static defaultProps = {
+        ...DefaultProps.defaultProps
+    };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
+
+    render() {
+        const { children, className, component, ...other } = this.props;
+        other.className = classNames(className, this.getClasses());
+
+        return React.createElement(
+            component,
+            other,
+            children
+        );
+    }
+
+    getClasses() {
+        let classes = {
+            ui: true,
+            container: true,
+            fluid: this.props.fluid,
+
+            aligned: this.props.aligned && this.props.aligned !== 'justified'
+        };
+
+        return validateClassProps(classes, this.props, validProps);
+    }
 }
-
-let Container = ({ children, className, component, ...other }) => {
-    other.className = classNames(className, getClasses(other));
-
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
-
-Container.propTypes = {
-    aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
-    children: React.PropTypes.node,
-    className: React.PropTypes.any,
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ]),
-    fluid: React.PropTypes.bool
-};
-
-Container.defaultProps = {
-    component: 'div'
-};
-
-export default Container;

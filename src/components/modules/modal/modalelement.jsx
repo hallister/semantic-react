@@ -1,11 +1,11 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from './../../defaultProps';
 
 /**
  * Modal element
  */
-// Need to be statefull component because Modal uses ref
 export default class ModalElement extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
@@ -35,6 +35,10 @@ export default class ModalElement extends React.Component {
         ...DefaultProps.defaultProps,
         active: true
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         const { component, defaultClasses, children, active, basic, fullscreen, size, ...other } = this.props;

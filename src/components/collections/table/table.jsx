@@ -1,6 +1,8 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     aligned: ['top', 'bottom'],
@@ -9,137 +11,135 @@ let validProps = {
     valigned: ['center', 'right']
 };
 
-function mobileFormat(name, options) {
-    let classes = {};
+export default class Table extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes,
+        aligned: React.PropTypes.oneOf(['top', 'bottom']),
+        basic: React.PropTypes.oneOfType([
+            React.PropTypes.oneOf(['very']),
+            React.PropTypes.bool
+        ]),
+        celled: React.PropTypes.bool,
+        collapsing: React.PropTypes.bool,
+        color: React.PropTypes.string,
+        columns: React.PropTypes.number,
+        compact: React.PropTypes.oneOfType([
+            React.PropTypes.oneOf(['very']),
+            React.PropTypes.bool
+        ]),
+        definition: React.PropTypes.bool,
+        fixed: React.PropTypes.bool,
+        inverted: React.PropTypes.bool,
+        padded: React.PropTypes.oneOfType([
+            React.PropTypes.oneOf(['very']),
+            React.PropTypes.bool
+        ]),
+        selectable: React.PropTypes.bool,
+        singleLine: React.PropTypes.bool,
+        size: React.PropTypes.string,
+        stackable: React.PropTypes.shape({
+            computer: React.PropTypes.bool,
+            mobile: React.PropTypes.bool,
+            tablet: React.PropTypes.bool
+        }),
+        striped: React.PropTypes.bool,
+        structured: React.PropTypes.bool,
+        unstackable: React.PropTypes.shape({
+            computer: React.PropTypes.bool,
+            mobile: React.PropTypes.bool,
+            tablet: React.PropTypes.bool
+        }),
+        valigned: React.PropTypes.oneOf(['center', 'right']),
+        width: React.PropTypes.number
+    };
 
-    Object.keys(options).forEach(value => {
-        if (options[value])
-            classes[value + ' ' + name] = true;
-    });
-
-    // all of the options are true?
-    return classes;
-}
-
-function getClasses(props) {
-    let classes = {
-        ui: props.defaultClasses,
-
-        basic: props.basic,
-        collapsing: props.collapsing,
-        compact: props.compact,
-        celled: props.celled,
-        definition: props.definition,
-        fixed: props.fixed,
-        inverted: props.inverted,
-        selectable: props.selectable,
-        'single line': props.singleLine,
-        striped: props.striped,
-        structured: props.structured,
-
-        table: props.defaultClasses
-    }
-
-    classes[props.color] = !!props.color;
-    classes[props.size] = !!props.size;
-
-    if (props.columns !== false) {
-        if (props.columns > 0 && props.columns <= 16) {
-            classes[Numbers[props.columns] + ' column'] = true;
+    static defaultProps = {
+        ...DefaultProps.defaultProps,
+        component: 'table',
+        stackable: {
+            computer: false,
+            mobile: false,
+            tablet: false
+        },
+        unstackable: {
+            computer: false,
+            mobile: false,
+            tablet: false
         }
+    };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
-    if (props.width !== false) {
-        if (props.width > 0 && props.width <= 16) {
-            classes[Numbers[props.width] + ' wide'] = true;
+    render() {
+        /* eslint-disable no-use-before-define */
+        let { basic, celled, children, className, collapsing, compact, component,
+            defaultClasses, definition, fixed, inverted, selectable, singleLine,
+            stackable, striped, structured, unstackable, valigned,
+            ...other } = this.props;
+        /* eslint-enable no-use-before-define */
+
+        other.className = classNames(
+            className,
+            this.getClasses(),
+            this.mobileFormat('stackable', stackable),
+            this.mobileFormat('unstackable', unstackable)
+        );
+
+        return React.createElement(
+            component,
+            other,
+            children
+        );
+    }
+
+    getClasses() {
+        let classes = {
+            ui: this.props.defaultClasses,
+
+            basic: this.props.basic,
+            collapsing: this.props.collapsing,
+            compact: this.props.compact,
+            celled: this.props.celled,
+            definition: this.props.definition,
+            fixed: this.props.fixed,
+            inverted: this.props.inverted,
+            selectable: this.props.selectable,
+            'single line': this.props.singleLine,
+            striped: this.props.striped,
+            structured: this.props.structured,
+
+            table: this.props.defaultClasses
         }
+
+        classes[this.props.color] = !!this.props.color;
+        classes[this.props.size] = !!this.props.size;
+
+        if (this.props.columns !== false) {
+            if (this.props.columns > 0 && this.props.columns <= 16) {
+                classes[Numbers[this.props.columns] + ' column'] = true;
+            }
+        }
+
+        if (this.props.width !== false) {
+            if (this.props.width > 0 && this.props.width <= 16) {
+                classes[Numbers[this.props.width] + ' wide'] = true;
+            }
+        }
+
+        return validateClassProps(classes, this.props, validProps, { valigned: 'aligned' });
     }
 
-    return validateClassProps(classes, props, validProps, { valigned: 'aligned' });
-}
+    mobileFormat(name, options) {
+        let classes = {};
 
-let Table = (props) => {
-    /* eslint-disable no-use-before-define */
-    let { basic, celled, children, className, collapsing, compact, component,
-          defaultClasses, definition, fixed, inverted, selectable, singleLine,
-          stackable, striped, structured, unstackable, valigned,
-          ...other } = props;
-    /* eslint-enable no-use-before-define */
+        Object.keys(options).forEach(value => {
+            if (options[value])
+                classes[value + ' ' + name] = true;
+        });
 
-    other.className = classNames(
-        className,
-        getClasses(props),
-        mobileFormat('stackable', stackable),
-        mobileFormat('unstackable', unstackable)
-    );
-
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
-
-Table.propTypes = {
-    aligned: React.PropTypes.oneOf(['top', 'bottom']),
-    basic: React.PropTypes.oneOfType([
-        React.PropTypes.oneOf(['very']),
-        React.PropTypes.bool
-    ]),
-    celled: React.PropTypes.bool,
-    className: React.PropTypes.any,
-    collapsing: React.PropTypes.bool,
-    color: React.PropTypes.string,
-    columns: React.PropTypes.number,
-    compact: React.PropTypes.oneOfType([
-        React.PropTypes.oneOf(['very']),
-        React.PropTypes.bool
-    ]),
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ]),
-    defaultClasses: React.PropTypes.bool,
-    definition: React.PropTypes.bool,
-    fixed: React.PropTypes.bool,
-    inverted: React.PropTypes.bool,
-    padded: React.PropTypes.oneOfType([
-        React.PropTypes.oneOf(['very']),
-        React.PropTypes.bool
-    ]),
-    selectable: React.PropTypes.bool,
-    singleLine: React.PropTypes.bool,
-    size: React.PropTypes.string,
-    stackable: React.PropTypes.shape({
-        computer: React.PropTypes.bool,
-        mobile: React.PropTypes.bool,
-        tablet: React.PropTypes.bool
-    }),
-    striped: React.PropTypes.bool,
-    structured: React.PropTypes.bool,
-    unstackable: React.PropTypes.shape({
-        computer: React.PropTypes.bool,
-        mobile: React.PropTypes.bool,
-        tablet: React.PropTypes.bool
-    }),
-    valigned: React.PropTypes.oneOf(['center', 'right']),
-    width: React.PropTypes.number
-}
-
-Table.defaultProps = {
-    component: 'table',
-    defaultClasses: true,
-    stackable: {
-        computer: false,
-        mobile: false,
-        tablet: false
-    },
-    unstackable: {
-        computer: false,
-        mobile: false,
-        tablet: false
+        // all of the options are true?
+        return classes;
     }
 }
-
-export default Table;
-

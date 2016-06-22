@@ -1,6 +1,8 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     aligned: ['top', 'middle', 'bottom'],
@@ -9,19 +11,13 @@ let validProps = {
 
 export default class List extends React.Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
         aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
         animated: React.PropTypes.bool,
         celled: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['divided']),
             React.PropTypes.bool
         ]),
-        children: React.PropTypes.node,
-        className: React.PropTypes.node,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
         floated: React.PropTypes.oneOf(['right', 'left']),
         horizontal: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
@@ -37,14 +33,17 @@ export default class List extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true
+        ...DefaultProps.defaultProps
     };
 
     getChildContext() {
         return {
             isListChild: true
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

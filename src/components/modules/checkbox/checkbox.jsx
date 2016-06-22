@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps  from '../../defaultProps';
 
@@ -41,6 +42,10 @@ export default class Checkbox extends Component {
         type: 'default',
         onClick: () => { }
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     onClick = (event) => {
         if (this.props.disabled || this.props.readOnly) return;

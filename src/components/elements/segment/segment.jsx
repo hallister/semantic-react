@@ -1,6 +1,8 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     aligned: ['right', 'left', 'center'],
@@ -10,6 +12,7 @@ let validProps = {
 
 export default class Segment extends React.Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
         aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
         attached: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['bottom', 'top']),
@@ -17,16 +20,9 @@ export default class Segment extends React.Component {
         ]),
         basic: React.PropTypes.bool,
         blurring: React.PropTypes.bool,
-        children: React.PropTypes.any,
-        className: React.PropTypes.node,
         clearing: React.PropTypes.bool,
         color: React.PropTypes.string,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
         container: React.PropTypes.bool,
-        defaultClasses: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         emphasis: React.PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
         floated: React.PropTypes.oneOf(['right', 'left']),
@@ -41,11 +37,14 @@ export default class Segment extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true,
+        ...DefaultProps.defaultProps,
         attached: false,
         style: {}
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         /* eslint-disable no-use-before-define */

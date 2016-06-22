@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Checkbox from './checkbox';
+import DefaultProps  from '../../defaultProps';
 
 export default class CheckboxFields extends Component {
     static propTypes = {
-        children: React.PropTypes.oneOfType([
-            React.PropTypes.array,
-            React.PropTypes.node
-        ]),
-        className: React.PropTypes.node,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
+        ...DefaultProps.propTypes,
         disabled: React.PropTypes.bool,
         name: React.PropTypes.string.isRequired,
         onClick: React.PropTypes.func,
@@ -26,8 +19,7 @@ export default class CheckboxFields extends Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true
+        ...DefaultProps.defaultProps
     };
 
     /* eslint-disable */
@@ -44,6 +36,10 @@ export default class CheckboxFields extends Component {
         this.state = {
             active: active
         };
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     onClick(key)  {

@@ -1,4 +1,5 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import Header from './header';
 import classNames from 'classnames';
 
@@ -6,24 +7,30 @@ import classNames from 'classnames';
  * Sub header, same as header but with 'sub' class name
  * Deprecated
  */
-let SubHeader = (props) => {
-    const { component, children, defaultClasses, ...other } = props;
-    let Component = component || SubHeader.Components.Header;
-    other.className = classNames(other.className, { sub: defaultClasses });
-    return (<Component {...other}>{children}</Component>);
-};
+export default class SubHeader extends React.Component {
+    static propTypes = {
+        ...Header.propTypes
+    };
 
-SubHeader.propTypes = {
-    ...Header.propTypes
-};
+    static defaultProps = {
+        defaultClasses: true,
+        item: false
+    };
 
-SubHeader.defaultProps = {
-    defaultClasses: true,
-    item: false
-};
+    /* eslint-disable */
+    static Components = {
+        Header: Header
+    };
+    /* eslint-enable */
 
-SubHeader.Components = {
-    Header: Header
-};
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
-export default SubHeader;
+    render() {
+        const { component, children, defaultClasses, ...other } = this.props;
+        let Component = component || SubHeader.Components.Header;
+        other.className = classNames(other.className, { sub: defaultClasses });
+        return (<Component {...other}>{children}</Component>);
+    }
+}

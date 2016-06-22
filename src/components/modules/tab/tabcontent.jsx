@@ -1,16 +1,12 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 export default class TabContent extends React.Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
         active: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.func,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
         loading: React.PropTypes.bool,
         position: React.PropTypes.oneOf(['top', 'bottom']),
         segment: React.PropTypes.bool,
@@ -22,11 +18,14 @@ export default class TabContent extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true,
+        ...DefaultProps.defaultProps,
         position: 'bottom',
         segment: true
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         /* eslint-disable no-use-before-define */

@@ -1,82 +1,86 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import { Numbers, hasFirstChild } from '../../utilities';
 import Checkbox from './../../modules/checkbox/checkbox';
 import CheckboxFields from './../../modules/checkbox/checkboxfields';
 
-function getClasses(props) {
-    let classes = {
-        disabled: props.state === 'disabled',
-        error: props.state === 'error',
-
-        required: props.required,
-        inline: props.inline,
-        grouped: props.grouped
+export default class Field extends React.Component {
+    static propTypes = {
+        children: React.PropTypes.node,
+        className: React.PropTypes.any,
+        component: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.string
+        ]),
+        defaultClasses: React.PropTypes.bool,
+        grouped: React.PropTypes.bool,
+        inline: React.PropTypes.bool,
+        label: React.PropTypes.string,
+        required: React.PropTypes.bool,
+        state: React.PropTypes.oneOf([
+            'disabled',
+            'error'
+        ]),
+        width: React.PropTypes.number
     };
 
-    if (props.width) {
-        if (props.width > 0  && props.width <= 16) {
-            classes[Numbers[props.width] + ' wide'] = true;
-        }
+    static defaultProps = {
+        component: 'div',
+        defaultClasses: true
+    };
+
+    /* eslint-disable */
+    static Components = {
+        Checkbox: Checkbox,
+        CheckboxFields: CheckboxFields
+    };
+    /* eslint-enable */
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
-    classes.field = props.defaultClasses;
+    renderLabel(label) {
+        return (
+            <label key={label + 'Label'}>{label}</label>
+        );
+    }
 
-    return classes;
+    render() {
+        /* eslint-disable no-use-before-define */
+        let { children, className, component, label, width, ...other } = this.props;
+        /* eslint-enable no-use-before-define */
+        other.className = classNames(className, this.getClasses());
+
+        return React.createElement(
+            component,
+            other,
+            [
+                hasFirstChild(children, Field.Components.Checkbox) || hasFirstChild(children, Field.Components.CheckboxFields) || !label || label == ''  ? null : this.renderLabel(this.props.label),
+                children
+            ]
+        );
+    }
+
+    getClasses() {
+        let classes = {
+            disabled: this.props.state === 'disabled',
+            error: this.props.state === 'error',
+
+            required: this.props.required,
+            inline: this.props.inline,
+            grouped: this.props.grouped
+        };
+
+        if (this.props.width) {
+            if (this.props.width > 0  && this.props.width <= 16) {
+                classes[Numbers[this.props.width] + ' wide'] = true;
+            }
+        }
+
+        classes.field = this.props.defaultClasses;
+
+        return classes;
+    }
 }
-
-
-// check if child is checkbox first?
-function renderLabel(label) {
-    return (
-        <label key={label + 'Label'}>{label}</label>
-    );
-}
-
-let Field = (props) => {
-    /* eslint-disable no-use-before-define */
-    let { children, className, component, label, width, ...other } = props;
-    /* eslint-enable no-use-before-define */
-    other.className = classNames(className, getClasses(props));
-
-    return React.createElement(
-        component,
-        other,
-        [
-            hasFirstChild(children, Field.Components.Checkbox) || hasFirstChild(children, Field.Components.CheckboxFields) || !label || label == ''  ? null : renderLabel(props.label),
-            children
-        ]
-    );
-};
-
-Field.propTypes = {
-    children: React.PropTypes.node,
-    className: React.PropTypes.any,
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ]),
-    defaultClasses: React.PropTypes.bool,
-    grouped: React.PropTypes.bool,
-    inline: React.PropTypes.bool,
-    label: React.PropTypes.string,
-    required: React.PropTypes.bool,
-    state: React.PropTypes.oneOf([
-        'disabled',
-        'error'
-    ]),
-    width: React.PropTypes.number
-}
-
-Field.defaultProps = {
-    component: 'div',
-    defaultClasses: true
-}
-
-Field.Components = {
-    Checkbox: Checkbox,
-    CheckboxFields: CheckboxFields
-};
-
-export default Field;
-

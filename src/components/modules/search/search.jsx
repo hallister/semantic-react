@@ -1,8 +1,10 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import Transition from 'react-motion-ui-pack';
 import classNames from 'classnames';
 import Icon from './../../elements/icon/icon';
 import Results from './results';
+import DefaultProps from '../../defaultProps';
 
 /*
 3 support results types:
@@ -20,13 +22,7 @@ import Results from './results';
 */
 export default class Search extends React.Component {
     static propTypes = {
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.func,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
+        ...DefaultProps.propTypes,
         emptyHeader: React.PropTypes.string,
         emptyMessage: React.PropTypes.string,
         enterAnimation: React.PropTypes.object,
@@ -47,8 +43,7 @@ export default class Search extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true,
+        ...DefaultProps.defaultProps,
         enterAnimation: {
             opacity: 1,
             scale: 1
@@ -76,6 +71,10 @@ export default class Search extends React.Component {
         this.state = {
             focus: false
         };
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     onBlur = () => {

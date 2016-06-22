@@ -1,4 +1,5 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
 import { validateClassProps, hasChild } from '../../utilities';
@@ -94,13 +95,17 @@ export default class Header extends React.Component {
     static Components = {
         Icon: Icon,
         Image: Image
-    }
+    };
     /* eslint-enable */
 
     getChildContext() {
         return {
             isHeaderChild: true
         };
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

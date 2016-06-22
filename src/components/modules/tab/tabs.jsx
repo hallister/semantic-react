@@ -1,17 +1,13 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import Tab from './tab';
 import TabTitle from './tabtitle';
 import Item from './../../views/item/item';
+import DefaultProps from '../../defaultProps';
 
 export default class Tabs extends React.Component {
     static propTypes = {
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.func,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
+        ...DefaultProps.propTypes,
         position: React.PropTypes.oneOf([
             'top',
             'bottom'
@@ -24,7 +20,7 @@ export default class Tabs extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
+        ...DefaultProps.defaultProps,
         type: 'tab'
     };
 
@@ -51,6 +47,11 @@ export default class Tabs extends React.Component {
     componentWillReceiveProps() {
         this.setActiveChild();
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
+
 
     onItemClick(index) {
         this.setState({

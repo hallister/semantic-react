@@ -1,6 +1,8 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 let validProps = {
     aligned: ['top', 'middle', 'bottom'],
@@ -9,15 +11,9 @@ let validProps = {
 
 export default class Content extends React.Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
         active: React.PropTypes.bool,
         aligned: React.PropTypes.string,
-        children: React.PropTypes.node,
-        className: React.PropTypes.node,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
         extra: React.PropTypes.bool,
         floated: React.PropTypes.oneOfType([
             React.PropTypes.string,
@@ -35,10 +31,13 @@ export default class Content extends React.Component {
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true,
+        ...DefaultProps.defaultProps,
         floated: false
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     renderDimmerChild() {
         return (<div className="center">{this.props.children}</div>);

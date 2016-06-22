@@ -1,39 +1,43 @@
 import React from 'react';
-import Icon, { getClasses as getIconClasses } from './icon';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
-
-function getClasses(props) {
-    let classes = {
-        icons: props.defaultClasses
-    };
-    classes[props.size] = !!props.size;
-    return classes;
-}
 
 /**
  * Group of icons
  */
-let Icons = (props) => {
-    const {
-        component, defaultClasses, children, size, ...other
-    } = props;
-    let Component = component;
-    other.className = classNames(other.className, getClasses(props));
-    return (<Component {...other}>{children}</Component>);
-};
+export default class Icons extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes,
+        /**
+         * Size of icon group
+         */
+        size: React.PropTypes.string
+    };
 
-Icons.propTypes = {
-    ...DefaultProps.propTypes,
-    /**
-     * Size of icon group
-     */
-    size: React.PropTypes.string
-};
+    static defaultProps = {
+        ...DefaultProps.defaultProps,
+        component: 'i'
+    };
 
-Icons.defaultProps = {
-    ...DefaultProps.defaultProps,
-    component: 'i'
-};
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
-export default Icons;
+    render() {
+        const {
+            component, defaultClasses, children, size, ...other
+        } = this.props;
+        let Component = component;
+        other.className = classNames(other.className, this.getClasses());
+        return (<Component {...other}>{children}</Component>);
+    }
+
+    getClasses() {
+        let classes = {
+            icons: this.props.defaultClasses
+        };
+        classes[this.props.size] = !!this.props.size;
+        return classes;
+    }
+}

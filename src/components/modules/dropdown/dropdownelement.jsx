@@ -1,4 +1,5 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
 import DefaultProps  from '../../defaultProps';
@@ -74,6 +75,10 @@ export default class DropdownElement extends React.Component {
         return {
             isDropdownChild: true
         };
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

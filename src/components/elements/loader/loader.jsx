@@ -1,17 +1,13 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import { hasChild } from '../../utilities';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 export default class Loader extends React.Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
         centered: React.PropTypes.bool,
-        children: React.PropTypes.node,
-        className: React.PropTypes.node,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
         inline: React.PropTypes.bool,
         inverted: React.PropTypes.bool,
         size: React.PropTypes.string,
@@ -22,9 +18,12 @@ export default class Loader extends React.Component {
     };
 
     static defaultProps = {
-        defaultClasses: true,
-        component: 'div'
+        ...DefaultProps.defaultProps
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         /* eslint-disable no-use-before-define */

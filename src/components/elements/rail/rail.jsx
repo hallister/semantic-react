@@ -1,28 +1,27 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 export default class Rail extends React.Component {
     static propTypes = {
+        ...DefaultProps.propTypes,
         attached: React.PropTypes.bool,
-        children: React.PropTypes.any,
-        className: React.PropTypes.node,
         close: React.PropTypes.bool,
         closer: React.PropTypes.bool,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
         dividing: React.PropTypes.bool,
         floated: React.PropTypes.oneOf(['right', 'left']).isRequired,
         internal: React.PropTypes.bool
     };
 
     static defaultProps = {
-        component: 'div',
-        close: false,
-        defaultClasses: true
+        ...DefaultProps.defaultProps,
+        close: false
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         /* eslint-disable no-use-before-define */
