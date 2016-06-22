@@ -88,7 +88,8 @@ export default class Label extends React.Component {
 
     static contextTypes = {
         isCardsChild: React.PropTypes.bool,
-        isProgressChild: React.PropTypes.bool
+        isProgressChild: React.PropTypes.bool,
+        isStatisticChild: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -119,7 +120,7 @@ export default class Label extends React.Component {
     getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses && !this.context.isCardsChild && !this.context.isProgressChild,
+            ui: this.props.defaultClasses && !this.context.isCardsChild && !this.context.isProgressChild && !context.isStatisticChild,,
 
             // types
             attached: this.props.attached,

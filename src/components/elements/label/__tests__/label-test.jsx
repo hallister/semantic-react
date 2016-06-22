@@ -193,6 +193,11 @@ describe('Label', () => {
             let wrapper = shallow(<Label />, { context: { isProgressChild: true } });
             expect(wrapper).to.have.not.className('ui');
         });
+
+        it('when is child of Statistic', () => {
+            let wrapper = shallow(<Label />, { context: { isStatisticChild: true } });
+            expect(wrapper).to.have.not.className('ui');
+        });
     });
     
     itShouldConsumeOwnAndPassCustomProps(Label, consumedProps);
