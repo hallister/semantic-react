@@ -1,42 +1,54 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
-import { validateClassProps } from '../../utilities';
+import DefaultProps from '../../defaultProps';
 
-let validProps = {
-    text: [true, false]
-};
+export default class Value extends React.Component {
+    static propTypes = {
+        ...DefaultProps.propTypes,
+        /**
+         * Text value
+         */
+        text: React.PropTypes.bool
+    };
 
-function getClasses(props) {
-    let classes = {
-        value: true,
+    static defaultProps = {
+        ...DefaultProps.defaultProps,
         text: false
     };
 
-    return validateClassProps(classes, props, validProps);
+    constructor(props) {
+        super(props);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
+
+    render() {
+        /* eslint-disable no-use-before-define */
+        let {
+            children, className, component, text,
+            ...other
+        } = this.props;
+        /* eslint-enable no-use-before-define */
+
+        other.className = classNames(this.props.className, this.getClasses());
+        let Component = component;
+
+        return (
+            <Component {...other}>
+                {children}
+            </Component>
+        );
+    }
+
+    getClasses() {
+        return {
+            text: this.props.text,
+
+            // component
+            value: this.props.defaultClasses
+        };
+    }
 }
-
-let Value = ({ children, className, component, ...other }) => {
-    other.className = classNames(className, getClasses(other));
-
-    return React.createElement(
-        component,
-        other,
-        children
-    );
-};
-
-Value.propTypes = {
-    children: React.PropTypes.node,
-    className: React.PropTypes.any,
-    component: React.PropTypes.oneOfType([
-        React.PropTypes.element,
-        React.PropTypes.string
-    ]),
-    text: React.PropTypes.bool
-};
-
-Value.defaultProps = {
-    component: 'div'
-};
-
-export default Value;
