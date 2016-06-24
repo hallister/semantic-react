@@ -62,7 +62,11 @@ export default class Popup extends React.Component {
         /**
          * Target element to apply popup
          */
-        target: React.PropTypes.object
+        target: React.PropTypes.object,
+        /**
+         * Overlay zIndex
+         */
+        zIndex: React.PropTypes.number
     };
 
     static defaultProps = {
@@ -80,7 +84,8 @@ export default class Popup extends React.Component {
         },
         onRequestClose: () => {},
         preventElementClicks: true,
-        prefer: 'adjacent'
+        prefer: 'adjacent',
+        zIndex: 1000
     };
 
     /* eslint-disable */
@@ -173,7 +178,8 @@ export default class Popup extends React.Component {
         // consuming position from props here since it's passing it from state
         /* eslint-disable no-use-before-define, react/prop-types */
         let { active, autoPosition, distanceAway, lastResortPosition, offset, startAnimation, endAnimation,
-            onRequestClose, prefer, position, preventElementClicks, requestCloseWhenOffScreen, target, style, ...other } = this.props;
+            onRequestClose, prefer, position, preventElementClicks, requestCloseWhenOffScreen, target,
+            style, zIndex, ...other } = this.props;
         /* eslint-enable no-use-before-define, react/prop-types */
         
         // Apply invisible layer to portal if preventElementClicks is true
@@ -182,7 +188,8 @@ export default class Popup extends React.Component {
             top: 0,
             bottom: 0,
             left: 0,
-            right: 0
+            right: 0,
+            zIndex: zIndex
         };
         
         // Create style for popup

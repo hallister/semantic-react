@@ -1386,6 +1386,11 @@ export interface PopupProps extends BaseProps<Popup> {
     position?: "top left" | "top center" | "top right" | "right center" | "bottom right" | "bottom center" | "bottom left" | "left center";
     size?: SizeType;
     wide?: boolean | string;
+    /**
+     * Overlay zIndex
+     * @default 1000
+     */
+    zIndex?: number;
 }
 export class Popup extends React.Component<PopupProps, any> {
 }
