@@ -112,7 +112,7 @@ export default class Header extends React.Component {
 
         /* eslint-disable no-use-before-define */
         let { 
-            aligned, attached, children, className, color, component,
+            aligned, attached, children, color, component,
             defaultClasses, disabled, divider, emphasis, floated,
             horizontal, icon, iconComponent, inverted, item, size, ...other 
         } = this.props;
