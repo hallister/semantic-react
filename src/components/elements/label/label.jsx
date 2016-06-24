@@ -120,7 +120,7 @@ export default class Label extends React.Component {
     getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses && !this.context.isCardsChild && !this.context.isProgressChild && !context.isStatisticChild,
+            ui: this.props.defaultClasses && !this.context.isCardsChild && !this.context.isProgressChild && !this.context.isStatisticChild,
 
             // types
             attached: this.props.attached,
