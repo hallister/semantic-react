@@ -154,6 +154,18 @@ export default class Modal extends React.Component {
         this.props.onRequestClose(event);
     }
 
+    onModalOpened = () => {
+        document.body.classList.add('dimmable', 'dimmed');
+
+        this.props.onModalOpened();
+    }
+
+    onModalClosed = () => {
+        document.body.classList.remove('dimmable', 'dimmed');
+
+        this.props.onModalClosed();
+    }
+
     render() {
 
         const { 
@@ -181,8 +193,8 @@ export default class Modal extends React.Component {
         return (
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
                     style={portalStyle}
-                    onOpen={onModalOpened}
-                    onClose={onModalClosed}
+                    onOpen={this.onModalOpened}
+                    onClose={this.onModalClosed}
             >
                     <Modal.Components.Dimmer active={this.state.active}
                         page
