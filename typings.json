@@ -9,11 +9,16 @@
     "mocha": "registry:dt/mocha#2.2.5+20160317120654",
     "webpack-env": "registry:dt/webpack-env#1.12.2+20160316155526"
   },
-  "devDependencies": {
-    "chai": "registry:npm/chai#3.5.0+20160402210230",
-    "chai-enzyme": "github:asvetliakov/typings-chai-enzyme",
-    "enzyme": "registry:npm/enzyme#2.2.0+20160322031343",
-    "sinon": "registry:npm/sinon#1.16.0+20160309002336"
-  },
-  "dependencies": {}
+  "devDependencies": {},
+  "dependencies": {},
+  "globalDependencies": {
+    "chai": "registry:dt/chai#3.4.0+20160601211834",
+    "chai-enzyme": "registry:dt/chai-enzyme#0.5.0+20160705230117",
+    "enzyme": "registry:dt/enzyme#2.3.0+20160705200758",
+    "mocha": "registry:dt/mocha#2.2.5+20160619032855",
+    "react": "registry:dt/react#0.14.0+20160630100702",
+    "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
+    "sinon": "registry:dt/sinon#1.16.0+20160517064723",
+    "sinon-chai": "registry:dt/sinon-chai#2.7.0+20160317120654"
+  }
 }
