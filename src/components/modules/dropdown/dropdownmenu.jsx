@@ -25,11 +25,14 @@ export default class DropdownMenu extends React.Component {
          * Spring configuration for enter animation
          * default is { stiffness: 700, damping: 50, precision: 40 }
          */
-        enterAnimation: React.PropTypes.shape({
-            stiffness: React.PropTypes.number,
-            damping: React.PropTypes.number,
-            precision: React.PropTypes.number
-        }),
+        enterAnimation: React.PropTypes.oneOfType([
+            React.PropTypes.shape({
+                stiffness: React.PropTypes.number,
+                damping: React.PropTypes.number,
+                precision: React.PropTypes.number
+            }),
+            React.PropTypes.bool
+        ]),
         /**
          * Menu icon
          */
@@ -42,11 +45,14 @@ export default class DropdownMenu extends React.Component {
          * Spring configuration for leave animation
          * default is { stiffness: 700, damping: 50, precision: 40 }
          */
-        leaveAnimation: React.PropTypes.shape({
-            stiffness: React.PropTypes.number,
-            damping: React.PropTypes.number,
-            precision: React.PropTypes.number
-        }),
+        leaveAnimation: React.PropTypes.oneOfType([
+            React.PropTypes.shape({
+                stiffness: React.PropTypes.number,
+                damping: React.PropTypes.number,
+                precision: React.PropTypes.number
+            }),
+            React.PropTypes.bool
+        ]),
         /**
          * Specify component to be used as Menu.
          * Usually is should be menu but with custom options applied (for example inverted).
@@ -203,6 +209,17 @@ export default class DropdownMenu extends React.Component {
         const menuStyle = active ? this.visibleMenuStyle :
             this.state.animating ? this.visibleMenuStyle : this.hiddenMenuStyle;
 
+        let animationStyle = {};
+        if (active) {
+            animationStyle = {
+                height: enterAnimation ? spring(this.state.menuHeight, enterAnimation) : this.state.menuHeight
+            };
+        } else {
+            animationStyle = {
+                height: leaveAnimation ? spring(0, leaveAnimation) : 0
+            };
+        }
+
         return (
             <DropdownMenu.Components.DropdownElement
                 {...other}
@@ -216,7 +233,7 @@ export default class DropdownMenu extends React.Component {
                 {this.renderMenuText()}
                 {this.renderMenuIcon()}
                     <Motion defaultStyle={{ height: active ? this.state.menuHeight : 0 }}
-                            style={{ height: active ? spring(this.state.menuHeight, enterAnimation) : spring(0, leaveAnimation) }}
+                            style={animationStyle}
                             onRest={this.onAnimationRest}
                     >
                             {interpolatedStyle =>
