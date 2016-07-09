@@ -24,21 +24,27 @@ export default class Select extends React.Component {
          */
         active: React.PropTypes.bool,
         /**
-         * Enter animation spring configuration
+         * Enter animation spring configuration. Pass false to disable
          */
-        enterAnimation: React.PropTypes.shape({
-            stiffness: React.PropTypes.number,
-            damping: React.PropTypes.number,
-            precision: React.PropTypes.number
-        }),
+        enterAnimation: React.PropTypes.oneOfType([
+            React.PropTypes.shape({
+                stiffness: React.PropTypes.number,
+                damping: React.PropTypes.number,
+                precision: React.PropTypes.number
+            }),
+            React.PropTypes.bool
+        ]),
         /**
-         * Leave animation spring configuration
+         * Leave animation spring configuration, pass false to disable
          */
-        leaveAnimation: React.PropTypes.shape({
-            stiffness: React.PropTypes.number,
-            damping: React.PropTypes.number,
-            precision: React.PropTypes.number
-        }),
+        leaveAnimation: React.PropTypes.oneOfType([
+            React.PropTypes.shape({
+                stiffness: React.PropTypes.number,
+                damping: React.PropTypes.number,
+                precision: React.PropTypes.number
+            }),
+            React.PropTypes.bool
+        ]),
         /**
          * Name for dropdown input
          */
@@ -573,6 +579,16 @@ export default class Select extends React.Component {
         // Animate height to this value
         const animateHeightTo = this.state.menuHeight > maxAnimatingHeight ? maxAnimatingHeight : this.state.menuHeight;
 
+        let animationStyle = {};
+        if (active) {
+            animationStyle = {
+                height: enterAnimation ? spring(animateHeightTo, enterAnimation) : animateHeightTo
+            };
+        } else {
+            animationStyle = {
+                height: leaveAnimation ? spring(0, leaveAnimation) : 0
+            };
+        }
         return (
             <Select.Components.DropdownElement
                 {...other}
@@ -590,7 +606,7 @@ export default class Select extends React.Component {
                 this.renderSearchInput()
                 }
                 <Motion defaultStyle={{ height: active ? animateHeightTo : 0 }}
-                        style={{ height: active ? spring(animateHeightTo, enterAnimation) : spring(0, leaveAnimation) }}
+                        style={animationStyle}
                         onRest={this.onAnimationRest}
                 >
                         {interpolatedStyle =>
