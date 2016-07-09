@@ -3,7 +3,7 @@ import Accordion from '../accordion';
 import AccordionBody from '../accordionbody';
 import AccordionTitle from '../accordiontitle';
 
-export class MyAccordion extends React.Component {
+class MyAccordion extends React.Component {
     constructor() {
         super();
         this.state = {

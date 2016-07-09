@@ -4,7 +4,7 @@ import AccordionBody from '../accordionbody';
 import AccordionTitle from '../accordiontitle';
 import Segment from '../../../elements/segment/segment';
 
-export class MyDoNotAnimatedAccordion extends React.Component {
+class MyDoNotAnimatedAccordion extends React.Component {
     constructor() {
         super();
         this.state = {

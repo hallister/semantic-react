@@ -7,6 +7,7 @@ var fs = require('fs');
 var path = require('path');
 var hljs = require('highlight.js');
 var createRenderer = require('react-styleguidist/src/utils/markdown.js');
+var loaderUtils = require('loader-utils');
 
 var md = createRenderer();
 
@@ -28,12 +29,12 @@ function readExamples(markdown, contextDir) {
     md.renderer.rules.code_block = md.renderer.rules.fence = function(tokens, idx) {
         var token = tokens[idx];
         var code = tokens[idx].content.trim();
-        if (token.type === 'fence' && token.info) {
+        if (token.type === 'fence' && token.info && token.info !== 'example') {
             if (token.info === 'require') {
                 try {
                     var pathTo = path.resolve(contextDir, code);
                     var requireSource = fs.readFileSync(pathTo, 'utf8');
-                    // remove all imports (leaves requires)
+                    // remove all imports
                     requireSource = requireSource.replace(/(import.*|.*require.*)/g, '');
                     codeChunks.push(requireSource.trim());
                     return codePlaceholder;
@@ -90,7 +91,9 @@ function findRequires(codeString) {
 function examplesLoader(source, map) {
     this.cacheable && this.cacheable();
 
-    var examples = readExamples(source, this.context);
+    // Replace __COMPONENT__ placeholders with the passed-in componentName
+    var componentName = loaderUtils.parseQuery(this.query).componentName || '__COMPONENT__';
+    var examples = readExamples(source.replace(/__COMPONENT__/g, componentName), this.context);
 
     // We're analysing the examples' source code to figure out the require statements. We do it manually with regexes,
     // because webpack unfortunately doesn't expose its smart logic for rewriting requires
@@ -116,9 +119,9 @@ function examplesLoader(source, map) {
         '}',
         'module.exports = ' + JSON.stringify(examples).replace(
             new RegExp(_.escapeRegExp(JSON.stringify(evalPlaceholder)), 'g'),
-            'function(code, setState) {' +
-            '   var require = requireInRuntime;' +
-            '   return eval(code);' +
+            'function(code) {' +
+            '   var func = new Function (\"require\", \"state\", \"setState\", \"__initialStateCB\", code);' +
+            '		return func.bind(null, requireInRuntime);' +
             '}'
         ) + ';'
     ].join('\n');

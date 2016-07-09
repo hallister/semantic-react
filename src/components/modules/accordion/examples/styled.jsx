@@ -4,7 +4,7 @@ import AccordionBody from '../accordionbody';
 import AccordionTitle from '../accordiontitle';
 import Segment from '../../../elements/segment/segment';
 
-export class MyStyledAccordion extends React.Component {
+class MyStyledAccordion extends React.Component {
     constructor() {
         super();
         this.state = {

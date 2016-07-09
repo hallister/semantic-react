@@ -3,7 +3,7 @@ import Input from '../input';
 import Segment from '../../segment/segment';
 import Segments from '../../segment/segments';
 
-export class MyControlledInput extends React.Component {
+class MyControlledInput extends React.Component {
     
     constructor(props) {
         super(props);
