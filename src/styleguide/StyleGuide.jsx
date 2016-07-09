@@ -6,6 +6,7 @@ import * as elements from '../../src/components/elements';
 import * as collections from '../../src/components/collections';
 import * as views from '../../src/components/views';
 import * as modules from '../../src/components/modules';
+import { spring } from '../../src/components/animationUtils';
 
 /**
  * Hack to avoid requiring semantic stuff in examples
@@ -133,6 +134,7 @@ function globalizeSemantic() {
     globalizeElements();
     globalizeModules();
     globalizeViews();
+    window.spring = spring;
 }
 
 export default function SemanticStyleGuide(props) {

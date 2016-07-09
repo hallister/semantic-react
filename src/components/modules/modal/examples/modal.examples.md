@@ -11,3 +11,9 @@
 ```require
 ./basic.jsx
 ```
+
+### Custom animated 
+
+```require
+./customAnimation.jsx
+```

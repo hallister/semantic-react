@@ -8,6 +8,7 @@ import shallowCompare from 'react-addons-shallow-compare';
 import { isNodeInRoot } from '../../utilities';
 import Dimmer from '../dimmer/dimmer';
 import ModalElement from './modalelement';
+import AnimationProps, { getMotionStyle } from '../../animationUtils';
 
 /**
  * Modal is modal
@@ -15,30 +16,7 @@ import ModalElement from './modalelement';
 export default class Modal extends React.Component {
     static propTypes = {
         ...ModalElement.propTypes,
-        /**
-         * Start animation. Accepts react-motion spring configuration.
-         * Pass false to disable animation
-         */
-        enterAnimation: React.PropTypes.oneOf([
-            React.PropTypes.shape({
-                stiffness: React.PropTypes.number,
-                damping: React.PropTypes.number,
-                precision: React.PropTypes.number
-            }),
-            React.PropTypes.bool
-        ]),
-        /**
-         * Leave animation. Accepts react-motion spring configuration
-         * Pass false to disable animation
-         */
-        leaveAnimation: React.PropTypes.oneOf([
-            React.PropTypes.shape({
-                stiffness: React.PropTypes.number,
-                damping: React.PropTypes.number,
-                precision: React.PropTypes.number
-            }),
-            React.PropTypes.bool
-        ]),
+        ...AnimationProps.propTypes,
         /**
          * Dimmer variations
          */
@@ -71,10 +49,13 @@ export default class Modal extends React.Component {
         onRequestClose: () => {},
         onModalOpened: () => {},
         onModalClosed: () => {},
+        initialAnimation: {
+            opacity: 0.5,
+            scale: 0.5
+        },
         enterAnimation: {
-            stiffness: 700,
-            damping: 40,
-            precision: 0.1
+            opacity: spring(1, { stiffness: 700, damping: 40, precision: 0.1 }),
+            scale: spring(1, { stiffness: 700, damping: 40, precision: 0.1 })
         },
         leaveAnimation: false,
         zIndex: 1000
@@ -92,6 +73,7 @@ export default class Modal extends React.Component {
 
         this.state = {
             modalHeight: 1,
+            modalWidth: 1,
             active: props.active,
             closing: false,
         };
@@ -155,8 +137,13 @@ export default class Modal extends React.Component {
      * @param dimensions
      */
     onModalMeasure = (dimensions) => {
-        if (dimensions && dimensions.height && dimensions.height !== this.state.modalHeight) {
-            this.setState({ modalHeight: dimensions.height });
+        if (dimensions &&
+            ((dimensions.height && dimensions.height !== this.state.modalHeight) ||
+            (dimensions.width && dimensions.width !== this.state.modalWidth))) {
+            this.setState({
+                modalHeight: dimensions.height,
+                modalWidth: dimensions.width
+            });
         }
     }
 
@@ -169,6 +156,17 @@ export default class Modal extends React.Component {
         }
     }
 
+    getAnimationStyle(interpolatedStyle, dimensions) {
+        const { onAnimationStyle } = this.props;
+        if (onAnimationStyle && typeof onAnimationStyle === "function") {
+            return onAnimationStyle(interpolatedStyle, dimensions, this.state.active);
+        }
+        return {
+            opacity: interpolatedStyle.opacity,
+            transform: `scale(${interpolatedStyle.scale})`
+        };
+    }
+
     /**
      * Render modal element
      * @param interpolatedStyle Interpolated style
@@ -176,7 +174,7 @@ export default class Modal extends React.Component {
      */
     renderModal(interpolatedStyle) {
         const {
-            component, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, zIndex,
+            component, initialAnimation, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, zIndex,
             onModalOpened, onModalClosed, ...other
         } = this.props;
         let positionTop = 0;
@@ -188,11 +186,20 @@ export default class Modal extends React.Component {
             positionTop = window.innerHeight / 2 - this.state.modalHeight / 2;
         }
 
-        const modalStyle = { ...style, opacity: interpolatedStyle.opacity, transform: `scale(${interpolatedStyle.scale})`, top: positionTop, position: 'fixed' };
+        const animationStyle = this.getAnimationStyle(interpolatedStyle, {
+            height: this.state.modalHeight,
+            width: this.state.modalWidth
+        });
+        const modalStyle = {
+            ...style,
+            position: 'fixed',
+            top: positionTop,
+            ...animationStyle
+        };
 
         return (
             <Measure accurate
-                     whitelist={["height"]}
+                     whitelist={["height", "width"]}
                      shouldMeasure
                      onMeasure={this.onModalMeasure}
             >
@@ -211,7 +218,7 @@ export default class Modal extends React.Component {
 
     render() {
         const {
-            enterAnimation, leaveAnimation, zIndex, onModalOpened, onModalClosed
+            initialAnimation, enterAnimation, leaveAnimation, zIndex, onModalOpened, onModalClosed
         } = this.props;
 
         // Apply layer to portal to prevent clicking outside
@@ -224,22 +231,7 @@ export default class Modal extends React.Component {
             zIndex: zIndex
         };
 
-        const startAnimationStyle = {
-            scale: 0.5,
-            opacity: 0.5
-        };
-        let animationStyle = {};
-        if (this.state.active) {
-            animationStyle = {
-                scale: enterAnimation ? spring(1, enterAnimation) : 1,
-                opacity: enterAnimation ? spring(1, enterAnimation) : 1
-            }
-        } else {
-            animationStyle = {
-                scale: leaveAnimation ? spring(0.5, leaveAnimation) : 0.5,
-                opacity: leaveAnimation ? spring(0.5, leaveAnimation) : 0.5
-            }
-        }
+        const springAnimationStyle = getMotionStyle(initialAnimation, enterAnimation, leaveAnimation, this.state.active);
         return (
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
                     style={portalStyle}
@@ -255,8 +247,8 @@ export default class Modal extends React.Component {
                                    onKeyDown={this.onPressEsc}
                                    onMouseDown={this.onOutsideClick}
                                    onTouchStart={this.onOutsideClick}/>
-                    <Motion defaultStyle={startAnimationStyle}
-                            style={animationStyle}
+                    <Motion defaultStyle={initialAnimation}
+                            style={springAnimationStyle}
                             onRest={this.onAnimationRest}
                     >
                         {interpolatedStyle => this.renderModal(interpolatedStyle)}
