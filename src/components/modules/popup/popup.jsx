@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Transition from 'react-motion-ui-pack';
+import { Motion, spring } from 'react-motion';
 import Portal from 'react-portal';
 import EventListener from 'react-event-listener';
 import throttle from 'lodash.throttle';
@@ -27,9 +27,27 @@ export default class Popup extends React.Component {
          */
         distanceAway: React.PropTypes.number,
         /**
-         * End animation
+         * Enter animation spring configuration. Pass false to disable
          */
-        endAnimation: React.PropTypes.object,
+        enterAnimation: React.PropTypes.oneOfType([
+            React.PropTypes.shape({
+                stiffness: React.PropTypes.number,
+                damping: React.PropTypes.number,
+                precision: React.PropTypes.number
+            }),
+            React.PropTypes.bool
+        ]),
+        /**
+         * Leave animation spring configuration, pass false to disable
+         */
+        leaveAnimation: React.PropTypes.oneOfType([
+            React.PropTypes.shape({
+                stiffness: React.PropTypes.number,
+                damping: React.PropTypes.number,
+                precision: React.PropTypes.number
+            }),
+            React.PropTypes.bool
+        ]),
         /**
          * Use this position when element fails to fit on screen in all tried positions
          * If omitted, the last tried position will be used instead
@@ -56,10 +74,6 @@ export default class Popup extends React.Component {
          */
         requestCloseWhenOffScreen: React.PropTypes.bool,
         /**
-         * Start animation
-         */
-        startAnimation: React.PropTypes.object,
-        /**
          * Target element to apply popup
          */
         target: React.PropTypes.object,
@@ -76,11 +90,15 @@ export default class Popup extends React.Component {
         active: false,
         distanceAway: 0,
         offset: 0,
-        startAnimation: {
-            scale: 1
+        enterAnimation: {
+            stiffness: 500,
+            damping: 30,
+            precision: 0.1
         },
-        endAnimation: {
-            scale: 0
+        leaveAnimation: {
+            stiffness: 500,
+            damping: 30,
+            precision: 0.1
         },
         onRequestClose: () => {},
         preventElementClicks: true,
@@ -139,13 +157,6 @@ export default class Popup extends React.Component {
                 this.setState({
                     closing: true
                 });
-                setTimeout(() => {
-                    // Hide popup
-                    this.setState({
-                        active: false,
-                        closing: false
-                    });
-                }, 500);
             }
         }
     }
@@ -160,7 +171,7 @@ export default class Popup extends React.Component {
         this.setPlacement();
     }
     
-    onOutsideClick(event) {
+    onOutsideClick = (event) => {
         if (!this.state.active || this.state.closing) {
             return;
         }
@@ -174,10 +185,16 @@ export default class Popup extends React.Component {
         this.props.onRequestClose(event);
     }
 
+    onAnimationRest = () => {
+        if (!this.state.active && this.state.closing) {
+            this.setState({ closing: false })
+        }
+    }
+
     render() {
         // consuming position from props here since it's passing it from state
         /* eslint-disable no-use-before-define, react/prop-types */
-        let { active, autoPosition, distanceAway, lastResortPosition, offset, startAnimation, endAnimation,
+        let { active, autoPosition, distanceAway, lastResortPosition, offset, enterAnimation, leaveAnimation,
             onRequestClose, prefer, position, preventElementClicks, requestCloseWhenOffScreen, target,
             style, zIndex, ...other } = this.props;
         /* eslint-enable no-use-before-define, react/prop-types */
@@ -202,8 +219,20 @@ export default class Popup extends React.Component {
             position: 'fixed' // need it to be fixed to avoid it with bloating code with many checks
         };
         
+
+        let animationStyle = {};
+        if (active) {
+            animationStyle = {
+                scale: enterAnimation ? spring(1, enterAnimation) : 1
+            };
+        } else {
+            animationStyle = {
+                scale: leaveAnimation ? spring(0, leaveAnimation) : 0
+            };
+        }
+
         const popupStyle = style ? { ...style, ...positionStyle } : positionStyle;
-        
+
         return (
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
                     style={this.props.preventElementClicks ? portalStyle : {}}
@@ -213,23 +242,22 @@ export default class Popup extends React.Component {
                                onScroll={this.handleScroll}
                 >
                     <EventListener target={document}
-                                   onMouseDown={this.onOutsideClick.bind(this)}
-                                   onTouchStart={this.onOutsideClick.bind(this)}
+                                   onMouseDown={this.onOutsideClick}
+                                   onTouchStart={this.onOutsideClick}
                     >
-                        <Transition
-                            component={false}
-                            enter={startAnimation}
-                            leave={endAnimation}
+                        <Motion defaultStyle={{ scale: 0 }}
+                                style={animationStyle}
+                                onRest={this.onAnimationRest}
                         >
-                            {(this.state.active && !this.state.closing) &&
-                            <Popup.Components.PopupElement
-                                {...other}
-                                key="popup"
-                                position={this.state.position}
-                                ref="popup"
-                                style={popupStyle}/>
+                            {interpolatedStyle =>
+                                <Popup.Components.PopupElement
+                                    {...other}
+                                    key="popup"
+                                    position={this.state.position}
+                                    ref="popup"
+                                    style={{ ...popupStyle, ...interpolatedStyle }}/>
                             }
-                        </Transition>
+                        </Motion>
                     </EventListener>
                 </EventListener>
             </Portal>
