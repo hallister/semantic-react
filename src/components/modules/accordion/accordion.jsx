@@ -1,7 +1,6 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
-import Transition from 'react-motion-ui-pack';
 import DefaultProps from '../../defaultProps';
 
 /**
@@ -10,6 +9,10 @@ import DefaultProps from '../../defaultProps';
 export default class Accordion extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * Pass false to disable animation
+         */
+        animating: React.PropTypes.bool,
         /**
          * Current visible content. Strings and numbers are accepted
          */
@@ -30,26 +33,19 @@ export default class Accordion extends React.Component {
          * A styled accordion adds basic formatting
          */
         styled: React.PropTypes.bool,
-        /**
-         * Enter animations transforms
-         */
-        enterAnimation: React.PropTypes.object,
-        /**
-         * Leave animation
-         */
-        leaveAnimation: React.PropTypes.object
     };
 
     static contextTypes = {
         isAccordionChild: React.PropTypes.bool
     };
-    
+
     static childContextTypes = {
         isAccordionChild: React.PropTypes.bool
     };
 
     static defaultProps = {
         ...DefaultProps.defaultProps,
+        animating: true,
         activeIndexes: [],
         onAccordionChange: () => { }
     };
@@ -59,33 +55,33 @@ export default class Accordion extends React.Component {
 
         // Disallow to override animation style for now, since paddingTop and paddingBottom need to be animated too
         // I don't want to bother with dealing with unit measures for now, so just hardcode semantic EM values here and in body component
-        this.enterAnimation = {
-            height: {
-                val: 'auto',
-                stiffness: 300,
-                damping: 40,
-                precision: 0.1
-            },
-            paddingTop: {
-                val: 0.5,
-                stiffness: 300,
-                damping: 40,
-                precision: 0.2
-            }
-        };
-        this.enterAnimation.paddingBottom = {
-            val: (props.styled) ? 1.5 : 1,
-            stiffness: 300,
-            damping: 40,
-            precision: 0.3
-        }
+        // this.enterAnimation = {
+        //     height: {
+        //         val: 'auto',
+        //         stiffness: 300,
+        //         damping: 40,
+        //         precision: 0.1
+        //     },
+        //     paddingTop: {
+        //         val: 0.5,
+        //         stiffness: 300,
+        //         damping: 40,
+        //         precision: 0.2
+        //     }
+        // };
+        // this.enterAnimation.paddingBottom = {
+        //     val: (props.styled) ? 1.5 : 1,
+        //     stiffness: 300,
+        //     damping: 40,
+        //     precision: 0.3
+        // }
         // this.enterAnimation.paddingBottom = (props.styled) ? 1.5 : 1; // em
         // this.enterAnimation.paddingBottom = 1.0; // em
-        this.leaveAnimation = {
-            height: 0,
-            paddingTop: 0,
-            paddingBottom: 0
-        }
+        // this.leaveAnimation = {
+        //     height: 0,
+        //     paddingTop: 0,
+        //     paddingBottom: 0
+        // }
     }
 
     getChildContext() {
@@ -100,73 +96,65 @@ export default class Accordion extends React.Component {
 
     /**
      * Accordion title click handler
-     * 
+     *
      * @param {number|string} index Index
-     * @param {React.MouseEvent} evt Mouse event
      */
-    onAccordionTitleClick(index, evt) {
-        evt.preventDefault();
+    onAccordionTitleClick = (index) => {
         this.props.onAccordionChange(index);
     }
 
     /**
      * Process children. Skips non active content
-     * 
-     * @returns Children
      */
     renderChildren() {
-        let processNextContentChild = false;
-        let lastActiveIndex = null;
-
         // not using child.type checking because these will fail if using some kind of HOC component
-        return React.Children.map(this.props.children, (child => {
+        const arrayChildren = React.Children.toArray(this.props.children);
+        const newChild = [];
+        for (let index = 0; index < arrayChildren.length; index++) {
+            const child = arrayChildren[index];
             if (child.props.index) {
-                // This is accordion title
                 let active = false;
+                // This is accordion title
                 if (this.props.activeIndexes.indexOf(child.props.index) !== -1) {
                     // It should be active
-                    // set processing flags
-                    processNextContentChild = true;
-                    lastActiveIndex = child.props.index;
                     active = true;
                 }
-                return React.cloneElement(child, {
+                newChild.push(React.cloneElement(child, {
                     active: active,
                     key: child.key ? child.key : child.props.index,
-                    initialStyle: child.props.style, // Set original passed style, component will use it instead of style
-                    onClick: this.onAccordionTitleClick.bind(this, child.props.index)
-                });
-            } else if (processNextContentChild && lastActiveIndex !== null) {
-                // reset index flag
-                lastActiveIndex = null;
-                // reset processing flag
-                processNextContentChild = false;
-                return React.cloneElement(child, {
-                    active: true,
-                    key: child.key ? child.key : `content-${lastActiveIndex}`,
-                    style: { ...child.props.style, overflow: 'hidden' }
-                });
+                    onClick: this.onAccordionTitleClick
+                }));
+                const body = arrayChildren[index + 1];
+                if (body) {
+                    newChild.push(
+                        React.cloneElement(body, {
+                            active: active,
+                            key: body.key ? body.key : `content-${child.props.index}`,
+                            styled: this.props.styled,
+                            animating: this.props.animating
+                        })
+                    );
+                    // skip next element
+                    index++;
+                }
             }
-        }));
+        }
+        return newChild;
     }
 
     render() {
         const {
-            component, children, defaultClasses, activeIndexes, fluid, inverted,
-            onAccordionChange, styled, enterAnimation, leaveAnimation, ...other
+            animating, component, children, defaultClasses, activeIndexes, fluid, inverted,
+            onAccordionChange, styled, enterAnimation, leaveAnimation, style, ...other
         } = this.props;
-        const newChildren = this.renderChildren();
+        const Component = component;
 
         other.className = classNames(other.className, this.getClasses());
 
         return (
-            <Transition component={component}
-                enter={enterAnimation || this.enterAnimation}
-                leave={leaveAnimation || this.leaveAnimation}
-                { ...other }
-            >
-                {newChildren}
-            </Transition>
+            <Component {...other}>
+                {this.renderChildren()}
+            </Component>
         )
     }
 

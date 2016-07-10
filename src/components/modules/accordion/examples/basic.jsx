@@ -12,7 +12,7 @@ class MyAccordion extends React.Component {
     }
 
     // Fired on accordion title click, index will be title index
-    onAccordionChange(index) {
+    onAccordionChange = (index) => {
         this.setState({
             values: (this.state.values.indexOf(index) !== -1) ? [] : [index]
         });
@@ -21,7 +21,7 @@ class MyAccordion extends React.Component {
     render() {
         // Index is required for AccordionTitle, strings or numbers are accepted
         return (
-            <Accordion activeIndexes={this.state.values} onAccordionChange={this.onAccordionChange.bind(this)}>
+            <Accordion activeIndexes={this.state.values} onAccordionChange={this.onAccordionChange}>
                 <AccordionTitle index={1}>First</AccordionTitle>
                 <AccordionBody>First content</AccordionBody>
                 <AccordionTitle index={2}>Second</AccordionTitle>

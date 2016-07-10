@@ -55,9 +55,21 @@ export default class AccordionTitle extends React.Component {
         return shallowCompare(this, nextProps, nextState);
     }
 
+    /**
+     * Title was clicked
+     * @param event
+     */
+    onClick = (event) => {
+        event.preventDefault();
+        const { index, onClick } = this.props;
+        if (onClick) {
+            onClick(index);
+        }
+    }
+
     render() {
         const {
-            component, children, defaultClasses, active, icon, iconComponent, index, initialStyle, onClick, ...other
+            component, children, defaultClasses, active, icon, iconComponent, index, onClick, ...other
         } = this.props;
         const Component = component;
         const IconComponent = iconComponent || AccordionTitle.Components.Icon;
@@ -68,7 +80,7 @@ export default class AccordionTitle extends React.Component {
         });
         // Set style to initial style, just style will contain animating values, we don't want animate the title
         return (
-            <Component {...other} onClick={onClick} style={initialStyle}>
+            <Component {...other} onClick={this.onClick}>
                 <IconComponent name={icon}/>
                 {children}
             </Component>

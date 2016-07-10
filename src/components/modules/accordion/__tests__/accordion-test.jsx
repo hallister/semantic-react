@@ -1,6 +1,5 @@
 import React from 'react';
 import sinon from 'sinon';
-import Transition from 'react-motion-ui-pack';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Accordion from '../accordion';
@@ -34,17 +33,6 @@ describe('Accordion', () => {
         let wrapper = shallow(<Accordion component="a"><div>test</div></Accordion>);
         expect(wrapper).to.have.tagName('a');
         expect(wrapper.shallow().shallow()).to.have.className('ui accordion');
-    });
-
-    it('Wraps into transition', () => {
-        let wrapper = shallow(<Accordion><div>test</div></Accordion>);
-        expect(wrapper.is(Transition)).to.be.true;
-    });
-
-    it('Passes props as props property', () => {
-        let wrapper = shallow(<Accordion data-test="test"><div>test</div></Accordion>);
-        expect(wrapper.is(Transition)).to.be.true;
-        expect(wrapper).to.have.prop('data-test', 'test');
     });
 
     it('Can be fluid', () => {

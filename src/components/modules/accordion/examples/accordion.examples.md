@@ -7,6 +7,7 @@ This way you can have full control over accordion (you can have multiple active 
 ./basic.jsx
 ```
 
+
 ### Inverted accordion
 
 Here using strings for title keys instead numbers
@@ -14,7 +15,6 @@ Here using strings for title keys instead numbers
 ```require
 ./styled.jsx
 ```
-
 
 ### Nested styled accordion
 
