@@ -1,10 +1,12 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
-import Transition from 'react-motion-ui-pack';
+import { Motion, spring } from 'react-motion';
+import Measure from 'react-measure';
 import classNames from 'classnames';
 import Icon from './../../elements/icon/icon';
 import Results from './results';
 import DefaultProps from '../../defaultProps';
+import AnimationProps, { getMotionStyle } from '../../animationUtils';
 
 /*
 3 support results types:
@@ -23,14 +25,13 @@ import DefaultProps from '../../defaultProps';
 export default class Search extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        ...AnimationProps.propTypes,
         emptyHeader: React.PropTypes.string,
         emptyMessage: React.PropTypes.string,
-        enterAnimation: React.PropTypes.object,
         icon: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.bool
         ]),
-        leaveAnimation: React.PropTypes.object,
         loading: React.PropTypes.bool,
         onChange: React.PropTypes.func.isRequired,
         onSearchClick: React.PropTypes.func,
@@ -44,13 +45,17 @@ export default class Search extends React.Component {
 
     static defaultProps = {
         ...DefaultProps.defaultProps,
-        enterAnimation: {
-            opacity: 1,
-            scale: 1
-        },
-        leaveAnimation: {
+        initialAnimation: {
             opacity: 0,
             scale: 0
+        },
+        enterAnimation: {
+            opacity: spring(1, { stiffness: 800, damping: 40, precision: 0.1 }),
+            scale: spring(1, { stiffness: 800, damping: 40, precision: 0.1 })
+        },
+        leaveAnimation: {
+            opacity: spring(0, { stiffness: 800, damping: 40, precision: 0.1 }),
+            scale: spring(0, { stiffness: 800, damping: 40, precision: 0.1 })
         },
         icon: 'search',
         onSearchClick: function noop() {},
@@ -69,6 +74,8 @@ export default class Search extends React.Component {
         super(props);
 
         this.state = {
+            resultsHeight: 1,
+            resultsWidth: 1,
             focus: false
         };
     }
@@ -99,6 +106,21 @@ export default class Search extends React.Component {
         this.props.onSearchClick(e, child);
     }
 
+    /**
+     * Results dimensions was changed
+     * @param dimensions
+     */
+    onMeasure = (dimensions) => {
+        if (dimensions &&
+            ((dimensions.height && dimensions.height !== this.state.resultsHeight) ||
+            (dimensions.width && dimensions.width !== this.state.resultsWidth))) {
+            this.setState({
+                resultsHeight: dimensions.height,
+                resultsWidth: dimensions.width
+            });
+        }
+    }
+
     renderInput() {
         return (
             <div className={this.getClassesInput()}
@@ -122,10 +144,20 @@ export default class Search extends React.Component {
         return <Search.Components.Icon name={this.props.icon} />;
     }
 
+    getAnimationStyle(interpolatedStyle, dimensions) {
+        const { onAnimationStyle } = this.props;
+        if (onAnimationStyle) {
+            return onAnimationStyle(interpolatedStyle, dimensions);
+        }
+        return {
+            transform: `scale(${interpolatedStyle.scale})`,
+            opacity: interpolatedStyle.opacity
+        };
+    }
+
     renderResults() {
-        let props = {
+        const resultProps = {
             key: 'searchResults',
-            animate: this.state.focus && this.props.value !== '',
             emptyHeader: this.props.emptyHeader,
             emptyMessage: this.props.emptyMessage,
             onSearchClick: this.onSearchClick,
@@ -133,38 +165,45 @@ export default class Search extends React.Component {
             search: this.props.value || ''
         };
 
+        const { initialAnimation, enterAnimation, leaveAnimation } = this.props;
+        const motionStyle = getMotionStyle(initialAnimation, enterAnimation, leaveAnimation, !!(this.state.focus && this.props.value !== ''));
+
         return (
-            <Transition
-                key="transition"
-                component={false}
-                enter={this.props.enterAnimation}
-                leave={this.props.leaveAnimation}
+            <Motion defaultStyle={initialAnimation}
+                    style={motionStyle}
             >
-                {(this.state.focus && this.props.value !== '') &&
-                    <Search.Components.Results {...props}/>
-                }
-            </Transition>
+                {interpolatedStyle => {
+                    const animationStyle = this.getAnimationStyle(interpolatedStyle, { height: this.state.resultsHeight, width: this.state.resultsWidth });
+                    return (
+                        <Measure whitelist={['height', 'width']}
+                                 accurate
+                                 onMeasure={this.onMeasure}
+                                 key="measure"
+                        >
+                            <Search.Components.Results {...resultProps} style={animationStyle} key="results"/>
+                        </Measure>
+                    );
+                }}
+            </Motion>
         );
     }
 
     render() {
         /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, emptyHeader,
-              emptyMessage, enterAnimation, icon, leaveAnimation, loading,
-              onChange, onSearchClick, placeholder, results,
+              emptyMessage, initialAnimation, enterAnimation, icon, leaveAnimation, loading,
+              onChange, onSearchClick, placeholder, results, onAnimationStyle,
               ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            [
-                this.renderInput(),
-                this.renderResults()
-            ]
-        );
+        const Component = component;
+        return (
+            <Component {...other}>
+                {this.renderInput()},
+                {this.renderResults()}
+            </Component>
+        )
     }
 
     getClassesInput() {

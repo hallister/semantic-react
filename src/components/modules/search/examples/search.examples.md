@@ -6,7 +6,7 @@ A Search displays a collections of data grouped into list in popup
 
 #### No icon
     
-    'value' in state || setState({value: ''});
+    initialState = { value: '' };
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
         icon=''
@@ -34,7 +34,7 @@ A Search displays a collections of data grouped into list in popup
 
 #### List standard
 
-    'value' in state || setState({value: ''});
+    initialState = { value: '' };
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
         onSearchClick={(e, currentValue) => setState({value: currentValue})}
@@ -59,7 +59,7 @@ A Search displays a collections of data grouped into list in popup
 
 #### List objects
 
-    'value' in state || setState({value: ''});
+    initialState = { value: '' };
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
         onSearchClick={(e, currentValue) => setState({value: currentValue})}
@@ -89,7 +89,7 @@ A Search displays a collections of data grouped into list in popup
 
 #### Object lists
 
-    'value' in state || setState({value: ''});
+    initialState = { value: '' };
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
         onSearchClick={(e, currentValue) => setState({value: currentValue})}
@@ -105,7 +105,7 @@ A Search displays a collections of data grouped into list in popup
 
 #### Loading
 
-    'value' in state || setState({value: ''});
+    initialState = { value: '' };
     <Search 
         onChange={e => setState({value: e.currentTarget.value})}
         onSearchClick={(e, currentValue) => setState({value: currentValue})}

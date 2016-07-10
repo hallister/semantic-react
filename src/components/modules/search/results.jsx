@@ -85,9 +85,9 @@ export default class Results extends React.Component {
     renderObject() {
         let children = [];
 
-        Object.keys(this.props.results).map(child => {
+        Object.keys(this.props.results).map((child, key) => {
             children.push(
-                <div className="category">
+                <div className="category" key={key}>
                     <div className="name">{child}</div>
                     {this.renderArray(this.props.results[child])}
                 </div>
@@ -99,7 +99,7 @@ export default class Results extends React.Component {
 
     renderEmpty() {
         return (
-            <div className="message empty">
+            <div className="message empty" key="empty">
                 <div className="header">{this.props.emptyHeader}</div>
                 <div className="description">{this.props.emptyMessage}</div>
             </div>
