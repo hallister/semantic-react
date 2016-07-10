@@ -11,6 +11,7 @@ import Icon from './../../elements/icon/icon';
 import Header from './../../elements/header/header';
 import Menu from './../../views/menu/menu';
 import { isNodeInRoot } from '../../utilities';
+import AnimationProps, { getMotionStyle, valueFromPercents } from '../../animationUtils';
 
 /**
  * Select is the dropdown where options could be selected, either single or multiple.
@@ -19,32 +20,11 @@ import { isNodeInRoot } from '../../utilities';
 export default class Select extends React.Component {
     static propTypes = {
         ...DropdownElement.propTypes,
+        ...AnimationProps.propTypes,
         /**
          * Should be dropdown opened
          */
         active: React.PropTypes.bool,
-        /**
-         * Enter animation spring configuration. Pass false to disable
-         */
-        enterAnimation: React.PropTypes.oneOfType([
-            React.PropTypes.shape({
-                stiffness: React.PropTypes.number,
-                damping: React.PropTypes.number,
-                precision: React.PropTypes.number
-            }),
-            React.PropTypes.bool
-        ]),
-        /**
-         * Leave animation spring configuration, pass false to disable
-         */
-        leaveAnimation: React.PropTypes.oneOfType([
-            React.PropTypes.shape({
-                stiffness: React.PropTypes.number,
-                damping: React.PropTypes.number,
-                precision: React.PropTypes.number
-            }),
-            React.PropTypes.bool
-        ]),
         /**
          * Name for dropdown input
          */
@@ -130,22 +110,18 @@ export default class Select extends React.Component {
         selection: true,
         selected: [],
         multiple: false,
+        initialAnimation: {
+            height: 0 // 0%
+        },
         enterAnimation: {
-            stiffness: 700,
-            damping: 50,
-            precision: 40
+            height: spring(100, { stiffness: 700, damping: 50, precision: 40 }) // 100%
         },
         leaveAnimation: {
-            stiffness: 700,
-            damping: 50,
-            precision: 40
+            height: spring(0, { stiffness: 700, damping: 50, precision: 40 }) // 0%
         },
-        onSelectChange: () => {
-        },
-        onRequestClose: () => {
-        },
-        onSearchStringChange: () => {
-        }
+        onSelectChange: () => {},
+        onRequestClose: () => {},
+        onSearchStringChange: () => {}
     };
 
     /* eslint-disable */
@@ -169,7 +145,8 @@ export default class Select extends React.Component {
         this.noResultsMessageRef = null;
 
         this.state = {
-            menuHeight: 1,
+            menuHeight: 20,
+            menuWidth: 20,
             animating: false
         };
 
@@ -320,8 +297,13 @@ export default class Select extends React.Component {
 
 
     onMenuMeasure = (dimensions) => {
-        if (dimensions.height && this.state.menuHeight !== dimensions.height) {
-            this.setState({ menuHeight: dimensions.height });
+        if (dimensions &&
+            ((dimensions.height && dimensions.height !== this.state.menuHeight) ||
+            (dimensions.width && dimensions.width !== this.state.menuWidth))) {
+            this.setState({
+                menuHeight: dimensions.height,
+                menuWidth: dimensions.width
+            });
         }
     };
 
@@ -359,16 +341,16 @@ export default class Select extends React.Component {
                                 scale: spring(1, { stiffness: 700, damping: 50, precision: 0.1 })
                             }}
                     >
-                            {interpolatedStyle =>
-                                <Select.Components.Label component="a"
-                                                         key={`label-${child.props.value}`}
-                                                         style={{ ...interpolatedStyle, display: 'inline-block' }}
-                                >
-                                                         {child.props.children}
-                                                             <Select.Components.Icon name="close"
-                                                                                     onClick={this.onLabelCloseIconClick.bind(this, child.props.value)}/>
-                                </Select.Components.Label>
-                            }
+                        {interpolatedStyle =>
+                            <Select.Components.Label component="a"
+                                                     key={`label-${child.props.value}`}
+                                                     style={{ ...interpolatedStyle, display: 'inline-block' }}
+                            >
+                                {child.props.children}
+                                <Select.Components.Icon name="close"
+                                                        onClick={this.onLabelCloseIconClick.bind(this, child.props.value)}/>
+                            </Select.Components.Label>
+                        }
                     </Motion>
                 );
             }
@@ -532,44 +514,65 @@ export default class Select extends React.Component {
         return newChildren;
     }
 
-    render() {
+    /**
+     * Return animation style for menu
+     * @param interpolatedStyle
+     * @param dimensions
+     * @param animateHeightTo
+     * @returns {{height: number}}
+     */
+    getMenuAnimationStyle(interpolatedStyle, dimensions, animateHeightTo) {
+        const { active, onAnimationStyle } = this.props;
+        if (onAnimationStyle) {
+            // change height in dimensions and provide realHeight
+            return onAnimationStyle(interpolatedStyle, {
+                height: animateHeightTo,
+                realHeight: dimensions.height,
+                width: dimensions.width
+            }, active);
+        }
+        return {
+            height: valueFromPercents(interpolatedStyle.height, animateHeightTo)
+        };
+    }
+
+    /**
+     * Render menu
+     * @param interpolatedStyles
+     */
+    renderMenu(interpolatedStyles) {
         /* eslint-disable no-use-before-define */
         const {
-            active, children, enterAnimation, leaveAnimation, icon, name, search, searchPosition, searchHeader,
-            searchString, searchGlyphWidth, searchIgnoreCase, searchNoResultsMessage, placeholder, selected, selection,
-            multiple, onSelectChange, onRequestClose, onSearchStringChange, ...other
+            active, search, searchPosition, searchHeader, searchString, searchNoResultsMessage, ...other
         } = this.props;
         /* eslint-enable no-use-before-define */
-
         // make new array for menu childrens
-        let menuChildrens = [];
+        let menuChildren = [];
         // render search and header in menu
         if (search && searchPosition === 'menu') {
             if (searchHeader) {
-                menuChildrens.push(this.renderSearchHeader());
+                menuChildren.push(this.renderSearchHeader());
             }
-            menuChildrens.push(this.renderSearchInput());
+            menuChildren.push(this.renderSearchInput());
         }
 
-        let filteredChilds = this.renderFilteredChildren();
+        let filteredChild = this.renderFilteredChildren();
         // Display no results message instead of children if needed
-        if ((!filteredChilds || filteredChilds.length === 0) && (search && searchString != '')) {
-            filteredChilds = [
+        if ((!filteredChild || filteredChild.length === 0) && (search && searchString != '')) {
+            filteredChild = [
                 <div className="message"
                      key="noResultsMessage"
                      ref={ref => this.noResultsMessageRef = ref}
                 >
-                     {searchNoResultsMessage}
+                    {searchNoResultsMessage}
                 </div>
             ]; // eslint-disable-line
         }
 
-        menuChildrens = menuChildrens.concat(filteredChilds);
-
-        other.className = classNames(other.className, this.getClasses());
+        menuChildren = menuChildren.concat(filteredChild);
 
         /* eslint-disable */
-        const menuStyle = active ? this.menuVisibleStyle :
+        const menuVisibleStyle = active ? this.menuVisibleStyle :
             this.state.animating ? this.menuVisibleStyle : this.menuHiddenStyle;
         /* eslint-enable */
 
@@ -579,25 +582,54 @@ export default class Select extends React.Component {
         // Animate height to this value
         const animateHeightTo = this.state.menuHeight > maxAnimatingHeight ? maxAnimatingHeight : this.state.menuHeight;
 
-        let animationStyle = {};
-        if (active) {
-            animationStyle = {
-                height: enterAnimation ? spring(animateHeightTo, enterAnimation) : animateHeightTo
-            };
-        } else {
-            animationStyle = {
-                height: leaveAnimation ? spring(0, leaveAnimation) : 0
-            };
-        }
+        const animationStyle = this.getMenuAnimationStyle(interpolatedStyles, {
+            height: this.state.menuHeight,
+            width: this.state.menuWidth
+        }, animateHeightTo);
+
+        return (
+            <Measure whitelist={['height', 'width']}
+                     onMeasure={this.onMenuMeasure}
+                     accurate
+                     key="measure"
+            >
+                <Select.Components.Menu key="menu"
+                                        onMenuItemClick={this.onMenuItemClick}
+                                        ref={ref => this.menuRef = ref}
+                                        style={{
+                                            ...menuVisibleStyle,
+                                            ...animationStyle,
+                                            // Display scroll if select is too large
+                                            overflowY: (this.state.menuHeight > maxAnimatingHeight) ? 'auto' : 'hidden'
+                                        }}
+                >
+                    {menuChildren}
+                </Select.Components.Menu>
+            </Measure>
+        );
+    }
+
+    render() {
+        /* eslint-disable no-use-before-define */
+        const {
+            active, children, initialAnimation, enterAnimation, leaveAnimation, onAnimationStyle, icon, name, search, searchPosition, searchHeader,
+            searchString, searchGlyphWidth, searchIgnoreCase, searchNoResultsMessage, placeholder, selected, selection,
+            multiple, onSelectChange, onRequestClose, onSearchStringChange, ...other
+        } = this.props;
+        /* eslint-enable no-use-before-define */
+
+        other.className = classNames(other.className, this.getClasses());
+        const motionStyle = getMotionStyle(initialAnimation, enterAnimation, leaveAnimation, active);
+
         return (
             <Select.Components.DropdownElement
                 {...other}
                 active={active}
             >
                 {/* This will embed <noscript></noscript> inside dropdown div. Shouldn't cause any problems */}
-                    <EventListener target={document}
-                                   onMouseDown={this.onOutsideDropdownClick}
-                                   onTouchStart={this.onOutsideDropdownClick}/>
+                <EventListener target={document}
+                               onMouseDown={this.onOutsideDropdownClick}
+                               onTouchStart={this.onOutsideDropdownClick}/>
                 {this.renderDropdownInput()}
                 {this.renderDropdownLabels()}
                 {this.renderDropdownText()}
@@ -605,30 +637,11 @@ export default class Select extends React.Component {
                 {search && searchPosition === 'dropdown' &&
                 this.renderSearchInput()
                 }
-                <Motion defaultStyle={{ height: active ? animateHeightTo : 0 }}
-                        style={animationStyle}
+                <Motion defaultStyle={initialAnimation}
+                        style={motionStyle}
                         onRest={this.onAnimationRest}
                 >
-                        {interpolatedStyle =>
-                            <Measure whitelist={['height']}
-                                     onMeasure={this.onMenuMeasure}
-                                     accurate
-                            >
-                                <Select.Components.Menu key="menu"
-                                                        onMenuItemClick={this.onMenuItemClick}
-                                                        ref={ref => this.menuRef = ref}
-                                                        style={{
-                                                            ...menuStyle,
-                                                            ...interpolatedStyle,
-                                                            // Display scroll if select is too large
-                                                            overflowY: (this.state.menuHeight > maxAnimatingHeight) ? 'auto' : 'hidden'
-                                                        }}
-                                >
-                                    {menuChildrens}
-                                </Select.Components.Menu>
-                            </Measure>
-
-                        }
+                    {interpolatedStyle => this.renderMenu(interpolatedStyle)}
                 </Motion>
             </Select.Components.DropdownElement>
         );

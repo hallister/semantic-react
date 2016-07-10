@@ -74,22 +74,9 @@ export default class DropdownMenu extends React.Component {
         leaveAnimation: {
             height: spring(0, { stiffness: 700, damping: 50, precision: 40 }) // 0%
         },
-        // enterAnimation: {
-        //     stiffness: 700,
-        //     damping: 50,
-        //     precision: 40
-        // },
-        // leaveAnimation: {
-        //     stiffness: 700,
-        //     damping: 50,
-        //     precision: 40
-        // },
-        onMenuItemClick: () => {
-        },
-        onMenuChange: () => {
-        },
-        onRequestClose: () => {
-        }
+        onMenuItemClick: () => {},
+        onMenuChange: () => {},
+        onRequestClose: () => {}
     };
 
     /* eslint-disable */
@@ -216,6 +203,7 @@ export default class DropdownMenu extends React.Component {
             <Measure whitelist={['height', 'width']}
                      onMeasure={this.onMenuMeasure}
                      accurate
+                     key="measure"
             >
                 <MenuComponent key="menu"
                                menuValue={menuValue}
