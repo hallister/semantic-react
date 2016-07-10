@@ -1,0 +1,33 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Modules
+node_modules
+
+# webstorm
+.idea
+
+# typings
+typings
+
+# Coverage
+dist/coverage
+
+# Visual studio code
+.vscode
+
+
+# Server overrides
+server.js
+
+# Styleguide (should be commited to gh-pages instead)
+styleguide
+src/styleguide
+docs

@@ -1,6 +1,6 @@
 {
   "name": "semantic-react",
-  "version": "0.0.2",
+  "version": "0.5.0",
   "description": "React components for Semantic UI.",
   "main": "./lib",
   "files": [
@@ -19,7 +19,7 @@
     "test:watch": "karma start --auto-watch --no-single-run karma.config.js",
     "styleguide-server": "styleguidist server",
     "styleguide-build": "styleguidist build --production",
-    "postinstall": "npm run lib"
+    "prepublish": "npm run lib"
   },
   "typings": "./index.d.ts",
   "keywords": [
