@@ -4,7 +4,9 @@ import { spring } from 'react-motion';
 /**
  * Need component to pass into react-docgen
  */
-const AnimationProps = () => null;
+const AnimationProps = () => {
+    return <noscript/>
+};
 
 AnimationProps.propTypes = {
     /**

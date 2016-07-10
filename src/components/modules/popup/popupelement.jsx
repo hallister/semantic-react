@@ -56,31 +56,32 @@ export default class PopupElement extends React.Component {
         position: 'top left'
     };
 
+    constructor(props) {
+        super(props);
+        this.popupEl = null;
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
         return shallowCompare(this, nextProps, nextState);
     }
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { className, component, ...other } = this.props;
+        const { className, defaultClasses, children, component, basic, fluid, flowing, inverted, size, wide, position, ...other } = this.props;
         /* eslint-enable no-use-before-define */
         // other.style = Object.assign({}, style, pStyle);
 
-        if (this.props.component === PopupElement) {
-            component = 'div';
-        } else {
-            component = this.props.component;
-        }
+        const Component = component;
 
-        // Save ref to HTML element
-        other.ref = 'popup';
         other.className = classNames(className, this.getClasses());
 
-        return React.createElement(
-            component,
-            other,
-            this.props.children
-        );
+        return (
+            <Component {...other}
+                ref={ref => this.popupEl = ref}
+            >
+                {children}
+            </Component>
+        )
     }
 
     getClasses() {

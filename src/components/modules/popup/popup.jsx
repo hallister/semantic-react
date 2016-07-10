@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Motion, spring } from 'react-motion';
+import Measure from 'react-measure';
 import Portal from 'react-portal';
 import EventListener from 'react-event-listener';
 import throttle from 'lodash.throttle';
 import shallowCompare from 'react-addons-shallow-compare';
 import PopupElement, { POSITIONS } from './popupelement';
 import { isNodeInRoot } from '../../utilities';
+import AnimationProps, { getMotionStyle } from '../../animationUtils';
 
 /**
  * Popup with animations
@@ -14,6 +16,7 @@ import { isNodeInRoot } from '../../utilities';
 export default class Popup extends React.Component {
     static propTypes = {
         ...PopupElement.propTypes,
+        ...AnimationProps.propTypes,
         /**
          * True to display the popup. If false will be hidden
          */
@@ -26,28 +29,6 @@ export default class Popup extends React.Component {
          * Offset for distance of popup from element
          */
         distanceAway: React.PropTypes.number,
-        /**
-         * Enter animation spring configuration. Pass false to disable
-         */
-        enterAnimation: React.PropTypes.oneOfType([
-            React.PropTypes.shape({
-                stiffness: React.PropTypes.number,
-                damping: React.PropTypes.number,
-                precision: React.PropTypes.number
-            }),
-            React.PropTypes.bool
-        ]),
-        /**
-         * Leave animation spring configuration, pass false to disable
-         */
-        leaveAnimation: React.PropTypes.oneOfType([
-            React.PropTypes.shape({
-                stiffness: React.PropTypes.number,
-                damping: React.PropTypes.number,
-                precision: React.PropTypes.number
-            }),
-            React.PropTypes.bool
-        ]),
         /**
          * Use this position when element fails to fit on screen in all tried positions
          * If omitted, the last tried position will be used instead
@@ -90,15 +71,14 @@ export default class Popup extends React.Component {
         active: false,
         distanceAway: 0,
         offset: 0,
+        initialAnimation: {
+            scale: 0.5
+        },
         enterAnimation: {
-            stiffness: 500,
-            damping: 30,
-            precision: 0.1
+            scale: spring(1, { stiffness: 500, damping: 30, precision: 0.1 })
         },
         leaveAnimation: {
-            stiffness: 500,
-            damping: 30,
-            precision: 0.1
+            scale: spring(0, { stiffness: 500, damping: 30, precision: 0.1 })
         },
         onRequestClose: () => {},
         preventElementClicks: true,
@@ -124,8 +104,10 @@ export default class Popup extends React.Component {
          * @type {Array}
          */
         this.positionsTried = [];
-        
+
         this.state = {
+            popupWidth: 1,
+            popupHeight: 1,
             active: this.props.active,
             closing: false,
             // Need to save position to state, since it could be changed by autoPosition
@@ -133,8 +115,10 @@ export default class Popup extends React.Component {
             positionStyleTop: '0px',
             positionStyleLeft: '0px'
         };
+
+        this.popupRef = null;
     }
-    
+
     componentDidMount() {
         if (this.props.active) {
             // Set initial position for popup
@@ -152,15 +136,15 @@ export default class Popup extends React.Component {
                     position: nextProps.position
                 });
             } else {
-                // need to wait to play animation and keep portal active
                 this.positionsTried = [];
                 this.setState({
+                    active: false,
                     closing: true
                 });
             }
         }
     }
-    
+
     shouldComponentUpdate(nextProps, nextState) {
         // since we're changing state immediately after componentDidUpdate we need to prevent re-rendering loop
         return shallowCompare(this, nextProps, nextState);
@@ -170,15 +154,15 @@ export default class Popup extends React.Component {
         // Set popup position after update
         this.setPlacement();
     }
-    
+
     onOutsideClick = (event) => {
         if (!this.state.active || this.state.closing) {
             return;
         }
-        if (!this.refs.popup || !this.refs.popup.refs.popup) {
+        if (!this.popupRef || !this.popupRef.popupEl) {
             return;
         }
-        if (isNodeInRoot(event.target, this.refs.popup.refs.popup)) {
+        if (isNodeInRoot(event.target, this.popupRef.popupEl)) {
             return;
         }
         event.stopPropagation();
@@ -190,25 +174,50 @@ export default class Popup extends React.Component {
             this.setState({ closing: false })
         }
     }
+    /**
+     * Popup dimensions was changed
+     * @param dimensions
+     */
+    onPopupMeasure = (dimensions) => {
+        if (dimensions &&
+            ((dimensions.height && dimensions.height !== this.state.popupHeight) ||
+            (dimensions.width && dimensions.width !== this.state.popupWidth))) {
+            this.setState({
+                popupHeight: dimensions.height,
+                popupWidth: dimensions.width
+            });
+        }
+    }
 
-    render() {
+    /**
+     * Return animation style for popup
+     * @param interpolatedStyle
+     * @param dimensions
+     */
+    getAnimationStyle(interpolatedStyle, dimensions) {
+        const { onAnimationStyle } = this.props;
+        if (onAnimationStyle) {
+            return onAnimationStyle(interpolatedStyle, dimensions, this.state.active);
+        }
+        return {
+            transform: `scale(${interpolatedStyle.scale})`
+        };
+    }
+
+    /**
+     * Renders popup
+     * @param interpolatedStyles
+     */
+    renderPopup(interpolatedStyles) {
         // consuming position from props here since it's passing it from state
         /* eslint-disable no-use-before-define, react/prop-types */
-        let { active, autoPosition, distanceAway, lastResortPosition, offset, enterAnimation, leaveAnimation,
-            onRequestClose, prefer, position, preventElementClicks, requestCloseWhenOffScreen, target,
-            style, zIndex, ...other } = this.props;
+        const {
+            active, autoPosition, distanceAway, lastResortPosition, offset, initialAnimation, enterAnimation, leaveAnimation,
+            onAnimationStyle, onRequestClose, prefer, position, preventElementClicks, requestCloseWhenOffScreen, target,
+            style, zIndex, ...other
+        } = this.props;
         /* eslint-enable no-use-before-define, react/prop-types */
-        
-        // Apply invisible layer to portal if preventElementClicks is true
-        const portalStyle = {
-            position: 'fixed',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: zIndex
-        };
-        
+
         // Create style for popup
         const positionStyle = {
             left: this.state.positionStyleLeft,
@@ -218,20 +227,45 @@ export default class Popup extends React.Component {
             display: 'block',
             position: 'fixed' // need it to be fixed to avoid it with bloating code with many checks
         };
-        
-
-        let animationStyle = {};
-        if (active) {
-            animationStyle = {
-                scale: enterAnimation ? spring(1, enterAnimation) : 1
-            };
-        } else {
-            animationStyle = {
-                scale: leaveAnimation ? spring(0, leaveAnimation) : 0
-            };
-        }
-
         const popupStyle = style ? { ...style, ...positionStyle } : positionStyle;
+
+        const animationStyle = this.getAnimationStyle(interpolatedStyles, {
+            height: this.state.popupHeight,
+            width: this.state.popupWidth
+        });
+        return (
+            <Measure accurate
+                     whitelist={['width', 'height']}
+                     onMeasure={this.onPopupMeasure}
+                     key="measure"
+            >
+                <Popup.Components.PopupElement
+                    {...other}
+                    key="popup"
+                    position={this.state.position}
+                    ref={ref => this.popupRef = ref}
+                    style={{ ...popupStyle, ...animationStyle }}/>
+            </Measure>
+        );
+    }
+
+    render() {
+        // consuming position from props here since it's passing it from state
+        /* eslint-disable no-use-before-define, react/prop-types */
+        const { initialAnimation, enterAnimation, leaveAnimation, zIndex } = this.props;
+        /* eslint-enable no-use-before-define, react/prop-types */
+
+        // Apply invisible layer to portal if preventElementClicks is true
+        const portalStyle = {
+            position: 'fixed',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: zIndex
+        };
+
+        const motionStyle = getMotionStyle(initialAnimation, enterAnimation, leaveAnimation, this.state.active);
 
         return (
             <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
@@ -245,18 +279,11 @@ export default class Popup extends React.Component {
                                    onMouseDown={this.onOutsideClick}
                                    onTouchStart={this.onOutsideClick}
                     >
-                        <Motion defaultStyle={{ scale: 0 }}
-                                style={animationStyle}
+                        <Motion defaultStyle={initialAnimation}
+                                style={motionStyle}
                                 onRest={this.onAnimationRest}
                         >
-                            {interpolatedStyle =>
-                                <Popup.Components.PopupElement
-                                    {...other}
-                                    key="popup"
-                                    position={this.state.position}
-                                    ref="popup"
-                                    style={{ ...popupStyle, ...interpolatedStyle }}/>
-                            }
+                            {interpolatedStyle => this.renderPopup(interpolatedStyle)}
                         </Motion>
                     </EventListener>
                 </EventListener>
@@ -305,27 +332,27 @@ export default class Popup extends React.Component {
         if (!this.state.active || this.state.closing) {
             return;
         }
-        if (!this.refs.popup || !this.refs.popup.refs || !this.refs.popup.refs.popup) {
+        if (!this.popupRef || !this.popupRef.popupEl) {
             return;
         }
-        let popupHTMLElement = this.refs.popup.refs.popup;
+        let popupHTMLElement = this.popupRef.popupEl;
 
         // If target wasn't provided, then assuming that popup used as child of element, we can obtain target then
         let targetEl = this.props.target || ReactDOM.findDOMNode(this);
         if (!targetEl) {
             return;
         }
-        
+
         // mark current position as tried
         this.positionsTried.push(this.state.position);
 
         const targetElementPosition = this.getTargetPosition(targetEl);
         const popupDimensions = this.getPopupDimensions(popupHTMLElement);
-        
+
         if (scrolling && this.props.requestCloseWhenOffScreen) {
             this.requestCloseWhenOffScreen(targetElementPosition);
         }
-        
+
         // need to know margins
         const computedStyle = window.getComputedStyle(popupHTMLElement);
         const margins = {
@@ -347,28 +374,28 @@ export default class Popup extends React.Component {
                 finalPosition = this.calculatePopupPosition(nextPosition, targetElementPosition, popupDimensions, margin);
             }
         }
-        
+
         this.setState({
             position: nextPosition ? nextPosition : this.state.position, // eslint-disable-line
             positionStyleTop: `${finalPosition.top}px`,
             positionStyleLeft: `${finalPosition.left}px`
         });
-        
+
         // apply position to popup
-/*        popupHTMLElement.style.left = `${finalPosition.left}px`;
-        popupHTMLElement.style.top = `${finalPosition.top}px`;
-        popupHTMLElement.style.bottom = 'auto';
-        popupHTMLElement.style.right = 'auto';
-        popupHTMLElement.style.display = 'block';*/
-        
-        
+        /*        popupHTMLElement.style.left = `${finalPosition.left}px`;
+         popupHTMLElement.style.top = `${finalPosition.top}px`;
+         popupHTMLElement.style.bottom = 'auto';
+         popupHTMLElement.style.right = 'auto';
+         popupHTMLElement.style.display = 'block';*/
+
+
     }
 
     /**
      * Attempt to auto-position popup
      */
     autoPosition(finalPosition, popupDimensions) {
-        if (finalPosition.top < 0 || finalPosition.top + popupDimensions.height > window.innerHeight 
+        if (finalPosition.top < 0 || finalPosition.top + popupDimensions.height > window.innerHeight
             || finalPosition.left < 0 || finalPosition.left + popupDimensions.width > window.innerWidth) {
             // obtain next position
             let nextPosition = this.getNextPosition();
@@ -403,46 +430,46 @@ export default class Popup extends React.Component {
         }
 
         switch (this.props.prefer) {
-        case 'adjacent':
-        default:
-            let nextPosition = null;
-            // We know now that at least one untried position should be available here
-            /* eslint-disable no-constant-condition */
-            while (true) {
-                // Reset index if we're off from array
-                if (currentPositionIndex + 1 > POSITIONS.length) {
-                    currentPositionIndex = 0;
-                }
-                nextPosition = POSITIONS[currentPositionIndex];
-                if (this.positionsTried.indexOf(nextPosition) === -1) {
-                    break;
-                }
-                currentPositionIndex++;
-            }
-            /* eslint-enable no-constant-condition */
-            return nextPosition;
-        case 'opposite':
-            // just return opposite direction
-            switch (this.state.position) {
-            case 'left center':
-                return (this.positionsTried.indexOf('right center') === -1) ? 'right center' : null;
-            case 'right center':
-                return (this.positionsTried.indexOf('left center') === -1) ? 'left center' : null;
-            case 'top left':
-                return (this.positionsTried.indexOf('bottom left') === -1) ? 'bottom left' : null;
-            case 'top center':
-                return (this.positionsTried.indexOf('bottom center') === -1) ? 'bottom center' : null;
-            case 'top right':
-                return (this.positionsTried.indexOf('bottom right') === -1) ? 'bottom right' : null;
-            case 'bottom left':
-                return (this.positionsTried.indexOf('top left') === -1) ? 'top left' : null;
-            case 'bottom center':
-                return (this.positionsTried.indexOf('top center') === -1) ? 'top center' : null;
-            case 'bottom right':
-                return (this.positionsTried.indexOf('top right') === -1) ? 'top right' : null;
+            case 'adjacent':
             default:
-                return null;
-            }
+                let nextPosition = null;
+                // We know now that at least one untried position should be available here
+                /* eslint-disable no-constant-condition */
+                while (true) {
+                    // Reset index if we're off from array
+                    if (currentPositionIndex + 1 > POSITIONS.length) {
+                        currentPositionIndex = 0;
+                    }
+                    nextPosition = POSITIONS[currentPositionIndex];
+                    if (this.positionsTried.indexOf(nextPosition) === -1) {
+                        break;
+                    }
+                    currentPositionIndex++;
+                }
+                /* eslint-enable no-constant-condition */
+                return nextPosition;
+            case 'opposite':
+                // just return opposite direction
+                switch (this.state.position) {
+                    case 'left center':
+                        return (this.positionsTried.indexOf('right center') === -1) ? 'right center' : null;
+                    case 'right center':
+                        return (this.positionsTried.indexOf('left center') === -1) ? 'left center' : null;
+                    case 'top left':
+                        return (this.positionsTried.indexOf('bottom left') === -1) ? 'bottom left' : null;
+                    case 'top center':
+                        return (this.positionsTried.indexOf('bottom center') === -1) ? 'bottom center' : null;
+                    case 'top right':
+                        return (this.positionsTried.indexOf('bottom right') === -1) ? 'bottom right' : null;
+                    case 'bottom left':
+                        return (this.positionsTried.indexOf('top left') === -1) ? 'top left' : null;
+                    case 'bottom center':
+                        return (this.positionsTried.indexOf('top center') === -1) ? 'top center' : null;
+                    case 'bottom right':
+                        return (this.positionsTried.indexOf('top right') === -1) ? 'top right' : null;
+                    default:
+                        return null;
+                }
         }
     }
 
@@ -452,12 +479,12 @@ export default class Popup extends React.Component {
      */
     requestCloseWhenOffScreen(targetPosition) {
         if (targetPosition.top < 0 || targetPosition.top > window.innerHeight
-        || targetPosition.left < 0 || targetPosition.left > window.innerWidth) {
+            || targetPosition.left < 0 || targetPosition.left > window.innerWidth) {
             this.props.onRequestClose();
         }
     }
-    
-    
+
+
     /**
      * Return popup position by taking account of elements boundaries and current this.state.position
      * @param position
@@ -470,47 +497,47 @@ export default class Popup extends React.Component {
         let distanceAway = this.props.distanceAway;
 
         switch (position) {
-        case 'top left':
-            return {
-                left: targetPosition.left + offset,
-                top: targetPosition.top - popupDimensions.height - margin - distanceAway
-            };
-        case 'top center':
-            return {
-                left: targetPosition.center - popupDimensions.center + offset,
-                top: targetPosition.top - popupDimensions.height - margin - distanceAway
-            };
-        case 'top right':
-            return {
-                left: targetPosition.right - popupDimensions.width - offset,
-                top: targetPosition.top - popupDimensions.height - margin - distanceAway
-            };
-        case 'left center':
-            return {
-                left: targetPosition.left - popupDimensions.width - margin - distanceAway,
-                top: targetPosition.middle - popupDimensions.middle + offset
-            };
-        case 'right center':
-            // not needed here to take margins into account
-            return {
-                left: targetPosition.right + distanceAway,
-                top: targetPosition.middle - popupDimensions.middle + offset
-            };
-        case 'bottom left':
-            return {
-                left: targetPosition.left + offset,
-                top: targetPosition.bottom + distanceAway
-            };
-        case 'bottom center':
-            return {
-                left: targetPosition.center - popupDimensions.center + offset,
-                top: targetPosition.bottom + distanceAway
-            };
-        case 'bottom right':
-            return {
-                left: targetPosition.right - popupDimensions.width - offset,
-                top: targetPosition.bottom + distanceAway
-            };
+            case 'top left':
+                return {
+                    left: targetPosition.left + offset,
+                    top: targetPosition.top - popupDimensions.height - margin - distanceAway
+                };
+            case 'top center':
+                return {
+                    left: targetPosition.center - popupDimensions.center + offset,
+                    top: targetPosition.top - popupDimensions.height - margin - distanceAway
+                };
+            case 'top right':
+                return {
+                    left: targetPosition.right - popupDimensions.width - offset,
+                    top: targetPosition.top - popupDimensions.height - margin - distanceAway
+                };
+            case 'left center':
+                return {
+                    left: targetPosition.left - popupDimensions.width - margin - distanceAway,
+                    top: targetPosition.middle - popupDimensions.middle + offset
+                };
+            case 'right center':
+                // not needed here to take margins into account
+                return {
+                    left: targetPosition.right + distanceAway,
+                    top: targetPosition.middle - popupDimensions.middle + offset
+                };
+            case 'bottom left':
+                return {
+                    left: targetPosition.left + offset,
+                    top: targetPosition.bottom + distanceAway
+                };
+            case 'bottom center':
+                return {
+                    left: targetPosition.center - popupDimensions.center + offset,
+                    top: targetPosition.bottom + distanceAway
+                };
+            case 'bottom right':
+                return {
+                    left: targetPosition.right - popupDimensions.width - offset,
+                    top: targetPosition.bottom + distanceAway
+                };
         }
     }
 
