@@ -16,6 +16,12 @@ semantic-react (in its current state) is around 178kb, and there are no external
 The project is currently in its infancy, however, much of the porting is complete. If you would like to contribute to the project, fork and follow the instructions below:
 
 ### Installation
+
+```
+npm install semantic-react --save
+```
+
+### Development
 ```
 npm install
 npm run styleguide-server
