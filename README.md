@@ -21,6 +21,8 @@ The project is currently in its infancy, however, much of the porting is complet
 npm install semantic-react --save
 ```
 
+**You need to install react, react-dom and react-addons-shallow-compare manually**
+
 ### Development
 ```
 npm install

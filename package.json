@@ -1,6 +1,6 @@
 {
   "name": "semantic-react",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "React components for Semantic UI.",
   "main": "./lib",
   "files": [
@@ -36,7 +36,6 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "lodash.throttle": "^4.0.1",
-    "react-addons-shallow-compare": "15.2.1",
     "react-event-listener": "^0.2.1",
     "react-measure": "^0.4.0",
     "react-motion": "^0.4.4",
@@ -45,7 +44,8 @@
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",
-    "react-dom": "^0.14.0 || ^15.0.0"
+    "react-dom": "^0.14.0 || ^15.0.0",
+    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -89,6 +89,7 @@
     "mutationobserver-shim": "^0.3.1",
     "react": "15.2.1",
     "react-addons-test-utils": "15.2.1",
+    "react-addons-shallow-compare": "15.2.1",
     "react-codemirror": "^0.2.6",
     "react-docgen": "^2.9.0",
     "react-dom": "15.2.1",
