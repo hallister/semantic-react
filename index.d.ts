@@ -464,14 +464,14 @@ export class Icons extends React.Component<IconsProps, any> {
 }
 
 // <Image />
-export interface ImageProps extends React.DOMAttributes {
+export interface ImageProps extends BaseProps, React.DOMAttributes {
     // Standard image html attributes
     /**
      * Specifies an alternate text for an image
      */
     alt?: string;
     /**
-     * 	Specifies the height of an image
+     * Specifies the height of an image
      */
     height?: number;
     /**
@@ -571,13 +571,14 @@ export interface InputProps extends BaseProps, React.DOMAttributes {
      */
     name?: string;
     /**
-     * 	Specifies a regular expression that an <input> element's value is checked against
+     * Specifies a regular expression that an <input> element's value is checked against
      */
     pattern?: string;
     /**
      * Specifies the type <input> element to display
      */
     type?: string;
+
     // React-specific stuff
     /**
      * Default value
