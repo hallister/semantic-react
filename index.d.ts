@@ -578,6 +578,15 @@ export interface InputProps extends BaseProps, React.DOMAttributes {
      * Specifies the type <input> element to display
      */
     type?: string;
+    // React-specific stuff
+    /**
+     * Default value
+     */
+    defaultValue?: any;
+    /**
+     * Read only
+     */
+    readOnly?: boolean;
 
     /**
      * Action component
