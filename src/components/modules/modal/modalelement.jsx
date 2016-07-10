@@ -28,7 +28,11 @@ export default class ModalElement extends React.Component {
         /**
          * A modal can vary in size
          */
-        size: React.PropTypes.string
+        size: React.PropTypes.string,
+        /**
+         * Internal
+         */
+        closePortal: React.PropTypes.func
     };
 
     static defaultProps = {

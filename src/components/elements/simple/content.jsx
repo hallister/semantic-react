@@ -48,7 +48,7 @@ export default class Content extends React.Component {
 
         /* eslint-disable no-use-before-define */
         let { aligned, component, defaultClasses, extra, floated, hidden, meta,
-              visible, ...other } = this.props;
+              visible, image, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
