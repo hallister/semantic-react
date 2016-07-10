@@ -92,7 +92,7 @@ export function getMotionStyle(initialAnimation, enterAnimation, leaveAnimation,
     }
 }
 
-// re-export spring for convenient
+// re-export spring for convenience
 export { spring };
 
 export default AnimationProps;
