@@ -1,10 +1,7 @@
 import * as React from "react";
+import { Style, PlainStyle } from "react-motion";
 
-export interface BaseProps<T> extends React.Props<any> {
-    /**
-     * Children nodes
-     */
-    children?: any;
+export interface BaseProps {
     /**
      * Additional CSS ui classes
      */
@@ -23,13 +20,44 @@ export interface BaseProps<T> extends React.Props<any> {
      */
     style?: React.CSSProperties | React.CSSProperties[];
 }
+
+export interface ElementDimensions {
+    width: number;
+    height: number;
+}
+
+/**
+ * Base animation properties
+ */
+export interface AnimationProps {
+    /**
+     * Initial animation (default values)
+     */
+    initialAnimation?: PlainStyle;
+    /**
+     * Animate to these values when active
+     */
+    enterAnimation?: Style;
+    /**
+     * Animate to these values when inactive
+     */
+    leaveAnimation?: Style;
+    /**
+     * Callback when calculating animation style. Provide it if you want custom animations
+     * @param interpolatedStyle interpolated values from enterAnimation/leaveAnimation
+     * @param dimensions Element dimensions
+     * @param active will be true if element active
+     */
+    onAnimationStyle?: (interpolatedStyle: PlainStyle, dimensions: ElementDimensions, active: boolean) => PlainStyle;
+}
+
 export type SizeType = "mini" | "tiny" | "small" | "medium" | "large" | "big" | "huge" | "massive";
 export type PositionType = "top" | "bottom" | "top right" | "top left" | "bottom left" | "bottom right";
 export type ColorType = "red" | "orange" | "yellow" | "olive" | "green" | "teal" | "blue" | "violet" | "purple" | "pink"
     | "brown" | "grey" | "black";
 
 // <Label />
-export interface LabelProps extends BaseProps<Label> {
+export interface LabelProps extends BaseProps, React.DOMAttributes {
     /**
      * A label can attach to a content segment
      */
@@ -94,13 +122,13 @@ export class Label extends React.Component<LabelProps, any> {
 }
 
 // <Detail />
-export interface DetailProps extends BaseProps<Detail> {
+export interface DetailProps extends BaseProps, React.DOMAttributes {
 }
 export class Detail extends React.Component<DetailProps, any> {
 }
 
 // <Labels />
-export interface LabelsProps extends BaseProps<Labels> {
+export interface LabelsProps extends BaseProps, React.DOMAttributes {
     /**
      * Labels can share shapes
      */
@@ -121,7 +149,7 @@ export interface LabelsProps extends BaseProps<Labels> {
 export class Labels extends React.Component<LabelsProps, any> {
 }
 
-export interface ButtonProps extends BaseProps<Button> {
+export interface ButtonProps extends BaseProps, React.DOMAttributes {
     /**
      * Adds a fade or slide animation on hover.
      */
@@ -179,7 +207,7 @@ export class Button extends React.Component<ButtonProps, any> {
 }
 
 // <Buttons />
-export interface ButtonsProps extends BaseProps<Buttons> {
+export interface ButtonsProps extends BaseProps {
     /**
      * It's attached to some other attachable component.
      */
@@ -272,7 +300,7 @@ export class SocialButton extends React.Component<SocialButtonProps, any> {
 }
 
 // <Divider />
-export interface DividerProps extends BaseProps<Divider> {
+export interface DividerProps extends BaseProps {
     /**
      * Content segment vertically or horizontally
      */
@@ -302,7 +330,7 @@ export class Divider extends React.Component<DividerProps, any> {
 }
 
 // <Flag />
-export interface FlagProps extends BaseProps<Flag> {
+export interface FlagProps extends BaseProps, React.DOMAttributes {
     /**
      * The country code, name or alias of the flag
      */
@@ -312,7 +340,7 @@ export class Flag extends React.Component<FlagProps, any> {
 }
 
 // <Header />
-export interface HeaderProps extends BaseProps<Header> {
+export interface HeaderProps extends BaseProps, React.DOMAttributes {
     /**
      * A header can have its text aligned to a side
      */
@@ -373,7 +401,7 @@ export class SubHeader extends React.Component<SubHeaderProps, any> {
 
 
 // <Icon />
-export interface IconProps extends BaseProps<Icon> {
+export interface IconProps extends BaseProps, React.DOMAttributes {
     /**
      * An icon can be formatted to appear bordered
      */
@@ -426,7 +454,7 @@ export interface IconProps extends BaseProps<Icon> {
 export class Icon extends React.Component<IconProps, any> {
 }
 
-export interface IconsProps extends BaseProps<Icons> {
+export interface IconsProps extends BaseProps, React.DOMAttributes {
     /**
      * Size of icon group
      */
@@ -436,7 +464,20 @@ export class Icons extends React.Component<IconsProps, any> {
 }
 
 // <Image />
-export interface ImageProps extends BaseProps<Image> {
+export interface ImageProps extends React.DOMAttributes {
+    // Standard image html attributes
+    /**
+     * Specifies an alternate text for an image
+     */
+    alt?: string;
+    /**
+     * 	Specifies the height of an image
+     */
+    height?: number;
+    /**
+     * Specifies the width of an image
+     */
+    width?: number;
     /**
      * An image can specify its vertical alignment
      */
@@ -492,7 +533,7 @@ export class Image extends React.Component<ImageProps, any> {
 }
 
 // <Images />
-export interface ImagesProps extends BaseProps<Images> {
+export interface ImagesProps extends BaseProps {
     /**
      * Images size
      */
@@ -503,7 +544,41 @@ export class Images extends React.Component<ImagesProps, any> {
 
 
 // <Input />
-export interface InputProps extends BaseProps<Input> {
+export interface InputProps extends BaseProps, React.DOMAttributes {
+    // Standard <input> html attributes
+    /**
+     * Specifies whether an <input> element should have autocomplete enabled
+     */
+    autoComplete?: "on" | "off";
+    /**
+     * Specifies that an <input> element should automatically get focus when the page loads
+     */
+    autoFocus?: boolean;
+    /**
+     * Specifies the maximum value for an <input> element
+     */
+    max?: number | string;
+    /**
+     * Specifies the maximum number of characters allowed in an <input> element
+     */
+    maxLength?: number;
+    /**
+     * Specifies a minimum value for an <input> element
+     */
+    min?: number | string;
+    /**
+     * Specifies the name of an <input> element
+     */
+    name?: string;
+    /**
+     * 	Specifies a regular expression that an <input> element's value is checked against
+     */
+    pattern?: string;
+    /**
+     * Specifies the type <input> element to display
+     */
+    type?: string;
+
     /**
      * Action component
      */
@@ -569,7 +644,7 @@ export class Input extends React.Component<InputProps, any> {
 }
 
 // <List />
-export interface ListProps extends BaseProps<List> {
+export interface ListProps extends BaseProps, React.DOMAttributes {
     aligned?: "top" | "middle" | "bottom";
     animated?: boolean;
     celled?: "divided" | boolean;
@@ -586,7 +661,7 @@ export class List extends React.Component<ListProps, any> {
 }
 
 // <Loader />
-export interface LoaderProps extends BaseProps<Loader> {
+export interface LoaderProps extends BaseProps, React.DOMAttributes {
     centered?: boolean;
     inline?: boolean;
     inverted?: boolean;
@@ -598,7 +673,7 @@ export class Loader extends React.Component<LoaderProps, any> {
 }
 
 // <Rail />
-export interface RailProps extends BaseProps<Rail> {
+export interface RailProps extends BaseProps, React.DOMAttributes {
     attached?: boolean;
     close?: boolean;
     closer?: boolean;
@@ -610,7 +685,7 @@ export class Rail extends React.Component<RailProps, any> {
 }
 
 // <Reveal />
-export interface RevealProps extends BaseProps<Reveal> {
+export interface RevealProps extends BaseProps, React.DOMAttributes {
     active?: boolean;
     circular?: boolean;
     disabled?: boolean;
@@ -626,7 +701,7 @@ export class Reveal extends React.Component<RevealProps, any> {
 }
 
 // <Segment />
-export interface SegmentProps extends BaseProps<Segment> {
+export interface SegmentProps extends BaseProps, React.DOMAttributes {
     aligned?: "right" | "left" | "center";
     attached?: "bottom" | "top" | boolean;
     basic?: boolean;
@@ -650,7 +725,7 @@ export class Segment extends React.Component<SegmentProps, any> {
 }
 
 // <Segments />
-interface SegmentsProps extends BaseProps<Segments> {
+interface SegmentsProps extends BaseProps {
     compact?: boolean;
     horizontal?: boolean;
     inverted?: boolean;
@@ -662,24 +737,24 @@ export class Segments extends React.Component<SegmentsProps, any> {
 }
 
 // <Actions />
-export interface ActionsProps extends BaseProps<Actions> {
+export interface ActionsProps extends BaseProps {
 }
 export class Actions extends React.Component<ActionsProps, any> {
 }
 // <Author />
-export interface AuthorProps extends BaseProps<Author> {
+export interface AuthorProps extends BaseProps, React.DOMAttributes {
 }
 export class Author extends React.Component<AuthorProps, any> {
 }
 // <Container />
-export interface ContainerProps extends BaseProps<Container> {
+export interface ContainerProps extends BaseProps {
     fluid?: boolean;
     aligned?: "right" | "left" | "justified" | "center";
 }
 export class Container extends React.Component<ContainerProps, any> {
 }
 // <Content />
-export interface ContentProps extends BaseProps<Content> {
+export interface ContentProps extends BaseProps, React.DOMAttributes {
     active?: boolean;
     aligned?: string;
     extra?: boolean;
@@ -692,36 +767,36 @@ export interface ContentProps extends BaseProps<Content> {
 export class Content extends React.Component<ContentProps, any> {
 }
 // <Date />
-export interface DateProps extends BaseProps<Date> {
+export interface DateProps extends BaseProps, React.DOMAttributes {
 }
 export class Date extends React.Component<DateProps, any> {
 }
 // <Description />
-export interface DescriptionProps extends BaseProps<Description> {
+export interface DescriptionProps extends BaseProps, React.DOMAttributes {
     hidden?: boolean;
     visible?: boolean;
 }
 export class Description extends React.Component<DescriptionProps, any> {
 }
 // <Meta />
-export interface MetaProps extends BaseProps<Meta> {
+export interface MetaProps extends BaseProps, React.DOMAttributes {
 }
 export class Meta extends React.Component<MetaProps, any> {
 }
 // <Summary />
-export interface SummaryProps extends BaseProps<Summary> {
+export interface SummaryProps extends BaseProps, React.DOMAttributes {
 }
 export class Summary extends React.Component<SummaryProps, any> {
 }
 // <Text />
-export interface TextProps extends BaseProps<Text> {
+export interface TextProps extends BaseProps, React.DOMAttributes {
     extra?: boolean;
 }
 export class Text extends React.Component<TextProps, any> {
 }
 
 // <Field />
-export interface FieldProps extends BaseProps<Field> {
+export interface FieldProps extends BaseProps {
     grouped?: boolean;
     inline?: boolean;
     label?: string;
@@ -732,7 +807,7 @@ export interface FieldProps extends BaseProps<Field> {
 export class Field extends React.Component<FieldProps, any> {
 }
 // <Fields />
-export interface FieldsProps extends BaseProps<Fields> {
+export interface FieldsProps extends BaseProps {
     fluid?: boolean;
     inline?: boolean;
     grouped?: boolean;
@@ -741,7 +816,7 @@ export interface FieldsProps extends BaseProps<Fields> {
 export class Fields extends React.Component<FieldsProps, any> {
 }
 // <Form />
-export interface FormProps extends BaseProps<Form> {
+export interface FormProps extends BaseProps, React.DOMAttributes {
     inverted?: boolean;
     loading?: boolean;
     size?: SizeType | any;
@@ -752,7 +827,7 @@ export class Form extends React.Component<FormProps, any> {
 }
 
 // <Grid />
-export interface GridProps extends BaseProps<Grid> {
+export interface GridProps extends BaseProps {
     /**
      * Horizontal content alignment
      */
@@ -810,7 +885,7 @@ export class Grid extends React.Component<GridProps, any> {
 }
 type DeviceVisibility = "mobile" | "tablet" | "computer" | "large screen" | "widescreen";
 // <Column />
-export interface ColumnProps extends BaseProps<Column> {
+export interface ColumnProps extends BaseProps {
     /**
      * Horizontal content alignment
      */
@@ -859,7 +934,7 @@ export interface ColumnProps extends BaseProps<Column> {
 export class Column extends React.Component<ColumnProps, any> {
 }
 // <Row />
-export interface RowProps extends BaseProps<Row> {
+export interface RowProps extends BaseProps {
     /**
      * Horizontal content alignment
      */
@@ -905,7 +980,7 @@ export class Row extends React.Component<RowProps, any> {
 }
 
 // <Message />
-export interface MessageProps extends BaseProps<Message> {
+export interface MessageProps extends BaseProps, React.DOMAttributes {
     attached?: "bottom" | "top" | boolean;
     color?: ColorType;
     compact?: boolean;
@@ -921,7 +996,7 @@ export class Message extends React.Component<MessageProps, any> {
 }
 
 // <Table />
-export interface TableProps extends BaseProps<Table> {
+export interface TableProps extends BaseProps {
     aligned?: "top" | "bottom";
     basic?: "very" | boolean;
     celled?: boolean;
@@ -954,12 +1029,21 @@ export interface TableProps extends BaseProps<Table> {
 export class Table extends React.Component<TableProps, any> {
 }
 // <Tr />
-export interface TrProps extends BaseProps<Tr> {
+export interface TrProps extends BaseProps, React.DOMAttributes {
 }
 export class Tr extends React.Component<TrProps, any> {
 }
 // <Td />
-export interface TdProps extends BaseProps<Td> {
+export interface TdProps extends BaseProps, React.DOMAttributes {
+    // Default HTML5 attributes
+    /**
+     * Specifies the number of columns a cell should span
+     */
+    colSpan?: number;
+    /**
+     * Sets the number of rows a cell should span
+     */
+    rowSpan?: number;
     aligned?: "right" | "left" | "center" | "top" | "bottom";
     collapsing?: boolean;
     singleLine?: boolean;
@@ -969,7 +1053,7 @@ export class Td extends React.Component<TdProps, any> {
 }
 
 // <Card />
-export interface CardProps extends BaseProps<Card> {
+export interface CardProps extends BaseProps, React.DOMAttributes {
     centered?: boolean;
     col?: string;
     color?: ColorType;
@@ -981,20 +1065,20 @@ export class Card extends React.Component<CardProps, any> {
 }
 
 // <Cards />
-export interface CardsProps extends BaseProps<Cards> {
+export interface CardsProps extends BaseProps {
     link?: boolean;
 }
 export class Cards extends React.Component<CardsProps, any> {
 }
 
 // <Comment />
-export interface CommentProps extends BaseProps<Comment> {
+export interface CommentProps extends BaseProps, React.DOMAttributes {
 }
 export class Comment extends React.Component<CommentProps, any> {
 }
 
 // <Comments />
-export interface CommentsProps extends BaseProps<Comments> {
+export interface CommentsProps extends BaseProps {
     collapsed?: boolean;
     minimal?: boolean;
     threaded?: boolean;
@@ -1003,19 +1087,19 @@ export class Comments extends React.Component<CommentsProps, any> {
 }
 
 // <Feed />
-export interface FeedProps extends BaseProps<Feed> {
+export interface FeedProps extends BaseProps {
     size?: SizeType;
 }
 export class Feed extends React.Component<FeedProps, any> {
 }
 // <Event />
-export interface EventProps extends BaseProps<Event> {
+export interface EventProps extends BaseProps, React.DOMAttributes {
 }
 export class Event extends React.Component<EventProps, any> {
 }
 
 // <Item />
-export interface ItemProps extends BaseProps<Item> {
+export interface ItemProps extends BaseProps, React.DOMAttributes {
     /**
      * Make item clickable
      */
@@ -1029,7 +1113,7 @@ export class Item extends React.Component<ItemProps, any> {
 }
 
 // <Items />
-export interface ItemsProps extends BaseProps<Items> {
+export interface ItemsProps extends BaseProps {
     divided?: boolean;
     link?: boolean;
     relaxed?: any;
@@ -1038,7 +1122,7 @@ export class Items extends React.Component<ItemsProps, any> {
 }
 
 // <Menu />
-export interface MenuProps extends BaseProps<Menu> {
+export interface MenuProps extends BaseProps {
     /**
      * A menu may be attached to other content segments
      */
@@ -1138,7 +1222,7 @@ export class MenuItem extends React.Component<MenuItemProps, any> {
 }
 
 // Dropdown base interface
-export interface DropdownBaseProps<T> extends BaseProps<T> {
+export interface DropdownBaseProps extends BaseProps {
     /**
      * Indicates status of dropdown. true for opened, false for closed
      */
@@ -1181,20 +1265,16 @@ export interface DropdownBaseProps<T> extends BaseProps<T> {
     scrolling?: boolean;
 }
 // <Dropdown />
-export interface DropdownProps extends DropdownBaseProps<Dropdown> {
+export interface DropdownProps extends DropdownBaseProps, React.DOMAttributes {
 }
 export class Dropdown extends React.Component<DropdownProps, any> {
 }
 // <DropdownMenu />
-export interface DropdownMenuProps extends DropdownBaseProps<DropdownMenu> {
+export interface DropdownMenuProps extends DropdownBaseProps, AnimationProps, React.DOMAttributes {
     /**
      * Active/Close menu
      */
     active?: boolean;
-    /**
-     * Enter animations transforms
-     */
-    enterAnimation?: any;
     /**
      * Menu icon
      */
@@ -1203,10 +1283,6 @@ export interface DropdownMenuProps extends DropdownBaseProps<DropdownMenu> {
      * Menu label
      */
     label?: string;
-    /**
-     * Leave animation
-     */
-    leaveAnimation?: any;
     /**
      * Specify component to be used as Menu.
      * Usually is should be menu but with custom options applied (for example inverted).
@@ -1243,19 +1319,11 @@ export interface OptionProps extends ItemProps {
 export class Option extends React.Component<OptionProps, any> {
 }
 // <Select />
-export interface SelectProps extends DropdownBaseProps<Select> {
+export interface SelectProps extends DropdownBaseProps, AnimationProps, React.DOMAttributes {
     /**
      * Should be dropdown opened
      */
     active?: boolean;
-    /**
-     * Enter animation
-     */
-    enterAnimation?: Object;
-    /**
-     * Leave animation
-     */
-    leaveAnimation?: Object;
     /**
      * Name for dropdown input
      */
@@ -1329,7 +1397,7 @@ export class Select extends React.Component<SelectProps, any> {
 }
 
 // <Checkbox />
-export interface CheckboxProps extends BaseProps<Checkbox> {
+export interface CheckboxProps extends BaseProps, React.DOMAttributes {
     checked?: boolean;
     fitted?: boolean;
     disabled?: boolean;
@@ -1341,7 +1409,7 @@ export interface CheckboxProps extends BaseProps<Checkbox> {
 export class Checkbox extends React.Component<CheckboxProps, any> {
 }
 // <CheckboxFields />
-export interface CheckboxFieldsProps extends BaseProps<CheckboxFields> {
+export interface CheckboxFieldsProps extends BaseProps, React.DOMAttributes {
     disabled?: boolean;
     name: string;
     radio?: boolean;
@@ -1352,15 +1420,28 @@ export class CheckboxFields extends React.Component<CheckboxFieldsProps, any> {
 }
 
 // <Dimmer />
-export interface DimmerProps extends BaseProps<Dimmer> {
+export interface DimmerProps extends BaseProps, AnimationProps {
+    /**
+     * Hide/Display dimmer
+     */
     active?: boolean;
+    /**
+     * Inverted dimmer
+     */
     inverted?: boolean;
+    /**
+     * Page dimmer. Doesn't require dimmable section
+     */
     page?: boolean;
+    /**
+     * Disables auto-wrapping child contents into <Content>
+     */
+    noWrapChildren?: boolean;
 }
 export class Dimmer extends React.Component<DimmerProps, any> {
 }
 // <Dimmable />
-export interface DimmableProps extends BaseProps<Dimmable> {
+export interface DimmableProps extends BaseProps {
     blurring?: boolean;
     dimmed?: boolean;
 }
@@ -1368,23 +1449,75 @@ export class Dimmable extends React.Component<DimmableProps, any> {
 }
 
 // <Popup />
-export interface PopupProps extends BaseProps<Popup> {
+export interface PopupProps extends BaseProps, AnimationProps, React.DOMAttributes {
+    /**
+     * Basic popup variation
+     */
     basic?: boolean;
+    /**
+     * True to display the popup. If false will be hidden
+     */
     active?: boolean;
+    /**
+     * Auto position popup when needed
+     */
     autoPosition?: boolean;
+    /**
+     * Fluid popup
+     */
     fluid?: boolean;
+    /**
+     * No maximum width and continue to flow to fit its content
+     */
     flowing?: boolean;
+    /**
+     * Offset for distance of popup from element
+     */
     distanceAway?: number;
+    /**
+     * Use this position when element fails to fit on screen in all tried positions
+     * If omitted, the last tried position will be used instead
+     */
     lastResortPosition?: string;
+    /**
+     * Inverted popup
+     */
     inverted?: boolean;
+    /**
+     * Offset in pixels from calculated position
+     */
     offset?: number;
-    onRequestClose?: Function;
+    /**
+     * Callback when popup wants to be closed (i.e. when offscreen or clicked outside)
+     */
+    onRequestClose?: () => void;
+    /**
+     * When auto-positioning popup use opposite direction or adjacent as next position
+     */
     prefer?: "adjacent|opposite";
+    /**
+     * If true will prevent clicking on the other elements
+     */
     preventElementClicks?: boolean;
+    /**
+     * Hide popup when target element scrolls off the screen
+     */
     requestCloseWhenOffScreen?: boolean;
+    /**
+     * Target element to apply popup
+     */
     target?: any;
+    /**
+     * Popup position
+     */
     position?: "top left" | "top center" | "top right" | "right center" | "bottom right" | "bottom center" | "bottom left" | "left center";
-    size?: SizeType;
+    /**
+     * Popup size
+     */
+    size?: "mini" | "tiny" | "small" | "large" | "huge";
+    /**
+     * Make content of popup wide
+     */
     wide?: boolean | string;
     /**
      * Overlay zIndex
@@ -1396,7 +1529,7 @@ export class Popup extends React.Component<PopupProps, any> {
 }
 
 // <AccordionTitle />
-export interface AccordionTitleProps extends BaseProps<AccordionTitle> {
+export interface AccordionTitleProps extends BaseProps, React.DOMAttributes {
     /**
      * True for active (visible) accordion section. This is being set by Accordion itself
      */
@@ -1417,7 +1550,7 @@ export interface AccordionTitleProps extends BaseProps<AccordionTitle> {
 export class AccordionTitle extends React.Component<AccordionTitleProps, any> { }
 
 // <AccordionBody />
-export interface AccordionBodyProps extends BaseProps<AccordionBody> {
+export interface AccordionBodyProps extends BaseProps, React.DOMAttributes {
     /**
      * True for active (visible) accordion section. This is being set by Accordion itself
      */
@@ -1426,7 +1559,11 @@ export interface AccordionBodyProps extends BaseProps<AccordionBody> {
 export class AccordionBody extends React.Component<AccordionBodyProps, any> { }
 
 // <Accordion />
-export interface AccordionProps extends BaseProps<Accordion> {
+export interface AccordionProps extends BaseProps {
+    /**
+     * Pass false to disable animation
+     */
+    animating?: boolean;
     /**
      * Current visible content. Strings and numbers are accepted
      */
@@ -1444,21 +1581,13 @@ export interface AccordionProps extends BaseProps<Accordion> {
      */
     styled?: boolean;
     /**
-     * Enter animations transforms
-     */
-    enterAnimation?: any;
-    /**
-     * Leave animation
-     */
-    leaveAnimation?: any;
-    /**
      * Callback when accordion wants to be changed
      */
     onAccordionChange: (index: number | string) => void;
 }
 export class Accordion extends React.Component<AccordionProps, any> { }
 
-export interface ModalProps extends BaseProps<Modal> {
+export interface ModalProps extends BaseProps, AnimationProps {
     /**
      * Should be modal visible
      */
@@ -1479,14 +1608,6 @@ export interface ModalProps extends BaseProps<Modal> {
      * A modal can vary in size
      */
     size?: string;
-    /**
-     * Start animation
-     */
-    enterAnimation?: Object;
-    /**
-     * Leave animation
-     */
-    leaveAnimation?: Object;
     /**
      * Dimmer variations
      */
