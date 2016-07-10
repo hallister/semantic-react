@@ -176,8 +176,9 @@ export default class Menu extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { attached, borderless, color, component, even, fitted, fixed, fluid, floated, inverted, pagination,
-            pointing, secondary, tabular, text, menuValue, vertical, cacheItems, ...other } = this.props;
+        let { attached, borderless, color, component, defaultClasses, even, fitted, fixed, fluid, floated, inverted, pagination,
+            pointing, secondary, tabular, text, vertical,
+            menuValue, onMenuChange, onMenuItemClick, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());

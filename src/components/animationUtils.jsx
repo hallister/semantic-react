@@ -92,6 +92,16 @@ export function getMotionStyle(initialAnimation, enterAnimation, leaveAnimation,
     }
 }
 
+/**
+ * Return real value from percent value. Useful for animating height in onAnimationStyle()
+ * @param percentValue
+ * @param total
+ * @returns {number}
+ */
+export function valueFromPercents(percentValue, total) {
+    return total / 100 * percentValue;
+}
+
 // re-export spring for convenience
 export { spring };
 

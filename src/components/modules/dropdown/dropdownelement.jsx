@@ -84,7 +84,7 @@ export default class DropdownElement extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let { 
-            component, children, defaultClasses, compact, disabled, error, loading, 
+            active, component, children, defaultClasses, compact, disabled, error, loading,
             fluid, inline, floating, pointing, scrolling, ...other 
         } = this.props;
         /* eslint-enable no-use-before-define */

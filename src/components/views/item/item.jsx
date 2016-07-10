@@ -38,7 +38,7 @@ export default class Item extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        const { component, children, link, ...other } = this.props;
+        const { component, defaultClasses, children, link, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(other.className, this.getClasses());

@@ -6,6 +6,7 @@ import elementType from 'react-prop-types/lib/elementType';
 import { Motion, spring } from 'react-motion';
 import Measure from 'react-measure';
 import { isNodeInRoot } from '../../utilities';
+import AnimationProps, { getMotionStyle, valueFromPercents } from '../../animationUtils';
 import DropdownElement from './dropdownelement';
 import Icon from './../../elements/icon/icon';
 import Text from './../../elements/simple/text';
@@ -17,22 +18,11 @@ import Menu from './../../views/menu/menu';
 export default class DropdownMenu extends React.Component {
     static propTypes = {
         ...DropdownElement.propTypes,
+        ...AnimationProps.propTypes,
         /**
          * Active/Close menu
          */
         active: React.PropTypes.bool,
-        /**
-         * Spring configuration for enter animation
-         * default is { stiffness: 700, damping: 50, precision: 40 }
-         */
-        enterAnimation: React.PropTypes.oneOfType([
-            React.PropTypes.shape({
-                stiffness: React.PropTypes.number,
-                damping: React.PropTypes.number,
-                precision: React.PropTypes.number
-            }),
-            React.PropTypes.bool
-        ]),
         /**
          * Menu icon
          */
@@ -41,18 +31,6 @@ export default class DropdownMenu extends React.Component {
          * Menu label
          */
         label: React.PropTypes.string,
-        /**
-         * Spring configuration for leave animation
-         * default is { stiffness: 700, damping: 50, precision: 40 }
-         */
-        leaveAnimation: React.PropTypes.oneOfType([
-            React.PropTypes.shape({
-                stiffness: React.PropTypes.number,
-                damping: React.PropTypes.number,
-                precision: React.PropTypes.number
-            }),
-            React.PropTypes.bool
-        ]),
         /**
          * Specify component to be used as Menu.
          * Usually is should be menu but with custom options applied (for example inverted).
@@ -87,16 +65,25 @@ export default class DropdownMenu extends React.Component {
         ...DropdownElement.defaultProps,
         active: false,
         icon: 'dropdown',
+        initialAnimation: {
+            height: 0 // 0%
+        },
         enterAnimation: {
-            stiffness: 700,
-            damping: 50,
-            precision: 40
+            height: spring(100, { stiffness: 700, damping: 50, precision: 40 }) // 100%
         },
         leaveAnimation: {
-            stiffness: 700,
-            damping: 50,
-            precision: 40
+            height: spring(0, { stiffness: 700, damping: 50, precision: 40 }) // 0%
         },
+        // enterAnimation: {
+        //     stiffness: 700,
+        //     damping: 50,
+        //     precision: 40
+        // },
+        // leaveAnimation: {
+        //     stiffness: 700,
+        //     damping: 50,
+        //     precision: 40
+        // },
         onMenuItemClick: () => {
         },
         onMenuChange: () => {
@@ -117,7 +104,8 @@ export default class DropdownMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            menuHeight: 1,
+            menuHeight: 20,
+            menuWidth: 20,
             animating: false
         };
 
@@ -159,14 +147,29 @@ export default class DropdownMenu extends React.Component {
     };
 
     onMenuMeasure = (dimensions) => {
-        if (dimensions.height && this.state.menuHeight !== dimensions.height) {
-            this.setState({ menuHeight: dimensions.height });
+        if (dimensions &&
+            ((dimensions.height && dimensions.height !== this.state.menuHeight) ||
+            (dimensions.width && dimensions.width !== this.state.menuWidth))) {
+            this.setState({
+                menuHeight: dimensions.height,
+                menuWidth: dimensions.width
+            });
         }
     };
 
     onAnimationRest = () => {
         this.setState({ animating: false });
     };
+
+    getAnimationStyle(interpolatedStyle, dimensions) {
+        const { active, onAnimationStyle } = this.props;
+        if (onAnimationStyle) {
+            return onAnimationStyle(interpolatedStyle, dimensions, active);
+        }
+        return {
+            height: valueFromPercents(interpolatedStyle.height, dimensions.height)
+        }
+    }
 
     /**
      * Renders dropdown icon
@@ -193,14 +196,13 @@ export default class DropdownMenu extends React.Component {
     }
 
     /**
-     * Render
-     * @returns {JSX.Element}
+     * Render menu
+     * @param interpolatedStyle
      */
-    render() {
+    renderMenu(interpolatedStyle) {
         /* eslint-disable no-use-before-define */
-        let {
-            active, enterAnimation, leaveAnimation, children, icon, label, menuComponent, menuValue,
-            onMenuChange, onMenuItemClick, onRequestClose, ...other
+        const {
+            active, children, menuComponent, menuValue, onMenuChange, onMenuItemClick
         } = this.props;
         /* eslint-enable no-use-before-define */
 
@@ -208,17 +210,38 @@ export default class DropdownMenu extends React.Component {
 
         const menuStyle = active ? this.visibleMenuStyle :
             this.state.animating ? this.visibleMenuStyle : this.hiddenMenuStyle;
+        const animatingStyle = this.getAnimationStyle(interpolatedStyle, { height: this.state.menuHeight, width: this.state.menuWidth });
 
-        let animationStyle = {};
-        if (active) {
-            animationStyle = {
-                height: enterAnimation ? spring(this.state.menuHeight, enterAnimation) : this.state.menuHeight
-            };
-        } else {
-            animationStyle = {
-                height: leaveAnimation ? spring(0, leaveAnimation) : 0
-            };
-        }
+        return (
+            <Measure whitelist={['height', 'width']}
+                     onMeasure={this.onMenuMeasure}
+                     accurate
+            >
+                <MenuComponent key="menu"
+                               menuValue={menuValue}
+                               onMenuChange={onMenuChange}
+                               onMenuItemClick={onMenuItemClick}
+                               style={{ ...menuStyle, ...animatingStyle }}
+                >
+                    {children}
+                </MenuComponent>
+            </Measure>
+        );
+    }
+
+    /**
+     * Render
+     * @returns {JSX.Element}
+     */
+    render() {
+        /* eslint-disable no-use-before-define */
+        let {
+            active, initialAnimation, enterAnimation, leaveAnimation, children, icon, label, menuComponent, menuValue,
+            onMenuChange, onMenuItemClick, onRequestClose, onAnimationStyle, ...other
+        } = this.props;
+        /* eslint-enable no-use-before-define */
+
+        const motionStyle = getMotionStyle(initialAnimation, enterAnimation, leaveAnimation, active);
 
         return (
             <DropdownMenu.Components.DropdownElement
@@ -232,25 +255,11 @@ export default class DropdownMenu extends React.Component {
                                    onTouchStart={this.onOutsideDropdownClick}/>
                 {this.renderMenuText()}
                 {this.renderMenuIcon()}
-                    <Motion defaultStyle={{ height: active ? this.state.menuHeight : 0 }}
-                            style={animationStyle}
+                    <Motion defaultStyle={initialAnimation}
+                            style={motionStyle}
                             onRest={this.onAnimationRest}
                     >
-                            {interpolatedStyle =>
-                                <Measure whitelist={['height']}
-                                         onMeasure={this.onMenuMeasure}
-                                         accurate
-                                >
-                                    <MenuComponent key="menu"
-                                                   menuValue={menuValue}
-                                                   onMenuChange={onMenuChange}
-                                                   onMenuItemClick={onMenuItemClick}
-                                                   style={{ ...menuStyle, height: interpolatedStyle.height }}
-                                    >
-                                                   {children}
-                                    </MenuComponent>
-                                </Measure>
-                            }
+                            {interpolatedStyle => this.renderMenu(interpolatedStyle)}
                     </Motion>
             </DropdownMenu.Components.DropdownElement>
         );
