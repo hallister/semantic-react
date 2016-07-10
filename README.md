@@ -27,9 +27,24 @@ npm install
 npm run styleguide-server
 ```
 
+### Typings
+
+Library contain bundled Typescript definitions. You need to install react and react-motion typings before:
+```
+typings install react react-dom react-motion --global --save
+```
+
+### Radium
+
+[Radium](http://stack.formidable.com/radium/) support included in the box:
+```jsx
+import { Button, Icon } from "semantic-react/radium";
+```
+
 
 ### Releases
-Presently the only public release is well-behind the current master. The current plan is to complete testing and documentation for all components prior to an official first release.
+
+Latest release is 0.5.1 . Keep in mind that is still WIP and things may break over time.
 
 Depending on your interest, an excellent place to begin contributing is the [High priority issues](https://github.com/hallister/semantic-react/labels/Priority%3A%20High).
 
