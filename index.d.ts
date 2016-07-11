@@ -151,6 +151,10 @@ export class Labels extends React.Component<LabelsProps, any> {
 
 export interface ButtonProps extends BaseProps, React.DOMAttributes {
     /**
+     * Html type
+     */
+    type?: string;
+    /**
      * Adds a fade or slide animation on hover.
      */
     animated?: "fade" | "vertical" | boolean;
@@ -1075,7 +1079,7 @@ export class Card extends React.Component<CardProps, any> {
 }
 
 // <Cards />
-export interface CardsProps extends BaseProps {
+export interface CardsProps extends BaseProps, React.DOMAttributes {
     link?: boolean;
 }
 export class Cards extends React.Component<CardsProps, any> {
