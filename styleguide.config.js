@@ -4,12 +4,40 @@ var glob = require('glob');
 
 module.exports = {
     title: 'Semantic UI Components for React',
-    components: function () {
-        return glob.sync(path.resolve(__dirname, 'src/components/**/*.jsx')).filter(function (module) {
-            // exclude tests files
-            return !(/(__tests__|examples)/.test(module));
-        });
-    },
+    sections: [
+        {
+            name: 'Elements',
+            components: () => {
+                return glob.sync(path.resolve(__dirname, 'src/components/elements/**/*.jsx')).filter(module => {
+                    return !(/(__tests__|examples)/.test(module));
+                });
+            }
+        },
+        {
+            name: 'Collections',
+            components: () => {
+                return glob.sync(path.resolve(__dirname, 'src/components/collections/**/*.jsx')).filter(module => {
+                    return !(/(__tests__|examples)/.test(module));
+                });
+            }
+        },
+        {
+            name: 'Modules',
+            components: () => {
+                return glob.sync(path.resolve(__dirname, 'src/components/modules/**/*.jsx')).filter(module => {
+                    return !(/(__tests__|examples)/.test(module));
+                });
+            }
+        },
+        {
+            name: 'Views',
+            components: () => {
+                return glob.sync(path.resolve(__dirname, 'src/components/views/**/*.jsx')).filter(module => {
+                    return !(/(__tests__|examples)/.test(module));
+                });
+            }
+        }
+    ],
     skipComponentsWithoutExample: true,
     serverPort: 4000,
     getExampleFilename: function (componentPath) {

@@ -6,11 +6,29 @@ import DefaultProps from '../../defaultProps';
 export default class Segments extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * Compact segments
+         */
         compact: React.PropTypes.bool,
+        /**
+         * Horizontal segments
+         */
         horizontal: React.PropTypes.bool,
+        /**
+         * Inverted segments
+         */
         inverted: React.PropTypes.bool,
+        /**
+         * Piled segments
+         */
         piled: React.PropTypes.bool,
+        /**
+         * Raised segments
+         */
         raised: React.PropTypes.bool,
+        /**
+         * Stacked segments
+         */
         stacked: React.PropTypes.bool
     };
 
@@ -24,7 +42,7 @@ export default class Segments extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { children, className, compact, defaultClasses, horizontal,
+        let { component, children, className, compact, defaultClasses, horizontal, inverted,
               piled, raised, stacked, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 

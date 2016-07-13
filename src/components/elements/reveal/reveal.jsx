@@ -13,6 +13,9 @@ let validProps = {
 export default class Reveal extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * An active reveal displays its hidden content
+         */
         active: React.PropTypes.bool,
         circular: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
@@ -52,16 +55,16 @@ export default class Reveal extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { active, circular, children, className, defaultClasses, disabled, fade,
-              instant, image, move, rotate, size, ...other } = this.props;
+        let { component, defaultClasses, children, active, circular, disabled, fade,
+              instant, image, move, rotate, size, type, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            this.props.children
+        const Component = component;
+        return (
+            <Component {...other}>
+                {children}
+            </Component>
         );
     }
 

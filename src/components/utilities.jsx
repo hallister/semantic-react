@@ -53,12 +53,15 @@ export function hasChild(children, component) {
 }
 
 export function hasDescendant(children, component) {
+    if (!children) {
+        return false;
+    }
     children = React.Children.toArray(children);
 
     for (let child of children) {
         if (child.type && child.type == component) {
             return true;
-        } else if (React.Children.count(child.props.children) > 0) {
+        } else if (typeof child === "function" && (React.Children.count(child.props.children) > 0)) {
             return hasDescendant(child.props.children, component);
         }
     }

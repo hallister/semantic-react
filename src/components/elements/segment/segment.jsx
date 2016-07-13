@@ -4,7 +4,7 @@ import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
-let validProps = {
+const validProps = {
     aligned: ['right', 'left', 'center'],
     attached: ['bottom', 'top'],
     floated: ['right', 'left']
@@ -13,26 +13,72 @@ let validProps = {
 export default class Segment extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * A segment can have its text aligned to a side
+         */
         aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+        /**
+         * A segment can be attached to other content on a page
+         */
         attached: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['bottom', 'top']),
             React.PropTypes.bool
         ]),
+        /**
+         * A basic segment has no special formatting
+         */
         basic: React.PropTypes.bool,
+        /**
+         * Blurring segment when used with dimmer
+         */
         blurring: React.PropTypes.bool,
+        /**
+         * A segment can clear floated content
+         */
         clearing: React.PropTypes.bool,
+        /**
+         * A segment can be colored
+         */
         color: React.PropTypes.string,
+        /**
+         * Container segment
+         */
         container: React.PropTypes.bool,
+        /**
+         * A segment may show its content is disabled
+         */
         disabled: React.PropTypes.bool,
+        /**
+         * A segment can be formatted to appear more or less noticeable
+         */
         emphasis: React.PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
+        /**
+         * A segment can appear to the left or right of other content
+         */
         floated: React.PropTypes.oneOf(['right', 'left']),
-        index: React.PropTypes.number,
+        /**
+         * A segment can have its colors inverted for contrast
+         */
         inverted: React.PropTypes.bool,
+        /**
+         * A segment may show its content is being loaded
+         */
         loading: React.PropTypes.bool,
+        /**
+         * Segment spacing
+         */
         spacing: React.PropTypes.oneOf(['fitted', 'padded']),
-        style: React.PropTypes.object,
+        /**
+         * Segment type
+         */
         type: React.PropTypes.oneOf(['raised', 'stacked', 'piled']),
+        /**
+         * A vertical segment formats content to be aligned as part of a vertical group
+         */
         vertical: React.PropTypes.bool,
+        /**
+         * Segment zIndex
+         */
         zIndex: React.PropTypes.number
     };
 
@@ -48,25 +94,20 @@ export default class Segment extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { aligned, component, attached, basic, blurring, children,
-              className, clearing, color, defaultClasses, disabled,
-              emphasis, floated, index, inverted, loading, vertical,
+        let { component, defaultClasses, children, aligned, attached, basic, blurring,
+              className, clearing, color, disabled, container, spacing,
+              emphasis, floated,  inverted, loading, vertical, type,
               zIndex, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
         other.style = this.getStyle();
 
-        if (typeof this.props.component == 'function' && this.props.component.displayName == 'Segment') {
-            component = 'div';
-        } else {
-            component = this.props.component;
-        }
-
-        return React.createElement(
-            component,
-            other,
-            this.props.children
+        const Component = component;
+        return (
+            <Component {...other}>
+                {children}
+            </Component>
         );
     }
 
