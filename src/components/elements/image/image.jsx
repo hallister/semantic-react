@@ -101,12 +101,13 @@ export default class Image extends React.Component {
             const WrapComponent = (typeof wrapComponent === 'undefined' || typeof wrapComponent === 'boolean') ? 'div' : wrapComponent;
             return (
                 <WrapComponent {...other}>
-                    <ImageComponent src={src}>{children}</ImageComponent>
+                    {children}
+                    <ImageComponent src={src}/>
                 </WrapComponent>
             );
         } else {
             return (
-                <ImageComponent {...other} src={src}>{children}</ImageComponent>
+                <ImageComponent {...other} src={src}/>
             );
         }
     }
@@ -140,6 +141,6 @@ export default class Image extends React.Component {
      * @returns {boolean}
      */
     shouldWrapIntoDiv() {
-        return (this.context.isCommentsChild || this.context.isItemsChild);
+        return (this.context.isCommentsChild || this.context.isItemsChild || React.Children.count(this.props.children) > 0);
     }
 }
