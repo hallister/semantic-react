@@ -7,13 +7,31 @@ import DefaultProps from '../../defaultProps';
 export default class Loader extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * Loaders can appear inline centered with content
+         */
         centered: React.PropTypes.bool,
+        /**
+         * Loaders can appear inline with content
+         */
         inline: React.PropTypes.bool,
+        /**
+         * Loaders can have their colors inverted.
+         */
         inverted: React.PropTypes.bool,
+        /**
+         * Loaders can have different sizes
+         */
         size: React.PropTypes.string,
+        /**
+         * Loader state
+         */
         state: React.PropTypes.oneOf([
             'active', 'indeterminate', 'disabled'
         ]),
+        /**
+         * A loader can contain text
+         */
         text: React.PropTypes.bool
     };
 
@@ -27,7 +45,7 @@ export default class Loader extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { ...other } = this.props;
+        const { component, children, defaultClasses, centered, inline, inverted, size, state, text, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -46,7 +64,7 @@ export default class Loader extends React.Component {
             active: this.props.state === 'active',
             centered: this.props.centered,
             indeterminate: this.props.state === 'indeterminate',
-            inline: this.props.inline,
+            inline: this.props.inline || this.props.centered,
             inverted: this.props.inverted,
             text: this.props.text || hasChild(this.props.children, 'string'),
             disabled: this.props.state === 'disabled',
