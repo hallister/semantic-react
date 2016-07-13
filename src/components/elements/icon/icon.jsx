@@ -70,7 +70,7 @@ export default class Icon extends React.Component {
         /**
          * Icon size
          */
-        size: React.PropTypes.string,
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         /**
          * An icon can be rotated
          */
