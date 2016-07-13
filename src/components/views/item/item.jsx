@@ -13,6 +13,11 @@ export default class Item extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
+         * Active item. Useful when child of:
+         * List
+         */
+        active: React.PropTypes.bool,
+        /**
          * Make item clickable
          */
         link: React.PropTypes.bool,
@@ -38,7 +43,7 @@ export default class Item extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        const { component, defaultClasses, children, link, ...other } = this.props;
+        const { component, defaultClasses, children, active, link, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(other.className, this.getClasses());
@@ -53,6 +58,7 @@ export default class Item extends React.Component {
     getClasses() {
         return {
             // variations
+            active: this.props.active,
             icon: hasChild(this.props.children, Item.Components.Icon), // eslint-disable-line
             link: this.props.link || this.props.onClick,
             // component
