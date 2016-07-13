@@ -123,5 +123,12 @@ describe('elements/list', () => {
         });
     });
 
+    describe('Shouldn\'t have ui class', () => {
+        it('when is child of another list', () => {
+            const wrapper = shallow(<List/>, { context: { isListChild: true } });
+            expect(wrapper).to.have.not.className('ui');
+        });
+    });
+
     itShouldConsumeOwnAndPassCustomProps(List, consumedProps);
 });

@@ -17,7 +17,8 @@ export default class Content extends React.Component {
          */
         active: React.PropTypes.bool,
         /**
-         * Content alignment
+         * Content vertical alignment. Useful when child of other elements:
+         * Item
          */
         aligned: React.PropTypes.string,
         /**
@@ -25,7 +26,8 @@ export default class Content extends React.Component {
          */
         extra: React.PropTypes.bool,
         /**
-         * Content floating
+         * Content floating. Useful when child of other elements:
+         * Item
          */
         floated: React.PropTypes.oneOfType([
             React.PropTypes.string,

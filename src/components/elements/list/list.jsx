@@ -63,6 +63,10 @@ export default class List extends React.Component {
         type: React.PropTypes.oneOf(['bulleted', 'ordered'])
     };
 
+    static contextTypes = {
+        isListChild: React.PropTypes.bool
+    };
+
     static childContextTypes = {
         isListChild: React.PropTypes.bool
     };
@@ -98,7 +102,7 @@ export default class List extends React.Component {
     getClasses() {
         let classes = {
             // default
-            ui: this.props.defaultClasses,
+            ui: this.props.defaultClasses && !this.context.isListChild,
 
             // types
             bulleted: this.props.type === 'bulleted',
