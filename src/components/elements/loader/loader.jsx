@@ -22,7 +22,7 @@ export default class Loader extends React.Component {
         /**
          * Loaders can have different sizes
          */
-        size: React.PropTypes.string,
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         /**
          * Loader state
          */
