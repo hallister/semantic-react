@@ -12,7 +12,7 @@ export default class Icons extends React.Component {
         /**
          * Size of icon group
          */
-        size: React.PropTypes.string
+        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
     };
 
     static defaultProps = {
