@@ -15,8 +15,7 @@
   ],
   "scripts": {
     "lib": "babel --source-maps --ignore=__tests__ src/components/ -d lib/",
-    "test": "karma start --single-run --no-auto-watch karma.config.js",
-    "test:watch": "karma start --auto-watch --no-single-run karma.config.js",
+    "test": "mocha -r src/app.tests.js src/components/**/*-test.jsx",
     "styleguide-server": "styleguidist server",
     "styleguide-build": "styleguidist build --production",
     "prepublish": "npm run lib"
