@@ -19,7 +19,7 @@ export default class Author extends React.Component {
     }
 
     render() {
-        const { children, className, component, ...other } = this.props;
+        const { children, className, component, defaultClasses, ...other } = this.props;
         other.className = classNames(className, { author: true });
 
         return React.createElement(

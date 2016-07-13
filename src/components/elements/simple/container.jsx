@@ -24,7 +24,7 @@ export default class Container extends React.Component {
     }
 
     render() {
-        const { children, className, component, ...other } = this.props;
+        const { children, className, component, defaultClasses, aligned, fluid, ...other } = this.props;
         other.className = classNames(className, this.getClasses());
 
         return React.createElement(

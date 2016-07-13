@@ -17,7 +17,7 @@ export default class Date extends React.Component {
     }
 
     render() {
-        const { children, className, component, ...other } = this.props;
+        const { children, className, component, defaultClasses, ...other } = this.props;
         other.className = classNames(className, { date: true });
 
         return React.createElement(
