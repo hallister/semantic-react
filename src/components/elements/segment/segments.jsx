@@ -19,17 +19,9 @@ export default class Segments extends React.Component {
          */
         inverted: React.PropTypes.bool,
         /**
-         * Piled segments
+         * Type of segments
          */
-        piled: React.PropTypes.bool,
-        /**
-         * Raised segments
-         */
-        raised: React.PropTypes.bool,
-        /**
-         * Stacked segments
-         */
-        stacked: React.PropTypes.bool
+        type: React.PropTypes.oneOf(['raised', 'stacked', 'piled']),
     };
 
     static defaultProps = {
@@ -43,7 +35,7 @@ export default class Segments extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let { component, children, className, compact, defaultClasses, horizontal, inverted,
-              piled, raised, stacked, ...other } = this.props;
+              type, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
@@ -60,9 +52,9 @@ export default class Segments extends React.Component {
             ui: this.props.defaultClasses,
             segments: this.props.defaultClasses,
             horizontal: this.props.horizontal,
-            raised: this.props.raised,
-            stacked: this.props.stacked,
-            piled: this.props.piled,
+            raised: this.props.raised || this.props.type === 'raised',
+            stacked: this.props.stacked || this.props.type === 'stacked',
+            piled: this.props.piled || this.props.type === 'piled',
             compact: this.props.compact,
             inverted: this.props.inverted
         };

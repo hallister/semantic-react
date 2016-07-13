@@ -10,9 +10,7 @@ const consumedProps = {
     compact: true,
     horizontal: true,
     inverted: true,
-    piled: true,
-    raised: true,
-    stacked: true
+    type: 'piled'
 };
 
 describe('elements/segments', () => {
@@ -42,19 +40,22 @@ describe('elements/segments', () => {
         expect(wrapper).to.have.className('inverted');
     });
 
-    it('could be piled', () => {
-        const wrapper = shallow(<Segments piled/>);
-        expect(wrapper).to.have.className('piled');
+    describe('could have type', () => {
+        it('piled', () => {
+            const wrapper = shallow(<Segments type="piled"/>);
+            expect(wrapper).to.have.className('piled');
+        });
+
+        it('raised', () => {
+            const wrapper = shallow(<Segments type="raised"/>);
+            expect(wrapper).to.have.className('raised');
+        });
+
+        it('stacked', () => {
+            const wrapper = shallow(<Segments type="stacked"/>);
+            expect(wrapper).to.have.className('stacked');
+        });
     });
 
-    it('could be raised', () => {
-        const wrapper = shallow(<Segments raised/>);
-        expect(wrapper).to.have.className('raised');
-    });
-
-    it('could be stacked', () => {
-        const wrapper = shallow(<Segments stacked/>);
-        expect(wrapper).to.have.className('stacked');
-    });
     itShouldConsumeOwnAndPassCustomProps(Segments, consumedProps);
 });
