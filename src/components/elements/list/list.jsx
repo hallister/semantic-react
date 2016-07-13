@@ -12,19 +12,54 @@ let validProps = {
 export default class List extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * Controls content alignment for all items in list
+         */
         aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
+        /**
+         * A list can animate to set the current item apart from the list
+         */
         animated: React.PropTypes.bool,
+        /**
+         * Cell type
+         */
         celled: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['divided']),
             React.PropTypes.bool
         ]),
+        /**
+         * Controls content floating for all items in list
+         */
         floated: React.PropTypes.oneOf(['right', 'left']),
+        /**
+         * A list can be formatted to have items appear horizontally
+         */
         horizontal: React.PropTypes.bool,
+        /**
+         * A list can be inverted to appear on a dark background
+         */
         inverted: React.PropTypes.bool,
+        /**
+         * A list can be specially formatted for navigation links
+         */
         link: React.PropTypes.bool,
+        /**
+         * A list can relax its padding to provide more negative space
+         */
         relaxed: React.PropTypes.bool,
+        /**
+         * A selection list formats list items as possible choices
+         */
         selection: React.PropTypes.bool,
+        /**
+         * A list can vary in size
+         */
         size: React.PropTypes.string,
+        /**
+         * Type of the list
+         * Bulleted: mark items with a bullet
+         * Ordered: mark items with a number
+         */
         type: React.PropTypes.oneOf(['bulleted', 'ordered'])
     };
 
@@ -48,17 +83,15 @@ export default class List extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { aligned, animated, celled, defaultClasses, horizontal,
+        let { component, defaultClasses, aligned, animated, celled, floated, horizontal,
               inverted, link, relaxed, selection, size, type,
               ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            this.props.children
+        const Component = component;
+        return (
+            <Component {...other}/>
         );
     }
 

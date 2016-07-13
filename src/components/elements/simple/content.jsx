@@ -12,16 +12,40 @@ let validProps = {
 export default class Content extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * True to be active content
+         */
         active: React.PropTypes.bool,
+        /**
+         * Content alignment
+         */
         aligned: React.PropTypes.string,
+        /**
+         * Extra content
+         */
         extra: React.PropTypes.bool,
+        /**
+         * Content floating
+         */
         floated: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.bool
         ]),
+        /**
+         * Hidden content
+         */
         hidden: React.PropTypes.bool,
+        /**
+         * Meta content
+         */
         meta: React.PropTypes.bool,
+        /**
+         * Visible content
+         */
         visible: React.PropTypes.bool,
+        /**
+         * Image content
+         */
         image: React.PropTypes.bool
     };
 
@@ -47,7 +71,7 @@ export default class Content extends React.Component {
         let children = this.context.isDimmerChild && !this.context.isModalChild ? this.renderDimmerChild() : this.props.children;
 
         /* eslint-disable no-use-before-define */
-        let { aligned, component, defaultClasses, extra, floated, hidden, meta,
+        let {  component, defaultClasses, active, aligned, extra, floated, hidden, meta,
               visible, image, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
