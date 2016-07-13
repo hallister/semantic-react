@@ -5,7 +5,8 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 
-let consumedProps = {
+const consumedProps = {
+    aligned: 'middle',
     bordered: true,
 
     circular: true,
@@ -14,6 +15,7 @@ let consumedProps = {
     defaultClasses: true,
     fitted: true,
     flipped: 'horizontally',
+    floated: 'right',
     inverted: true,
     link: true,
     state: 'loading',
@@ -24,13 +26,13 @@ let consumedProps = {
 describe('Icon', () => {
     describe('should render in the DOM', () => {
         it('renders as <div>', () => {
-            let wrapper = shallow(<Icon name="cloud" />);
+            const wrapper = shallow(<Icon name="cloud" />);
             expect(wrapper).to.have.className('icon');
             expect(wrapper).to.have.tagName('i');
         });
 
         it('renders as a custom HTML element', () => {
-            let wrapper = shallow(<Icon component="span"
+            const wrapper = shallow(<Icon component="span"
                                         name="cloud" />);
             expect(wrapper).to.have.tagName('span');
         });
@@ -38,13 +40,13 @@ describe('Icon', () => {
 
     describe('should flip', () => {
         it('should flip horizontally', () => {
-            let wrapper = shallow(<Icon flipped="horizontally"
+            const wrapper = shallow(<Icon flipped="horizontally"
                                         name="cloud" />);
             expect(wrapper).to.have.className('horizontally flipped');
         });
 
         it('should flip vertically', () => {
-            let wrapper = shallow(<Icon flipped="vertically"
+            const wrapper = shallow(<Icon flipped="vertically"
                                         name="cloud" />);
             expect(wrapper).to.have.className('vertically flipped');
         });
@@ -52,48 +54,48 @@ describe('Icon', () => {
 
     describe('should rotate', () => {
         it('should rotate clockwise', () => {
-            let wrapper = shallow(<Icon name="cloud"
+            const wrapper = shallow(<Icon name="cloud"
                                         rotated="clockwise"/>);
             expect(wrapper).to.have.className('clockwise rotated');
         });
 
         it('should rotate counterclockwise', () => {
-            let wrapper = shallow(<Icon name="cloud"
+            const wrapper = shallow(<Icon name="cloud"
                                         rotated="counterclockwise"/>);
             expect(wrapper).to.have.className('counterclockwise rotated');
         });
     });
 
     it('should be noticable on dark backgrounds', () => {
-        let wrapper = shallow(<Icon inverted
+        const wrapper = shallow(<Icon inverted
                                     name="cloud" />);
         expect(wrapper).to.have.className('inverted');
     });
     
     describe('could have state', () => {
         it('could be disabled', () => {
-            let wrapper = shallow(<Icon state="disabled"
+            const wrapper = shallow(<Icon state="disabled"
                                         name="cloud" />);
             expect(wrapper).to.have.className('disabled');
             expect(wrapper).to.have.not.className('state');
         });
         
         it('could be loading', () => {
-            let wrapper = shallow(<Icon state="loading"
+            const wrapper = shallow(<Icon state="loading"
                                         name="cloud" />);
             expect(wrapper).to.have.not.className('state');
         });
     });
 
     it('should have various sizes', () => {
-        let wrapper = shallow(<Icon name="cloud"
+        const wrapper = shallow(<Icon name="cloud"
                                     size="small" />);
         expect(wrapper).to.have.className('small');
         expect(wrapper).to.have.not.className('size');
     });
 
     it('should support colors', () => {
-        let wrapper = shallow(<Icon color="yellow"
+        const wrapper = shallow(<Icon color="yellow"
                                     name="cloud" />);
         expect(wrapper).to.have.className('yellow');
         expect(wrapper).to.have.not.className('color');
@@ -101,34 +103,63 @@ describe('Icon', () => {
 
     describe('should be a link', () => {
         it('should be add the link via the link property', () => {
-            let wrapper = shallow(<Icon link
+            const wrapper = shallow(<Icon link
                                         name="cloud" />);
             expect(wrapper).to.have.className('link');
         });
 
         it('should be add the link via the onClick property', () => {
-            let wrapper = shallow(<Icon name="cloud"
+            const wrapper = shallow(<Icon name="cloud"
                                         onClick={() => {}}/>);
             expect(wrapper).to.have.className('link');
         });
     });
 
     it('should have fitted spacing', () => {
-        let wrapper = shallow(<Icon fitted
+        const wrapper = shallow(<Icon fitted
                                     name="cloud" />);
         expect(wrapper).to.have.className('fitted');
     });
 
     it('should appear circular', () => {
-        let wrapper = shallow(<Icon circular
+        const wrapper = shallow(<Icon circular
                                     name="cloud" />);
         expect(wrapper).to.have.className('circular');
     });
 
     it('should appear bordered', () => {
-        let wrapper = shallow(<Icon bordered
+        const wrapper = shallow(<Icon bordered
                                     name="cloud" />);
         expect(wrapper).to.have.className('bordered');
+    });
+
+    describe('Could be vertically aligned', () => {
+        it('top', () => {
+            const wrapper = shallow(<Icon aligned="top" name="test"/>);
+            expect(wrapper).to.have.className('top aligned');
+        });
+
+        it('middle', () => {
+            const wrapper = shallow(<Icon aligned="middle" name="test"/>);
+            expect(wrapper).to.have.className('middle aligned');
+        });
+
+        it('bottom', () => {
+            const wrapper = shallow(<Icon aligned="bottom" name="test"/>);
+            expect(wrapper).to.have.className('bottom aligned');
+        });
+    });
+
+    describe('Could be floated', () => {
+        it('left', () => {
+            const wrapper = shallow(<Icon floated="left"/>);
+            expect(wrapper).to.have.className('left floated');
+        });
+
+        it('right', () => {
+            const wrapper = shallow(<Icon floated="right"/>);
+            expect(wrapper).to.have.className('right floated');
+        });
     });
 
     itShouldConsumeOwnAndPassCustomProps(Icon, consumedProps);

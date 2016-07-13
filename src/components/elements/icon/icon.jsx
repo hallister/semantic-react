@@ -5,7 +5,9 @@ import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 let validProps = {
+    aligned: ['top', 'middle', 'bottom'],
     flipped: ['horizontally', 'vertically'],
+    floated: ['right', 'left'],
     rotated: ['clockwise', 'counterclockwise']
 };
 
@@ -15,6 +17,11 @@ let validProps = {
 export default class Icon extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * Vertical alignment of icon. Useful when child of other elements:
+         * Item
+         */
+        aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
         /**
          * An icon can be formatted to appear bordered
          */
@@ -39,6 +46,11 @@ export default class Icon extends React.Component {
          * An icon can be fitted, without any space to the left or right of it.
          */
         fitted: React.PropTypes.bool,
+        /**
+         * Floated icon: Useful when child of other elements:
+         * Item
+         */
+        floated: React.PropTypes.oneOf(['left', 'right']),
         /**
          * An icon can be flipped
          */
@@ -76,7 +88,7 @@ export default class Icon extends React.Component {
 
     render() {
         const {
-            component, defaultClasses, children, bordered, circular, color, corner, state, fitted, flipped,
+            component, defaultClasses, children, aligned, bordered, circular, color, corner, state, fitted, floated, flipped,
             inverted, link, name, size, rotated, ...other
         } = this.props;
         let Component = component;
@@ -88,11 +100,13 @@ export default class Icon extends React.Component {
         let classes = {
             // default
             // variations
+            aligned: this.props.aligned,
             bordered: this.props.bordered,
             circular: this.props.circular,
             corner: this.props.corner,
             disabled: this.props.state === 'disabled',
             fitted: this.props.fitted,
+            floated: this.props.floated,
             link: this.props.link || this.props.onClick,
             inverted: this.props.inverted,
             loading: this.props.state === 'loading',
