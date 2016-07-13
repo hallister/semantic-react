@@ -28,7 +28,7 @@ export default class Td extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { children, className, collapsing, component, singleLine, state, type,
+        let { aligned, children, className, defaultClasses, collapsing, component, singleLine, state, type,
             ...other } = this.props;
         /* eslint-enable no-use-before-define */
 

@@ -4,30 +4,42 @@ import classNames from 'classnames';
 import { Numbers, hasFirstChild } from '../../utilities';
 import Checkbox from './../../modules/checkbox/checkbox';
 import CheckboxFields from './../../modules/checkbox/checkboxfields';
+import DefaultProps from '../../defaultProps';
 
 export default class Field extends React.Component {
     static propTypes = {
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
+        ...DefaultProps.propTypes,
+        /**
+         * Grouped field
+         */
         grouped: React.PropTypes.bool,
+        /**
+         * A field can have its label next to instead of above it.
+         */
         inline: React.PropTypes.bool,
+        /**
+         * Field label
+         */
         label: React.PropTypes.string,
+        /**
+         * A field can show that input is mandatory
+         */
         required: React.PropTypes.bool,
+        /**
+         * Field state
+         */
         state: React.PropTypes.oneOf([
             'disabled',
             'error'
         ]),
+        /**
+         * Field width in columns
+         */
         width: React.PropTypes.number
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true
+        ...DefaultProps.defaultProps,
     };
 
     /* eslint-disable */
@@ -49,7 +61,7 @@ export default class Field extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { children, className, component, label, width, ...other } = this.props;
+        let { children, className, component, defaultClasses, grouped, inline, label, required, state, width, ...other } = this.props;
         /* eslint-enable no-use-before-define */
         other.className = classNames(className, this.getClasses());
 

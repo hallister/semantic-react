@@ -24,9 +24,9 @@ class MyInputWithButton extends React.Component {
     
     render() {
         return (
-            <Segments attached>
+            <Segments>
                 {this.state.send &&
-                <Segment raised>
+                <Segment type="raised">
                     <Header>You've send the value: {this.state.sendValue}</Header>
                 </Segment>}
                 <Segment>

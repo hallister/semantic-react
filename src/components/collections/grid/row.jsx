@@ -76,7 +76,7 @@ export default class Row extends React.Component {
         /* eslint-disable no-use-before-define */
         let {
             aligned, component, centered, children, columns, defaultClasses, doubling, equal,
-            stretched, color, only, justified, ...other
+            stretched, color, only, justified, valigned, ...other
         } = this.props;
         /* eslint-enable no-use-before-define */
 

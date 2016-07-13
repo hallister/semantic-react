@@ -165,7 +165,7 @@ A standard table
                 node_modules
             </Td>
             <Td>Initial commit</Td>
-            <Td collapsing align="right">10 hours ago</Td>
+            <Td collapsing aligned="right">10 hours ago</Td>
         </Tr>
         <Tr>
             <Td collapsing>
@@ -173,7 +173,7 @@ A standard table
                 test
             </Td>
             <Td>Initial commit</Td>
-            <Td collapsing align="right">10 hours ago</Td>
+            <Td collapsing aligned="right">10 hours ago</Td>
         </Tr>
         <Tr>
             <Td collapsing>
@@ -181,7 +181,7 @@ A standard table
                 build
             </Td>
             <Td>Initial commit</Td>
-            <Td collapsing align="right">10 hours ago</Td>
+            <Td collapsing aligned="right">10 hours ago</Td>
         </Tr>
         <Tr>
             <Td collapsing>
@@ -189,7 +189,7 @@ A standard table
                 package.json
             </Td>
             <Td>Initial commit</Td>
-            <Td collapsing align="right">10 hours ago</Td>
+            <Td collapsing aligned="right">10 hours ago</Td>
         </Tr>
         <Tr>
             <Td collapsing>
@@ -197,7 +197,7 @@ A standard table
                 Gruntfile.js
             </Td>
             <Td>Initial commit</Td>
-            <Td collapsing align="right">10 hours ago</Td>
+            <Td collapsing aligned="right">10 hours ago</Td>
         </Tr>
         </tbody>
     </Table>
@@ -242,21 +242,21 @@ A table may be formatted to emphasize a first column that defines a rows content
         </thead>
         <tbody>
         <Tr>
-            <Td collapsing><Checkbox slider fitted/></Td>
+            <Td collapsing><Checkbox type="slider" fitted/></Td>
             <Td>John Lilki</Td>
             <Td>September 14, 2013</Td>
             <Td>jhlilk22@yahoo.com</Td>
             <Td>No</Td>
         </Tr>
         <Tr>
-            <Td collapsing><Checkbox slider fitted/></Td>
+            <Td collapsing><Checkbox type="slider" fitted/></Td>
             <Td>Jamie Harington</Td>
             <Td>January 11, 2014</Td>
             <Td>jamieharingonton@yahoo.com</Td>
             <Td>Yes</Td>
         </Tr>
         <Tr>
-            <Td collapsing><Checkbox slider fitted/></Td>
+            <Td collapsing><Checkbox type="slider" fitted/></Td>
             <Td>Jill Lewis</Td>
             <Td>May 11, 2014</Td>
             <Td>jilsewris22@yahoo.com</Td>
@@ -267,7 +267,7 @@ A table may be formatted to emphasize a first column that defines a rows content
         <Tr>
             <th/>
             <th colSpan={4}>
-                <IconButton primary labeled name="user" floated="right" size="small">Add User</IconButton>
+                <IconButton emphasis="primary" name="user" floated="right" size="small">Add User</IconButton>
                 <Button size="small">Approve</Button>
                 <Button size="small" disabled>Approve All</Button>
             </th>

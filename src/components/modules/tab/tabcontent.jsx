@@ -30,7 +30,7 @@ export default class TabContent extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let { active, children, className, component, defaultClasses,
-              loading, segment, type, ...other } = this.props;
+              loading, segment, position, type, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses())

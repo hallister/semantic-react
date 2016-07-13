@@ -192,7 +192,7 @@ export default class Search extends React.Component {
         /* eslint-disable no-use-before-define */
         let { children, className, component, defaultClasses, emptyHeader,
               emptyMessage, initialAnimation, enterAnimation, icon, leaveAnimation, loading,
-              onChange, onSearchClick, placeholder, results, onAnimationStyle,
+              onChange, onSearchClick, placeholder, results, onAnimationStyle, value,
               ...other } = this.props;
         /* eslint-enable no-use-before-define */
 

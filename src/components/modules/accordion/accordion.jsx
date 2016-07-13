@@ -145,7 +145,7 @@ export default class Accordion extends React.Component {
     render() {
         const {
             animating, component, children, defaultClasses, activeIndexes, fluid, inverted,
-            onAccordionChange, styled, enterAnimation, leaveAnimation, style, ...other
+            onAccordionChange, styled, enterAnimation, leaveAnimation, ...other
         } = this.props;
         const Component = component;
 

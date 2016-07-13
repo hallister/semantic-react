@@ -174,7 +174,7 @@ export default class Modal extends React.Component {
      */
     renderModal(interpolatedStyle) {
         const {
-            component, initialAnimation, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, zIndex,
+            component, defaultClasses, initialAnimation, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, zIndex,
             onModalOpened, onModalClosed, onRequestClose, onAnimationStyle, ...other
         } = this.props;
         let positionTop = 0;

@@ -42,10 +42,10 @@ A divider can segment content horizontally
 * Dividers will automatically vary the size of their dividing rules to match the length of your text
 
     <Segment aligned="center" basic>
-        <Input left action placeholder="Order #">
-            <Icon name="search" left />
+        <Input action placeholder="Order #">
+            <Icon name="search"/>
             <Button color="blue">Search</Button>
         </Input>
         <Divider aligned="horizontal">Or</Divider>
-        <IconButton name="add" color="teal" labeled>Create New Order</IconButton>
+        <IconButton name="add" color="teal">Create New Order</IconButton>
     </Segment>

@@ -3,26 +3,32 @@ import shallowCompare from 'react-addons-shallow-compare';
 import { countChildren, Numbers } from '../../utilities';
 import Field from './field';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 
 export default class Fields extends React.Component {
     static propTypes = {
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
+        ...DefaultProps.propTypes,
+        /**
+         * Fields can automatically divide fields to be equal width
+         */
         equalWidth: React.PropTypes.bool,
+        /**
+         * Fields can have their widths divided evenly
+         */
         fluid: React.PropTypes.bool,
+        /**
+         * Fields can show related choices
+         */
         grouped: React.PropTypes.bool,
+        /**
+         * Multiple fields may be inline in a row
+         */
         inline: React.PropTypes.bool
     };
 
     static defaultProps = {
-        component: 'div',
-        defaultClasses: true
+        ...DefaultProps.defaultProps
     };
 
     /* eslint-disable */
@@ -37,7 +43,7 @@ export default class Fields extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { children, className, component, ...other } = this.props;
+        let { children, className, component, defaultClasses, equalWidth, fluid, grouped, inline, ...other } = this.props;
         /* eslint-enable no-use-before-define */
         other.className = classNames(className, this.getClasses());
 

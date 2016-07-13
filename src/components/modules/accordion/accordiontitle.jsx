@@ -24,11 +24,6 @@ export default class AccordionTitle extends React.Component {
          */
         iconComponent: elementType,
         /**
-         * Initial style. Shouldn't be set directly, it's being passed by Accordion component,
-         * since we don't want to animate titles
-         */
-        initialStyle: React.PropTypes.object,
-        /**
          * Accordion index. Used by Accordion component to control which content should be hidden/displayed
          */
         index: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]).isRequired,

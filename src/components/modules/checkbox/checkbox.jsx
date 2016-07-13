@@ -61,7 +61,6 @@ export default class Checkbox extends Component {
 
         let childElements = [
             <input
-                { ...other }
                 type="checkbox"
                 key="input"
                 className="hidden"
@@ -77,7 +76,7 @@ export default class Checkbox extends Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { component, defaultClasses, checked, type, onClick, name, ...other } = this.props;
+        let { component, defaultClasses, checked, disabled, readOnly, type, onClick, name, fitted, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());

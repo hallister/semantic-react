@@ -21,7 +21,7 @@ class MyControlledInput extends React.Component {
     render() {
         return (
             <Segments>
-                <Segment raised>
+                <Segment type="raised">
                     {this.state.value}
                 </Segment>
                 <Segment>

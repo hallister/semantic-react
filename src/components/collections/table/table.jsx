@@ -74,9 +74,9 @@ export default class Table extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { basic, celled, children, className, collapsing, compact, component,
-            defaultClasses, definition, fixed, inverted, selectable, singleLine,
-            stackable, striped, structured, unstackable, valigned,
+        let { aligned, basic, celled, children, className, collapsing, compact, color, component,
+            defaultClasses, columns, definition, fixed, inverted, padded, selectable, singleLine,
+            size, stackable, striped, structured, unstackable, valigned, width,
             ...other } = this.props;
         /* eslint-enable no-use-before-define */
 

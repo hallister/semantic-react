@@ -28,7 +28,11 @@ export default class Dimmer extends React.Component {
         /**
          * Disables auto-wrapping child contents into <Content>
          */
-        noWrapChildren: React.PropTypes.bool
+        noWrapChildren: React.PropTypes.bool,
+        /**
+         * internal
+         */
+        closePortal: React.PropTypes.func
     };
 
     
@@ -151,7 +155,7 @@ export default class Dimmer extends React.Component {
     renderDimmer(interpolatedStyle) {
         const {
             active, children, component, defaultClasses, initialAnimation, enterAnimation, leaveAnimation,
-            page, inverted, noWrapChildren, ...other
+            page, inverted, noWrapChildren, closePortal, ...other
         } = this.props;
 
         const animatingStyle = this.getAnimationStyle(interpolatedStyle, { height: this.state.dimmerHeight, width: this.state.dimmerWidth });

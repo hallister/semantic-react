@@ -9,14 +9,46 @@ module.exports = {
             name: 'Elements',
             components: () => {
                 return glob.sync(path.resolve(__dirname, 'src/components/elements/**/*.jsx')).filter(module => {
+                    return !(/(__tests__|examples|simple)/.test(module));
+                });
+            }
+        },
+        {
+            name: 'Simple elements',
+            components: () => {
+                return glob.sync(path.resolve(__dirname, 'src/components/elements/simple/**/*.jsx')).filter(module => {
                     return !(/(__tests__|examples)/.test(module));
                 });
             }
         },
         {
-            name: 'Collections',
+            name: 'Collections - Form',
             components: () => {
-                return glob.sync(path.resolve(__dirname, 'src/components/collections/**/*.jsx')).filter(module => {
+                return glob.sync(path.resolve(__dirname, 'src/components/collections/form/**/*.jsx')).filter(module => {
+                    return !(/(__tests__|examples)/.test(module));
+                });
+            }
+        },
+        {
+            name: 'Collections - Grid',
+            components: () => {
+                return glob.sync(path.resolve(__dirname, 'src/components/collections/grid/**/*.jsx')).filter(module => {
+                    return !(/(__tests__|examples)/.test(module));
+                });
+            }
+        },
+        {
+            name: 'Collections - Table',
+            components: () => {
+                return glob.sync(path.resolve(__dirname, 'src/components/collections/table/**/*.jsx')).filter(module => {
+                    return !(/(__tests__|examples)/.test(module));
+                });
+            }
+        },
+        {
+            name: 'Collections - Message',
+            components: () => {
+                return glob.sync(path.resolve(__dirname, 'src/components/collections/message/**/*.jsx')).filter(module => {
                     return !(/(__tests__|examples)/.test(module));
                 });
             }

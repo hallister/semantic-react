@@ -2,8 +2,7 @@ Select is the dropdown with ability to select one or few values
 
 ### Simple select
 
-    'values' in state || setState({values: []});
-    'active' in state || setState({active: false});
+    initialState = { active: false, values: [] };
      <Select active={state.active}
              selection
              selected={state.values}
@@ -18,8 +17,7 @@ Select is the dropdown with ability to select one or few values
 
 ### Option could contain other markup
 
-    'values' in state || setState({values: []});
-    'active' in state || setState({active: false});
+    initialState = { active: false, values: [] };
     <Select active={state.active}
             selection
             selected={state.values}
@@ -35,9 +33,7 @@ Select is the dropdown with ability to select one or few values
 
 ### Selection with search
 
-    'values' in state || setState({values: []});
-    'active' in state || setState({active: false});
-    'search' in state || setState({search: ''});
+    initialState = { active: false, values: [], search: '' };
     <Select active={state.active}
             search
             selection

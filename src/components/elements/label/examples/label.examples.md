@@ -45,7 +45,7 @@
 
     <Segments>
     <Segment>
-        <Form fluid>
+        <Form equalWidth>
             <Field>
                 <Input placeholder="First name"/>
                 <Label pointing>Please enter the value</Label>
@@ -68,7 +68,7 @@
         </Form>
     </Segment>
     <Segment>
-        <Form fluid>
+        <Form equalWidth>
             <Field>
                 <Input placeholder="First name"/>
                 <Label color="red" basic pointing>Please enter the value</Label>
@@ -96,12 +96,12 @@
 
     <Grid columns={2}>
         <Column>
-            <Image fluid src="http://semantic-ui.com/images/wireframe/image.png" wrapComponent>
+            <Image fluid src="http://semantic-ui.com/images/wireframe/image.png" wrapComponent="div">
                 <Label corner="left"><Icon name="heart"/></Label>
             </Image>
         </Column>
         <Column>
-            <Image fluid src="http://semantic-ui.com/images/wireframe/image.png" wrapComponent>
+            <Image fluid src="http://semantic-ui.com/images/wireframe/image.png" wrapComponent="div">
                 <Label color="red" corner="right"><Icon name="save"/></Label>
             </Image>
         </Column>
@@ -119,7 +119,7 @@
 
     <Grid columns={2}>
         <Column>
-            <Segment raised>
+            <Segment type="raised">
                 <Label ribbon color="red">Overview</Label>
                 <span>Account details</span>
                 <p></p>
@@ -130,9 +130,9 @@
         </Column>
         <Column>
             <Segment>
-                <Label ribbon="right" color="orange"><Icon class="spoon"/>Specs</Label>
+                <Label ribbon="right" color="orange"><Icon name="spoon"/>Specs</Label>
                 <p></p>
-                <Label ribbon="right" color="teal"><Icon class="food"/>Reviews</Label>
+                <Label ribbon="right" color="teal"><Icon name="food"/>Reviews</Label>
                 <p></p>
             </Segment>
         </Column>
@@ -147,7 +147,7 @@
 
 ## Floating
 
-    <Menu compact>
+    <Menu>
         <MenuItem menuValue="1">
             <Icon name="mail"/>Messages
             <Label color="red" floating>22</Label>

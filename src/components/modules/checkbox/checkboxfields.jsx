@@ -86,7 +86,7 @@ export default class CheckboxFields extends Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { component, defaultClasses, name, ...other } = this.props;
+        let { component, defaultClasses, name, disabled, onClick, radio, readOnly, type, ...other } = this.props;
         /* eslint-enable no-use-before-define */
         other.className = classNames(this.props.className, this.getClasses());
 

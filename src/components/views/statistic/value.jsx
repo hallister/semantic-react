@@ -28,7 +28,7 @@ export default class Value extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let {
-            children, className, component, text,
+            children, className, component, defaultClasses, text,
             ...other
         } = this.props;
         /* eslint-enable no-use-before-define */

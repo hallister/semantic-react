@@ -13,18 +13,48 @@ let validProps = {
 export default class Message extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * A message can be formatted to attach itself to other content
+         */
         attached: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['bottom', 'top']),
             React.PropTypes.bool
         ]),
+        /**
+         * A message can be formatted to be different colors
+         */
         color: React.PropTypes.string,
+        /**
+         * A message can only take up the width of its content.
+         */
         compact: React.PropTypes.bool,
+        /**
+         * A message can float above content that it is related to
+         */
         floating: React.PropTypes.bool,
+        /**
+         * A message can be hidden
+         */
         hidden: React.PropTypes.bool,
+        /**
+         * A message can contain an icon.
+         */
         icon: React.PropTypes.bool,
+        /**
+         * A message can have different sizes
+         */
         size: React.PropTypes.string,
+        /**
+         * Message emphasis
+         */
         state: React.PropTypes.oneOf(['success', 'error']),
+        /**
+         * Another emphasis
+         */
         type: React.PropTypes.oneOf(['info', 'warning', 'positive', 'negative']),
+        /**
+         * Message is visible
+         */
         visible: React.PropTypes.bool
     };
 

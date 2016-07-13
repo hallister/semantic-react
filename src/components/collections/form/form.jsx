@@ -1,20 +1,30 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
+import DefaultProps from '../../defaultProps';
 
 export default class Form extends React.Component {
     static propTypes = {
-        children: React.PropTypes.node,
-        className: React.PropTypes.any,
-        component: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.string
-        ]),
-        defaultClasses: React.PropTypes.bool,
+        ...DefaultProps.propTypes,
+        /**
+         * Forms can automatically divide fields to be equal width
+         */
         equalWidth: React.PropTypes.bool,
+        /**
+         * A form on a dark background may have to invert its color scheme
+         */
         inverted: React.PropTypes.bool,
+        /**
+         * If a form is in loading state, it will automatically show a loading indicator.
+         */
         loading: React.PropTypes.bool,
+        /**
+         * A form can vary in size
+         */
         size: React.PropTypes.string,
+        /**
+         * Form state
+         */
         state: React.PropTypes.oneOf([
             'success',
             'error',
@@ -23,8 +33,8 @@ export default class Form extends React.Component {
     };
 
     static defaultProps = {
+        ...DefaultProps.defaultProps,
         component: 'form',
-        defaultClasses: true
     };
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -33,7 +43,7 @@ export default class Form extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { children, className, component, ...other } = this.props;
+        let { children, className, component, defaultClasses, equalWidth, inverted, loading, size, state, ...other } = this.props;
         /* eslint-enable no-use-before-define */
         other.className = classNames(className, this.getClasses());
 

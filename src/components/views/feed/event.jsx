@@ -87,7 +87,7 @@ export default class Event extends React.Component {
     }
 
     render() {
-        const { children, className, component, ...other } = this.props;
+        const { children, className, component, defaultClasses, ...other } = this.props;
         other.className = classNames(className, { event: true });
 
         return React.createElement(

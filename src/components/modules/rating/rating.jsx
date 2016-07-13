@@ -74,7 +74,7 @@ export default class Rating extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { component, defaultClasses, heart, max, size, star, initialValue, ...other } = this.props;
+        let { component, defaultClasses, heart, max, size, star, initialValue, onChange, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
