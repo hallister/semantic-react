@@ -19,7 +19,8 @@ let consumedProps = {
     shape: 'circular',
     spaced: 'right',
     state: 'disabled',
-    size: 'small'
+    size: 'small',
+    wrapComponent: true
 };
 
 describe('Image', () => {

@@ -3,7 +3,11 @@ import React from 'react';
 import { SocialButton, Icon, Button, IconButton } from '../../../elements';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { itShouldPassUnusedDataProps } from '../../../test-utils';
+// import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
+
+// const consumedProps = {
+//     name: 'test'
+// };
 
 describe('SocialButton', () => {
 
@@ -34,5 +38,5 @@ describe('SocialButton', () => {
         });
     });
 
-    itShouldPassUnusedDataProps(IconButton, {});
+    // itShouldConsumeOwnAndPassCustomProps(SocialButton, consumedProps);
 });

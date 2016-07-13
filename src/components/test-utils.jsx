@@ -14,11 +14,9 @@ export function itShouldPassUnusedDataProps(Component, props) {
     it('passes unused data props', () => {
 
         let wrapper = shallow(<Component {...props}
-            data-test="test"
-            dataTest="test" />);
+            data-test="test"/>);
 
         expect(wrapper).to.have.prop('data-test', 'test');
-        expect(wrapper).to.have.prop('dataTest', 'test');
     });
 }
 

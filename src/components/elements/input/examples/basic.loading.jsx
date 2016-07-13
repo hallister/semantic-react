@@ -15,13 +15,13 @@ class ToggleInputLoading extends React.Component {
     render() {
         return (
             <div>
-                <Button toggle onClick={this.toggleLoadingState.bind(this)}>Toggle input loading</Button>
+                <Button toggle onClick={this.toggleLoadingState}>Toggle input loading</Button>
                 <Input icon="users" state={this.state.loading ? 'loading' : null}/>
             </div>
         );
     }
     
-    toggleLoadingState() {
+    toggleLoadingState = () => {
         this.setState({
             loading: !this.state.loading
         });

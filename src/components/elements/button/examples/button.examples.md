@@ -1,8 +1,3 @@
-This example was required from JSX!
-
-```require
-./button.jsx
-```
 ## Standard Buttons
 
     <Button>Follow</Button>

@@ -3,6 +3,14 @@ import React from 'react';
 import { LabeledButton, Button, Icon, Label } from '../../../elements';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
+
+const consumedProps = {
+    labeled: 'left',
+    labelType: 'icon',
+    label: 'test',
+    labelComponent: 'label'
+};
 
 describe('LabeledButton', () => {
     it('should be right labeled by default', () => {
@@ -115,4 +123,6 @@ describe('LabeledButton', () => {
             expect(wrapper.children().at(1).shallow().find(Label)).to.have.prop('pointing', 'left');
         });
     });
+
+    itShouldConsumeOwnAndPassCustomProps(LabeledButton, consumedProps);
 });

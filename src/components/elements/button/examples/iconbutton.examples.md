@@ -2,7 +2,7 @@
 
     <IconButton name="cloud"/>
 
-## Can use Button props
+## Can use other button props
 
     <IconButton basic name="cloud" color="pink" size="big"/>
 

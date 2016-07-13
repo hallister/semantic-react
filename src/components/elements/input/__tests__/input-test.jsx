@@ -10,6 +10,7 @@ let consumedProps = {
     defaultClasses: true,
     actionComponent: () => <Button/>,
     actionPosition: 'right',
+    fluid: true,
     icon: 'cloud',
     iconPosition: 'left',
     iconComponent: () => <Icon />,

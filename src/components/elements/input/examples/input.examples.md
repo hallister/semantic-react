@@ -114,7 +114,7 @@ Input can be linked with some action component, usually with button:
 
 ### Want button with dropdown? This is not a problem!
 
-*Note: This code may look huge, but this is cost of controlled dropdown. You can make separate select component and encapsulate most active/disabled logic here*
+*Note: Usually you'll want to encapsulate this logic into your own component*
 
 ```require
 ./action.dropdown.jsx

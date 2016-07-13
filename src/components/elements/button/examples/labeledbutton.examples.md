@@ -46,7 +46,7 @@
         </LabeledButton>
     </div>
 
-## Pass Button props to the label
+## You can pass other Button props to the LabeledButton
 
     <div>
         <LabeledButton color="red" circular label="Oh uh" labeled="right">

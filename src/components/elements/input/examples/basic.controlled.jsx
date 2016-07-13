@@ -12,7 +12,7 @@ class MyControlledInput extends React.Component {
         }
     }
     
-    onInputChange(event) {
+    onInputChange = (event) => {
         this.setState({
             value: event.target.value
         })
@@ -27,7 +27,7 @@ class MyControlledInput extends React.Component {
                 <Segment>
                     <Input type="text"
                            value={this.state.value}
-                           onChange={this.onInputChange.bind(this)}/>
+                           onChange={this.onInputChange}/>
                 </Segment>
             </Segments>
         );

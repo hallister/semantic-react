@@ -15,7 +15,7 @@ class MyInputWithButton extends React.Component {
         };
     }
     
-    onButtonClick() {
+    onButtonClick = () => {
         this.setState({
             send: !this.state.send,
             sendValue: this.state.value
@@ -30,7 +30,7 @@ class MyInputWithButton extends React.Component {
                     <Header>You've send the value: {this.state.sendValue}</Header>
                 </Segment>}
                 <Segment>
-                    <Input actionComponent={() => <Button emphasis="primary" onClick={this.onButtonClick.bind(this)}>{this.state.send ? 'Unsend' : 'Send'}</Button>}
+                    <Input actionComponent={() => <Button emphasis="primary" onClick={this.onButtonClick}>{this.state.send ? 'Unsend' : 'Send'}</Button>}
                            onChange={(evt) => this.setState({ value: evt.target.value })}
                            value={this.state.value}/>
                 </Segment>

@@ -4,7 +4,7 @@
 
     <SocialButton name="facebook"/>
 
-## Supports almost all Button properties
+## Supports almost all standard Button properties
 
     <div>
         <SocialButton circular name="twitter"/>
