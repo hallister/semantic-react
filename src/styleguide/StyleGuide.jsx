@@ -55,6 +55,7 @@ function globalizeElements() {
     window.Detail = elements.Detail;
 
     window.List = elements.List;
+    window.SimpleListItem = elements.SimpleListItem;
 
     window.Loader = elements.Loader;
 

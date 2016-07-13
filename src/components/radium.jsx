@@ -53,6 +53,7 @@ import Label from './elements/label/label';
 import Labels from './elements/label/labels';
 
 import List from './elements/list/list';
+import SimpleListItem from './elements/list/simplelistitem';
 
 import Loader from './elements/loader/loader';
 
@@ -164,6 +165,7 @@ let RadiumLabel = Radium(Label);
 let RadiumLabels = Radium(Labels);
 
 let RadiumList = Radium(List);
+let RadiumSimpleListItem = Radium(SimpleListItem);
 
 let RadiumLoader = Radium(Loader);
 
@@ -261,6 +263,10 @@ RadiumSubHeader.Components.Header = RadiumHeader;
 RadiumInput.Components.Icon = RadiumIcon;
 RadiumInput.Components.Label = RadiumLabel;
 
+RadiumSimpleListItem.Components.Item = RadiumItem;
+RadiumSimpleListItem.Components.Icon = RadiumIcon;
+RadiumSimpleListItem.Components.Content = RadiumContent;
+
 RadiumReveal.Components.Image = RadiumImage;
 
 RadiumAccordionTitle.Components.Icon = RadiumIcon;
@@ -354,6 +360,7 @@ export { RadiumLabel as Label };
 export { RadiumLabels as Labels };
 
 export { RadiumList as List };
+export { RadiumSimpleListItem as SimpleListItem };
 
 export { RadiumLoader as Loader };
 

@@ -9,7 +9,7 @@ module.exports = {
             name: 'Elements',
             components: () => {
                 return glob.sync(path.resolve(__dirname, 'src/components/elements/**/*.jsx')).filter(module => {
-                    return !(/(__tests__|examples|simple)/.test(module));
+                    return !(/(__tests__|examples|simple\/)/.test(module));
                 });
             }
         },
