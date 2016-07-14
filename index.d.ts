@@ -659,28 +659,110 @@ export class Input extends React.Component<InputProps, any> {
 
 // <List />
 export interface ListProps extends BaseProps, React.DOMAttributes {
+    /**
+     * Controls content alignment for all items in list
+     */
     aligned?: "top" | "middle" | "bottom";
+    /**
+     * A list can animate to set the current item apart from the list
+     */
     animated?: boolean;
+    /**
+     * Cell type
+     */
     celled?: "divided" | boolean;
+    /**
+     * Controls content floating for all items in list
+     */
     floated?: "right" | "left";
+    /**
+     * A list can be formatted to have items appear horizontally
+     */
     horizontal?: boolean;
+    /**
+     * A list can be inverted to appear on a dark background
+     */
     inverted?: boolean;
+    /**
+     * A list can be specially formatted for navigation links
+     */
     link?: boolean;
+    /**
+     * A list can relax its padding to provide more negative space
+     */
     relaxed?: boolean;
+    /**
+     * A selection list formats list items as possible choices
+     */
     selection?: boolean;
+    /**
+     * A list can vary in size
+     */
     size?: SizeType;
+    /**
+     * Type of the list
+     * Bulleted: mark items with a bullet
+     * Ordered: mark items with a number
+     */
     type?: "bulleted" | "ordered";
 }
 export class List extends React.Component<ListProps, any> {
 }
 
+export interface ListItemProps extends BaseProps, React.DOMAttributes {
+    /**
+     * Mark item as active. Valid only for link list
+     */
+    active?: boolean;
+    /**
+     * Content alignment
+     */
+    contentAligned?: "top" | "middle" | "bottom";
+    /**
+     * Image/Icon name
+     */
+    image?: string;
+    /**
+     * Type of image/icon
+     */
+    imageType?: "image" | "icon";
+    /**
+     * Image/Icon component. Override to tune
+     */
+    imageComponent?: any;
+    /**
+     * Right floated content component. If not provided, then right floated content will not be rendered
+     */
+    rightFloatedComponent?: any;
+}
+
+export class ListItem extends React.Component<ListItemProps, any> {}
+
 // <Loader />
 export interface LoaderProps extends BaseProps, React.DOMAttributes {
+    /**
+     * Loaders can appear inline centered with content
+     */
     centered?: boolean;
+    /**
+     * Loaders can appear inline with content
+     */
     inline?: boolean;
+    /**
+     * Loaders can have their colors inverted.
+     */
     inverted?: boolean;
+    /**
+     * Loaders can have different sizes
+     */
     size?: SizeType;
+    /**
+     * Loader state
+     */
     state?: "active" | "indeterminate" | "disabled";
+    /**
+     * A loader can contain text
+     */
     text?: boolean;
 }
 export class Loader extends React.Component<LoaderProps, any> {
@@ -688,12 +770,30 @@ export class Loader extends React.Component<LoaderProps, any> {
 
 // <Rail />
 export interface RailProps extends BaseProps, React.DOMAttributes {
+    /**
+     * A rail can appear attached to the main viewport
+     */
     attached?: boolean;
-    close?: boolean;
-    closer?: boolean;
+    /**
+     * A rail can appear closer to the main viewport
+     */
+    close?: boolean | "very";
+    /**
+     * A rail can create a division between itself and a container
+     */
     dividing?: boolean;
+    /**
+     * A rail can be presented on the left or right side of a container
+     */
     floated: "right" | "left";
+    /**
+     * A rail can attach itself to the inside of a container
+     */
     internal?: boolean;
+    /**
+     * A rail can have different sizes
+     */
+    size?: SizeType;
 }
 export class Rail extends React.Component<RailProps, any> {
 }
@@ -716,23 +816,69 @@ export class Reveal extends React.Component<RevealProps, any> {
 
 // <Segment />
 export interface SegmentProps extends BaseProps, React.DOMAttributes {
+    /**
+     * A segment can have its text aligned to a side
+     */
     aligned?: "right" | "left" | "center";
+    /**
+     * A segment can be attached to other content on a page
+     */
     attached?: "bottom" | "top" | boolean;
+    /**
+     * A basic segment has no special formatting
+     */
     basic?: boolean;
+    /**
+     * Blurring segment when used with dimmer
+     */
     blurring?: boolean;
+    /**
+     * A segment can clear floated content
+     */
     clearing?: boolean;
+    /**
+     * A segment can be colored
+     */
     color?: ColorType;
+    /**
+     * Container segment
+     */
     container?: boolean;
+    /**
+     * A segment may show its content is disabled
+     */
     disabled?: boolean;
+    /**
+     * A segment can be formatted to appear more or less noticeable
+     */
     emphasis?: "primary" | "secondary" | "tertiary";
+    /**
+     * A segment can appear to the left or right of other content
+     */
     floated?: "right" | "left";
-    index?: number;
+    /**
+     * A segment can have its colors inverted for contrast
+     */
     inverted?: boolean;
+    /**
+     * A segment may show its content is being loaded
+     */
     loading?: boolean;
+    /**
+     * Segment spacing
+     */
     spacing?: "fitted" | "padded";
-    style?: Object;
+    /**
+     * Segment type
+     */
     type?: "raised" | "stacked" | "piled";
+    /**
+     * A vertical segment formats content to be aligned as part of a vertical group
+     */
     vertical?: boolean;
+    /**
+     * Segment zIndex
+     */
     zIndex?: number;
 }
 export class Segment extends React.Component<SegmentProps, any> {
@@ -740,12 +886,22 @@ export class Segment extends React.Component<SegmentProps, any> {
 
 // <Segments />
 interface SegmentsProps extends BaseProps {
+    /**
+     * Compact segments
+     */
     compact?: boolean;
+    /**
+     * Horizontal segments
+     */
     horizontal?: boolean;
+    /**
+     * Inverted segments
+     */
     inverted?: boolean;
-    piled?: boolean;
-    raised?: boolean;
-    stacked?: boolean;
+    /**
+     * Type of segments
+     */
+    type?: "raised" | "piled" | "stacked";
 }
 export class Segments extends React.Component<SegmentsProps, any> {
 }
@@ -811,30 +967,75 @@ export class Text extends React.Component<TextProps, any> {
 
 // <Field />
 export interface FieldProps extends BaseProps {
+    /**
+     * Grouped field
+     */
     grouped?: boolean;
+    /**
+     * A field can have its label next to instead of above it.
+     */
     inline?: boolean;
+    /**
+     * Field label
+     */
     label?: string;
+    /**
+     * A field can show that input is mandatory
+     */
     required?: boolean;
+    /**
+     * Field state
+     */
     state?: "disabled" | "error";
+    /**
+     * Field width in columns
+     */
     width?: number;
 }
 export class Field extends React.Component<FieldProps, any> {
 }
 // <Fields />
 export interface FieldsProps extends BaseProps {
+    /**
+     * Fields can have their widths divided evenly
+     */
     fluid?: boolean;
+    /**
+     * Multiple fields may be inline in a row
+     */
     inline?: boolean;
+    /**
+     * Fields can show related choices
+     */
     grouped?: boolean;
+    /**
+     * Fields can automatically divide fields to be equal width
+     */
     equalWidth?: boolean;
 }
 export class Fields extends React.Component<FieldsProps, any> {
 }
 // <Form />
 export interface FormProps extends BaseProps, React.DOMAttributes {
+    /**
+     * A form on a dark background may have to invert its color scheme
+     */
     inverted?: boolean;
+    /**
+     * If a form is in loading state, it will automatically show a loading indicator.
+     */
     loading?: boolean;
+    /**
+     * A form can vary in size
+     */
     size?: SizeType | any;
+    /**
+     * Form state
+     */
     state?: "success" | "error" | "warning";
+    /**
+     * Forms can automatically divide fields to be equal width
+     */
     equalWidth?: boolean;
 }
 export class Form extends React.Component<FormProps, any> {
@@ -995,15 +1196,42 @@ export class Row extends React.Component<RowProps, any> {
 
 // <Message />
 export interface MessageProps extends BaseProps, React.DOMAttributes {
+    /**
+     * A message can be formatted to attach itself to other content
+     */
     attached?: "bottom" | "top" | boolean;
+    /**
+     * A message can be formatted to be different colors
+     */
     color?: ColorType;
+    /**
+     * A message can only take up the width of its content.
+     */
     compact?: boolean;
+    /**
+     * A message can float above content that it is related to
+     */
     floating?: boolean;
+    /**
+     * A message can be hidden
+     */
     hidden?: boolean;
+    /**
+     * A message can contain an icon. If message contain icon as first child then it will be set automatically,
+     * unless you provide it explicitly
+     */
     icon?: boolean;
+    /**
+     * A message can have different sizes
+     */
     size?: SizeType;
-    state?: "success" | "error";
-    type?: "info" | "warning" | "positive" | "negative";
+    /**
+     * Emphasis
+     */
+    emphasis?: "success" | "error" | "info" | "warning" | "positive" | "negative";
+    /**
+     * Message is visible
+     */
     visible?: boolean;
 }
 export class Message extends React.Component<MessageProps, any> {
@@ -1011,41 +1239,98 @@ export class Message extends React.Component<MessageProps, any> {
 
 // <Table />
 export interface TableProps extends BaseProps {
+    /**
+     * A table header, row, or cell can adjust its text alignment
+     */
     aligned?: "top" | "bottom";
+    /**
+     * A table can reduce its complexity to increase readability.
+     */
     basic?: "very" | boolean;
+    /**
+     * A table may be divided each row into separate cells
+     */
     celled?: boolean;
+    /**
+     * A cell can be collapsing so that it only uses as much space as required
+     */
     collapsing?: boolean;
+    /**
+     * A table can be given a color to distinguish it from other tables.
+     */
     color?: ColorType;
+    /**
+     * A table can specify its column count to divide its content evenly
+     */
     columns?: number;
-    compact?: boolean;
+    /**
+     * A table may sometimes need to be more compact to make more rows visible at a time
+     */
+    compact?: boolean | "very";
     definition?: boolean;
+    /**
+     * A table can use table-layout: fixed a special faster form of table rendering that does not resize table cells based on content.
+     */
     fixed?: boolean;
+    /**
+     * A table's colors can be inverted
+     */
     inverted?: boolean;
+    /**
+     * A table may sometimes need to be more padded for legibility
+     */
     padded?: "very" | boolean;
+    /**
+     * A table can have its rows appear selectable
+     */
     selectable?: boolean;
+    /**
+     * A table can specify that its cell contents should remain on a single line, and not wrap.
+     */
     singleLine?: boolean;
+    /**
+     * A table can also be small or large
+     */
     size?: SizeType;
+    /**
+     * A table may allow a user to sort contents by clicking on a table header.
+     * NOTE: You need to set "sorted descending"/"sorted ascending" class names for corresponding <th> element
+     */
+    sortable?: boolean;
+    /**
+     * A table can specify how it stacks table content responsively
+     */
     stackable?: {
         computer?: boolean;
         mobile?: boolean;
         tablet?: boolean;
     };
+    /**
+     * A table can stripe alternate rows of content with a darker color to increase contrast
+     */
     striped?: boolean;
+    /**
+     * A table can be formatted to display complex structured data
+     */
     structured?: boolean;
+    /**
+     * Reverse of stackable
+     */
     unstackable?: {
         computer?: boolean;
         mobile?: boolean;
         tablet?: boolean;
     };
+    /**
+     * A table header, row, or cell can adjust its vertical alignment
+     */
     valigned?: "center" | "right";
+    /**
+     * Table width in grid columns
+     */
     width?: number;
 }
 export class Table extends React.Component<TableProps, any> {
-}
-// <Tr />
-export interface TrProps extends BaseProps, React.DOMAttributes {
-}
-export class Tr extends React.Component<TrProps, any> {
 }
 // <Td />
 export interface TdProps extends BaseProps, React.DOMAttributes {
@@ -1058,12 +1343,37 @@ export interface TdProps extends BaseProps, React.DOMAttributes {
      * Sets the number of rows a cell should span
      */
     rowSpan?: number;
-    aligned?: "right" | "left" | "center" | "top" | "bottom";
+    /**
+     * Cell text alignment
+     */
+    aligned?: "right" | "left" | "center";
+    /**
+     * A cell can be collapsing so that it only uses as much space as required
+     */
     collapsing?: boolean;
+    /**
+     * A table cell can be selectable
+     */
+    selectable?: boolean;
+    /**
+     * Content should remain on a single line, and not wrap.
+     */
     singleLine?: boolean;
-    type?: "negative" | "positive" | "warning";
+    /**
+     * Cell emphasis
+     */
+    emphasis?: "negative" | "positive" | "error" | "warning";
+    /**
+     * Vertical cell alignment
+     */
+    valigned?: "top" | "bottom" | "middle";
 }
 export class Td extends React.Component<TdProps, any> {
+}
+// <Tr />
+export interface TrProps extends TdProps {
+}
+export class Tr extends React.Component<TrProps, any> {
 }
 
 // <Card />
@@ -1115,21 +1425,30 @@ export class Event extends React.Component<EventProps, any> {
 // <Item />
 export interface ItemProps extends BaseProps, React.DOMAttributes {
     /**
-     * Make item clickable
+     * Item image
      */
-    link?: boolean;
+    image?: string;
     /**
-     * Item click handler
+     * Vertical alignment of content
      */
-    onClick?: React.MouseEventHandler;
+    contentAligned?: "top" | "middle" | "bottom";
 }
 export class Item extends React.Component<ItemProps, any> {
 }
 
 // <Items />
 export interface ItemsProps extends BaseProps {
+    /**
+     * Items can be divided to better distinguish between grouped content
+     */
     divided?: boolean;
+    /**
+     * An item can be formatted so that the entire contents link to another page
+     */
     link?: boolean;
+    /**
+     * A group of items can relax its padding to provide more negative space
+     */
     relaxed?: any;
 }
 export class Items extends React.Component<ItemsProps, any> {
@@ -1218,7 +1537,7 @@ export class Menu extends React.Component<MenuProps, any> {
 }
 
 // <MenuItem />
-export interface MenuItemProps extends ItemProps {
+export interface MenuItemProps extends BaseProps, React.DOMAttributes {
     /**
      * Is item active
      */
@@ -1230,7 +1549,7 @@ export interface MenuItemProps extends ItemProps {
     /**
      * Item value
      */
-    menuValue?: number | string;
+    menuValue: number | string;
 }
 export class MenuItem extends React.Component<MenuItemProps, any> {
 }
@@ -1645,3 +1964,38 @@ export interface ModalProps extends BaseProps, AnimationProps {
     zIndex?: number;
 }
 export class Modal extends React.Component<ModalProps, any> { }
+
+// <TabMenu/>
+export interface TabMenuProps extends MenuProps {}
+export class TabMenu extends React.Component<TabMenuProps, any> {}
+
+// <Tab>
+export interface TabProps extends SegmentProps {
+    /**
+     * True if tab is active. Being set automatically
+     */
+    active?: boolean;
+    /**
+     * True if display loading spinner
+     */
+    loading?: boolean;
+    /**
+     * Tab index value. Should be equal to one of MenuItem value
+     */
+    value: string | number;
+}
+export class Tab extends React.Component<TabProps, any> {}
+
+// <Tabs/>
+export interface TabsProps extends BaseProps {
+    /**
+     * Active tab value
+     */
+    activeTab: string | number;
+    /**
+     * Current tab want's to be changed
+     * @param tabValue
+     */
+    onTabChange?: (tabValue: string | number) => void;
+}
+export class Tabs extends React.Component<TabsProps, any> {}
