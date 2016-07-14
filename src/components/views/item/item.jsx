@@ -1,30 +1,20 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
-import { hasChild } from '../../utilities';
 import DefaultProps from '../../defaultProps';
-import Icon from './../../elements/icon/icon';
+import Content from './../../elements/simple/content';
 
-
-/**
- * Item is collection of elements. It could be menu/dropdown item or part ofr <Items /> collection
- */
 export default class Item extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
-         * Active item. Useful when child of:
-         * List
+         * Item image
          */
-        active: React.PropTypes.bool,
+        image: React.PropTypes.string,
         /**
-         * Make item clickable
+         * Vertical alignment of content
          */
-        link: React.PropTypes.bool,
-        /**
-         * Item click handler
-         */
-        onClick: React.PropTypes.func
+        contentAligned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
     };
 
     static defaultProps = {
@@ -33,7 +23,7 @@ export default class Item extends React.Component {
 
     /* eslint-disable */
     static Components = {
-        Icon: Icon
+        Content: Content
     };
     /* eslint-enable */
 
@@ -43,24 +33,28 @@ export default class Item extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        const { component, defaultClasses, children, active, link, ...other } = this.props;
+        const { component, defaultClasses, children, image, contentAligned, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(other.className, this.getClasses());
-
-        return React.createElement(
-            component,
-            other,
-            children
+        const Component = component;
+        return (
+            <Component {...other}>
+                {image &&
+                    <div className="image">
+                        <img src={image}/>
+                    </div>
+                }
+                <Item.Components.Content aligned={contentAligned}>
+                    {children}
+                </Item.Components.Content>
+            </Component>
         );
     }
 
     getClasses() {
         return {
             // variations
-            active: this.props.active,
-            icon: hasChild(this.props.children, Item.Components.Icon), // eslint-disable-line
-            link: this.props.link || this.props.onClick,
             // component
             item: this.props.defaultClasses
         };

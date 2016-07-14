@@ -6,14 +6,33 @@ import DefaultProps from '../../defaultProps';
 export default class Items extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
+        /**
+         * Items can be divided to better distinguish between grouped content
+         */
         divided: React.PropTypes.bool,
+        /**
+         * An item can be formatted so that the entire contents link to another page
+         */
         link: React.PropTypes.bool,
+        /**
+         * A group of items can relax its padding to provide more negative space
+         */
         relaxed: React.PropTypes.relaxed
+    };
+
+    static childContextTypes = {
+        isItemsChild: React.PropTypes.bool
     };
 
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
+
+    getChildContext() {
+        return {
+            isItemsChild: true
+        }
+    }
 
     shouldComponentUpdate(nextProps, nextState) {
         return shallowCompare(this, nextProps, nextState);
