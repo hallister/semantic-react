@@ -245,6 +245,8 @@ RadiumFields.Components.Field = RadiumField;
 
 RadiumTr.Components.Td = RadiumTd;
 
+RadiumMessage.Components.Icon = RadiumIcon;
+
 RadiumIconButton.Components.Icon = RadiumIcon;
 RadiumIconButton.Components.Button = RadiumButton;
 

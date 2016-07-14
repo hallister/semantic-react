@@ -3,11 +3,12 @@ import shallowCompare from 'react-addons-shallow-compare';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
+import Icon from '../../elements/icon/icon';
+import { hasFirstChild } from '../../utilities';
 
-let validProps = {
+const validProps = {
     attached: ['bottom', 'top'],
-    type: ['info', 'warning', 'positive', 'negative'],
-    state: ['success', 'error']
+    emphasis: ['success', 'error', 'info', 'warning', 'positive', 'negative'],
 };
 
 export default class Message extends React.Component {
@@ -37,7 +38,8 @@ export default class Message extends React.Component {
          */
         hidden: React.PropTypes.bool,
         /**
-         * A message can contain an icon.
+         * A message can contain an icon. If message contain icon as first child then it will be set automatically,
+         * unless you provide it explicitly
          */
         icon: React.PropTypes.bool,
         /**
@@ -45,13 +47,9 @@ export default class Message extends React.Component {
          */
         size: React.PropTypes.string,
         /**
-         * Message emphasis
-         */
-        state: React.PropTypes.oneOf(['success', 'error']),
-        /**
          * Another emphasis
          */
-        type: React.PropTypes.oneOf(['info', 'warning', 'positive', 'negative']),
+        emphasis: React.PropTypes.oneOf(['success', 'error', 'info', 'warning', 'positive', 'negative']),
         /**
          * Message is visible
          */
@@ -62,6 +60,12 @@ export default class Message extends React.Component {
         ...DefaultProps.defaultProps
     };
 
+    /* eslint-disable */
+    static Components = {
+        Icon: Icon
+    };
+    /* eslint-enable */
+
     shouldComponentUpdate(nextProps, nextState) {
         return shallowCompare(this, nextProps, nextState);
     }
@@ -69,7 +73,7 @@ export default class Message extends React.Component {
     render() {
         /* eslint-disable no-use-before-define */
         let { attached, children, className, color, compact, component,
-            defaultClasses, floating, hidden, icon, size, state, type, visible,
+            defaultClasses, floating, hidden, icon, size, emphasis, visible,
             ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
@@ -89,16 +93,17 @@ export default class Message extends React.Component {
             compact: this.props.compact,
             floating: this.props.floating,
             hidden: this.props.hidden,
-            icon: this.props.icon,
+            // Do not set icon flag automatically if it explicitly provided even with icon child
+            icon: this.props.icon || (hasFirstChild(this.props.children, Message.Components.Icon) && typeof this.props.icon === 'undefined'),
             visible: this.props.visible,
 
-            info: this.props.type === 'info' && !this.props.state,
-            warning: this.props.type === 'warning' && !this.props.state,
-            positive: this.props.type === 'positive' && !this.props.state,
-            negative: this.props.type === 'negative' && !this.props.state,
+            info: this.props.emphasis === 'info',
+            warning: this.props.emphasis === 'warning',
+            positive: this.props.emphasis === 'positive',
+            negative: this.props.emphasis === 'negative',
 
-            success: this.props.state === 'success',
-            error: this.props.state === 'error',
+            success: this.props.emphasis === 'success',
+            error: this.props.emphasis === 'error',
 
             message: this.props.defaultClasses
         };
