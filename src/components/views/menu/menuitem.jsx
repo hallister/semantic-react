@@ -1,14 +1,14 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
-import Item from '../item/item';
+import DefaultProps from '../../defaultProps';
 
 /**
  * Menu/Dropdown item
  */
 export default class MenuItem extends React.Component {
     static propTypes = {
-        ...Item.propTypes,
+        ...DefaultProps.propTypes,
         /**
          * Is item active
          */
@@ -26,14 +26,8 @@ export default class MenuItem extends React.Component {
         ]).isRequired
     };
     static defaultProps = {
-        ...Item.defaultProps
+        ...DefaultProps.defaultProps
     };
-
-    /* eslint-disable */
-    static Components = {
-        Item: Item
-    };
-    /* eslint-enable */
 
     shouldComponentUpdate(nextProps, nextState) {
         return shallowCompare(this, nextProps, nextState);
@@ -47,19 +41,28 @@ export default class MenuItem extends React.Component {
     };
 
     render() {
-        const { active, color, menuValue, ...other } = this.props;
-        const classes = {
-            active: active
-        };
-        if (color) {
-            classes[color] = !!color;
-        }
-        other.className = classNames(other.className, classes);
+        const { component, children, defaultClasses, active, color, menuValue, ...other } = this.props;
+        other.className = classNames(other.className, this.getClasses());
+        const Component = component;
+        return (
+            <Component {...other}
+                       onClick={this.onClick}
+                       data-value={menuValue}
+            >
+                {children}
+            </Component>
+        )
+    }
 
-        return (<MenuItem.Components.Item {...other}
-                                          onClick={this.onClick}
-                                          data-value={menuValue}
-                                          link />
-        );
+    getClasses() {
+        const classes = {
+            // variations
+            active: this.props.active,
+            link: this.props.defaultClasses,
+            // component
+            item: this.props.defaultClasses
+        };
+        classes[this.props.color] = !!this.props.color;
+        return classes;
     }
 }

@@ -317,8 +317,6 @@ RadiumEvent.Components.Icon = RadiumIcon;
 
 RadiumItem.Components.Icon = RadiumIcon;
 
-RadiumMenuItem.Components.Item = RadiumItem;
-
 // Export
 // collections
 export { RadiumColumn as Column };
