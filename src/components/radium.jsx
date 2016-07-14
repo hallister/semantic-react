@@ -106,8 +106,7 @@ import Search from './modules/search/search';
 
 import Tab from './modules/tab/tab';
 import Tabs from './modules/tab/tabs';
-import TabTitle from './modules/tab/tabtitle';
-import TabContent from './modules/tab/tabcontent';
+import TabMenu from './modules/tab/tabmenu';
 
 import Card from './views/card/card';
 import Cards from './views/card/cards';
@@ -219,8 +218,7 @@ let RadiumSearch = Radium(Search);
 // views
 let RadiumTab = Radium(Tab);
 let RadiumTabs = Radium(Tabs);
-let RadiumTabTitle = Radium(TabTitle);
-let RadiumTabContent = Radium(TabContent);
+let RadiumTabMenu = Radium(TabMenu);
 
 let RadiumCard = Radium(Card);
 let RadiumCards = Radium(Cards);
@@ -304,10 +302,10 @@ RadiumResults.Components.Content = RadiumContent;
 RadiumSearch.Components.Icon = RadiumIcon;
 RadiumSearch.Components.Results = RadiumResults;
 
-RadiumTab.Components.TabContent = RadiumTabContent;
+RadiumTabMenu.Components.Menu = RadiumMenu;
+RadiumTab.Components.Segment = RadiumSegment;
+RadiumTabs.Components.TabMenu = RadiumTabMenu;
 RadiumTabs.Components.Tab = RadiumTab;
-RadiumTabs.Components.TabTitle = RadiumTabTitle;
-RadiumTabs.Components.Item = RadiumItem;
 
 RadiumComment.Components.Image = RadiumImage;
 RadiumComment.Components.Content = RadiumContent;
@@ -415,8 +413,7 @@ export { RadiumSearch as Search };
 // views
 export { RadiumTab as Tab };
 export { RadiumTabs as Tabs };
-export { RadiumTabTitle as TabTitle };
-export { RadiumTabContent as TabContent };
+export { RadiumTabMenu as TabMenu };
 
 export { RadiumCard as Card };
 export { RadiumCards as Cards };

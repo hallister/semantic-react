@@ -28,5 +28,4 @@ export { default as Search } from './modules/search/search';
 
 export { default as Tab } from './modules/tab/tab';
 export { default as Tabs } from './modules/tab/tabs';
-export { default as TabTitle } from './modules/tab/tabtitle';
-export { default as TabContent } from './modules/tab/tabcontent';
+export { default as TabMenu } from './modules/tab/tabmenu';

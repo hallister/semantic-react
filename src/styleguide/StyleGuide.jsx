@@ -104,9 +104,8 @@ function globalizeModules() {
     window.Search = modules.Search;
 
     window.Tab = modules.Tab;
-    window.TabContent = modules.TabContent;
+    window.TabMenu = modules.TabMenu;
     window.Tabs = modules.Tabs;
-    window.TabTitle = modules.TabTitle;
 }
 
 function globalizeViews() {
