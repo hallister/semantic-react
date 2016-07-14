@@ -24,7 +24,7 @@ export { default as Label } from './elements/label/label';
 export { default as Labels } from './elements/label/labels';
 
 export { default as List } from './elements/list/list';
-export { default as SimpleListItem } from './elements/list/simplelistitem';
+export { default as ListItem } from './elements/list/listitem';
 
 export { default as Loader } from './elements/loader/loader';
 

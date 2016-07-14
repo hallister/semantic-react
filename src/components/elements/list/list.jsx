@@ -68,7 +68,8 @@ export default class List extends React.Component {
     };
 
     static childContextTypes = {
-        isListChild: React.PropTypes.bool
+        isListChild: React.PropTypes.bool,
+        isLinkList: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -77,7 +78,8 @@ export default class List extends React.Component {
 
     getChildContext() {
         return {
-            isListChild: true
+            isListChild: true,
+            isLinkList: this.props.link
         }
     }
 

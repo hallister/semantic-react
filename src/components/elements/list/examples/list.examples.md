@@ -5,82 +5,60 @@ A list groups related content
 
 ```example
 <List>
-    <Item>Apples</Item>
-    <Item>Pears</Item>
-    <Item>Oranges</Item>
+    <ListItem>Apples</ListItem>
+    <ListItem>Pears</ListItem>
+    <ListItem>Oranges</ListItem>
 </List>
 ```
 
 ```example
 <List>
-    <Item>
-        <Icon name="users"/>
-        <Content>Semantic UI</Content>
-    </Item>
-    <Item>
-        <Icon name="marker"/>
-        <Content>New York, NY</Content>
-    </Item>
-    <Item>
-        <Icon name="mail"/>
-        <Content>
+    <ListItem image="users">
+        Semantic UI
+    </ListItem>
+    <ListItem image="marker">
+        New York, NY
+    </ListItem>
+    <ListItem iamge="mail">
             <a href="mailto:test@test.com">test@test.com</a>
-        </Content>
-    </Item>
+    </ListItem>
 </List>
 ```
 
 ```example
+const ListIconComponent = (props) => <Icon aligned="middle" size="large" {...props}/>;
 <List relaxed celled="divided">
-    <Item>
-        <Icon name="github" size="large" aligned="middle"/>
-        <Content>
-            <Header component="a">Semantic-Org/Semantic-UI</Header>
-            <Description>Updated 10 mis ago</Description>
-        </Content>
-    </Item>
-    <Item>
-        <Icon name="github" size="large" aligned="middle"/>
-        <Content>
-            <Header component="a">Semantic-Org/Semantic-UI-Docs</Header>
-            <Description>Updated 22 mins ago</Description>
-        </Content>
-    </Item>
+    <ListItem image="github" imageComponent={ListIconComponent}>
+        <Header component="a">Semantic-Org/Semantic-UI</Header>
+        <Description>Updated 10 mis ago</Description>
+    </ListItem>
+    <ListItem image="github" imageComponent={ListIconComponent}>
+        <Header component="a">Semantic-Org/Semantic-UI-Docs</Header>
+        <Description>Updated 22 mins ago</Description>
+    </ListItem>
  </List>
 ```
 
 ```example
 <List>
-    <Item>
-        <Icon name="folder"/>
-        <Content>
+    <ListItem image="folder">
             <Header>src</Header>
             <Description>Source files for project</Description>
             <List>
-                <Item>
-                    <Icon name="folder"/>
-                    <Content>
+                <ListItem image="folder">
                         <Header>site</Header>
                         <Description>Your site's name</Description>
-                    </Content>
-                </Item>
-                <Item>
-                    <Icon name="folder"/>
-                    <Content>
+                </ListItem>
+                <ListItem image="folder">
                         <Header>Themes</Header>
                         <Description>Theme sfolder</Description>
-                    </Content>
-                </Item>
+                </ListItem>
             </List>
-        </Content>
-    </Item>
-    <Item>
-        <Icon name="folder"/>
-        <Content>
+    </ListItem>
+    <ListItem image="folder">
             <Header>Folder</Header>
             <Description>Another folder</Description>
-         </Content>
-    </Item>
+    </ListItem>
 </List>
 ```
 
@@ -90,15 +68,15 @@ A list groups related content
 
 ```example
 <List type="bulleted">
-    <Item>Gaining access</Item>
-    <Item>Inviting Friends</Item>
-    <Item>
+    <ListItem>Gaining access</ListItem>
+    <ListItem>Inviting Friends</ListItem>
+    <ListItem>
         <div>Benefits</div>
         <List>
-            <Item>Test 1</Item>
-            <Item>Test 2</Item>
+            <ListItem>Test 1</ListItem>
+            <ListItem>Test 2</ListItem>
         </List>
-    </Item>
+    </ListItem>
 </List>
 ```
 
@@ -106,15 +84,15 @@ A list groups related content
 
 ```example
 <List type="ordered">
-    <Item>Gaining access</Item>
-    <Item>Inviting Friends</Item>
-    <Item>
+    <ListItem>Gaining access</ListItem>
+    <ListItem>Inviting Friends</ListItem>
+    <ListItem>
         <div>Benefits</div>
         <List>
-            <Item>Test 1</Item>
-            <Item>Test 2</Item>
+            <ListItem>Test 1</ListItem>
+            <ListItem>Test 2</ListItem>
         </List>
-    </Item>
+    </ListItem>
 </List>
 ```
 
@@ -122,9 +100,9 @@ A list groups related content
 
 ```example
 <List link>
-    <Item link active>Item 1</Item>
-    <Item link>Item 2</Item>
-    <Item link>Item 3</Item>
+    <ListItem active>ListItem 1</ListItem>
+    <ListItem>ListItem 2</ListItem>
+    <ListItem>ListItem 3</ListItem>
 </List>
 ```
 
@@ -134,69 +112,91 @@ A list groups related content
 
 ```example
 <List>
-    <Item>1</Item>
-    <Item>2</Item>
-    <Item>3</Item>
+    <ListItem>1</ListItem>
+    <ListItem>2</ListItem>
+    <ListItem>3</ListItem>
 </List>
 ```
 
 ### Item with icon
+by default image prop is assumed as icon name
 
 ```example
 <List>
-    <Item>
-        <Icon name="help"/>
-        <Content>
+    <ListItem image="help">
             test
-        </Content>
-    </Item>
-    <Item>
-        <Icon name="right triangle"/>
-        <Content>
+    </ListItem>
+    <ListItem image="right triangle">
             <Header>Text</Header>
             <Description>Description</Description>
-        </Content>
-    </Item>
-    <Item>
-        <Icon name="help"/>
+    </ListItem>
+    <ListItem image="help">
         Inline text
-    </Item>
+    </ListItem>
 </List>
 ```
 
 ### Item with image
+*Note: by default image is assumed as avatar image since it's most common case, you can provide custom image component to override*
 
 ```example
 <List>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar2/small/rachel.png"/>
-        <Content>
+    <ListItem image="http://semantic-ui.com/images/avatar2/small/rachel.png" imageType="image">
             <Header>Rachel</Header>
             <Description>Test</Description>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar2/small/rachel.png"/>
-        <Content>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar2/small/rachel.png" imageType="image">
             <Header>Text</Header>
             <Description>Description</Description>
-        </Content>
-    </Item>
+    </ListItem>
 </List>
+```
+
+### Custom Image/Icon component
+
+```example
+const MyCustomIcon = ({ name }) => <Icon size="big" color="red" name={name}/>;
+const MyCustomImage = ({ src }) => <Image src={src}/>;
+
+<List>
+    <ListItem image="help" imageType="icon" imageComponent={MyCustomIcon}>
+            test
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar2/small/rachel.png" imageType="image" imageComponent={MyCustomImage}>
+            <Header>Rachel</Header>
+            <Description>Test</Description>
+    </ListItem>
+</List>
+```
+
+### Right floated component
+```example
+MyCustomRightFloatedComponent = () => <Button>Add</Button>;
+<List aligned="middle" celled="divided">
+    <ListItem image="http://semantic-ui.com/images/avatar2/small/lena.png" imageType="image" rightFloatedComponent={MyCustomRightFloatedComponent}>
+        Lena
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar2/small/lena.png" imageType="image" rightFloatedComponent={MyCustomRightFloatedComponent}>
+        Lena
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar2/small/lena.png" imageType="image" rightFloatedComponent={MyCustomRightFloatedComponent}>
+        Lena
+    </ListItem>
+ </List>
 ```
 
 ### Item with header
 
 ```example
 <List>
-    <Item>
+    <ListItem>
         <Header>Test header</Header>
         test text
-    </Item>
-    <Item>
+    </ListItem>
+    <ListItem>
         <Header>Another header</Header>
         another text
-    </Item>
+    </ListItem>
 </List>
 ```
 
@@ -207,27 +207,18 @@ A list groups related content
 
 ```example
 <List horizontal>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/tom.jpg"/>
-        <Content>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
             <Header>Tom</Header>
             Top person
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/tom.jpg"/>
-        <Content>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
             <Header>Tom</Header>
             Top person
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/tom.jpg"/>
-        <Content>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
             <Header>Tom</Header>
             Top person
-        </Content>
-    </Item>
+    </ListItem>
 </List>
 ```
 
@@ -236,10 +227,10 @@ A list groups related content
 ```example
 <Segment color="black" inverted>
     <List inverted>
-        <Item>Test 1</Item>
-        <Item>Test 1</Item>
-        <Item>Test 1</Item>
-        <Item>Test 1</Item>
+        <ListItem>Test 1</ListItem>
+        <ListItem>Test 1</ListItem>
+        <ListItem>Test 1</ListItem>
+        <ListItem>Test 1</ListItem>
     </List>
 </Segment>
 ```
@@ -248,27 +239,18 @@ A list groups related content
 
 ```example
 <List selection aligned="middle">
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/tom.jpg"/>
-        <Content>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
             <Header>Tom</Header>
             Top person
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/tom.jpg"/>
-        <Content>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
             <Header>Tom</Header>
             Top person
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/tom.jpg"/>
-        <Content>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
             <Header>Tom</Header>
             Top person
-        </Content>
-    </Item>
+    </ListItem>
 </List>
 ```
 
@@ -276,27 +258,18 @@ A list groups related content
 
 ```example
 <List selection aligned="middle" animated>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/tom.jpg"/>
-        <Content>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
             <Header>Tom</Header>
             Top person
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/tom.jpg"/>
-        <Content>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
             <Header>Tom</Header>
             Top person
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/tom.jpg"/>
-        <Content>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
             <Header>Tom</Header>
             Top person
-        </Content>
-    </Item>
+    </ListItem>
 </List>
 ```
 
@@ -304,50 +277,32 @@ A list groups related content
 
 ```example
 <List relaxed>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-            <Description>Some description</Description>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-            <Description>Some description</Description>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-            <Description>Some description</Description>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
+            <Header>Tom</Header>
+            Top person
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
+            <Header>Tom</Header>
+            Top person
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/tom.jpg" imageType="image">
+            <Header>Tom</Header>
+            Top person
+    </ListItem>
  </List>
 ```
 
 ```example
 <List horizontal relaxed>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
  </List>
 ```
 
@@ -355,24 +310,15 @@ A list groups related content
 
 ```example
 <List aligned="middle" celled="divided">
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
  </List>
 ```
 
@@ -380,24 +326,15 @@ A list groups related content
 
 ```example
 <List aligned="middle" celled>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
  </List>
 ```
 
@@ -406,150 +343,87 @@ A list groups related content
 ```example
 <div>
 <List horizontal aligned="middle" size="mini">
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
  </List>
  <br/>
 <List horizontal aligned="middle" size="tiny">
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
  </List>
  <br/>
 <List horizontal aligned="middle" size="small">
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
  </List>
  <br/>
 <List horizontal aligned="middle" size="large">
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
  </List>
  <br/>
 <List horizontal aligned="middle" size="big">
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
  </List>
  <br/>
 <List horizontal aligned="middle" size="huge">
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
  </List>
  <br/>
 <List horizontal aligned="middle" size="massive">
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
-    <Item>
-        <Image avatar src="http://semantic-ui.com/images/avatar/small/daniel.jpg"/>
-        <Content>
-            <Header>header</Header>
-        </Content>
-    </Item>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
+    <ListItem image="http://semantic-ui.com/images/avatar/small/daniel.jpg" imageType="image">
+        <Header>header</Header>
+    </ListItem>
  </List>
 </div>
 ```
