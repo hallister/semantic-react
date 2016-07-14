@@ -73,6 +73,7 @@ export default class Header extends React.Component {
     // we don't want the ui in these circumstances
     static contextTypes = {
         isListChild: React.PropTypes.bool,
+        isItemsChild: React.PropTypes.bool,
         isHeaderChild: React.PropTypes.bool,
         isAccordionChild: React.PropTypes.bool,
         isMenuChild: React.PropTypes.bool,
@@ -142,7 +143,7 @@ export default class Header extends React.Component {
             return false;
         }
         if (this.context.isListChild || this.context.isHeaderChild || 
-            this.context.isMenuChild || this.context.isCardChild
+            this.context.isMenuChild || this.context.isCardChild || this.context.isItemsChild
         ) {
             return false;
         }

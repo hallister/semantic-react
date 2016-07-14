@@ -178,6 +178,11 @@ describe('Header', () => {
             expect(wrapper).to.have.not.className('ui')
         });
 
+        it('When in context of items', () => {
+            let wrapper = shallow(<Header/>, {context: {isItemsChild: true}});
+            expect(wrapper).to.have.not.className('ui')
+        });
+
         it('Renders ui class name when in context of modal and icon header', () => {
             let wrapper = shallow(<Header icon="users"/>, {context: {isModalChild: true}});
             expect(wrapper).to.have.className('ui');
