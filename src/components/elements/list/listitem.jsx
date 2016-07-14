@@ -51,7 +51,8 @@ export default class ListItem extends React.Component {
     static Components = {
         Content: Content,
         Icon: Icon,
-        Image: Image
+        Image: Image,
+        List: List
     };
     /* eslint-enable */
 
@@ -89,7 +90,7 @@ export default class ListItem extends React.Component {
     renderContent() {
         const { children, contentAligned } = this.props;
         // Do not render content if has another sublist
-        if (hasChild(children, List)) {
+        if (hasChild(children, ListItem.Components.List)) {
             return children;
         } else {
             return (

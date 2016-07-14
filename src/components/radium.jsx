@@ -268,6 +268,7 @@ RadiumInput.Components.Label = RadiumLabel;
 RadiumListItem.Components.Image = RadiumImage;
 RadiumListItem.Components.Icon = RadiumIcon;
 RadiumListItem.Components.Content = RadiumContent;
+RadiumListItem.Components.List = RadiumList;
 
 RadiumReveal.Components.Image = RadiumImage;
 
