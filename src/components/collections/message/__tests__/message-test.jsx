@@ -3,6 +3,21 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Message from '../message';
 import Icon from '../../../elements/icon/icon';
+import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
+
+const consumedProps = {
+    component: 'div',
+    defaultClasses: true,
+    attached: true,
+    color: 'green',
+    compact: true,
+    floating: true,
+    hidden: true,
+    icon: true,
+    size: 'big',
+    emphasis: 'info',
+    visible: true
+};
 
 describe('collections/message', () => {
     it('should be rendered in dom', () => {
@@ -111,4 +126,6 @@ describe('collections/message', () => {
         const wrapper = shallow(<Message visible/>);
         expect(wrapper).to.have.className('visible');
     });
+
+    itShouldConsumeOwnAndPassCustomProps(Message, consumedProps);
 });
