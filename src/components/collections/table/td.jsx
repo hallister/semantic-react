@@ -5,16 +5,37 @@ import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 let validProps = {
-    aligned: ['right', 'left', 'center', 'top', 'bottom']
+    aligned: ['right', 'left', 'center'],
+    valigned: ['top', 'bottom', 'middle']
 };
 
 export default class Td extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
-        aligned: React.PropTypes.oneOf(['right', 'left', 'center', 'top', 'bottom']),
+        /**
+         * Cell text alignment
+         */
+        aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+        /**
+         * A cell can be collapsing so that it only uses as much space as required
+         */
         collapsing: React.PropTypes.bool,
+        /**
+         * A table cell can be selectable
+         */
+        selectable: React.PropTypes.bool,
+        /**
+         * Content should remain on a single line, and not wrap.
+         */
         singleLine: React.PropTypes.bool,
-        type: React.PropTypes.oneOf(['negative', 'positive', 'warning'])
+        /**
+         * Cell emphasis
+         */
+        emphasis: React.PropTypes.oneOf(['negative', 'positive', 'error', 'warning']),
+        /**
+         * Vertical cell alignment
+         */
+        valigned: React.PropTypes.oneOf(['top', 'bottom', 'middle'])
     };
 
     static defaultProps = {
@@ -28,8 +49,8 @@ export default class Td extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { aligned, children, className, defaultClasses, collapsing, component, singleLine, state, type,
-            ...other } = this.props;
+        let { aligned, children, className, defaultClasses, collapsing, component, singleLine, selectable, emphasis,
+            valigned, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(className, this.getClasses());
@@ -44,20 +65,13 @@ export default class Td extends React.Component {
     getClasses() {
         let classes = {
             collapsing: this.props.collapsing,
-
-            positive: this.props.type === 'positive' && !this.props.state,
-            negative: this.props.type === 'negative' && !this.props.state,
-            warning: this.props.type === 'warning' && !this.props.state,
-
-            active: this.props.state === 'active',
-            error: this.props.state === 'error',
-            disabled: this.props.state === 'disabled',
-
+            selectable: this.props.selectable,
             'single line': this.props.singleLine
         };
+        classes[this.props.emphasis] = !!this.props.emphasis;
 
         classes[this.props.type] = !!this.props.type;
 
-        return validateClassProps(classes, this.props, validProps);
+        return validateClassProps(classes, this.props, validProps, { valigned: 'aligned' });
     }
 }
