@@ -5,7 +5,9 @@ import classNames from 'classnames';
 import Icon from '../icon/icon';
 import Image from '../image/image';
 import Content from '../simple/content';
+import List from './list';
 import DefaultProps from '../../defaultProps';
+import { hasChild } from '../../utilities';
 
 export default class ListItem extends React.Component {
     static propTypes = {
@@ -84,6 +86,20 @@ export default class ListItem extends React.Component {
         );
     }
 
+    renderContent() {
+        const { children, contentAligned } = this.props;
+        // Do not render content if has another sublist
+        if (hasChild(children, List)) {
+            return children;
+        } else {
+            return (
+                <ListItem.Components.Content aligned={contentAligned}>
+                    {children}
+                </ListItem.Components.Content>
+            );
+        }
+    }
+
     render() {
         const { component, children, defaultClasses, active, contentAligned, image, imageType, imageComponent, rightFloatedComponent, ...other } = this.props;
         // List items should use <a>
@@ -93,9 +109,7 @@ export default class ListItem extends React.Component {
         return (
             <Component {...other}>
                 {this.renderImageComponent()}
-                <ListItem.Components.Content aligned={contentAligned}>
-                    {children}
-                </ListItem.Components.Content>
+                {this.renderContent()}
                 {this.renderRightFloatedComponent()}
             </Component>
         );

@@ -2,6 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import ListItem from '../listitem';
+import List from '../list';
 import Image from '../../image/image';
 import Icon from '../../icon/icon';
 import Button from '../../button/button';
@@ -78,6 +79,13 @@ describe('elements/list/listitem', () => {
             const wrapper = shallow(<ListItem contentAligned="top">Test</ListItem>);
             expect(wrapper.find(Content)).to.be.exist;
             expect(wrapper.find(Content)).to.have.prop('aligned', 'top');
+        });
+
+        it('Doesn\'t render content in item when item contains another list', () => {
+            const wrapper = shallow(<ListItem>Test<List></List></ListItem>);
+            expect(wrapper.find(Content)).to.be.not.exist;
+            expect(wrapper.childAt(0)).to.have.text('Test');
+            expect(wrapper.childAt(1).is(List)).to.be.true;
         });
     });
 
