@@ -1554,6 +1554,54 @@ export interface MenuItemProps extends BaseProps, React.DOMAttributes {
 export class MenuItem extends React.Component<MenuItemProps, any> {
 }
 
+// <Statistic />
+export interface StatisticProps extends BaseProps {
+    /**
+     * A string or number that represents the value of statistic
+     */
+    value?: string | number;
+    /**
+     * A string or number that represents the label of a statistic
+     */
+    label?: string | number;
+    /**
+     * A statistic can present its measurement horizontally
+     */
+    horizontal?: boolean;
+    /**
+     * A SemanticUI color class.
+     */
+    color?: ColorType;
+    /**
+     * Styles the component for a dark background.
+     */
+    inverted?: boolean;
+    /**
+     * Forces to component to float left or right.
+     */
+    floated?: "right" | "left";
+    /**
+     * Adds a SemanticUI size class.
+     */
+    size?: SizeType;
+}
+
+export class Statistic extends React.Component<StatisticProps, any> {}
+
+export interface StatisticsProps extends BaseProps {
+    even?: boolean;
+    color?: ColorType;
+    size?: SizeType;
+}
+
+export class Statistics extends React.Component<StatisticsProps, any> {}
+
+export interface ValueProps extends BaseProps {
+    text?: boolean;
+}
+
+export class Value extends React.Component<ValueProps, any> {}
+
 // Dropdown base interface
 export interface DropdownBaseProps extends BaseProps {
     /**
