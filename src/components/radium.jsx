@@ -108,6 +108,7 @@ import Tab from './modules/tab/tab';
 import Tabs from './modules/tab/tabs';
 import TabMenu from './modules/tab/tabmenu';
 
+// Views
 import Card from './views/card/card';
 import Cards from './views/card/cards';
 
@@ -122,6 +123,10 @@ import Event from './views/feed/event';
 
 import Item from './views/item/item';
 import Items from './views/item/items';
+
+import Statistic from './views/statistic/statistic';
+import Statistics from './views/statistic/statistics';
+import Value from './views/statistic/value';
 
 let RadiumColumn = Radium(Column);
 let RadiumGrid = Radium(Grid);
@@ -235,6 +240,10 @@ let RadiumEvent = Radium(Event);
 let RadiumItem = Radium(Item);
 let RadiumItems = Radium(Items);
 
+let RadiumStatistic = Radium(Statistic);
+let RadiumStatistics = Radium(Statistics);
+let RadiumValue = Radium(Value);
+
 
 // Override some components here
 RadiumField.Components.Checkbox = RadiumCheckbox;
@@ -316,6 +325,8 @@ RadiumEvent.Components.Icon = RadiumIcon;
 
 RadiumItem.Components.Icon = RadiumIcon;
 
+RadiumStatistic.Components.Value = RadiumValue;
+RadiumStatistic.Components.Label = RadiumLabel;
 // Export
 // collections
 export { RadiumColumn as Column };
@@ -427,5 +438,9 @@ export { RadiumComment as Comment };
 export { RadiumFeed as Feed };
 export { RadiumEvent as Event };
 
-export { RadiumItem as Item }
+export { RadiumItem as Item };
 export { RadiumItems as Items };
+
+export { RadiumStatistic as Statistic };
+export { RadiumStatistics as Statistics };
+export { RadiumValue as Value };
