@@ -1,3 +1,6 @@
+# 0.7.1
+Added statistic to TS typings
+
 # 0.7.0
 * views/Items/Item: Rework. Item shouldn't be user in any context anymore, such as List contexts
 * modules/Tab: Completely rework from scratch
