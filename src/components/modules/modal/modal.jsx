@@ -55,11 +55,11 @@ export default class Modal extends React.Component {
         },
         enterAnimation: {
             opacity: spring(1, { stiffness: 300, damping: 40, precision: 1 }),
-            scale: spring(1, { stiffness: 300, damping: 25, precision: 0.1 })
+            scale: spring(1, { stiffness: 300, damping: 25, precision: 1 })
         },
         leaveAnimation: {
             opacity: spring(0, { stiffness: 700, damping: 40, precision: 1 }),
-            scale: spring(0.5, { stiffness: 700, damping: 40, precision: 0.1 })
+            scale: spring(0.5, { stiffness: 700, damping: 40, precision: 1 })
         },
         zIndex: 1000
     };
