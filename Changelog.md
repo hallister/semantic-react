@@ -1,3 +1,7 @@
+# 0.7.2
+Fix react 15.2 error when used card component
+Fix dimmable class not being applied correctly for Dimmable component
+
 # 0.7.1
 Added statistic to TS typings
 
