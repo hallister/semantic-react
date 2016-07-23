@@ -32,7 +32,7 @@ export default class Dimmable extends React.Component {
     render() {
         const { component, defaultClasses, dimmed, blurring, ...other } = this.props;
         const classes = {
-            dimmable: other.defaultClasses,
+            dimmable: defaultClasses,
             dimmed: dimmed,
             blurring: blurring
         };
