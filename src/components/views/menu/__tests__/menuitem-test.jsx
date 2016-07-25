@@ -12,7 +12,7 @@ let consumedProps = {
     menuValue: 'test'
 };
 
-describe.only('MenuItem', () => {
+describe('MenuItem', () => {
     it('should be rendered in dom', () => {
         const wrapper = shallow(<MenuItem/>);
         expect(wrapper).to.have.tagName('div');

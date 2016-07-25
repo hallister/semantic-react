@@ -293,11 +293,12 @@ export default class Select extends React.Component {
                     if (allowAdditions) {
                         if (multiple) {
                             // Append value for multiple
-                            onSelectChange([...selected, searchString]);
+                            const values = [...selected, searchString];
+                            onSelectChange(values, values.length);
                             onSearchStringChange('');
                         } else {
                             // replace for single
-                            onSelectChange([searchString]);
+                            onSelectChange([searchString], 1);
                             onSearchStringChange('');
                         }
                     }
