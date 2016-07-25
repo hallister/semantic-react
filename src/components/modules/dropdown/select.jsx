@@ -66,6 +66,10 @@ export default class Select extends React.Component {
          */
         searchNoResultsMessage: React.PropTypes.string,
         /**
+         * Specify message which will be displayed when search has no results and allowAdditions enabled
+         */
+        allowAdditionsMessage: React.PropTypes.string,
+        /**
          * Search string
          */
         searchString: React.PropTypes.string,
@@ -81,6 +85,10 @@ export default class Select extends React.Component {
          * Allow multiple selection
          */
         multiple: React.PropTypes.bool,
+        /**
+         * Allow to add custom options
+         */
+        allowAdditions: React.PropTypes.bool,
         /**
          * Callback will be called when current selected value was changed.
          * Will pass array of new selected values as first param and total options count as second
@@ -106,10 +114,12 @@ export default class Select extends React.Component {
         searchPosition: 'dropdown',
         searchIgnoreCase: true,
         searchNoResultsMessage: 'No Results found.',
+        allowAdditionsMessage: 'Press enter to add.',
         searchString: '',
         selection: true,
         selected: [],
         multiple: false,
+        allowAdditions: false,
         initialAnimation: {
             height: 0 // 0%
         },
@@ -266,25 +276,38 @@ export default class Select extends React.Component {
      * @param {React.KeyboardEvent} event
      */
     onSearchInputKeyDown = (event) => {
+        const { allowAdditions, searchString, onSelectChange, selected, multiple, onSearchStringChange } = this.props;
         switch (event.which) {
             // Enter
             case 13:
                 // only do something if we have search results available and not displaying not results message
-                if (this.menuRef && !this.noResultsMessageRef && React.Children.count(this.menuRef.props.children) > 0) {
-                    // get the first children
-                    let child = React.Children.toArray(this.menuRef.props.children)[0];
-                    if (child && child.props.value) {
-                        // enter should do the same as menu item click
-                        this.onMenuItemClick(child.props.value);
+                if (this.menuRef ) {
+                    if (!this.noResultsMessageRef && React.Children.count(this.menuRef.props.children) > 0) {
+                        // get the first children
+                        let child = React.Children.toArray(this.menuRef.props.children)[0];
+                        if (child && child.props.value) {
+                            // enter should do the same as menu item click
+                            this.onMenuItemClick(child.props.value);
+                        }
+                    }
+                    if (allowAdditions) {
+                        if (multiple) {
+                            // Append value for multiple
+                            onSelectChange([...selected, searchString]);
+                            onSearchStringChange('');
+                        } else {
+                            // replace for single
+                            onSelectChange([searchString]);
+                            onSearchStringChange('');
+                        }
                     }
                 }
                 break;
             // Backspace
             case 8:
-                const { multiple, searchString, selected, onSelectChange } = this.props;
                 if (searchString === '') {
                     if (multiple && selected.length > 0) {
-                        onSelectChange([...selected.slice(0, -1)])
+                        onSelectChange([...selected.slice(0, -1)]);
                     }
                 }
                 break;
@@ -543,7 +566,8 @@ export default class Select extends React.Component {
     renderMenu(interpolatedStyles) {
         /* eslint-disable no-use-before-define */
         const {
-            active, search, searchPosition, searchHeader, searchString, searchNoResultsMessage, ...other
+            active, search, searchPosition, searchHeader, searchString,
+                  searchNoResultsMessage, allowAdditions, allowAdditionsMessage, ...other
         } = this.props;
         /* eslint-enable no-use-before-define */
         // make new array for menu childrens
@@ -564,7 +588,7 @@ export default class Select extends React.Component {
                      key="noResultsMessage"
                      ref={ref => this.noResultsMessageRef = ref}
                 >
-                    {searchNoResultsMessage}
+                    {allowAdditions ? allowAdditionsMessage : searchNoResultsMessage}
                 </div>
             ]; // eslint-disable-line
         }
@@ -613,7 +637,7 @@ export default class Select extends React.Component {
         /* eslint-disable no-use-before-define */
         const {
             active, children, initialAnimation, enterAnimation, leaveAnimation, onAnimationStyle, icon, name, search, searchPosition, searchHeader,
-            searchString, searchGlyphWidth, searchIgnoreCase, searchNoResultsMessage, placeholder, selected, selection,
+            searchString, searchGlyphWidth, searchIgnoreCase, searchNoResultsMessage, allowAdditionsMessage, allowAdditions, placeholder, selected, selection,
             multiple, onSelectChange, onRequestClose, onSearchStringChange, ...other
         } = this.props;
         /* eslint-enable no-use-before-define */

@@ -49,6 +49,31 @@ Select is the dropdown with ability to select one or few values
         <Option value="es"><Flag name="es"/>Spain</Option>
         <Option value="ga"><Flag name="ga"/>Gabon</Option>
     </Select>
+    
+### Selection with allowed additions
+
+    initialState = { active: false, values: [], search: '', options: ['one', 'two', 'three'] };
+    <Select active={state.active}
+            search
+            selection
+            allowAdditions
+            placeholder="Select me"
+            selected={state.values}
+            onSelectChange={val => {
+                setState({
+                    values: val,
+                    options: [...new Set(state.options.concat(val))],
+                    active: false
+                })
+            }}
+            onClick={() => setState({active: true})}
+            onRequestClose={() => setState({active: false})}
+            onSearchStringChange={search => setState({search: search})}
+            searchString={state.search}
+    >
+        {state.options.map(o => <Option value={o}>{o}</Option>)}
+        
+    </Select>
 
 ### Multiple selection
 
