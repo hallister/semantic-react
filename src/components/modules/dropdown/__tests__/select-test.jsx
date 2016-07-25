@@ -34,7 +34,7 @@ const consumedProps = {
     onSearchStringChange: () => {}
 };
 
-describe.only('Select', () => {
+describe('Select', () => {
     it('Should render as dropdown element', () => {
         let wrapper = shallow(<Select/>);
         expect(wrapper.type()).to.be.equal(DropdownElement);
