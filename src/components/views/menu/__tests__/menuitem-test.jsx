@@ -12,7 +12,7 @@ let consumedProps = {
     menuValue: 'test'
 };
 
-describe('MenuItem', () => {
+describe.only('MenuItem', () => {
     it('should be rendered in dom', () => {
         const wrapper = shallow(<MenuItem/>);
         expect(wrapper).to.have.tagName('div');
@@ -27,6 +27,11 @@ describe('MenuItem', () => {
     it('can be active', () => {
         const wrapper = shallow(<MenuItem active/>);
         expect(wrapper).to.have.className('active');
+    });
+
+    it('can be disabled', () => {
+        const wrapper = shallow(<MenuItem disabled/>);
+        expect(wrapper).to.have.className('disabled');
     });
 
     it('can have color', () => {
