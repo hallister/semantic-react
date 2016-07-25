@@ -366,7 +366,7 @@ export default class Select extends React.Component {
         /* eslint-enable no-use-before-define */
 
         // Render placeholder if not selected anything or multiple
-        if (selected.length === 0 || multiple) {
+        if (searchString.length === 0 && (selected.length === 0 || multiple)) {
             if (typeof placeholder !== 'undefined') {
                 // Selection type should use default text, non selection text
                 return (
