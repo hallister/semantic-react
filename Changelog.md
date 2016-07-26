@@ -1,3 +1,10 @@
+# 0.7.2
+Fix react 15.2 error when used card component
+Fix dimmable class not being applied correctly for Dimmable component
+
+# 0.7.1
+Added statistic to TS typings
+
 # 0.7.0
 * views/Items/Item: Rework. Item shouldn't be user in any context anymore, such as List contexts
 * modules/Tab: Completely rework from scratch

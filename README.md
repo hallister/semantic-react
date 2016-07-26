@@ -45,9 +45,7 @@ import { Button, Icon } from "semantic-react/radium";
 **Do not mix radium and non-radium components, when using semantic-react with Radium, import components only from 'semantic-react/radium'**
 
 
-### Releases
-
-Latest release is 0.5.* . Keep in mind that is still WIP and things may break over time.
+### Contributing
 
 Depending on your interest, an excellent place to begin contributing is the [High priority issues](https://github.com/hallister/semantic-react/labels/Priority%3A%20High).
 

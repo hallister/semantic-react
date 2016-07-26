@@ -43,7 +43,7 @@ export default class Card extends React.Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { centered, col, color, doubling, defaultClasses, fluid, link, ...other } = this.props;
+        let { component, defaultClasses, centered, col, color, doubling, fluid, link, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
