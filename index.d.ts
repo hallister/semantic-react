@@ -1543,6 +1543,10 @@ export interface MenuItemProps extends BaseProps, React.DOMAttributes {
      */
     active?: boolean;
     /**
+     * Is item disabled
+     */
+    disabled?: boolean;
+    /**
      * Item color
      */
     color?: ColorType;
@@ -1744,6 +1748,10 @@ export interface SelectProps extends DropdownBaseProps, AnimationProps, React.DO
      */
     searchNoResultsMessage?: string;
     /**
+     * Specify message which will be displayed when search has no results and allowAdditions enabled
+     */
+    allowAdditionsMessage?: string;
+    /**
      * Search string
      */
     searchString?: string;
@@ -1760,6 +1768,10 @@ export interface SelectProps extends DropdownBaseProps, AnimationProps, React.DO
      * Allow multiple selection
      */
     multiple?: boolean;
+    /**
+     * Allow to add custom options
+     */
+    allowAdditions?: boolean,
     /**
      * Callback will be called when current selected value was changed.
      * Will pass array of new selected values as first param and total options count as second
