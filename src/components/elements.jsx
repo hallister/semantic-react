@@ -35,6 +35,9 @@ export { default as Reveal }  from './elements/reveal/reveal';
 export { default as Segment } from './elements/segment/segment';
 export { default as Segments } from './elements/segment/segments';
 
+export { default as Step } from './elements/step/step';
+export { default as Steps } from './elements/step/steps';
+
 export { default as Actions } from './elements/simple/actions';
 export { default as Author } from './elements/simple/author';
 export { default as Container } from './elements/simple/container';
