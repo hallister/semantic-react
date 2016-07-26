@@ -67,19 +67,11 @@ export default class Steps extends React.Component {
       );
   }
 
-  getClasses() {
-      let classes = {
+    getClasses() {
+        let childCount = React.Children.count(this.props.children);
+        let classes = {
           ui: this.props.defaultClasses,
 
-          one: this.props.evenlyDivided && this.props.children.length == 1,
-          two: this.props.evenlyDivided && this.props.children.length == 2,
-          three: this.props.evenlyDivided && this.props.children.length == 3,
-          four: this.props.evenlyDivided && this.props.children.length == 4,
-          five: this.props.evenlyDivided && this.props.children.length == 5,
-          six: this.props.evenlyDivided && this.props.children.length == 6,
-          seven: this.props.evenlyDivided && this.props.children.length == 7,
-          eight: this.props.evenlyDivided && this.props.children.length == 8,
-          
           steps: this.props.defaultClasses,
 
           ordered: this.props.ordered,
@@ -88,10 +80,12 @@ export default class Steps extends React.Component {
           fluid: this.props.fluid,
           attached: this.props.attached,
           size: this.props.size
-      };
+        };
 
-      classes[this.props.size] = !!this.props.size;
-      return validateClassProps(classes, this.props, validProps);
-  }
+        if (this.props.evenlyDivided && childCount > 0  && childCount <= 8) {
+          classes[Numbers[childCount]] = true;
+        }
 
+        return validateClassProps(classes, this.props, validProps);
+    }
 }
