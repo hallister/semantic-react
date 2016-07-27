@@ -29,6 +29,11 @@ describe('MenuItem', () => {
         expect(wrapper).to.have.className('active');
     });
 
+    it('can be disabled', () => {
+        const wrapper = shallow(<MenuItem disabled/>);
+        expect(wrapper).to.have.className('disabled');
+    });
+
     it('can have color', () => {
         const wrapper = shallow(<MenuItem color="red"/>);
         expect(wrapper).to.have.className('red');
