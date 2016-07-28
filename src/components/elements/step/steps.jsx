@@ -1,6 +1,6 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
-import { validateClassProps } from '../../utilities';
+import { Sizes, Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -41,7 +41,7 @@ export default class Steps extends React.Component {
       /**
        * Steps can have different sizes
        */
-      size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive']),
+      size: React.PropTypes.oneOf(Sizes),
   };
 
   static defaultProps = {
@@ -55,7 +55,7 @@ export default class Steps extends React.Component {
   render() {
       /* eslint-disable no-use-before-define */
       let { attached, children, className, component, defaultClasses, evenlyDivided, fluid,
-          size, stackable, vertical, ...other } = this.props;
+          ordered, size, stackable, vertical, ...other } = this.props;
       /* eslint-enable no-use-before-define */
 
       other.className = classNames(className, this.getClasses());
@@ -79,12 +79,13 @@ export default class Steps extends React.Component {
           stackable: this.props.stackable,
           fluid: this.props.fluid,
           attached: this.props.attached,
-          size: this.props.size
         };
 
         if (this.props.evenlyDivided && childCount > 0  && childCount <= 8) {
           classes[Numbers[childCount]] = true;
         }
+
+        classes[this.props.size] = !!this.props.size;
 
         return validateClassProps(classes, this.props, validProps);
     }

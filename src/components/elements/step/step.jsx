@@ -62,7 +62,7 @@ export default class Step extends React.Component {
 
   render() {
       /* eslint-disable no-use-before-define */
-      let { active, children, component, defaultClasses, description, disabled,
+      let { active, children, component, completed, defaultClasses, description, disabled,
         icon, iconComponent, link, title, ...other } = this.props;
       /* eslint-enable no-use-before-define */
 
@@ -89,7 +89,6 @@ export default class Step extends React.Component {
 
   getClasses() {
       let classes = {
-          ui: this.props.defaultClasses,
           step: this.props.defaultClasses,
 
           active: this.props.active,
@@ -97,7 +96,6 @@ export default class Step extends React.Component {
           disabled: this.props.disabled,
       };
 
-      classes[this.props.size] = !!this.props.size;
       return validateClassProps(classes, this.props, validProps);
   }
 }
