@@ -13,6 +13,9 @@ const jsdom = require("jsdom").jsdom;
 const doc = jsdom(`<html><body></body></html>`);
 global.window = doc.defaultView;
 global.document = doc;
+global.navigator = {
+    userAgent: 'node.js'
+};
 
 require("mutationobserver-shim");
 global.MutationObserver = window.MutationObserver;
