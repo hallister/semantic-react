@@ -14,7 +14,7 @@ const consumedProps = {
     stackable: true,
     fluid: true,
     attached: true,
-    evenlyDivided: true,
+    equalWidths: true,
     size: 'big'
 };
 
@@ -83,13 +83,13 @@ describe('Steps', () => {
         });
     });
 
-    describe('It could be evenlyDivided', () => {
+    describe('It could have steps with equal widths', () => {
         let aggregateChildSteps = [];
         for(let i=1;i<=8;i++) {
             aggregateChildSteps.push(<Step key={i} />);
             let childSteps = aggregateChildSteps.slice();
             it('with '+Numbers[i]+' child'+(i>1?'ren':''), () => {
-                let wrapper = shallow(<Steps evenlyDivided>{childSteps}</Steps>);
+                let wrapper = shallow(<Steps equalWidths>{childSteps}</Steps>);
                 expect(wrapper).to.have.className(Numbers[i]);
             });
         }

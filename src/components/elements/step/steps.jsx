@@ -37,7 +37,7 @@ export default class Steps extends React.Component {
       /**
        * Steps can be divided evenly inside their parent
        */
-      evenlyDivided: React.PropTypes.bool,
+      equalWidths: React.PropTypes.bool,
       /**
        * Steps can have different sizes
        */
@@ -54,7 +54,7 @@ export default class Steps extends React.Component {
 
   render() {
       /* eslint-disable no-use-before-define */
-      let { attached, children, className, component, defaultClasses, evenlyDivided, fluid,
+      let { attached, children, className, component, defaultClasses, equalWidths, fluid,
           ordered, size, stackable, vertical, ...other } = this.props;
       /* eslint-enable no-use-before-define */
 
@@ -81,7 +81,7 @@ export default class Steps extends React.Component {
           attached: this.props.attached,
         };
 
-        if (this.props.evenlyDivided && childCount > 0  && childCount <= 8) {
+        if (this.props.equalWidths && childCount > 0  && childCount <= 8) {
           classes[Numbers[childCount]] = true;
         }
 
