@@ -14,6 +14,10 @@ export default class MenuItem extends React.Component {
          */
         active: React.PropTypes.bool,
         /**
+         * Is item disabled
+         */
+        disabled: React.PropTypes.bool,
+        /**
          * Item color
          */
         color: React.PropTypes.string,
@@ -36,12 +40,12 @@ export default class MenuItem extends React.Component {
     onClick = (event) => {
         event.stopPropagation();
         event.preventDefault();
-        const { onClick, menuValue } = this.props;
-        if (onClick) onClick(menuValue);
+        const { onClick, menuValue, disabled } = this.props;
+        if (onClick && !disabled) onClick(menuValue);
     };
 
     render() {
-        const { component, children, defaultClasses, active, color, menuValue, ...other } = this.props;
+        const { component, children, defaultClasses, active, color, disabled, menuValue, ...other } = this.props;
         other.className = classNames(other.className, this.getClasses());
         const Component = component;
         return (
@@ -58,6 +62,7 @@ export default class MenuItem extends React.Component {
         const classes = {
             // variations
             active: this.props.active,
+            disabled: this.props.disabled,
             link: this.props.defaultClasses,
             // component
             item: this.props.defaultClasses

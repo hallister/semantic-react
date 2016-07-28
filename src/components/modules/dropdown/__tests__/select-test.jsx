@@ -163,21 +163,28 @@ describe('Select', () => {
 
                 it('Should render placeholder with default text class anyway if multiple', () => {
                     let wrapper = shallow(
-                        <Select multiple placeholder="Select one" selected={[2]} selection>
+                        <Select multiple placeholder="Select one" selected={[]} selection>
                             <Option value={1}>Simple val</Option>
                             <Option value={2}><h1>Complex</h1></Option>
                         </Select>
                     );
                     expect(wrapper.find('.default.text')).to.be.exist;
                     expect(wrapper.find('.default.text')).to.have.html().match(/Select one/);
+                });
 
-                    // same applies when search
-                    wrapper.setProps({
-                        search: true,
-                        searchString: 'kkk'
-                    });
+                it('Should hide placeholder if searchString exists', () => {
+                    let wrapper = shallow(
+                        <Select placeholder="Select one" search selected={[]} selection>
+                            <Option value={1}>Simple val</Option>
+                            <Option value={2}><h1>Complex</h1></Option>
+                        </Select>
+                    );
                     expect(wrapper.find('.default.text')).to.be.exist;
                     expect(wrapper.find('.default.text')).to.have.html().match(/Select one/);
+                    wrapper.setProps({
+                        searchString: 'text'
+                    });
+                    expect(wrapper.find('.default.text')).to.be.not.exist;
                 });
             });
             
@@ -648,6 +655,23 @@ describe('Select', () => {
                 expect(spy).to.have.been.calledWith('test1');
             });
         });
+
+        describe('When enter key was pressed', () => {
+            it('Should get searchString as value if allowAdditions is true', () => {
+                let wrapper = mount(
+                    <Select active search searchString="search" onSelectChange={onSelectChangeSpy} allowAdditions>
+                        <Option value="ddd">DDD</Option>
+                        <Option value="test1">Test</Option>
+                        <Option value="test3">Test3</Option>
+                        <Option value="test4">Test4</Option>
+                    </Select>
+                );
+                let spy = sinon.stub(wrapper.instance(), 'onMenuItemClick');
+
+                wrapper.find('input').filter('.search').simulate('keydown', { which: 13 });
+                expect(onSelectChangeSpy).to.have.been.calledWith(['search']);
+            });
+        });
     });
 
     describe('When search input changes', () => {
@@ -689,7 +713,7 @@ describe('Select', () => {
             );
 
             document.body.appendChild(extraNode);
-            let event = new MouseEvent('mousedown', { target: extraNode });
+            let event = new window.MouseEvent('mousedown', { target: extraNode });
             document.dispatchEvent(event);
             expect(onRequestClose).to.have.been.called;
         });
@@ -700,7 +724,7 @@ describe('Select', () => {
                 { attachTo: container }
             );
             let selectNode = ReactTestUtils.findRenderedDOMComponentWithClass(wrapper.instance(), 'ui dropdown');
-            let event = new MouseEvent('mousedown', { target: selectNode });
+            let event = new window.MouseEvent('mousedown', { target: selectNode });
             selectNode.dispatchEvent(event);
             expect(onRequestClose).to.have.not.been.called;
         });
