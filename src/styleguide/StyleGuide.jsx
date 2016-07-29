@@ -66,6 +66,9 @@ function globalizeElements() {
     window.Segment = elements.Segment;
     window.Segments = elements.Segments;
 
+    window.Step = elements.Step;
+    window.Steps = elements.Steps;
+
     window.Actions = elements.Actions;
     window.Author = elements.Author;
     window.Container = elements.Container;
