@@ -24,12 +24,19 @@ initialState = { value: 0 };
 ```example
 <Segment>
     <Rating type="star" size="mini" max={5}/>
+    <br/>
     <Rating type="star" size="tiny" max={5}/>
+    <br/>
     <Rating type="star" size="small" max={5}/>
+    <br/>
     <Rating type="star" size="medium" max={5}/>
+    <br/>
     <Rating type="star" size="large" max={5}/>
+    <br/>
     <Rating type="star" size="big" max={5}/>
+    <br/>
     <Rating type="star" size="huge" max={5}/>
+    <br/>
     <Rating type="star" size="massive" max={5}/>
 </Segment>
 ```

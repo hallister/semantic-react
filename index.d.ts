@@ -2059,3 +2059,28 @@ export interface TabsProps extends BaseProps {
     onTabChange?: (tabValue: string | number) => void;
 }
 export class Tabs extends React.Component<TabsProps, any> {}
+
+// <Rating />
+export interface RatingProps extends BaseProps {
+    /**
+     * Rating type
+     */
+    type?: "default" | "star" | "heart";
+    /**
+     * Rating size
+     */
+    size?: SizeType;
+    /**
+     * Rating max value
+     */
+    max?: number;
+    /**
+     * Rating value
+     */
+    value?: number;
+    /*
+     * Rating change value callback
+     */
+    onChange: (val: number) => void;
+}
+export class Rating extends React.Component<RatingProps, any> {}
