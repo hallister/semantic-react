@@ -11,3 +11,7 @@ export { default as Td } from './collections/table/td';
 export { default as Form } from './collections/form/form';
 export { default as Fields } from './collections/form/fields';
 export { default as Field } from './collections/form/field';
+
+export { default as Breadcrumb } from './collections/breadcrumb/breadcrumb';
+export { default as BreadcrumbSection } from './collections/breadcrumb/section';
+export { default as BreadcrumbDivider } from './collections/breadcrumb/divider';

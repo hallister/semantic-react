@@ -25,6 +25,10 @@ function globalizeCollections() {
     window.Table = collections.Table;
     window.Td = collections.Td;
     window.Tr = collections.Tr;
+
+    window.Breadcrumb = collections.Breadcrumb;
+    window.BreadcrumbDivider = collections.BreadcrumbDivider;
+    window.BreadcrumbSection = collections.BreadcrumbSection;
 }
 
 function globalizeElements() {

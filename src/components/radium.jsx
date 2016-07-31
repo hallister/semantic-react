@@ -25,6 +25,10 @@ import Form from './collections/form/form';
 import Fields from './collections/form/fields';
 import Field from './collections/form/field';
 
+import Breadcrumb from './collections/breadcrumb/breadcrumb';
+import BreadcrumbDivider from './collections/breadcrumb/divider';
+import BreadcrumbSection from './collections/breadcrumb/section';
+
 // elements
 
 import Button from './elements/button/button';
@@ -141,6 +145,10 @@ let RadiumTd = Radium(Td);
 let RadiumForm = Radium(Form);
 let RadiumFields = Radium(Fields);
 let RadiumField = Radium(Field);
+
+let RadiumBreadcrumb = Radium(Breadcrumb);
+let RadiumBreadcrumbDivider = Radium(BreadcrumbDivider);
+let RadiumBreadcrumbSection = Radium(BreadcrumbSection);
 
 // elements
 let RadiumButton = Radium(Button);
@@ -340,6 +348,10 @@ export { RadiumTd as Td };
 export { RadiumForm as Form };
 export { RadiumFields as Fields };
 export { RadiumField as Field };
+
+export { RadiumBreadcrumb as Breadcrumb };
+export { RadiumBreadcrumbDivider as BreadcrumbDivider };
+export { RadiumBreadcrumbSection as BreadcrumbSection };
 
 // elements
 export { RadiumButton as Button };

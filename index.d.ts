@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Style, PlainStyle } from "react-motion";
+import Base = Mocha.reporters.Base;
 
 export interface BaseProps {
     /**
@@ -1375,6 +1376,34 @@ export interface TrProps extends TdProps {
 }
 export class Tr extends React.Component<TrProps, any> {
 }
+
+// <BreadcrumbDivider/>
+export interface BreadcrumbDividerProps extends BaseProps {
+    /**
+     * Icon divider
+     */
+    icon?: string;
+}
+
+export class BreadcrumbDivider extends React.Component<BreadcrumbDividerProps, any> {}
+
+// <BreadcrumbSection />
+export interface BreadcrumbSectionProps extends BaseProps {
+    /**
+     * Section may be active
+     */
+    active?: boolean;
+}
+export class BreadcrumbSection extends React.Component<BreadcrumbSectionProps, any> {}
+
+// <Breadcrumb />
+export interface BreadcrumbProps extends BaseProps {
+    /**
+     * A breadcrumb can vary in size
+     */
+    size?: SizeType;
+}
+export class Breadcrumb extends React.Component<BreadcrumbProps, any> {}
 
 // <Card />
 export interface CardProps extends BaseProps, React.DOMAttributes {
