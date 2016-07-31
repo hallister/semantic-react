@@ -1,3 +1,6 @@
+# 0.8.1
+Breadcrumb component, #25
+
 # 0.8.0
 Reworked Rating component
 Step component (thanks @chris--jones)

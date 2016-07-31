@@ -1,6 +1,6 @@
 {
   "name": "semantic-react",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "React components for Semantic UI.",
   "main": "./lib",
   "files": [
