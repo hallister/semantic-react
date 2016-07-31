@@ -54,6 +54,14 @@ module.exports = {
             }
         },
         {
+            name: 'Collections - Breadcrumb',
+            components: () => {
+                return glob.sync(path.resolve(__dirname, 'src/components/collections/breadcrumb/**/*.jsx')).filter(module => {
+                    return !(/(__tests__|examples)/.test(module));
+                });
+            }
+        },
+        {
             name: 'Modules',
             components: () => {
                 return glob.sync(path.resolve(__dirname, 'src/components/modules/**/*.jsx')).filter(module => {

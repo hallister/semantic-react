@@ -3,11 +3,11 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
 import Divider from '../divider';
+import Icon from '../../../elements/icon/icon';
 
 const consumedProps = {
     component: 'div',
-    defaultClasses: true,
-    icon: 'right chevron'
+    defaultClasses: true
 };
 
 describe('collections/breadcrumb/divider', () => {
@@ -24,9 +24,19 @@ describe('collections/breadcrumb/divider', () => {
         expect(wrapper).to.have.className('divider');
     });
 
-    it('can be icon divider', () => {
-        const wrapper = shallow(<Divider icon="right chevron"/>);
-        expect(wrapper).to.have.className('right chevron icon divider');
+    it('Should render child content', () => {
+        const wrapper = shallow(<Divider>/</Divider>);
+        expect(wrapper.children()).to.have.text('/');
+    });
+
+    describe('When has icon child', () => {
+        it('Should render divider icon instead divider', () => {
+            const wrapper = shallow(<Divider component="a"><Icon name="right arrow"/></Divider>);
+            expect(wrapper.is(Icon)).to.be.true;
+            expect(wrapper).to.have.tagName('i');
+            expect(wrapper).to.have.className('divider');
+            expect(wrapper.shallow()).to.have.className('icon');
+        });
     });
 
     itShouldConsumeOwnAndPassCustomProps(Divider, consumedProps);
