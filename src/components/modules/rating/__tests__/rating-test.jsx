@@ -1,20 +1,20 @@
-/* eslint-env node, mocha */
 import React from 'react';
-import { Icon } from '../../../elements';
-import { Rating } from '../../../modules';
+import sinon from 'sinon';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { itShouldConsumeOwnAndPassCustomProps } from '../../../test-utils';
+import Rating from '../rating';
+import RatingIcon from '../icon';
 
 
 let consumedProps = {
     component: 'div',
     defaultClasses: true,
-    heart: true,
-    initialValue: 5,
+    type: 'default',
+    value: 5,
     max: 5,
     size: 'small',
-    star: true
+    onChange: () => {}
 };
 
 describe('Rating', () => {
@@ -32,60 +32,65 @@ describe('Rating', () => {
         });
     });
 
-    it('has a heart mode', () => {
-        let wrapper = shallow(<Rating heart />);
-        expect(wrapper).to.have.className('heart');
-    });
-
-    it('has a star mode', () => {
-        let wrapper = shallow(<Rating star />);
-        expect(wrapper).to.have.className('star');
-    });
-
-    it('can have a maximum value defined', () => {
-        let wrapper = shallow(<Rating max={3} />);
-        expect(wrapper).to.have.exactly(3).descendants(Icon);
-    });
-
-    it('can have a value of zero', () => {
-        let wrapper = shallow(<Rating initialValue={0} />);
-        expect(wrapper).to.have.not.descendants('.active');
-    });
-
-    describe('When setting an initial value on rating', () => {
-        it('can have an initial value set', () => {
-            let wrapper = shallow(<Rating initialValue={1} />);
-            expect(wrapper).to.have.exactly(1).descendants('.active');
+    describe('Can have rating type', () => {
+        it('heart', () => {
+            let wrapper = shallow(<Rating type="heart"/>);
+            expect(wrapper).to.have.className('heart');
         });
 
-        it('does not let initial value override max', () => {
-            let wrapper = shallow(<Rating initialValue={4}
-                                          max={3}/>);
-            expect(wrapper).to.have.exactly(3).descendants('.active');
+        it('star', () => {
+            let wrapper = shallow(<Rating type="star"/>);
+            expect(wrapper).to.have.className('star');
         });
     });
+
+    describe('Renders rating icons', () => {
+        it('Renders number of icons equals to count', () => {
+            const wrapper = shallow(<Rating max={10}/>);
+            expect(wrapper).to.have.exactly(10).descendants(RatingIcon);
+        });
+
+        it('Renders active icons until specified value', () => {
+            const wrapper = shallow(<Rating max={10} value={0}/>);
+            expect(wrapper.find(RatingIcon).filter({ active: true })).to.be.not.exist;
+            wrapper.setProps({ value: 7 });
+            expect(wrapper.find(RatingIcon).filter({ active: true }).length).to.equal(7);
+        });
+    });
+
+    describe('When hovering over rating icon', () => {
+        it('Should make this icon and all previous icon selected', () => {
+            const wrapper = shallow(<Rating max={10} value={0}/>);
+            wrapper.find(RatingIcon).at(7).simulate('mouseEnter', 7);
+            expect(wrapper.find(RatingIcon).filter({ selected: true }).length).to.equal(7);
+        });
+
+        it('Should unset selected when mouse out', () => {
+            const wrapper = shallow(<Rating max={10} value={0}/>);
+            wrapper.find(RatingIcon).at(7).simulate('mouseEnter', 7);
+            wrapper.find(RatingIcon).at(7).simulate('mouseLeave', 7);
+            expect(wrapper.find(RatingIcon).filter({ selected: true }).length).to.equal(0);
+        });
+    });
+
 
     describe('When clicking on rating', () => {
-        // const eventStub = {
-        //     stopPropagation: sinon.stub(),
-        //     preventDefault: sinon.stub()
-        // };
-        it('should change value', () => {
-            let wrapper = shallow(<Rating max={5}
-                                          onChange={() => { }}/>);
-            expect(wrapper).to.have.not.descendants('.active');
+        it('Should call onChange prop with index from clicked icon', () => {
+            const spy = sinon.spy();
+            const wrapper = shallow(<Rating max={10} value={0} onChange={spy}/>);
+            wrapper.find(RatingIcon).at(7).simulate('click', 7);
+            expect(spy).to.have.been.calledWith(7);
+        });
 
-            // FIXME Cannot get it to click on an icon
-            // wrapper.find(Icon).at(0).simulate('click', eventStub);
-            // wrapper.find(Icon).first().prop('onClick')();
-            // expect(wrapper).to.have.exactly(1).descendants('.active');
-
-            // wrapper.find(Icon).prop('onIconClick')(4);
-            // expect(wrapper).to.have.exactly(5).descendants('.active');
+        it('Shouldn\'t call onChange prop if clicked index is equal to current value', () => {
+            const spy = sinon.spy();
+            const wrapper = shallow(<Rating max={10} value={7} onChange={spy}/>);
+            wrapper.find(RatingIcon).at(7).simulate('click', 7);
+            expect(spy).to.have.not.been.called;
         });
     });
 
-    it('should have various sizes', () => {
+    it('Can have various sizes', () => {
         let wrapper = shallow(<Rating size="small" />);
         expect(wrapper).to.have.className('small');
         expect(wrapper).to.have.not.className('size');

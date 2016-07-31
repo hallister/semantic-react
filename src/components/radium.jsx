@@ -305,8 +305,6 @@ RadiumPopup.Components.PopupElement = RadiumPopupElement;
 
 RadiumProgress.Components.Bar = RadiumBar;
 
-RadiumRating.Components.Icon = RadiumIcon;
-
 RadiumResults.Components.Content = RadiumContent;
 RadiumSearch.Components.Icon = RadiumIcon;
 RadiumSearch.Components.Results = RadiumResults;

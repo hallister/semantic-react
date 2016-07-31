@@ -1,108 +1,123 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
-import Icon from './../../elements/icon/icon';
 import DefaultProps from '../../defaultProps';
+import RatingIcon from './icon';
 
+/**
+ * Rating
+ */
 export default class Rating extends React.Component {
     static propTypes = {
         ...DefaultProps.propTypes,
-        heart: React.PropTypes.bool,
-        /*
-         * The initial rating.
-         * @see https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
+        /**
+         * Rating type
          */
-        initialValue: React.PropTypes.number,
-        max: React.PropTypes.number,
-        /*
-         * The callback to call when the user clicks an Icon. The icons' active classes are updated unless this function returns false.
+        type: React.PropTypes.oneOf(['default', 'star', 'heart']),
+        /**
+         * Rating size
          */
-        onChange: React.PropTypes.func,
         size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
-        star: React.PropTypes.bool
+        /**
+         * Rating max value
+         */
+        max: React.PropTypes.number,
+        /**
+         * Rating value
+         */
+        value: React.PropTypes.number,
+        /*
+         * Rating change value callback
+         */
+        onChange: React.PropTypes.func
     };
 
     static defaultProps = {
         ...DefaultProps.defaultProps,
-        initialValue: 0,
+        type: 'default',
+        value: 0,
         max: 5
     };
 
-    /* eslint-disable */
-    static Components = {
-        Icon: Icon
-    };
-    /* eslint-enable */
-
     constructor(props) {
         super(props);
-        this.state = { value: props.initialValue };
+        this.state = {
+            hovered: 0
+        };
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         return shallowCompare(this, nextProps, nextState);
     }
 
-    renderChildren() {
-        let children = [];
-        let classes = {
-            icon: true
-        };
-
-        for (let i = 1; i <= this.props.max; i++) {
-            classes.active = this.state.value >= i;
-
-            if (this.props.onChange) {
-                children.push(
-                    <Rating.Components.Icon
-                        className={classNames(classes)}
-                        key={i}
-                        onClick={this.handleChange.bind(this, i)} />
-                )
-            } else {
-                children.push(
-                    <Rating.Components.Icon
-                        className={classNames(classes)}
-                        key={i} />
-                )
-            }
-
+    /**
+     * Rating click handler
+     * @param index
+     */
+    onRatingIconClick = (index) => {
+        const { onChange, value } = this.props;
+        if (index !== value) {
+            onChange(index);
         }
+    };
 
-        return children;
+    /**
+     * Mouse enter hover handler
+     * @param index
+     */
+    onRatingIconMouseEnter = (index) => {
+        this.setState({ hovered: index });
+    };
+
+    /**
+     * Mouse leave hover handler
+     * @param index
+     */
+    onRatingIconMouseLeave = (index) => {
+        this.setState({ hovered: 0 });
+    };
+
+    renderIcons() {
+        const icons = [];
+        const { max, value } = this.props;
+        const { hovered } = this.state;
+
+        // Indexes are from 1
+        for (let i = 1; i <= max; i++) {
+            icons.push(
+                <RatingIcon key={i}
+                            index={i}
+                            active={(i <= value)}
+                            selected={(i <= hovered)}
+                            onClick={this.onRatingIconClick}
+                            onMouseEnter={this.onRatingIconMouseEnter}
+                            onMouseLeave={this.onRatingIconMouseLeave}
+                />
+            );
+        }
+        return icons;
     }
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { component, defaultClasses, heart, max, size, star, initialValue, onChange, ...other } = this.props;
+        let { component, defaultClasses, type, max, size, value, onChange, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());
-
-        return React.createElement(
-            this.props.component,
-            other,
-            this.renderChildren()
+        const Component = component;
+        return (
+            <Component {...other}>
+                {this.renderIcons()}
+            </Component>
         );
-    }
-
-    handleChange(index) {
-        if (index === this.state.value) {
-            this.props.onChange(0);
-            return;
-        }
-
-        if (this.props.onChange(index) !== false) {
-            this.setState({ value: index });
-        }
     }
 
     getClasses() {
         return {
             ui: this.props.defaultClasses,
             [this.props.size]: !!this.props.size,
-            star: this.props.star,
-            heart: this.props.heart,
+            star: this.props.type === 'star',
+            heart: this.props.type === 'heart',
             rating: this.props.defaultClasses
         }
     }
