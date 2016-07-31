@@ -1,3 +1,11 @@
+# 0.8.0
+Reworked Rating component
+Step component (thanks @chris--jones)
+Modal has close animation by default (thanks @jimmyn)
+allowAdditions in Select (thanks @jimmyn)
+MenuItem can be disabled now (thanks @jimmyn)
+
+
 # 0.7.2
 Fix react 15.2 error when used card component
 Fix dimmable class not being applied correctly for Dimmable component
