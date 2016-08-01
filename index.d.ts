@@ -1378,7 +1378,7 @@ export class Tr extends React.Component<TrProps, any> {
 }
 
 // <BreadcrumbDivider/>
-export interface BreadcrumbDividerProps extends BaseProps {
+export interface BreadcrumbDividerProps extends BaseProps, React.DOMAttributes {
     /**
      * Icon divider
      */
@@ -1388,7 +1388,7 @@ export interface BreadcrumbDividerProps extends BaseProps {
 export class BreadcrumbDivider extends React.Component<BreadcrumbDividerProps, any> {}
 
 // <BreadcrumbSection />
-export interface BreadcrumbSectionProps extends BaseProps {
+export interface BreadcrumbSectionProps extends BaseProps, React.DOMAttributes {
     /**
      * Section may be active
      */
