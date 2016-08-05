@@ -109,9 +109,9 @@ export default class ListItem extends React.Component {
         other.className = classNames(other.className, this.getClasses());
         return (
             <Component {...other}>
+                {this.renderRightFloatedComponent()}
                 {this.renderImageComponent()}
                 {this.renderContent()}
-                {this.renderRightFloatedComponent()}
             </Component>
         );
     }
