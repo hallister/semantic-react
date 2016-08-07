@@ -38,7 +38,6 @@ export default class MenuItem extends React.Component {
     }
 
     onClick = (event) => {
-        event.stopPropagation();
         event.preventDefault();
         const { onClick, menuValue, disabled } = this.props;
         if (onClick && !disabled) onClick(menuValue);
