@@ -1,3 +1,7 @@
+# 0.8.3
+Markup fix with rightFloatedComponent in MenuItem (thanks @Starefossen)
+Do not stop propagating of click event in MenuItem
+
 # 0.8.1
 Breadcrumb component, #25
 
