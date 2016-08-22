@@ -1,3 +1,6 @@
+# 0.8.4
+Checkbox: Allow to style inline label via labelClassName
+
 # 0.8.3
 Markup fix with rightFloatedComponent in MenuItem (thanks @Starefossen)
 Do not stop propagating of click event in MenuItem
