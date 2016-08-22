@@ -6,7 +6,10 @@ import DefaultProps  from '../../defaultProps';
 export default class Checkbox extends Component {
     static propTypes = {
         ...DefaultProps.propTypes,
-
+        /**
+         * Apply additional class name to to the label
+         */
+        labelClassName: React.PropTypes.string,
         /**
          * State checked
          */
@@ -55,7 +58,7 @@ export default class Checkbox extends Component {
 
     renderChildren() {
         /* eslint-disable no-use-before-define */
-        let { children, defaultClasses, className, onClick, type,
+        let { children, defaultClasses, className, labelClassName, onClick, type,
               component, readOnly, checked, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
@@ -66,7 +69,7 @@ export default class Checkbox extends Component {
                 className="hidden"
                 readOnly
                 checked={checked} />,
-            <label key="label">
+            <label key="label" className={labelClassName}>
                 {children}
             </label>
         ];
@@ -76,7 +79,7 @@ export default class Checkbox extends Component {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { component, defaultClasses, checked, disabled, readOnly, type, onClick, name, fitted, ...other } = this.props;
+        let { component, defaultClasses, labelClassName, checked, disabled, readOnly, type, onClick, name, fitted, ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
         other.className = classNames(this.props.className, this.getClasses());

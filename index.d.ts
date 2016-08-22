@@ -1820,12 +1820,37 @@ export class Select extends React.Component<SelectProps, any> {
 
 // <Checkbox />
 export interface CheckboxProps extends BaseProps, React.DOMAttributes {
+    /**
+     * Apply additional class name to to the label
+     */
+    labelClassName?: string;
+    /**
+     * State checked
+     */
     checked?: boolean;
+    /**
+     * A fitted checkbox does not leave padding for a label
+     */
     fitted?: boolean;
+    /**
+     * Does not allow user interaction
+     */
     disabled?: boolean;
+    /**
+     * Attr name
+     */
     name?: string;
+    /**
+     * Callback handler to click checkbox
+     */
     onClick?: React.MouseEventHandler;
+    /**
+     * It does disabled, but does not allow user interaction
+     */
     readOnly?: boolean;
+    /**
+     * Checkbox - appearance
+     */
     type?: "default" | "radio" | "toggle" | "slider";
 }
 export class Checkbox extends React.Component<CheckboxProps, any> {
