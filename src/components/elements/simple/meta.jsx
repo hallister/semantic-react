@@ -18,7 +18,7 @@ export default class Meta extends React.Component {
 
     render() {
         const { children, className, component, defaultClasses, ...other } = this.props;
-        other.className = classNames(className, { metadata: true });
+        other.className = classNames(className, { meta: true });
 
         return React.createElement(
             component,
