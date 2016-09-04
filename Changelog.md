@@ -1,3 +1,7 @@
+# 0.8.5
+Meta: Use correct class name
+Popup: Target property is required now and can be DOM element or react component instance (from ref)
+
 # 0.8.4
 Checkbox: Allow to style inline label via labelClassName
 

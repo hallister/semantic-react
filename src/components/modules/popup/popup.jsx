@@ -57,7 +57,7 @@ export default class Popup extends React.Component {
         /**
          * Target element to apply popup
          */
-        target: React.PropTypes.object,
+        target: React.PropTypes.object.isRequired,
         /**
          * Overlay zIndex
          */
@@ -337,8 +337,10 @@ export default class Popup extends React.Component {
         }
         let popupHTMLElement = this.popupRef.popupEl;
 
-        // If target wasn't provided, then assuming that popup used as child of element, we can obtain target then
-        let targetEl = this.props.target || ReactDOM.findDOMNode(this);
+        const target = this.props.target;
+
+        // Obtain target DOM element if provided react element instead
+        let targetEl = target instanceof Element ? target : ReactDOM.findDOMNode(target);
         if (!targetEl) {
             return;
         }

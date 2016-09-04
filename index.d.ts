@@ -1953,7 +1953,7 @@ export interface PopupProps extends BaseProps, AnimationProps, React.DOMAttribut
     /**
      * Target element to apply popup
      */
-    target?: any;
+    target: any;
     /**
      * Popup position
      */
