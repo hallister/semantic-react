@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import shallowCompare from 'react-addons-shallow-compare';
 import EventListener from 'react-event-listener';
-import { Motion, spring } from 'react-motion';
-import Measure from 'react-measure';
 import DropdownElement from './dropdownelement';
 import Label from './../../elements/label/label';
 import Icon from './../../elements/icon/icon';
 import Header from './../../elements/header/header';
 import Menu from './../../views/menu/menu';
 import { isNodeInRoot } from '../../utilities';
-import AnimationProps, { getMotionStyle, valueFromPercents } from '../../animationUtils';
 import SemanticCSSTransition from '../../animation/animation';
 
 
