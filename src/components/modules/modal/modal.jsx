@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Motion, spring } from 'react-motion';
 import Measure from 'react-measure';
 import Portal from 'react-portal';
 import EventListener from 'react-event-listener';
 import { isNodeInRoot } from '../../utilities';
 import Dimmer from '../dimmer/dimmer';
 import ModalElement from './modalelement';
-import AnimationProps, { getMotionStyle } from '../../animationUtils';
 import SemanticCSSTransition from '../../animation/animation';
 
 /**
