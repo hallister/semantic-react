@@ -13,7 +13,14 @@ export default class SemanticCSSTransitionChildren extends React.Component {
         enterDuration: React.PropTypes.number,
         leaveDuration: React.PropTypes.number,
         enter: React.PropTypes.string,
-        leave: React.PropTypes.string
+        leave: React.PropTypes.string,
+        onEnter: React.PropTypes.func,
+        onLeave: React.PropTypes.func
+    };
+
+    static defaultProps = {
+        onEnter: () => {},
+        onLeave: () => {}
     };
 
     constructor(props) {
@@ -39,18 +46,24 @@ export default class SemanticCSSTransitionChildren extends React.Component {
     };
 
     componentWillEnter = (done) => {
-        const { enter } = this.props;
+        const { enter, onEnter } = this.props;
         if (typeof enter === 'string') {
-            this.enterTransition(done);
+            this.enterTransition(() => {
+                onEnter();
+                done();
+            });
         } else {
             done();
         }
     };
 
     componentWillLeave = (done) => {
-        const { leave } = this.props;
+        const { leave, onLeave } = this.props;
         if (typeof leave === 'string') {
-            this.leaveTransition(done);
+            this.leaveTransition(() => {
+                onLeave();
+                done();
+            });
         } else {
             done();
         }

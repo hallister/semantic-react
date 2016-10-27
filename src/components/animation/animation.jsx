@@ -27,12 +27,22 @@ export default class SemanticCSSTransition extends React.Component {
         /**
          * Leave animation name
          */
-        leave: React.PropTypes.string
+        leave: React.PropTypes.string,
+        /**
+         * Enter callback
+         */
+        onEnter: React.PropTypes.func,
+        /**
+         * Leave callback
+         */
+        onLeave: React.PropTypes.func
     };
 
     static defaultProps = {
         enterDuration: 500,
-        leaveDuration: 500
+        leaveDuration: 500,
+        onEnter: () => {},
+        onLeave: () => {}
     };
 
     render() {
