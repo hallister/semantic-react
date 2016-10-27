@@ -31,7 +31,7 @@ export default class Accordion extends React.PureComponent {
         /**
          * A styled accordion adds basic formatting
          */
-        styled: React.PropTypes.bool,
+        styled: React.PropTypes.bool
     };
 
     static contextTypes = {
@@ -91,7 +91,7 @@ export default class Accordion extends React.PureComponent {
                         React.cloneElement(body, {
                             active: active,
                             key: body.key ? body.key : `content-${child.props.index}`,
-                            styled: this.props.styled,
+                            styled: this.props.styled
                         })
                     );
                     // skip next element
