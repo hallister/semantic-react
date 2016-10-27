@@ -1,18 +1,18 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
-import Measure from 'react-measure';
-import { Motion, spring } from 'react-motion';
+import SemanticCSSTransitionGroup from '../../animation/animation';
 import classNames from 'classnames';
 import { hasChild } from '../../utilities';
 import DefaultProps from '../../defaultProps';
-import AnimationProps, { getMotionStyle } from '../../animationUtils';
 import Content from './../../elements/simple/content';
 import Loader from './../../elements/loader/loader';
 
-export default class Dimmer extends React.Component {
+/**
+ * Dimmer
+ */
+export default class Dimmer extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        ...AnimationProps.propTypes,
+        ...SemanticCSSTransitionGroup.propTypes,
         /**
          * Hide/Display dimmer
          */
@@ -43,16 +43,11 @@ export default class Dimmer extends React.Component {
 
     static defaultProps = {
         ...DefaultProps.defaultProps,
+        enterDuration: 500,
+        leaveDuration: 300,
+        enter: 'fade in',
+        leave: 'fade out',
         active: false,
-        initialAnimation: {
-            opacity: 0.3
-        },
-        enterAnimation: {
-            opacity: spring(1, { stiffness: 500, damping: 40, precision: 1})
-        },
-        leaveAnimation: {
-            opacity: spring(0, { stiffness: 900, damping: 40, precision: 1})
-        },
         page: false,
         inverted: false,
         noWrapChildren: false
@@ -65,73 +60,9 @@ export default class Dimmer extends React.Component {
     };
     /* eslint-enable */
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            animating: false,
-            dimmerHeight: 1,
-            dimmerWidth: 1
-        };
-
-        this.dimmerActiveStyle = {
-            display: 'block'
-        };
-
-        this.dimmerHiddenStyle = {
-            display: 'none'
-        };
-    }
-
     getChildContext() {
         return {
             isDimmerChild: true
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.active !== nextProps.active) {
-            this.setState({ animating: true });
-        }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
-    /**
-     * Modal dimensions was changed
-     * @param dimensions
-     */
-    onDimmerMeasure = (dimensions) => {
-        if (dimensions &&
-            ((dimensions.height && dimensions.height !== this.state.dimmerHeight) ||
-            (dimensions.width && dimensions.width !== this.state.dimmerWidth))) {
-            this.setState({
-                dimmerHeight: dimensions.height,
-                dimmerWidth: dimensions.width
-            });
-        }
-    }
-
-    /**
-     * Animation completed
-     */
-    onAnimationRest = () => {
-        this.setState({ animating: false });
-    };
-
-    /**
-     * Return animation style to apply
-     * @param interpolatedStyle
-     * @param dimensions
-     */
-    getAnimationStyle(interpolatedStyle, dimensions) {
-        const { active, onAnimationStyle } = this.props;
-        if (onAnimationStyle && typeof onAnimationStyle === "function") {
-            return onAnimationStyle(interpolatedStyle, dimensions, active);
-        }
-        return {
-            opacity: interpolatedStyle.opacity
         };
     }
 
@@ -147,65 +78,43 @@ export default class Dimmer extends React.Component {
         }
     }
 
-    /**
-     * Render dimmer
-     * @param interpolatedStyle
-     * @returns {XML}
-     */
-    renderDimmer(interpolatedStyle) {
+    render() {
+        // Note: Need to consume closePortal since dimmer could be called from portal-ed components (modal/popup)
+        /* eslint-disable no-use-before-define */
         const {
-            active, children, component, defaultClasses, initialAnimation, enterAnimation, leaveAnimation,
+            active, children, component, defaultClasses, enterDuration, leaveDuration, enter, leave,
             page, inverted, noWrapChildren, closePortal, ...other
         } = this.props;
-
-        const animatingStyle = this.getAnimationStyle(interpolatedStyle, { height: this.state.dimmerHeight, width: this.state.dimmerWidth });
-        /* eslint-disable */
-        // Apply additional styling for dimmer when visible/hidden
-        const dimmerStyle = active ? this.dimmerActiveStyle :
-            this.state.animating ? this.dimmerActiveStyle : this.dimmerHiddenStyle;
-        /* eslint-enable */
-        const Component = component;
-        other.className = classNames(other.className, this.getClasses());
-        // Final dimmer style
-        const style = {...other.style, ...dimmerStyle, ...animatingStyle };
-        return (
-            <Measure accurate
-                     whitelist={["height", "width"]}
-                     onMeasure={this.onDimmerMeasure}
-            >
-                <Component {...other}
-                           key="dimmer"
-                           style={style}
-                >
-                    {this.renderChildren()}
-                </Component>
-            </Measure>
-        );
-    }
-    
-    render() {
-        /* eslint-disable no-use-before-define */
-        const { active, initialAnimation, enterAnimation, leaveAnimation } = this.props;
         /* eslint-enable no-use-before-define */
 
-        const motionStyle = getMotionStyle(initialAnimation, enterAnimation, leaveAnimation, active);
+        const Component = component;
+        other.className = classNames(other.className, this.getClasses());
+
         return (
-            <Motion defaultStyle={initialAnimation}
-                    style={motionStyle}
-                    onRest={this.onAnimationRest}
+            <SemanticCSSTransitionGroup
+                enter={enter}
+                leave={leave}
+                enterDuration={enterDuration}
+                leaveDuration={leaveDuration}
             >
-                {interpolatedStyle => this.renderDimmer(interpolatedStyle)}
-            </Motion>
+                {active &&
+                    <Component {...other}
+                        key="dimmer"
+                    >
+                        {this.renderChildren()}
+                    </Component>
+                }
+            </SemanticCSSTransitionGroup>
         );
     }
     
     getClasses() {
         return {
             ui: this.props.defaultClasses,
-            dimmer: this.props.defaultClasses,
             active: this.props.active,
             page: this.props.page,
-            inverted: this.props.inverted
+            inverted: this.props.inverted,
+            dimmer: this.props.defaultClasses
         };
     }
 }
