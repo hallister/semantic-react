@@ -1,12 +1,9 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
-import { Motion, spring } from 'react-motion';
-import Measure from 'react-measure';
 import classNames from 'classnames';
 import Icon from './../../elements/icon/icon';
 import Results from './results';
 import DefaultProps from '../../defaultProps';
-import AnimationProps, { getMotionStyle } from '../../animationUtils';
+import SemanticCSSTransition from '../../animation/animation';
 
 /*
 3 support results types:
@@ -22,10 +19,10 @@ import AnimationProps, { getMotionStyle } from '../../animationUtils';
 
 ['test', 'test']
 */
-export default class Search extends React.Component {
+export default class Search extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        ...AnimationProps.propTypes,
+        ...SemanticCSSTransition.propTypes,
         emptyHeader: React.PropTypes.string,
         emptyMessage: React.PropTypes.string,
         icon: React.PropTypes.oneOfType([
@@ -45,18 +42,11 @@ export default class Search extends React.Component {
 
     static defaultProps = {
         ...DefaultProps.defaultProps,
-        initialAnimation: {
-            opacity: 0,
-            scale: 0
-        },
-        enterAnimation: {
-            opacity: spring(1, { stiffness: 800, damping: 40, precision: 0.1 }),
-            scale: spring(1, { stiffness: 800, damping: 40, precision: 0.1 })
-        },
-        leaveAnimation: {
-            opacity: spring(0, { stiffness: 800, damping: 40, precision: 0.1 }),
-            scale: spring(0, { stiffness: 800, damping: 40, precision: 0.1 })
-        },
+        ...SemanticCSSTransition.defaultProps,
+        enter: 'scale in',
+        leave: 'scale out',
+        enterDuration: 200,
+        leaveDuration: 200,
         icon: 'search',
         onSearchClick: function noop() {},
         placeholder: 'Search...',
@@ -74,14 +64,8 @@ export default class Search extends React.Component {
         super(props);
 
         this.state = {
-            resultsHeight: 1,
-            resultsWidth: 1,
             focus: false
         };
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     onBlur = () => {
@@ -104,21 +88,6 @@ export default class Search extends React.Component {
 
     onSearchClick = (e, child) => {
         this.props.onSearchClick(e, child);
-    }
-
-    /**
-     * Results dimensions was changed
-     * @param dimensions
-     */
-    onMeasure = (dimensions) => {
-        if (dimensions &&
-            ((dimensions.height && dimensions.height !== this.state.resultsHeight) ||
-            (dimensions.width && dimensions.width !== this.state.resultsWidth))) {
-            this.setState({
-                resultsHeight: dimensions.height,
-                resultsWidth: dimensions.width
-            });
-        }
     }
 
     renderInput() {
@@ -144,16 +113,6 @@ export default class Search extends React.Component {
         return <Search.Components.Icon name={this.props.icon} />;
     }
 
-    getAnimationStyle(interpolatedStyle, dimensions) {
-        const { onAnimationStyle } = this.props;
-        if (onAnimationStyle) {
-            return onAnimationStyle(interpolatedStyle, dimensions);
-        }
-        return {
-            transform: `scale(${interpolatedStyle.scale})`,
-            opacity: interpolatedStyle.opacity
-        };
-    }
 
     renderResults() {
         const resultProps = {
@@ -165,26 +124,19 @@ export default class Search extends React.Component {
             search: this.props.value || ''
         };
 
-        const { initialAnimation, enterAnimation, leaveAnimation } = this.props;
-        const motionStyle = getMotionStyle(initialAnimation, enterAnimation, leaveAnimation, !!(this.state.focus && this.props.value !== ''));
+        const { enter, leave, enterDuration, leaveDuration } = this.props;
 
         return (
-            <Motion defaultStyle={initialAnimation}
-                    style={motionStyle}
+            <SemanticCSSTransition
+                enter={enter}
+                leave={leave}
+                enterDuration={enterDuration}
+                leaveDuration={leaveDuration}
             >
-                {interpolatedStyle => {
-                    const animationStyle = this.getAnimationStyle(interpolatedStyle, { height: this.state.resultsHeight, width: this.state.resultsWidth });
-                    return (
-                        <Measure whitelist={['height', 'width']}
-                                 accurate
-                                 onMeasure={this.onMeasure}
-                                 key="measure"
-                        >
-                            <Search.Components.Results {...resultProps} style={animationStyle} key="results"/>
-                        </Measure>
-                    );
-                }}
-            </Motion>
+                {this.state.focus && this.props.value !== '' &&
+                <Search.Components.Results {...resultProps} key="results"/>
+                }
+            </SemanticCSSTransition>
         );
     }
 
