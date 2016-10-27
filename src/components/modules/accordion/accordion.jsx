@@ -1,12 +1,11 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 /**
  * Controlled accordion
  */
-export default class Accordion extends React.Component {
+export default class Accordion extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -45,44 +44,9 @@ export default class Accordion extends React.Component {
 
     static defaultProps = {
         ...DefaultProps.defaultProps,
-        animating: true,
         activeIndexes: [],
         onAccordionChange: () => { }
     };
-
-    constructor(props) {
-        super(props);
-
-        // Disallow to override animation style for now, since paddingTop and paddingBottom need to be animated too
-        // I don't want to bother with dealing with unit measures for now, so just hardcode semantic EM values here and in body component
-        // this.enterAnimation = {
-        //     height: {
-        //         val: 'auto',
-        //         stiffness: 300,
-        //         damping: 40,
-        //         precision: 0.1
-        //     },
-        //     paddingTop: {
-        //         val: 0.5,
-        //         stiffness: 300,
-        //         damping: 40,
-        //         precision: 0.2
-        //     }
-        // };
-        // this.enterAnimation.paddingBottom = {
-        //     val: (props.styled) ? 1.5 : 1,
-        //     stiffness: 300,
-        //     damping: 40,
-        //     precision: 0.3
-        // }
-        // this.enterAnimation.paddingBottom = (props.styled) ? 1.5 : 1; // em
-        // this.enterAnimation.paddingBottom = 1.0; // em
-        // this.leaveAnimation = {
-        //     height: 0,
-        //     paddingTop: 0,
-        //     paddingBottom: 0
-        // }
-    }
 
     getChildContext() {
         return {
@@ -90,9 +54,6 @@ export default class Accordion extends React.Component {
         };
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     /**
      * Accordion title click handler
@@ -101,7 +62,7 @@ export default class Accordion extends React.Component {
      */
     onAccordionTitleClick = (index) => {
         this.props.onAccordionChange(index);
-    }
+    };
 
     /**
      * Process children. Skips non active content
@@ -131,7 +92,6 @@ export default class Accordion extends React.Component {
                             active: active,
                             key: body.key ? body.key : `content-${child.props.index}`,
                             styled: this.props.styled,
-                            animating: this.props.animating
                         })
                     );
                     // skip next element

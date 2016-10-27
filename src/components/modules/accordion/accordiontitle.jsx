@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 import elementType from 'react-prop-types/lib/elementType';
@@ -8,7 +7,7 @@ import Icon from './../../elements/icon/icon';
 /**
  * Title element for Accordion
  */
-export default class AccordionTitle extends React.Component {
+export default class AccordionTitle extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -45,10 +44,6 @@ export default class AccordionTitle extends React.Component {
         Icon: Icon
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     /**
      * Title was clicked
