@@ -12,9 +12,21 @@ function FirstChild(props) {
  */
 export default class SemanticCSSTransition extends React.Component {
     static propTypes = {
+        /**
+         * Enter animation duration
+         */
         enterDuration: React.PropTypes.number,
+        /**
+         * Leave animation duration
+         */
         leaveDuration: React.PropTypes.number,
+        /**
+         * Enter animation name
+         */
         enter: React.PropTypes.string,
+        /**
+         * Leave animation name
+         */
         leave: React.PropTypes.string
     };
 
