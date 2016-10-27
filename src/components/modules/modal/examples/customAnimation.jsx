@@ -7,7 +7,6 @@ import Content from './../../../elements/simple/content';
 import Description from './../../../elements/simple/description';
 import Actions from './../../../elements/simple/actions';
 import LabeledButton from './../../../elements/button/labeledbutton';
-import { spring } from '../../../animationUtils';
 
 class MyCustomAnimatedModal extends React.Component {
     constructor(props) {
