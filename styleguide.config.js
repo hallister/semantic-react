@@ -98,7 +98,7 @@ module.exports = {
     updateWebpackConfig: function(webpackConfig, env) {
         var dir = path.join(__dirname, 'src', 'components');
         var styleguideComponentsDir = path.join(__dirname, 'src', 'styleguide');
-        
+
         var babelConfig = {
             test: /\.(jsx|js)$/,
             loader: 'babel',
@@ -110,18 +110,17 @@ module.exports = {
         };
         
         if (process.env.NODE_ENV !== 'production') {
-            babelConfig.query = { presets:  ['react-hmre'] };
+            // babelConfig.query = { presets:  ['react-hmre'] };
         }
         
         webpackConfig.module.loaders.push(babelConfig);
         
         webpackConfig.devtool = 'inline-source-map';
         webpackConfig.resolve.extensions.push('.es6');
-        
-        // Add enhanced props loader
-        webpackConfig.resolveLoader.modulesDirectories.unshift('src/loaders');
 
-        // webpackConfig.resolve.alias['rsg-components/TableOfContents'] = path.join(__dirname, 'src/styleguide/TableOfContents');
+        // Add enhanced props loader
+        webpackConfig.resolveLoader.modulesDirectories.unshift(path.join(__dirname, 'src', 'loaders'));
+
         webpackConfig.resolve.alias['rsg-components/StyleGuide'] = path.join(__dirname, 'src/styleguide/StyleGuide');
         return webpackConfig;
     }

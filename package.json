@@ -95,6 +95,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-webpack": "^1.8.0",
+    "loader-utils": "^0.2.16",
     "lolex": "^1.5.1",
     "mocha": "^3.1.2",
     "mutationobserver-shim": "^0.3.2",
