@@ -110,7 +110,7 @@ module.exports = {
         };
         
         if (process.env.NODE_ENV !== 'production') {
-            // babelConfig.query = { presets:  ['react-hmre'] };
+            babelConfig.query = { presets:  ['react-hmre'] };
         }
         
         webpackConfig.module.loaders.push(babelConfig);

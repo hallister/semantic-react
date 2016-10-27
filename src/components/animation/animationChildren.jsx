@@ -15,12 +15,14 @@ export default class SemanticCSSTransitionChildren extends React.Component {
         enter: React.PropTypes.string,
         leave: React.PropTypes.string,
         onEnter: React.PropTypes.func,
-        onLeave: React.PropTypes.func
+        onLeave: React.PropTypes.func,
+        runOnMount: React.PropTypes.bool
     };
 
     static defaultProps = {
         onEnter: () => {},
-        onLeave: () => {}
+        onLeave: () => {},
+        runOnMount: false
     };
 
     constructor(props) {
@@ -42,31 +44,46 @@ export default class SemanticCSSTransitionChildren extends React.Component {
     }
 
     componentWillAppear = (done) => {
-        done();
+        const { runOnMount } = this.props;
+        if (runOnMount) {
+            this.componentWillEnter(done);
+        } else {
+            done();
+        }
+    };
+
+    componentDidAppear = () => {
+        const { runOnMount, onEnter } = this.props;
+        if (runOnMount) {
+            onEnter();
+        }
     };
 
     componentWillEnter = (done) => {
-        const { enter, onEnter } = this.props;
+        const { enter } = this.props;
         if (typeof enter === 'string') {
-            this.enterTransition(() => {
-                onEnter();
-                done();
-            });
+            this.enterTransition(done);
         } else {
             done();
         }
     };
 
+    componentDidEnter = () => {
+        this.props.onEnter();
+    };
+
+
     componentWillLeave = (done) => {
-        const { leave, onLeave } = this.props;
+        const { leave } = this.props;
         if (typeof leave === 'string') {
-            this.leaveTransition(() => {
-                onLeave();
-                done();
-            });
+            this.leaveTransition(done);
         } else {
             done();
         }
+    };
+
+    componentDidLeave = () => {
+        this.props.onLeave();
     };
 
     enterTransition = (done) => {

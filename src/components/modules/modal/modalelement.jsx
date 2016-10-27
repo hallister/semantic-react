@@ -45,7 +45,7 @@ export default class ModalElement extends React.Component {
     }
 
     render() {
-        const { component, defaultClasses, children, active, basic, fullscreen, scrolling, size, closePortal, ...other } = this.props;
+        const { component, defaultClasses, children, active, basic, fullscreen, scrolling, size, closePortal, runOnMount, ...other } = this.props;
         let Component = component;
         other.className = classNames(other.className, this.getClasses());
         return (

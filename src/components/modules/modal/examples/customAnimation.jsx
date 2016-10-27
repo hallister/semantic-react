@@ -21,13 +21,7 @@ class MyCustomAnimatedModal extends React.Component {
         this.setState({
             active: false
         });
-    }
-
-    onAnimationStyle = (interpolatedStyle, dimensions, active) => {
-        return {
-            transform: `translateY(${interpolatedStyle.y}px)`
-        };
-    }
+    };
 
     render() {
         return (
@@ -35,16 +29,10 @@ class MyCustomAnimatedModal extends React.Component {
                 <Button onClick={() => this.setState({ active: true })}>Open modal</Button>
                 <Modal onRequestClose={this.onCloseModal}
                        active={this.state.active}
-                       initialAnimation={{
-                           y: -500
-                       }}
-                       enterAnimation={{
-                           y: 0
-                       }}
-                       leaveAnimation={{
-                           y: spring(800, { stiffness: 800, damping: 40, precision: 1 })
-                       }}
-                       onAnimationStyle={this.onAnimationStyle}
+                       enter="slide in"
+                       enterDuration={1000}
+                       leave="scale out"
+                       leaveDuration={1000}
                 >
                     <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
                     <Header>Select a photo</Header>

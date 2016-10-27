@@ -35,18 +35,24 @@ export default class SemanticCSSTransition extends React.Component {
         /**
          * Leave callback
          */
-        onLeave: React.PropTypes.func
+        onLeave: React.PropTypes.func,
+        /**
+         * Run animation on component mounting (transition component)
+         * It's necessary for portal components
+         */
+        runOnMount: React.PropTypes.bool
     };
 
     static defaultProps = {
         enterDuration: 500,
         leaveDuration: 500,
+        runOnMount: false,
         onEnter: () => {},
         onLeave: () => {}
     };
 
     render() {
-        const { enterDuration, leaveDuration, enter, leave, ...other } = this.props;
+        const { enterDuration, leaveDuration, enter, leave, onEnter, onLeave, runOnMount, ...other } = this.props;
         return (
             <ReactTransitionGroup
                 {...other}
@@ -56,13 +62,16 @@ export default class SemanticCSSTransition extends React.Component {
     }
 
     wrapChildren = (child) => {
-        const { enterDuration, leaveDuration, enter, leave } = this.props;
+        const { enterDuration, leaveDuration, enter, leave, onEnter, onLeave, runOnMount } = this.props;
         return (
             <SemanticCSSTransitionChildren
                 enterDuration={enterDuration}
                 leaveDuration={leaveDuration}
                 enter={enter}
                 leave={leave}
+                onEnter={onEnter}
+                onLeave={onLeave}
+                runOnMount={runOnMount}
             >
                 {child}
             </SemanticCSSTransitionChildren>

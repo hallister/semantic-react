@@ -1,5 +1,5 @@
 import React from 'react';
-import SemanticCSSTransitionGroup from '../../animation/animation';
+import SemanticCSSTransition from '../../animation/animation';
 import classNames from 'classnames';
 import { hasChild } from '../../utilities';
 import DefaultProps from '../../defaultProps';
@@ -12,7 +12,7 @@ import Loader from './../../elements/loader/loader';
 export default class Dimmer extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        ...SemanticCSSTransitionGroup.propTypes,
+        ...SemanticCSSTransition.propTypes,
         /**
          * Hide/Display dimmer
          */
@@ -91,11 +91,12 @@ export default class Dimmer extends React.PureComponent {
         other.className = classNames(other.className, this.getClasses());
 
         return (
-            <SemanticCSSTransitionGroup
+            <SemanticCSSTransition
                 enter={enter}
                 leave={leave}
                 enterDuration={enterDuration}
                 leaveDuration={leaveDuration}
+                runOnMount
             >
                 {active &&
                     <Component {...other}
@@ -104,7 +105,7 @@ export default class Dimmer extends React.PureComponent {
                         {this.renderChildren()}
                     </Component>
                 }
-            </SemanticCSSTransitionGroup>
+            </SemanticCSSTransition>
         );
     }
     

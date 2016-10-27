@@ -4,19 +4,19 @@ import { Motion, spring } from 'react-motion';
 import Measure from 'react-measure';
 import Portal from 'react-portal';
 import EventListener from 'react-event-listener';
-import shallowCompare from 'react-addons-shallow-compare';
 import { isNodeInRoot } from '../../utilities';
 import Dimmer from '../dimmer/dimmer';
 import ModalElement from './modalelement';
 import AnimationProps, { getMotionStyle } from '../../animationUtils';
+import SemanticCSSTransition from '../../animation/animation';
 
 /**
  * Modal is modal
  */
-export default class Modal extends React.Component {
+export default class Modal extends React.PureComponent {
     static propTypes = {
         ...ModalElement.propTypes,
-        ...AnimationProps.propTypes,
+        ...SemanticCSSTransition.propTypes,
         /**
          * Dimmer variations
          */
@@ -46,21 +46,15 @@ export default class Modal extends React.Component {
 
     static defaultProps = {
         ...ModalElement.defaultProps,
+        ...SemanticCSSTransition.defaultProps,
         onRequestClose: () => {},
         onModalOpened: () => {},
         onModalClosed: () => {},
-        initialAnimation: {
-            opacity: 0.5,
-            scale: 0.5
-        },
-        enterAnimation: {
-            opacity: spring(1, { stiffness: 300, damping: 40, precision: 1 }),
-            scale: spring(1, { stiffness: 300, damping: 25, precision: 1 })
-        },
-        leaveAnimation: {
-            opacity: spring(0, { stiffness: 700, damping: 40, precision: 1 }),
-            scale: spring(0.5, { stiffness: 700, damping: 40, precision: 1 })
-        },
+
+        enter: 'scale in',
+        leave: 'scale out',
+        enterDuration: 500,
+        leaveDuration: 500,
         zIndex: 1000
     };
 
@@ -78,10 +72,11 @@ export default class Modal extends React.Component {
             modalHeight: 1,
             modalWidth: 1,
             active: props.active,
-            closing: false,
+            closing: false
         };
 
         this.modal = null;
+        this.measureWhitelist = ['height', 'width'];
     }
 
     getChildContext() {
@@ -106,12 +101,6 @@ export default class Modal extends React.Component {
         }
     }
 
-
-    shouldComponentUpdate(nextProps, nextState) {
-        // since we're changing state immediately after componentDidUpdate we need to prevent re-rendering loop
-        return shallowCompare(this, nextProps, nextState);
-    }
-
     onPressEsc = (event) => {
         if (event.keyCode !== 27) {
             return;
@@ -119,7 +108,7 @@ export default class Modal extends React.Component {
 
         event.stopPropagation();
         this.props.onRequestClose(event);
-    }
+    };
 
     onOutsideClick = (event) => {
         if (!this.state.active || this.state.closing) {
@@ -133,7 +122,7 @@ export default class Modal extends React.Component {
         }
         event.stopPropagation();
         this.props.onRequestClose(event);
-    }
+    };
 
     /**
      * Modal dimensions was changed
@@ -148,36 +137,24 @@ export default class Modal extends React.Component {
                 modalWidth: dimensions.width
             });
         }
-    }
+    };
 
     /**
      * Animation completed
      */
     onAnimationRest = () => {
         if (!this.state.active && this.state.closing) {
-            this.setState({ closing: false });
+            setTimeout(() => this.setState({ closing: false }));
         }
-    }
-
-    getAnimationStyle(interpolatedStyle, dimensions) {
-        const { onAnimationStyle } = this.props;
-        if (onAnimationStyle && typeof onAnimationStyle === "function") {
-            return onAnimationStyle(interpolatedStyle, dimensions, this.state.active);
-        }
-        return {
-            opacity: interpolatedStyle.opacity,
-            transform: `scale(${interpolatedStyle.scale})`
-        };
-    }
+    };
 
     /**
      * Render modal element
-     * @param interpolatedStyle Interpolated style
      * @returns {*}
      */
-    renderModal(interpolatedStyle) {
+    renderModal() {
         const {
-            component, defaultClasses, initialAnimation, enterAnimation, leaveAnimation, children, dimmed, onOutsideClick, style, zIndex,
+            component, defaultClasses, enter, leave, enterDuration, leaveDuration, onEnter, onLeave, children, dimmed, onOutsideClick, style, zIndex,
             onModalOpened, onModalClosed, onRequestClose, onAnimationStyle, ...other
         } = this.props;
         let positionTop = 0;
@@ -189,40 +166,52 @@ export default class Modal extends React.Component {
             positionTop = window.innerHeight / 2 - this.state.modalHeight / 2;
         }
 
-        const animationStyle = this.getAnimationStyle(interpolatedStyle, {
-            height: this.state.modalHeight,
-            width: this.state.modalWidth
-        });
         const modalStyle = {
             ...style,
             position: 'fixed',
-            top: positionTop,
-            ...animationStyle
+            top: positionTop
         };
 
         return (
-            <Measure accurate
-                     whitelist={["height", "width"]}
-                     shouldMeasure
-                     onMeasure={this.onModalMeasure}
+            <SemanticCSSTransition
+                enterDuration={enterDuration}
+                leaveDuration={leaveDuration}
+                enter={enter}
+                leave={leave}
+                onLeave={this.onAnimationRest}
+                runOnMount
             >
-                <Modal.Components.ModalElement {...other}
-                                               active={this.state.active || (!this.state.active && this.state.closing)}
-                                               key="modal"
-                                               ref={ref => this.modal = ref}
-                                               scrolling={scrolling}
-                                               style={modalStyle}
+                {this.state.active &&
+                <Measure
+                    accurate
+                    whitelist={this.measureWhitelist}
+                    shouldMeasure
+                    onMeasure={this.onModalMeasure}
+                    key="modal-measure"
                 >
-                    {children}
-                </Modal.Components.ModalElement>
-            </Measure>
+                    <Modal.Components.ModalElement
+                        {...other}
+                        active={this.state.active || (!this.state.active && this.state.closing)}
+                        key="modal"
+                        ref={ref => this.modal = ref}
+                        scrolling={scrolling}
+                        style={modalStyle}
+                    >
+                        <EventListener
+                            target={document}
+                            onKeyDown={this.onPressEsc}
+                            onMouseDown={this.onOutsideClick}
+                            onTouchStart={this.onOutsideClick}/>
+                        {children}
+                    </Modal.Components.ModalElement>
+                </Measure>
+                }
+            </SemanticCSSTransition>
         );
     }
 
     render() {
-        const {
-            initialAnimation, enterAnimation, leaveAnimation, zIndex, onModalOpened, onModalClosed
-        } = this.props;
+        const { onModalOpened, onModalClosed, enterDuration, leaveDuration, zIndex } = this.props;
 
         // Apply layer to portal to prevent clicking outside
         const portalStyle = {
@@ -234,30 +223,24 @@ export default class Modal extends React.Component {
             zIndex: zIndex
         };
 
-        const springAnimationStyle = getMotionStyle(initialAnimation, enterAnimation, leaveAnimation, this.state.active);
         return (
-            <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
-                    style={portalStyle}
-                    onOpen={onModalOpened}
-                    onClose={onModalClosed}
+            <Portal
+                isOpened={this.state.active || (!this.state.active && this.state.closing)}
+                style={portalStyle}
+                onOpen={onModalOpened}
+                onClose={onModalClosed}
             >
-                <Modal.Components.Dimmer active={this.state.active}
-                                         page
-                                         noWrapChildren
-                                         className="modals"
-                >
-                    <EventListener target={document}
-                                   onKeyDown={this.onPressEsc}
-                                   onMouseDown={this.onOutsideClick}
-                                   onTouchStart={this.onOutsideClick}/>
-                    <Motion defaultStyle={initialAnimation}
-                            style={springAnimationStyle}
-                            onRest={this.onAnimationRest}
-                    >
-                        {interpolatedStyle => this.renderModal(interpolatedStyle)}
-                    </Motion>
-
-                </Modal.Components.Dimmer>
+                {/* We don't want to have another transition inside Dimmer, since dimmer leave transition will block modal leave transition */}
+                <div style={portalStyle}>
+                    <Modal.Components.Dimmer
+                        active={this.state.active}
+                        page
+                        noWrapChildren
+                        className="modals"
+                        enterDuration={enterDuration}
+                        leaveDuration={leaveDuration}/>
+                    {this.renderModal()}
+                </div>
             </Portal>
         );
     }
