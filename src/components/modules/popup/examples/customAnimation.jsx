@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '../../../elements/button/button';
 import Popup from '../popup';
-import { spring } from '../../../animationUtils';
 
 class MyCustomAnimatedPopup extends React.Component {
     constructor(props) {
@@ -20,13 +19,6 @@ class MyCustomAnimatedPopup extends React.Component {
         this.setState({ popupActive: false });
     }
 
-    onAnimationStyle = (interpolatedStyle, dimensions) => {
-        return {
-            transform: `scaleY(${interpolatedStyle.y})`,
-            transformOrigin: 'top left'
-        };
-    }
-
     render() {
         return (
             <div>
@@ -36,16 +28,10 @@ class MyCustomAnimatedPopup extends React.Component {
                 <Popup active={this.state.popupActive}
                        onRequestClose={this.onPopupRequestClose}
                        target={this.state.buttonEl}
-                       initialAnimation={{
-                           y: 0
-                       }}
-                       enterAnimation={{
-                           y: spring(1, { stiffness: 700, damping: 40, precision: 0.1})
-                       }}
-                       leaveAnimation={{
-                           y: spring(0, { stiffness: 700, damping: 40, precision: 0.1})
-                       }}
-                       onAnimationStyle={this.onAnimationStyle}
+                       enter="slide in"
+                       leave="slide out"
+                       enterDuration={1000}
+                       leaveDuration={1000}
                 >
                     This is just popup
                 </Popup>

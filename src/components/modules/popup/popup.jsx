@@ -1,22 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Motion, spring } from 'react-motion';
 import Measure from 'react-measure';
 import Portal from 'react-portal';
 import EventListener from 'react-event-listener';
 import throttle from 'lodash.throttle';
-import shallowCompare from 'react-addons-shallow-compare';
 import PopupElement, { POSITIONS } from './popupelement';
 import { isNodeInRoot } from '../../utilities';
-import AnimationProps, { getMotionStyle } from '../../animationUtils';
+import SemanticCSSTransition from '../../animation/animation';
 
 /**
  * Popup with animations
  */
-export default class Popup extends React.Component {
+export default class Popup extends React.PureComponent {
     static propTypes = {
         ...PopupElement.propTypes,
-        ...AnimationProps.propTypes,
+        ...SemanticCSSTransition.propTypes,
         /**
          * True to display the popup. If false will be hidden
          */
@@ -66,20 +64,16 @@ export default class Popup extends React.Component {
 
     static defaultProps = {
         ...PopupElement.defaultProps,
+        ...SemanticCSSTransition.defaultProps,
         requestCloseWhenOffScreen: true,
         autoPosition: true,
         active: false,
         distanceAway: 0,
         offset: 0,
-        initialAnimation: {
-            scale: 0.5
-        },
-        enterAnimation: {
-            scale: spring(1, { stiffness: 500, damping: 30, precision: 0.1 })
-        },
-        leaveAnimation: {
-            scale: spring(0, { stiffness: 500, damping: 30, precision: 0.1 })
-        },
+        enter: "scale in",
+        leave: "scale out",
+        enterDuration: 200,
+        leaveDuration: 200,
         onRequestClose: () => {},
         preventElementClicks: true,
         prefer: 'adjacent',
@@ -117,6 +111,7 @@ export default class Popup extends React.Component {
         };
 
         this.popupRef = null;
+        this.measureWhitelist = ['height', 'width'];
     }
 
     componentDidMount() {
@@ -143,11 +138,6 @@ export default class Popup extends React.Component {
                 });
             }
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        // since we're changing state immediately after componentDidUpdate we need to prevent re-rendering loop
-        return shallowCompare(this, nextProps, nextState);
     }
 
     componentDidUpdate() {
@@ -190,31 +180,14 @@ export default class Popup extends React.Component {
     }
 
     /**
-     * Return animation style for popup
-     * @param interpolatedStyle
-     * @param dimensions
-     */
-    getAnimationStyle(interpolatedStyle, dimensions) {
-        const { onAnimationStyle } = this.props;
-        if (onAnimationStyle) {
-            return onAnimationStyle(interpolatedStyle, dimensions, this.state.active);
-        }
-        return {
-            transform: `scale(${interpolatedStyle.scale})`
-        };
-    }
-
-    /**
      * Renders popup
-     * @param interpolatedStyles
      */
-    renderPopup(interpolatedStyles) {
+    renderPopup() {
         // consuming position from props here since it's passing it from state
         /* eslint-disable no-use-before-define, react/prop-types */
         const {
-            active, autoPosition, distanceAway, lastResortPosition, offset, initialAnimation, enterAnimation, leaveAnimation,
-            onAnimationStyle, onRequestClose, prefer, position, preventElementClicks, requestCloseWhenOffScreen, target,
-            style, zIndex, ...other
+            active, autoPosition, distanceAway, lastResortPosition, offset, enter, leave, enterDuration, leaveDuration,
+            onRequestClose, prefer, position, preventElementClicks, requestCloseWhenOffScreen, target, style, zIndex, ...other
         } = this.props;
         /* eslint-enable no-use-before-define, react/prop-types */
 
@@ -229,13 +202,9 @@ export default class Popup extends React.Component {
         };
         const popupStyle = style ? { ...style, ...positionStyle } : positionStyle;
 
-        const animationStyle = this.getAnimationStyle(interpolatedStyles, {
-            height: this.state.popupHeight,
-            width: this.state.popupWidth
-        });
         return (
             <Measure accurate
-                     whitelist={['width', 'height']}
+                     whitelist={this.measureWhitelist}
                      onMeasure={this.onPopupMeasure}
                      key="measure"
             >
@@ -244,7 +213,7 @@ export default class Popup extends React.Component {
                     key="popup"
                     position={this.state.position}
                     ref={ref => this.popupRef = ref}
-                    style={{ ...popupStyle, ...animationStyle }}/>
+                    style={popupStyle}/>
             </Measure>
         );
     }
@@ -252,41 +221,44 @@ export default class Popup extends React.Component {
     render() {
         // consuming position from props here since it's passing it from state
         /* eslint-disable no-use-before-define, react/prop-types */
-        const { initialAnimation, enterAnimation, leaveAnimation, zIndex } = this.props;
+        const { enter, leave, enterDuration, leaveDuration, preventElementClicks, zIndex } = this.props;
         /* eslint-enable no-use-before-define, react/prop-types */
 
         // Apply invisible layer to portal if preventElementClicks is true
-        const portalStyle = {
+        const portalStyle = preventElementClicks ? {
             position: 'fixed',
             top: 0,
             bottom: 0,
             left: 0,
             right: 0,
             zIndex: zIndex
-        };
-
-        const motionStyle = getMotionStyle(initialAnimation, enterAnimation, leaveAnimation, this.state.active);
+        } : {};
 
         return (
-            <Portal isOpened={this.state.active || (!this.state.active && this.state.closing)}
-                    style={this.props.preventElementClicks ? portalStyle : {}}
+            <Portal
+                isOpened={this.state.active || (!this.state.active && this.state.closing)}
+                style={portalStyle}
             >
-                <EventListener target="window"
-                               onResize={this.handleResize}
-                               onScroll={this.handleScroll}
-                >
-                    <EventListener target={document}
-                                   onMouseDown={this.onOutsideClick}
-                                   onTouchStart={this.onOutsideClick}
+                <div style={portalStyle}>
+                    <EventListener
+                        target="window"
+                        onResize={this.handleResize}
+                        onScroll={this.handleScroll}/>
+                    <EventListener
+                        target={document}
+                        onMouseDown={this.onOutsideClick}
+                        onTouchStart={this.onOutsideClick}/>
+                    <SemanticCSSTransition
+                        enter={enter}
+                        leave={leave}
+                        enterDuration={enterDuration}
+                        leaveDuration={leaveDuration}
+                        runOnMount
+                        onLeave={this.onAnimationRest}
                     >
-                        <Motion defaultStyle={initialAnimation}
-                                style={motionStyle}
-                                onRest={this.onAnimationRest}
-                        >
-                            {interpolatedStyle => this.renderPopup(interpolatedStyle)}
-                        </Motion>
-                    </EventListener>
-                </EventListener>
+                        {this.state.active && this.renderPopup()}
+                    </SemanticCSSTransition>
+                </div>
             </Portal>
         );
     }
