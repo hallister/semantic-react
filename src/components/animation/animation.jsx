@@ -12,43 +12,11 @@ function FirstChild(props) {
  */
 export default class SemanticCSSTransition extends React.Component {
     static propTypes = {
-        /**
-         * Enter animation duration
-         */
-        enterDuration: React.PropTypes.number,
-        /**
-         * Leave animation duration
-         */
-        leaveDuration: React.PropTypes.number,
-        /**
-         * Enter animation name
-         */
-        enter: React.PropTypes.string,
-        /**
-         * Leave animation name
-         */
-        leave: React.PropTypes.string,
-        /**
-         * Enter callback
-         */
-        onEnter: React.PropTypes.func,
-        /**
-         * Leave callback
-         */
-        onLeave: React.PropTypes.func,
-        /**
-         * Run animation on component mounting (transition component)
-         * It's necessary for portal components
-         */
-        runOnMount: React.PropTypes.bool
+        ...SemanticCSSTransitionChildren.propTypes
     };
 
     static defaultProps = {
-        enterDuration: 500,
-        leaveDuration: 500,
-        runOnMount: false,
-        onEnter: () => {},
-        onLeave: () => {}
+        ...SemanticCSSTransitionChildren.defaultProps
     };
 
     render() {

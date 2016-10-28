@@ -7,6 +7,7 @@ import { isNodeInRoot } from '../../utilities';
 import Dimmer from '../dimmer/dimmer';
 import ModalElement from './modalelement';
 import SemanticCSSTransition from '../../animation/animation';
+import AnimationProps from '../../animation/animationProps';
 
 /**
  * Modal is modal
@@ -14,7 +15,7 @@ import SemanticCSSTransition from '../../animation/animation';
 export default class Modal extends React.PureComponent {
     static propTypes = {
         ...ModalElement.propTypes,
-        ...SemanticCSSTransition.propTypes,
+        ...AnimationProps.propTypes,
         /**
          * Dimmer variations
          */
@@ -44,7 +45,7 @@ export default class Modal extends React.PureComponent {
 
     static defaultProps = {
         ...ModalElement.defaultProps,
-        ...SemanticCSSTransition.defaultProps,
+        ...AnimationProps.defaultProps,
         onRequestClose: () => {},
         onModalOpened: () => {},
         onModalClosed: () => {},

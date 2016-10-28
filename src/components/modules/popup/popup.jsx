@@ -7,6 +7,7 @@ import throttle from 'lodash.throttle';
 import PopupElement, { POSITIONS } from './popupelement';
 import { isNodeInRoot } from '../../utilities';
 import SemanticCSSTransition from '../../animation/animation';
+import AnimationProps from '../../animation/animationProps';
 
 /**
  * Popup with animations
@@ -14,7 +15,7 @@ import SemanticCSSTransition from '../../animation/animation';
 export default class Popup extends React.PureComponent {
     static propTypes = {
         ...PopupElement.propTypes,
-        ...SemanticCSSTransition.propTypes,
+        ...AnimationProps.propTypes,
         /**
          * True to display the popup. If false will be hidden
          */
@@ -64,7 +65,7 @@ export default class Popup extends React.PureComponent {
 
     static defaultProps = {
         ...PopupElement.defaultProps,
-        ...SemanticCSSTransition.defaultProps,
+        ...AnimationProps.defaultProps,
         requestCloseWhenOffScreen: true,
         autoPosition: true,
         active: false,

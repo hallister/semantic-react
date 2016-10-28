@@ -4,6 +4,7 @@ import Icon from './../../elements/icon/icon';
 import Results from './results';
 import DefaultProps from '../../defaultProps';
 import SemanticCSSTransition from '../../animation/animation';
+import AnimationProps from '../../animation/animationProps';
 
 /*
 3 support results types:
@@ -22,7 +23,7 @@ import SemanticCSSTransition from '../../animation/animation';
 export default class Search extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        ...SemanticCSSTransition.propTypes,
+        ...AnimationProps.propTypes,
         emptyHeader: React.PropTypes.string,
         emptyMessage: React.PropTypes.string,
         icon: React.PropTypes.oneOfType([
@@ -42,7 +43,7 @@ export default class Search extends React.PureComponent {
 
     static defaultProps = {
         ...DefaultProps.defaultProps,
-        ...SemanticCSSTransition.defaultProps,
+        ...AnimationProps.defaultProps,
         enter: 'scale in',
         leave: 'scale out',
         enterDuration: 200,

@@ -4,6 +4,7 @@ import EventListener from 'react-event-listener';
 import elementType from 'react-prop-types/lib/elementType';
 import { isNodeInRoot } from '../../utilities';
 import SemanticCSSTransition from '../../animation/animation';
+import AnimationProps from '../../animation/animationProps';
 import DropdownElement from './dropdownelement';
 import Icon from './../../elements/icon/icon';
 import Text from './../../elements/simple/text';
@@ -15,7 +16,7 @@ import Menu from './../../views/menu/menu';
 export default class DropdownMenu extends React.PureComponent {
     static propTypes = {
         ...DropdownElement.propTypes,
-        ...SemanticCSSTransition.propTypes,
+        ...AnimationProps.propTypes,
         /**
          * Active/Close menu
          */
@@ -60,7 +61,7 @@ export default class DropdownMenu extends React.PureComponent {
 
     static defaultProps = {
         ...DropdownElement.defaultProps,
-        ...SemanticCSSTransition.defaultProps,
+        ...AnimationProps.defaultProps,
         enter: 'slide down in',
         leave: 'slide down out',
         enterDuration: 200,

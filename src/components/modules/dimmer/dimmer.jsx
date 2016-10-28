@@ -1,5 +1,6 @@
 import React from 'react';
 import SemanticCSSTransition from '../../animation/animation';
+import AnimationProps from '../../animation/animationProps';
 import classNames from 'classnames';
 import { hasChild } from '../../utilities';
 import DefaultProps from '../../defaultProps';
@@ -12,7 +13,7 @@ import Loader from './../../elements/loader/loader';
 export default class Dimmer extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        ...SemanticCSSTransition.propTypes,
+        ...AnimationProps.propTypes,
         /**
          * Hide/Display dimmer
          */
@@ -43,6 +44,7 @@ export default class Dimmer extends React.PureComponent {
 
     static defaultProps = {
         ...DefaultProps.defaultProps,
+        ...AnimationProps.defaultProps,
         enterDuration: 500,
         leaveDuration: 300,
         enter: 'fade in',

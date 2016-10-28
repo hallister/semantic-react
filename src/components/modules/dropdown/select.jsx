@@ -9,6 +9,7 @@ import Header from './../../elements/header/header';
 import Menu from './../../views/menu/menu';
 import { isNodeInRoot } from '../../utilities';
 import SemanticCSSTransition from '../../animation/animation';
+import AnimationProps from '../../animation/animationProps';
 
 
 /**
@@ -18,7 +19,7 @@ import SemanticCSSTransition from '../../animation/animation';
 export default class Select extends React.PureComponent {
     static propTypes = {
         ...DropdownElement.propTypes,
-        ...SemanticCSSTransition.propTypes,
+        ...AnimationProps.propTypes,
         /**
          * Should be dropdown opened
          */
@@ -105,7 +106,7 @@ export default class Select extends React.PureComponent {
 
     static defaultProps = {
         ...DropdownElement.defaultProps,
-        ...SemanticCSSTransition.defaultProps,
+        ...AnimationProps.defaultProps,
         active: false,
         icon: 'dropdown',
         search: false,

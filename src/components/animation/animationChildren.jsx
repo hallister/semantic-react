@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import AnimationProps from './animationProps'
 
 /**
  * Transition children class. Pretty much copy of ReactCSSTransitionGroupChild
@@ -10,16 +11,24 @@ import ReactDOM from 'react-dom';
  */
 export default class SemanticCSSTransitionChildren extends React.Component {
     static propTypes = {
-        enterDuration: React.PropTypes.number,
-        leaveDuration: React.PropTypes.number,
-        enter: React.PropTypes.string,
-        leave: React.PropTypes.string,
+        ...AnimationProps.propTypes,
+        /**
+         * Enter callback
+         */
         onEnter: React.PropTypes.func,
+        /**
+         * Leave callback
+         */
         onLeave: React.PropTypes.func,
+        /**
+         * Run animation on component mounting (transition component)
+         * It's necessary for portal components
+         */
         runOnMount: React.PropTypes.bool
     };
 
     static defaultProps = {
+        ...AnimationProps.defaultProps,
         onEnter: () => {},
         onLeave: () => {},
         runOnMount: false
