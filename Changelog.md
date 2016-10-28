@@ -1,3 +1,15 @@
+# 0.9.0
+### Breaking changes:
+
+* Reworked animation component, now the lib uses CSS transitions from semantic-ui, removed react-motion. This should help with performance
+* Removed *initialAnimation*, *enterAnimation*, *leaveAnimation*, *onAnimationStyle* old props
+* Added *enter*, *leave*, *enterDuration*, *leaveDuration* animation props instead
+* Removed animation from accordion (temporary), removed *animating* prop from accordion
+
+Updated deps
+Removed react-addons-shallow-compare
+
+
 # 0.8.5
 Meta: Use correct class name
 Popup: Target property is required now and can be DOM element or react component instance (from ref)
