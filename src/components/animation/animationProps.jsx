@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AnimationProps = () => null;
+const AnimationProps = () => <noscript/>;
 
 AnimationProps.propTypes = {
     /**
