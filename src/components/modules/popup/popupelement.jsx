@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -9,7 +8,7 @@ export const POSITIONS = ['top left', 'top center', 'top right', 'right center',
 /**
  * Popup component without animation transitions
  */
-export default class PopupElement extends React.Component {
+export default class PopupElement extends React.PureComponent {
     static propTypes = {
         /**
          * Default properties

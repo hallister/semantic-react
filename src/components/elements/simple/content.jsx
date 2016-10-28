@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -9,7 +8,7 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-export default class Content extends React.Component {
+export default class Content extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -60,10 +59,6 @@ export default class Content extends React.Component {
         ...DefaultProps.defaultProps,
         floated: false
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     renderDimmerChild() {
         return (<div className="center">{this.props.children}</div>);

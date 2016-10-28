@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import { Numbers, validateClassProps } from '../../utilities';
 import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
@@ -14,7 +13,7 @@ const validProps = {
 /**
  * Grid column
  */
-export default class Column extends React.Component {
+export default class Column extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -73,10 +72,6 @@ export default class Column extends React.Component {
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         /* eslint-disable no-use-before-define */

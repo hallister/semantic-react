@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
 import Icon from './../icon/icon';
@@ -15,7 +14,7 @@ const validProps = {
 /**
  * Labeled button renders button with label, either text label or icon
  */
-export default class LabeledButton extends React.Component {
+export default class LabeledButton extends React.PureComponent {
     static propTypes = {
         ...Button.propTypes,
         /**
@@ -48,10 +47,6 @@ export default class LabeledButton extends React.Component {
         Button: Button
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { children, labeled, labelType, label, labelComponent, ...other } = this.props;

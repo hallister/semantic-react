@@ -1,12 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
-import shallowCompare from 'react-addons-shallow-compare';
 import Icon from '../../elements/icon/icon';
 
 /**
  * Internal rating icon component
  */
-export default class RatingIcon extends React.Component {
+export default class RatingIcon extends React.PureComponent {
     static propTypes = {
         /**
          * Active rating icon
@@ -41,10 +40,6 @@ export default class RatingIcon extends React.Component {
         onMouseEnter: () => {},
         onMouseLeave: () => {}
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     /**
      * Click callback

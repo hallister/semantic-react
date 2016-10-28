@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 import RatingIcon from './icon';
@@ -7,7 +6,7 @@ import RatingIcon from './icon';
 /**
  * Rating
  */
-export default class Rating extends React.Component {
+export default class Rating extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -44,10 +43,6 @@ export default class Rating extends React.Component {
         this.state = {
             hovered: 0
         };
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     /**

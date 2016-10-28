@@ -1,12 +1,11 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Image from './../../elements/image/image';
 import Images from './../../elements/image/images';
 import Icon from './../../elements/icon/icon';
 import DefaultProps from '../../defaultProps';
 
-export default class Event extends React.Component {
+export default class Event extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes
     };
@@ -22,10 +21,6 @@ export default class Event extends React.Component {
         Icon: Icon
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     renderLabel() {
         let labelChildren = [];

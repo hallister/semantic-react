@@ -1,9 +1,8 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
-export default class Items extends React.Component {
+export default class Items extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -32,10 +31,6 @@ export default class Items extends React.Component {
         return {
             isItemsChild: true
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

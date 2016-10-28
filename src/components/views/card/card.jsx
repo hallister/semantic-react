@@ -1,9 +1,8 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
-export default class Card extends React.Component {
+export default class Card extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         centered: React.PropTypes.bool,
@@ -27,18 +26,10 @@ export default class Card extends React.Component {
         ...DefaultProps.defaultProps
     };
 
-    constructor(props) {
-        super(props);
-    }
-
     getChildContext() {
         return {
             isCardChild: true
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

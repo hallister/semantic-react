@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
 import { validateClassProps, hasChild } from '../../utilities';
@@ -13,7 +12,7 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-export default class Header extends React.Component {
+export default class Header extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -103,10 +102,6 @@ export default class Header extends React.Component {
         return {
             isHeaderChild: true
         };
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

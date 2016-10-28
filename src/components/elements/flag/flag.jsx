@@ -1,9 +1,8 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
-export default class Flag extends React.Component {
+export default class Flag extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -16,10 +15,6 @@ export default class Flag extends React.Component {
         ...DefaultProps.defaultProps,
         component: 'i'
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { component, defaultClasses, name, ...other } = this.props;

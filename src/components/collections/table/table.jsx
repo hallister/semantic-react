@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -11,7 +10,7 @@ let validProps = {
     valigned: ['center', 'right']
 };
 
-export default class Table extends React.Component {
+export default class Table extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -129,10 +128,6 @@ export default class Table extends React.Component {
             tablet: false
         }
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         /* eslint-disable no-use-before-define */

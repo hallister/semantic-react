@@ -1,9 +1,8 @@
 import React from 'react'
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Segment from '../../elements/segment/segment';
 
-export default class Tab extends React.Component {
+export default class Tab extends React.PureComponent {
     static propTypes = {
         ...Segment.propTypes,
         /**
@@ -32,10 +31,6 @@ export default class Tab extends React.Component {
         Segment: Segment
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { children, active, loading, value, ...other } = this.props;

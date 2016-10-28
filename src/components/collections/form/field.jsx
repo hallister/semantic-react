@@ -1,12 +1,11 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import { Numbers, hasFirstChild } from '../../utilities';
 import Checkbox from './../../modules/checkbox/checkbox';
 import CheckboxFields from './../../modules/checkbox/checkboxfields';
 import DefaultProps from '../../defaultProps';
 
-export default class Field extends React.Component {
+export default class Field extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -39,7 +38,7 @@ export default class Field extends React.Component {
     };
 
     static defaultProps = {
-        ...DefaultProps.defaultProps,
+        ...DefaultProps.defaultProps
     };
 
     /* eslint-disable */
@@ -48,10 +47,6 @@ export default class Field extends React.Component {
         CheckboxFields: CheckboxFields
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     renderLabel(label) {
         return (

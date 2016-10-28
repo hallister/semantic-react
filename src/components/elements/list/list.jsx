@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -9,7 +8,7 @@ let validProps = {
     floated: ['right', 'left']
 };
 
-export default class List extends React.Component {
+export default class List extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -81,10 +80,6 @@ export default class List extends React.Component {
             isListChild: true,
             isLinkList: this.props.link
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

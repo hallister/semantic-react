@@ -1,12 +1,11 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 /**
  * Defines dimmable section
  */
-export default class Dimmable extends React.Component {
+export default class Dimmable extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -24,10 +23,6 @@ export default class Dimmable extends React.Component {
         dimmed: false,
         blurring: false
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { component, defaultClasses, dimmed, blurring, ...other } = this.props;

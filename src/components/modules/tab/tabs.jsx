@@ -1,10 +1,9 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import DefaultProps from '../../defaultProps';
 import TabMenu from './tabmenu';
 import Tab from './tab';
 
-export default class Tabs extends React.Component {
+export default class Tabs extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -31,10 +30,6 @@ export default class Tabs extends React.Component {
         Tab: Tab
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     onMenuChange = (value) => {
         const { onTabChange, activeTab } = this.props;

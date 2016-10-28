@@ -1,12 +1,11 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import MenuItem from './../../views/menu/menuitem';
 
 /**
  * Select option. This should be used in <Select>
  */
-export default class Option extends React.Component {
+export default class Option extends React.PureComponent {
     static propTypes = {
         ...MenuItem.propTypes,
         /**
@@ -27,10 +26,6 @@ export default class Option extends React.Component {
         MenuItem: MenuItem
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         /* eslint-disable no-use-before-define */

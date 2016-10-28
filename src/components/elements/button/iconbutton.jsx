@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
 import Button from './button';
@@ -8,7 +7,7 @@ import Icon from '../icon/icon';
 /**
  * Icon button es un button con icon, en serio
  */
-export default class IconButton extends React.Component {
+export default class IconButton extends React.PureComponent {
     static propTypes = {
         ...Button.propTypes,
 
@@ -38,10 +37,6 @@ export default class IconButton extends React.Component {
         Icon: Icon
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { children, iconColor, iconComponent, name, ...other } = this.props;

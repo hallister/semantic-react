@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import IconButton from './iconbutton';
 import Button from './button';
@@ -9,7 +8,7 @@ import Icon from './../icon/icon';
 /**
  * Social button is simple social colored button with social icon. This is ordinary button, 
  */
-export default class SocialButton extends React.Component {
+export default class SocialButton extends React.PureComponent {
     static propTypes = {
         ...Button.propTypes,
         /**
@@ -25,10 +24,6 @@ export default class SocialButton extends React.Component {
         Icon: Icon
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { children, name, ...other } = this.props;

@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -14,7 +13,7 @@ let validProps = {
 /**
  * Icon
  */
-export default class Icon extends React.Component {
+export default class Icon extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -81,10 +80,6 @@ export default class Icon extends React.Component {
         ...DefaultProps.defaultProps,
         component: 'i'
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const {

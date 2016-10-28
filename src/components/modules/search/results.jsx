@@ -1,10 +1,9 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Content from './../../elements/simple/content';
 import DefaultProps from '../../defaultProps';
 
-export default class Results extends React.Component {
+export default class Results extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         emptyHeader: React.PropTypes.string,
@@ -29,10 +28,6 @@ export default class Results extends React.Component {
         Content: Content
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     onClick(child, e) {
         this.props.onSearchClick(e, child);

@@ -1,12 +1,11 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from './../../defaultProps';
 
 /**
  * Modal element
  */
-export default class ModalElement extends React.Component {
+export default class ModalElement extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -39,10 +38,6 @@ export default class ModalElement extends React.Component {
         ...DefaultProps.defaultProps,
         active: true
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { component, defaultClasses, children, active, basic, fullscreen, scrolling, size, closePortal, runOnMount, ...other } = this.props;

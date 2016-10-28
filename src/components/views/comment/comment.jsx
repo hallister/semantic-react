@@ -1,11 +1,10 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Image from './../../elements/image/image';
 import Content from './../../elements/simple/content';
 import DefaultProps from '../../defaultProps';
 
-export default class Comment extends React.Component {
+export default class Comment extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes
     };
@@ -20,10 +19,6 @@ export default class Comment extends React.Component {
         Content: Content
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     renderChildren() {
         let commentChildren = [];

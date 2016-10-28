@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import shallowCompare from 'react-addons-shallow-compare';
 import DefaultProps from '../../defaultProps';
 import { hasFirstChild } from '../../utilities';
 import Icon from '../../elements/icon/icon';
@@ -8,7 +7,7 @@ import Icon from '../../elements/icon/icon';
 /**
  * Divider for breadcrumb
  */
-export default class BreadcrumbDivider extends React.Component {
+export default class BreadcrumbDivider extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes
     };
@@ -22,10 +21,6 @@ export default class BreadcrumbDivider extends React.Component {
         Icon: Icon
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { component, defaultClasses, children, ...other } = this.props;

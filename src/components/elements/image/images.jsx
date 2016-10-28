@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -7,7 +6,7 @@ import DefaultProps from '../../defaultProps';
 /**
  * Group of images
  */
-export default class Images extends React.Component {
+export default class Images extends React.PureComponent {
     // It does support only size and state, but omitting state here, since nobody wants row of disabled images?
     static propTypes = {
         ...DefaultProps.propTypes,
@@ -20,10 +19,6 @@ export default class Images extends React.Component {
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { component, children, defaultClasses, size, ...other } = this.props;

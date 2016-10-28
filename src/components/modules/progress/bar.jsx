@@ -1,9 +1,8 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
-export default class Bar extends React.Component {
+export default class Bar extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         duration: React.PropTypes.number,
@@ -15,11 +14,6 @@ export default class Bar extends React.Component {
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
-
 
     renderProgress() {
         return (

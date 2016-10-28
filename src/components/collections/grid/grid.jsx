@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import { Numbers, validateClassProps } from '../../utilities';
 import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
@@ -17,7 +16,7 @@ const validProps = {
 /**
  * Semantic Grid
  */
-export default class Grid extends React.Component {
+export default class Grid extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -91,10 +90,6 @@ export default class Grid extends React.Component {
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         // consume props

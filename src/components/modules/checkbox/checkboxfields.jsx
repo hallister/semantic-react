@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React from 'react';
 import classNames from 'classnames';
 import Checkbox from './checkbox';
 import DefaultProps  from '../../defaultProps';
 
-export default class CheckboxFields extends Component {
+export default class CheckboxFields extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         disabled: React.PropTypes.bool,
@@ -36,10 +35,6 @@ export default class CheckboxFields extends Component {
         this.state = {
             active: active
         };
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     onClick(key)  {

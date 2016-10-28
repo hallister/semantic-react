@@ -1,9 +1,8 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
-export default class Segments extends React.Component {
+export default class Segments extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -27,10 +26,6 @@ export default class Segments extends React.Component {
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         /* eslint-disable no-use-before-define */

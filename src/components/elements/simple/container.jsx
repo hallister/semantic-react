@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
 import DefaultProps from '../../defaultProps';
@@ -8,7 +7,7 @@ let validProps = {
     aligned: ['right', 'left', 'justified', 'center']
 };
 
-export default class Container extends React.Component {
+export default class Container extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
@@ -18,10 +17,6 @@ export default class Container extends React.Component {
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { children, className, component, defaultClasses, aligned, fluid, ...other } = this.props;

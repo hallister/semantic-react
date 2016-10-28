@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import elementType from 'react-prop-types/lib/elementType';
 import classNames from 'classnames';
 import Icon from '../icon/icon';
@@ -9,7 +8,7 @@ import List from './list';
 import DefaultProps from '../../defaultProps';
 import { hasChild } from '../../utilities';
 
-export default class ListItem extends React.Component {
+export default class ListItem extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -55,10 +54,6 @@ export default class ListItem extends React.Component {
         List: List
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(nextProps, nextState);
-    }
 
     renderImageComponent() {
         const { image, imageType, imageComponent } = this.props;

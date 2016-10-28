@@ -1,8 +1,7 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import Td from './td';
 
-export default class Tr extends React.Component {
+export default class Tr extends React.PureComponent {
     static propTypes = {
         ...Td.propTypes
     };
@@ -17,10 +16,6 @@ export default class Tr extends React.Component {
         Td: Td
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         return (

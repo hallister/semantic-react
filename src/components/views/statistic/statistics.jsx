@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 
 import { Numbers, Colors, Sizes, validateClassProps } from '../../utilities';
@@ -11,7 +10,7 @@ let validProps = {
     size: Sizes
 };
 
-export default class Statistics extends React.Component {
+export default class Statistics extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         even: React.PropTypes.bool,
@@ -41,10 +40,6 @@ export default class Statistics extends React.Component {
         return {
             isStatisticsChild: true
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

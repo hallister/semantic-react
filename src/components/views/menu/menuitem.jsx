@@ -1,12 +1,11 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 /**
  * Menu/Dropdown item
  */
-export default class MenuItem extends React.Component {
+export default class MenuItem extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -32,10 +31,6 @@ export default class MenuItem extends React.Component {
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     onClick = (event) => {
         event.preventDefault();

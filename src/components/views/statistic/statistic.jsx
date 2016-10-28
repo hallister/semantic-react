@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import { hasChild, Sizes, Colors } from '../../utilities';
 import DefaultProps from '../../defaultProps';
@@ -13,7 +12,7 @@ let validProps = {
 /**
  * Statistic is view of elements. It could be statistic view or part of <Statistics /> view
  */
-export default class Statistic extends React.Component {
+export default class Statistic extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -81,10 +80,6 @@ export default class Statistic extends React.Component {
         return {
             isStatisticChild: true
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

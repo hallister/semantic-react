@@ -1,12 +1,11 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import { countChildren, Numbers } from '../../utilities';
 import Field from './field';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 
-export default class Fields extends React.Component {
+export default class Fields extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -36,10 +35,6 @@ export default class Fields extends React.Component {
         Field: Field
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         /* eslint-disable no-use-before-define */

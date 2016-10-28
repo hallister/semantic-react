@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import Header from './header';
 import classNames from 'classnames';
 
@@ -7,7 +6,7 @@ import classNames from 'classnames';
  * Sub header, same as header but with 'sub' class name
  * Deprecated
  */
-export default class SubHeader extends React.Component {
+export default class SubHeader extends React.PureComponent {
     static propTypes = {
         ...Header.propTypes
     };
@@ -22,10 +21,6 @@ export default class SubHeader extends React.Component {
         Header: Header
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { component, children, defaultClasses, ...other } = this.props;

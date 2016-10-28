@@ -1,12 +1,11 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 /**
  * Group of labels which can share same size, shape or color
  */
-export default class Labels extends React.Component {
+export default class Labels extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -30,10 +29,6 @@ export default class Labels extends React.Component {
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const {

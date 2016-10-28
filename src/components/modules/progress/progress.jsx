@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
 import Bar from './bar';
@@ -9,7 +8,7 @@ let validProps = {
     attached: ['top', 'bottom']
 };
 
-export default class Progress extends React.Component {
+export default class Progress extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         active: React.PropTypes.bool,
@@ -45,10 +44,6 @@ export default class Progress extends React.Component {
         return {
             isProgressChild: true
         };
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     renderBar() {

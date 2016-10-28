@@ -1,12 +1,11 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 /**
  * Divider
  */
-export default class Divider extends React.Component {
+export default class Divider extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -38,10 +37,6 @@ export default class Divider extends React.Component {
     static defaultProps = {
         ...DefaultProps.defaultProps
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const { aligned, children, clearing, component, defaultClasses,

@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import Image from './../image/image';
 import { hasDescendant, validateClassProps } from '../../utilities';
@@ -10,7 +9,7 @@ let validProps = {
     rotate: ['left']
 };
 
-export default class Reveal extends React.Component {
+export default class Reveal extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -48,10 +47,6 @@ export default class Reveal extends React.Component {
         Image: Image
     };
     /* eslint-enable */
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         /* eslint-disable no-use-before-define */

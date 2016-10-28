@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -15,7 +14,7 @@ let validProps = {
  * Menu. Could be simple or controlled. Controlled menu will be activated by providing value property and will manage
  * current active item and fire onChange callback when value was changed
  */
-export default class Menu extends React.Component {
+export default class Menu extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -124,11 +123,6 @@ export default class Menu extends React.Component {
             isMenuChild: true
         };
     }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
-
 
     onMenuItemClick = (value) => {
         this.props.onMenuItemClick(value);

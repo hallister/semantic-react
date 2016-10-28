@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
 import DefaultProps  from '../../defaultProps';
@@ -11,7 +10,7 @@ const validProps = {
 /**
  * Dropdown element. Base for Select and DropdownMenu.
  */
-export default class DropdownElement extends React.Component {
+export default class DropdownElement extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -75,10 +74,6 @@ export default class DropdownElement extends React.Component {
         return {
             isDropdownChild: true
         };
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

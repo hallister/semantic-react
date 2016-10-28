@@ -1,5 +1,4 @@
 import React from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
 import elementType from 'react-prop-types/lib/elementType';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
@@ -14,7 +13,7 @@ const validProps = {
 /**
  * Just an image
  */
-export default class Image extends React.Component {
+export default class Image extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         /**
@@ -84,10 +83,6 @@ export default class Image extends React.Component {
         component: 'img',
         wrapComponent: false
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         const {
