@@ -3,7 +3,6 @@
 import React from 'react';
 import sinon from 'sinon';
 import ReactTestUtils from 'react-addons-test-utils';
-import { Motion } from 'react-motion';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import { Icon, Text, Button } from '../../../elements';
@@ -13,10 +12,12 @@ import DropdownMenu from '../dropdownmenu';
 import DropdownElement from '../dropdownelement';
 
 const consumedProps = {
-    enterAnimation: {},
+    enter: 'scale in',
+    leave: 'scale out',
+    enterDuration: 100,
+    leaveDuration: 100,
     icon: 'test',
     label: 'test',
-    leaveAnimation: {},
     menuComponent: 'a',
     menuValue: ['test'],
     onMenuItemClick: () => {},
@@ -72,9 +73,8 @@ describe('DropdownMenu', () => {
 
     describe('When dropdown active', () => {
         it('Should render menu', () => {
-            let wrapper = shallow(<DropdownMenu active/>).find(Motion).shallow();
+            let wrapper = shallow(<DropdownMenu active/>);
             expect(wrapper.find(Menu)).to.be.exist;
-            expect(wrapper.find(Menu)).to.have.style('overflow', 'hidden');
             expect(wrapper.find(Menu)).to.have.prop('onMenuItemClick', wrapper.instance().onMenuItemClick);
         });
 
@@ -84,28 +84,26 @@ describe('DropdownMenu', () => {
         });
 
         it('Could render different component as menu', () => {
-            let wrapper = shallow(<DropdownMenu active menuComponent="section"/>).find(Motion).shallow();
+            let wrapper = shallow(<DropdownMenu active menuComponent="section"/>);
             expect(wrapper.find('section')).to.be.exist;
         });
 
         it('Should attach callbacks to the menu', () => {
             let onMenuItemClickStub = sinon.stub();
             let onMenuChangeStub = sinon.stub();
-            let wrapper = shallow(<DropdownMenu active onMenuChange={onMenuChangeStub} onMenuItemClick={onMenuItemClickStub}/>).find(Motion).shallow();
+            let wrapper = shallow(<DropdownMenu active onMenuChange={onMenuChangeStub} onMenuItemClick={onMenuItemClickStub}/>);
             expect(wrapper.find(Menu)).to.have.prop('onMenuItemClick', onMenuItemClickStub);
             expect(wrapper.find(Menu)).to.have.prop('onMenuChange', onMenuChangeStub);
         });
 
         it('Should pass menuValue to menu', () => {
             let wrapper = shallow(<DropdownMenu active menuValue={1}/>);
-            let menuWrapper = wrapper.find(Motion).shallow();
-            expect(menuWrapper.find(Menu)).to.have.prop('menuValue', 1);
+            expect(wrapper.find(Menu)).to.have.prop('menuValue', 1);
             
             wrapper.setProps({
                 menuValue: [1, 2]
             });
-            menuWrapper = wrapper.find(Motion).shallow();
-            expect(menuWrapper.find(Menu)).to.have.prop('menuValue').deep.equal([1, 2]);
+            expect(wrapper.find(Menu)).to.have.prop('menuValue').deep.equal([1, 2]);
         });
     });
 

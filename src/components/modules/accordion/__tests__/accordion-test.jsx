@@ -10,12 +10,6 @@ import { itShouldConsumeOwnAndPassCustomProps } from './../../../test-utils';
 const consumedProps = {
     defaultClasses: true,
     activeIndexes: [],
-    enterAnimation: {
-        height: 'auto'
-    },
-    leaveAnimation: {
-        height: 'auto'
-    },
     fluid: true,
     inverted: true,
     onAccordionChange: () => { },

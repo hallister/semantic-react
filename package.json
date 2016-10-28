@@ -42,7 +42,7 @@
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",
-    "react-dom": "^0.14.0 || ^15.0.0",
+    "react-dom": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
     "@types/chai": "^3.4.34",
@@ -94,7 +94,6 @@
     "loader-utils": "^0.2.16",
     "lolex": "^1.5.1",
     "mocha": "^3.1.2",
-    "mutationobserver-shim": "^0.3.2",
     "react": "15.3.2",
     "react-addons-shallow-compare": "15.3.2",
     "react-addons-test-utils": "15.3.2",

@@ -12,13 +12,12 @@ chai.use(sinonChai);
 const jsdom = require("jsdom").jsdom;
 const doc = jsdom(`<html><body></body></html>`);
 global.window = doc.defaultView;
+global.MouseEvent = global.window.MouseEvent;
 global.document = doc;
 global.navigator = {
     userAgent: 'node.js'
 };
 
-require("mutationobserver-shim");
-global.MutationObserver = window.MutationObserver;
 global.SVGElement = function () { };
 global.getComputedStyle = window.getComputedStyle;
 
