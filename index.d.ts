@@ -1,6 +1,4 @@
 import * as React from "react";
-import { Style, PlainStyle } from "react-motion";
-import Base = Mocha.reporters.Base;
 
 export interface BaseProps {
     /**
@@ -32,24 +30,21 @@ export interface ElementDimensions {
  */
 export interface AnimationProps {
     /**
-     * Initial animation (default values)
+     * Enter/Appear animation name
      */
-    initialAnimation?: PlainStyle;
+    enter?: string;
     /**
-     * Animate to these values when active
+     * Leave animation name
      */
-    enterAnimation?: Style;
+    leave?: string;
     /**
-     * Animate to these values when inactive
+     * Enter/Appear animation duration in ms
      */
-    leaveAnimation?: Style;
+    enterDuration?: number;
     /**
-     * Callback when calculating animation style. Provide it if you want custom animations
-     * @param interpolatedStyle interpolated values from enterAnimation/leaveAnimation
-     * @param dimensions Element dimensions
-     * @param active will be true if element active
+     * Leave/Appear animation duration in ms
      */
-    onAnimationStyle?: (interpolatedStyle: PlainStyle, dimensions: ElementDimensions, active: boolean) => PlainStyle;
+    leaveDuration?: number;
 }
 
 export type SizeType = "mini" | "tiny" | "small" | "medium" | "large" | "big" | "huge" | "massive";
@@ -2007,10 +2002,6 @@ export class AccordionBody extends React.Component<AccordionBodyProps, any> { }
 
 // <Accordion />
 export interface AccordionProps extends BaseProps {
-    /**
-     * Pass false to disable animation
-     */
-    animating?: boolean;
     /**
      * Current visible content. Strings and numbers are accepted
      */
