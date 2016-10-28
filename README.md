@@ -5,12 +5,11 @@ Many components are still undocumented, though they are fully functional
 
 This project is a complete Semantic UI (SUI) to React. Currently, the majority of SUI has been ported to React however, much of the components are still untested. Major issues going forward include testing, documentation and various enhancements.
 
+###[Official semantic-ui react library is here](https://github.com/Semantic-Org/Semantic-UI-React)
+This doesn't mean that this project will be abandoned
+
 ## Approach
-Semantic-react uses react for any DOM changes. All animations are style-based, so we don't touch the DOM without React knowing.
-
-Other Semantic UI projects out there, like [react-semantify](http://jessy1092.github.io/react-semantify/), are bindings for semantic-ui's existing javascript. So you'll need react-semantify, semantic-ui and jquery installed to use it. (around 400kb minified in overhead)
-
-semantic-react (in its current state) is around 178kb, and there are no external dependencies besides React and ReactDOM. Once complete, the file size is expected end up around 200kb.
+Semantic-react uses react for any DOM changes. Animation depends on semantic-ui css
 
 ## Contributions
 The project is currently in its infancy, however, much of the porting is complete. If you would like to contribute to the project, fork and follow the instructions below:
@@ -21,7 +20,7 @@ The project is currently in its infancy, however, much of the porting is complet
 npm install semantic-react --save
 ```
 
-**You need to install react, react-dom and react-addons-shallow-compare manually**
+**You need to install react, react-dom and manually**
 
 ### Development
 ```
@@ -31,9 +30,9 @@ npm run styleguide-server
 
 ### Typings
 
-Library contains bundled Typescript definitions. You need to install react and react-motion typings before:
+Library contains bundled Typescript definitions. You need to install react typings before:
 ```
-typings install react react-dom react-motion --global --save
+typings install react react-dom --global --save
 ```
 
 ### Radium
