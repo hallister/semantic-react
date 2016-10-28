@@ -60,10 +60,6 @@ export default class PopupElement extends React.PureComponent {
         this.popupEl = null;
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
-
     render() {
         /* eslint-disable no-use-before-define */
         const { className, defaultClasses, children, component, basic, fluid, flowing, inverted, size, wide, position, ...other } = this.props;
