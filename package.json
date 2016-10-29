@@ -1,6 +1,6 @@
 {
   "name": "semantic-react",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "React components for Semantic UI.",
   "main": "./lib",
   "files": [
@@ -33,6 +33,7 @@
   "author": "Justin Hall <justin@hallister.me>",
   "license": "MIT",
   "dependencies": {
+    "@types/react": "^0.14.43",
     "classnames": "^2.2.5",
     "lodash.throttle": "^4.1.1",
     "react-event-listener": "^0.4.0",
@@ -49,7 +50,6 @@
     "@types/chai-enzyme": "^0.5.4",
     "@types/enzyme": "^2.5.37",
     "@types/mocha": "^2.2.32",
-    "@types/react": "^0.14.43",
     "@types/react-dom": "^0.14.18",
     "@types/sinon": "^1.16.31",
     "@types/sinon-chai": "^2.7.27",
