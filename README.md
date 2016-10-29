@@ -30,10 +30,9 @@ npm run styleguide-server
 
 ### Typings
 
-Library contains bundled Typescript definitions. You need to install react typings before:
-```
-typings install react react-dom --global --save
-```
+Library contains bundled Typescript definitions. You must use TS 2.0 or greater and use @types/react (will be installed automatically). This means it will conflict with react typings installed by *typings* program.
+
+ Use **0.9.1** version if you're using typings or TS 1.* version
 
 ### Radium
 
