@@ -124,8 +124,8 @@ export default class Menu extends React.PureComponent {
         };
     }
 
-    onMenuItemClick = (value) => {
-        this.props.onMenuItemClick(value);
+    onMenuItemClick = (value, event) => {
+        this.props.onMenuItemClick(value, event);
         // Call onMenuChange callback when needed
         if (typeof this.props.menuValue !== 'undefined') {
             // Multiple menu selection

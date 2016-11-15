@@ -35,7 +35,7 @@ export default class MenuItem extends React.PureComponent {
     onClick = (event) => {
         event.preventDefault();
         const { onClick, menuValue, disabled } = this.props;
-        if (onClick && !disabled) onClick(menuValue);
+        if (onClick && !disabled) onClick(menuValue, event);
     };
 
     render() {

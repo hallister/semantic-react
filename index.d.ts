@@ -1520,15 +1520,16 @@ export interface MenuProps extends BaseProps {
     /**
      * Callback for menu item click (regardless active or not active)
      * @param value
+     * @param event
      */
-    onMenuItemClick?(value?: string | number): void;
+    onMenuItemClick?: (value: string | number, event: React.MouseEvent<any>) => void;
     /**
      * Callback for active item change. Will not be fired if menuValue was omitted
      * Will pass new menuValue or array of new menuValue
      * If all items were unselected would pass null if menuValue is single value or empty array if menuValue is array
      * @param value
      */
-    onMenuChange?(value: string | number | Array<string | number>): void;
+    onMenuChange?: (value: string | number | Array<string | number>) => void;
     /**
      * A pagination menu is specially formatted to present links to pages of content
      */
@@ -1704,15 +1705,15 @@ export interface DropdownMenuProps extends DropdownBaseProps, AnimationProps, Re
      * Will pass new menuValue or array of new menuValue
      * If all items were unselected would pass null if menuValue is single value or empty array if menuValue is array
      */
-    onMenuChange?(value?: number | string | Array<number | string>): void;
+    onMenuChange?: (value?: number | string | Array<number | string>) => void;
     /**
      * Callback for menu item click
      */
-    onMenuItemClick?(value?: number | string): void;
+    onMenuItemClick?: (value?: number | string) => void;
     /**
      * Callback will be called when menu wants to be closed (for ex. from outside click)
      */
-    onRequestClose?(): void;
+    onRequestClose?: () => void;
 }
 export class DropdownMenu extends React.Component<DropdownMenuProps, any> {
 }
@@ -1797,15 +1798,15 @@ export interface SelectProps extends DropdownBaseProps, AnimationProps, React.DO
      * Callback will be called when current selected value was changed.
      * Will pass array of new selected values as first param and total options count as second
      */
-    onSelectChange?(newValue: Array<string | number>, totalOptionsCount: number): void;
+    onSelectChange?: (newValue: Array<string | number>, totalOptionsCount: number) => void;
     /**
      * Callback will be called when selection dropdown wants to be closed. For now only for outside of dropdown clicks
      */
-    onRequestClose?(): void;
+    onRequestClose?: () => void;
     /**
      * Callback will be called when search string is being changed. You probably just need to pass it back to component
      */
-    onSearchStringChange?(newSearch: string): void;
+    onSearchStringChange?: (newSearch: string) => void;
 }
 export class Select extends React.Component<SelectProps, any> {
 }

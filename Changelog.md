@@ -1,3 +1,6 @@
+# 0.10.1
+* Menu: event object is being passed as second parameter for onMenuItemClick()
+
 # 0.10.0
 ### Breaking changes:
 * Changes to TS definitions to support new @types. React.DOMAttributes changed to React.DOMAttributes<HTMLElement>. Now @types/react is required as dependency. This means version from typings (and from DT master) is not compatible now. Stick with 0.9 if you're using typings or DT master 
