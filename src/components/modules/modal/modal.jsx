@@ -225,7 +225,6 @@ export default class Modal extends React.PureComponent {
         return (
             <Portal
                 isOpened={this.state.active || (!this.state.active && this.state.closing)}
-                style={portalStyle}
                 onOpen={onModalOpened}
                 onClose={onModalClosed}
             >

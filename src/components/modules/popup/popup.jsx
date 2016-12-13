@@ -238,7 +238,6 @@ export default class Popup extends React.PureComponent {
         return (
             <Portal
                 isOpened={this.state.active || (!this.state.active && this.state.closing)}
-                style={portalStyle}
             >
                 <div style={portalStyle}>
                     <EventListener
