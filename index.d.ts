@@ -601,7 +601,7 @@ export interface InputProps extends BaseProps, React.DOMAttributes<HTMLElement> 
     /**
      * Render icon
      */
-    icon?: string;
+    icon?: string | boolean;
     /**
      * Icon position
      */
@@ -637,7 +637,7 @@ export interface InputProps extends BaseProps, React.DOMAttributes<HTMLElement> 
     /**
      * Input state
      */
-    state?: "focus" | "loading" | "disabled" | "error";
+    state?: "focus" | "loading" | "disabled" | "error" | Array<"focus" | "loading" | "disabled" | "error">;
     /**
      * Render transparent input
      */

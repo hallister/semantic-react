@@ -26,7 +26,10 @@ export default class Input extends React.PureComponent {
         /**
          * Render icon
          */
-        icon: React.PropTypes.string,
+        icon: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.bool
+        ]),
         /**
          * Icon position
          */
@@ -62,7 +65,10 @@ export default class Input extends React.PureComponent {
         /**
          * Input state
          */
-        state: React.PropTypes.oneOf(['focus', 'loading', 'disabled', 'error']),
+        state: React.PropTypes.oneOfType([
+            React.PropTypes.oneOf(['focus', 'loading', 'disabled', 'error']),
+            React.PropTypes.arrayOf(React.PropTypes.oneOf(['focus', 'loading', 'disabled', 'error']))
+        ]),
         /**
          * Render transparent input
          */
@@ -110,11 +116,14 @@ export default class Input extends React.PureComponent {
                                  {label}
                  </LabelComponent>}
                  {/* Next input itself */}
-                     <InputComponent type="text" {...other} value={value} placeholder={placeholder}/>
+                 <InputComponent
+                    type="text" {...other}
+                    value={value}
+                    placeholder={placeholder} />
                  {/* Icon, markup doesn't matter for placement */}
                  {/* Always render search icon for loading state regardless of settings */}
                  {(state && state === 'loading') ? <Icon name="search" /> :
-                     (icon && <IconComponent name={icon}/>)
+                     (icon && typeof icon === 'string' && <IconComponent name={icon}/>)
                  }
                  {/* Label in right position */}
                  {label && (labelPosition === 'right' || labelPosition === 'right corner') &&
@@ -140,10 +149,17 @@ export default class Input extends React.PureComponent {
         };
         classes[this.props.size] = !!this.props.size;
         // Loading state should add icon
-        if (this.props.state && this.props.state === 'loading') {
+        if (this.props.state && (this.props.state === 'loading' ||
+            (Array.isArray(this.props.state) && this.props.state.indexOf('loading') !== -1))) {
             classes['icon'] = true;
         }
-        classes[this.props.state] = !!this.props.state;
+        if (typeof this.props.state === 'string') {
+            classes[this.props.state] = true;
+        } else if (Array.isArray(this.props.state)) {
+            for (const key of this.props.state) {
+                classes[key] = true;
+            }
+        }
 
         // action input
         if (this.props.actionComponent) {

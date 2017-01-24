@@ -1,3 +1,7 @@
+# 0.10.3
+* Input: icon prop may take boolean to indicate icon input but without icon (input length will be different in this case)
+* Input: multiple states could be specified as array
+
 # 0.10.1
 * Menu: event object is being passed as second parameter for onMenuItemClick()
 

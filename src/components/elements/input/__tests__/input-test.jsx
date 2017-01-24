@@ -72,6 +72,9 @@ describe('Input', () => {
             it('has a loading state', () => {
                 let wrapper = shallow(<Input state="loading" />);
                 expect(wrapper).to.have.className('loading');
+                
+                wrapper = shallow(<Input state={['loading']} />);
+                expect(wrapper).to.have.className('loading');
             });
             
             it('Adds an icon class to the input', () => {
@@ -95,7 +98,14 @@ describe('Input', () => {
         it('has a focus state', () => {
             let wrapper = shallow(<Input state="focus" />);
             expect(wrapper).to.have.className('focus');
-        })
+        });
+        
+        it('can have multiple states', () => {
+            let wrapper = shallow(<Input state={['focus', 'loading', 'disabled']} />);
+            expect(wrapper).to.have.className('focus');
+            expect(wrapper).to.have.className('loading');
+            expect(wrapper).to.have.className('disabled');
+        });
     });
 
     it('may be transparent', () => {
@@ -130,6 +140,12 @@ describe('Input', () => {
             expect(wrapper).to.have.className('left icon');
             expect(wrapper.find(Icon)).to.be.exist;
             expect(wrapper.find(Icon)).to.have.prop('name', 'cloud');
+        });
+        
+        it('Can have icon class name without icon component', () => {
+            let wrapper = shallow(<Input icon />);
+            expect(wrapper).to.have.className('right icon');
+            expect(wrapper.find(Icon)).to.be.not.exist;
         });
         
         it('Allows to specify custom icon component', () => {
