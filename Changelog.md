@@ -1,3 +1,6 @@
+# 0.10.5
+* Input: renders loading state correctly when loading state was given in array
+
 # 0.10.3
 * Input: icon prop may take boolean to indicate icon input but without icon (input length will be different in this case)
 * Input: multiple states could be specified as array

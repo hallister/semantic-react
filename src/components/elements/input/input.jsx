@@ -122,8 +122,9 @@ export default class Input extends React.PureComponent {
                     placeholder={placeholder} />
                  {/* Icon, markup doesn't matter for placement */}
                  {/* Always render search icon for loading state regardless of settings */}
-                 {(state && state === 'loading') ? <Icon name="search" /> :
-                     (icon && typeof icon === 'string' && <IconComponent name={icon}/>)
+                 {(state && (state === 'loading') || (Array.isArray(state) && state.indexOf("loading") !== -1))
+                     ? <Icon name="search" />
+                     : (icon && typeof icon === 'string' && <IconComponent name={icon}/>)
                  }
                  {/* Label in right position */}
                  {label && (labelPosition === 'right' || labelPosition === 'right corner') &&

@@ -88,6 +88,12 @@ describe('Input', () => {
                 expect(wrapper.find(Icon)).to.have.prop('name', 'search');
             });
             
+            it('Renders loading icon when state was given as array', () => {
+                let wrapper = shallow(<Input state={['loading', 'disabled']} />);
+                expect(wrapper.find(Icon)).to.be.exist;
+                expect(wrapper.find(Icon)).to.have.prop('name', 'search');
+            });
+            
             it('Renders always search icon regardless of current icon', () => {
                 let wrapper = shallow(<Input icon="cloud" state="loading" />);
                 expect(wrapper.find(Icon).length).to.equal(1);
