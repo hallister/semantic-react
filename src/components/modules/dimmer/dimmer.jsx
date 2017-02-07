@@ -67,6 +67,27 @@ export default class Dimmer extends React.PureComponent {
             isDimmerChild: true
         };
     }
+    
+    componentDidMount() {
+        const { active, page } = this.props;
+        if (active && page) {
+            document.body.classList.add('dimmable', 'dimmed');
+        }
+    }
+    
+    componentDidUpdate() {
+        const { active, page } = this.props;
+        if (active && page) {
+            document.body.classList.add('dimmable', 'dimmed');
+        }
+    }
+    
+    componentWillUnmount() {
+        const { page } = this.props;
+        if (page) {
+            document.body.classList.remove('dimmable', 'dimmed');
+        }
+    }
 
     /**
      * Render dimmer children

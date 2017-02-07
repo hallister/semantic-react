@@ -35,6 +35,28 @@ describe('Dimmer', () => {
         expect(wrapper.find('.dimmer')).to.have.className('page');
     });
     
+    describe('Add classed to body when page dimmer', () => {
+        it('On mounting if mounting is active', () => {
+            let wrapper = shallow(<Dimmer page active />, { lifecycleExperimental: true });
+            expect(document.body.classList.contains('dimmable')).to.be.true;
+            expect(document.body.classList.contains('dimmed')).to.be.true;
+        });
+        
+        it('On activating', () => {
+            let wrapper = shallow(<Dimmer active />, { lifecycleExperimental: true });
+            wrapper.setProps({ active: true });
+            expect(document.body.classList.contains('dimmable')).to.be.true;
+            expect(document.body.classList.contains('dimmed')).to.be.true;
+        });
+        
+        it('Removes them on umounting', () => {
+            let wrapper = shallow(<Dimmer page active />, { lifecycleExperimental: true });
+            wrapper.unmount();
+            expect(document.body.classList.contains('dimmable')).to.be.false;
+            expect(document.body.classList.contains('dimmed')).to.be.false;
+        })
+    });
+    
     it('Could be inverted dimmer', () => {
         let wrapper = shallow(<Dimmer active inverted />);
         expect(wrapper.find('.dimmer')).to.have.className('inverted');
