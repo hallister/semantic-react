@@ -9,6 +9,8 @@ import ModalElement from './modalelement';
 import SemanticCSSTransition from '../../animation/animation';
 import AnimationProps from '../../animation/animationProps';
 
+const MIN_MODAL_TOP_POSITION = 35;
+
 /**
  * Modal is modal
  */
@@ -68,14 +70,14 @@ export default class Modal extends React.PureComponent {
         super(props);
 
         this.state = {
-            modalHeight: 1,
-            modalWidth: 1,
             active: props.active,
-            closing: false
+            closing: false,
+            marginTop: 0,
+            scrolling: false
         };
 
         this.modal = null;
-        this.measureWhitelist = ['height', 'width'];
+        this.portalRef = null;
     }
 
     getChildContext() {
@@ -124,21 +126,6 @@ export default class Modal extends React.PureComponent {
     };
 
     /**
-     * Modal dimensions was changed
-     * @param dimensions
-     */
-    onModalMeasure = (dimensions) => {
-        if (dimensions &&
-            ((dimensions.height && dimensions.height !== this.state.modalHeight) ||
-            (dimensions.width && dimensions.width !== this.state.modalWidth))) {
-            this.setState({
-                modalHeight: dimensions.height,
-                modalWidth: dimensions.width
-            });
-        }
-    };
-
-    /**
      * Animation completed
      */
     onAnimationRest = () => {
@@ -146,6 +133,19 @@ export default class Modal extends React.PureComponent {
             setTimeout(() => this.setState({ closing: false }));
         }
     };
+    
+    onPortalOpened = () => {
+        const { onModalOpened } = this.props;
+        const modalElement = ReactDOM.findDOMNode(this.modal);
+        if (modalElement) {
+            // calculate top placement
+            const { height } = modalElement.getBoundingClientRect();
+            const scrolling = height >= window.innerHeight;
+            const marginTop = -Math.round(height / 2);
+            this.setState({ marginTop: marginTop, scrolling: scrolling });
+        }
+        onModalOpened();
+    }
 
     /**
      * Render modal element
@@ -156,20 +156,18 @@ export default class Modal extends React.PureComponent {
             component, defaultClasses, enter, leave, enterDuration, leaveDuration, onEnter, onLeave, children, dimmed, onOutsideClick, style, zIndex,
             onModalOpened, onModalClosed, onRequestClose, onAnimationStyle, ...other
         } = this.props;
-        let positionTop = 0;
-        let scrolling = false;
-        // Modal is too big, set the scrolling state then
-        if (this.state.modalHeight > window.innerHeight) {
-            scrolling = true
-        } else {
-            positionTop = window.innerHeight / 2 - this.state.modalHeight / 2;
-        }
+        
+        const { scrolling, marginTop } = this.state;
 
         const modalStyle = {
-            ...style,
-            position: 'fixed',
-            top: positionTop
+            ...style
+            // position: 'fixed',
         };
+        if (scrolling) {
+            modalStyle.top = 0
+        } else {
+            modalStyle.marginTop = `${marginTop}px`;
+        }
 
         return (
             <SemanticCSSTransition
@@ -181,20 +179,13 @@ export default class Modal extends React.PureComponent {
                 runOnMount
             >
                 {this.state.active &&
-                <Measure
-                    accurate
-                    whitelist={this.measureWhitelist}
-                    shouldMeasure
-                    onMeasure={this.onModalMeasure}
-                    key="modal-measure"
-                >
                     <Modal.Components.ModalElement
                         {...other}
                         active={this.state.active || (!this.state.active && this.state.closing)}
                         key="modal"
                         ref={ref => this.modal = ref}
-                        scrolling={scrolling}
                         style={modalStyle}
+                        scrolling={scrolling}
                     >
                         <EventListener
                             target={document}
@@ -203,7 +194,6 @@ export default class Modal extends React.PureComponent {
                             onTouchStart={this.onOutsideClick}/>
                         {children}
                     </Modal.Components.ModalElement>
-                </Measure>
                 }
             </SemanticCSSTransition>
         );
@@ -211,30 +201,34 @@ export default class Modal extends React.PureComponent {
 
     render() {
         const { onModalOpened, onModalClosed, enterDuration, leaveDuration, zIndex } = this.props;
+        const { scrolling } = this.state;
 
         // Apply layer to portal to prevent clicking outside
         const portalStyle = {
             position: 'fixed',
             top: 0,
-            bottom: 0,
             left: 0,
-            right: 0,
+            width: '100%',
+            height: '100%',
             zIndex: zIndex
         };
+        if (scrolling) {
+            portalStyle.overflow = 'auto';
+        }
 
         return (
             <Portal
                 isOpened={this.state.active || (!this.state.active && this.state.closing)}
-                onOpen={onModalOpened}
+                onOpen={this.onPortalOpened}
                 onClose={onModalClosed}
             >
                 {/* We don't want to have another transition inside Dimmer, since dimmer leave transition will block modal leave transition */}
-                <div style={portalStyle}>
+                <div style={portalStyle} className="dimmer modals">
                     <Modal.Components.Dimmer
                         active={this.state.active}
                         page
                         noWrapChildren
-                        className="modals"
+                        style={{ zIndex: 0 }} // Should be ok
                         enterDuration={enterDuration}
                         leaveDuration={leaveDuration}/>
                     {this.renderModal()}
