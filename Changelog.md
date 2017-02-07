@@ -1,3 +1,8 @@
+# 0.11.0
+* Removed react-measure from dependencies
+* Page dimmer adds 'dimmable dimmed' classes to the document.body
+* Scrolling modal works now
+
 # 0.10.5
 * Input: renders loading state correctly when loading state was given in array
 
