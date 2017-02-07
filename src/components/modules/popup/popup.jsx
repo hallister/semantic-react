@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Measure from 'react-measure';
 import Portal from 'react-portal';
 import EventListener from 'react-event-listener';
 import throttle from 'lodash.throttle';
@@ -71,8 +70,8 @@ export default class Popup extends React.PureComponent {
         active: false,
         distanceAway: 0,
         offset: 0,
-        enter: "scale in",
-        leave: "scale out",
+        enter: 'scale in',
+        leave: 'scale out',
         enterDuration: 200,
         leaveDuration: 200,
         onRequestClose: () => {},
@@ -101,8 +100,6 @@ export default class Popup extends React.PureComponent {
         this.positionsTried = [];
 
         this.state = {
-            popupWidth: 1,
-            popupHeight: 1,
             active: this.props.active,
             closing: false,
             // Need to save position to state, since it could be changed by autoPosition
@@ -112,7 +109,6 @@ export default class Popup extends React.PureComponent {
         };
 
         this.popupRef = null;
-        this.measureWhitelist = ['height', 'width'];
     }
 
     componentDidMount() {
@@ -165,20 +161,6 @@ export default class Popup extends React.PureComponent {
             this.setState({ closing: false })
         }
     }
-    /**
-     * Popup dimensions was changed
-     * @param dimensions
-     */
-    onPopupMeasure = (dimensions) => {
-        if (dimensions &&
-            ((dimensions.height && dimensions.height !== this.state.popupHeight) ||
-            (dimensions.width && dimensions.width !== this.state.popupWidth))) {
-            this.setState({
-                popupHeight: dimensions.height,
-                popupWidth: dimensions.width
-            });
-        }
-    }
 
     /**
      * Renders popup
@@ -204,18 +186,12 @@ export default class Popup extends React.PureComponent {
         const popupStyle = style ? { ...style, ...positionStyle } : positionStyle;
 
         return (
-            <Measure accurate
-                     whitelist={this.measureWhitelist}
-                     onMeasure={this.onPopupMeasure}
-                     key="measure"
-            >
-                <Popup.Components.PopupElement
-                    {...other}
-                    key="popup"
-                    position={this.state.position}
-                    ref={ref => this.popupRef = ref}
-                    style={popupStyle}/>
-            </Measure>
+            <Popup.Components.PopupElement
+                {...other}
+                key="popup"
+                position={this.state.position}
+                ref={ref => this.popupRef = ref}
+                style={popupStyle} />
         );
     }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Measure from 'react-measure';
 import Portal from 'react-portal';
 import EventListener from 'react-event-listener';
 import { isNodeInRoot } from '../../utilities';
