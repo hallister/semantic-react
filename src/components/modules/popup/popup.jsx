@@ -292,53 +292,47 @@ export default class Popup extends React.PureComponent {
         if (!targetEl) {
             return;
         }
+        
+        // Help to folks who're using inline-to-style libraries for styling
+        setTimeout(() => {
+            // mark current position as tried
+            this.positionsTried.push(this.state.position);
 
-        // mark current position as tried
-        this.positionsTried.push(this.state.position);
+            const targetElementPosition = this.getTargetPosition(targetEl);
+            const popupDimensions = this.getPopupDimensions(popupHTMLElement);
 
-        const targetElementPosition = this.getTargetPosition(targetEl);
-        const popupDimensions = this.getPopupDimensions(popupHTMLElement);
-
-        if (scrolling && this.props.requestCloseWhenOffScreen) {
-            this.requestCloseWhenOffScreen(targetElementPosition);
-        }
-
-        // need to know margins
-        const computedStyle = window.getComputedStyle(popupHTMLElement);
-        const margins = {
-            top: parseFloat(computedStyle.marginTop),
-            bottom: parseFloat(computedStyle.marginBottom),
-            left: parseFloat(computedStyle.marginLeft),
-            right: parseFloat(computedStyle.marginRight)
-        };
-        // assuming that all margins should be equal, using it because if popup will be autopositioned to opposite direction, then
-        // getComputedStyle will not return correct margin, since it could be not-rerendered yet
-        let margin = margins.bottom || margins.right || margins.left || margins.top || 0;
-        // calculate popup position
-        let finalPosition = this.calculatePopupPosition(this.state.position, targetElementPosition, popupDimensions, margin);
-        // Recalculate position if needed
-        let nextPosition = null;
-        if (this.props.autoPosition && this.positionsTried.length <= POSITIONS.length) {
-            nextPosition = this.autoPosition(finalPosition, popupDimensions);
-            if (nextPosition) {
-                finalPosition = this.calculatePopupPosition(nextPosition, targetElementPosition, popupDimensions, margin);
+            if (scrolling && this.props.requestCloseWhenOffScreen) {
+                this.requestCloseWhenOffScreen(targetElementPosition);
             }
-        }
 
-        this.setState({
-            position: nextPosition ? nextPosition : this.state.position, // eslint-disable-line
-            positionStyleTop: `${finalPosition.top}px`,
-            positionStyleLeft: `${finalPosition.left}px`
+            // need to know margins
+            const computedStyle = window.getComputedStyle(popupHTMLElement);
+            const margins = {
+                top: parseFloat(computedStyle.marginTop),
+                bottom: parseFloat(computedStyle.marginBottom),
+                left: parseFloat(computedStyle.marginLeft),
+                right: parseFloat(computedStyle.marginRight)
+            };
+            // assuming that all margins should be equal, using it because if popup will be autopositioned to opposite direction, then
+            // getComputedStyle will not return correct margin, since it could be not-rerendered yet
+            let margin = margins.bottom || margins.right || margins.left || margins.top || 0;
+            // calculate popup position
+            let finalPosition = this.calculatePopupPosition(this.state.position, targetElementPosition, popupDimensions, margin);
+            // Recalculate position if needed
+            let nextPosition = null;
+            if (this.props.autoPosition && this.positionsTried.length <= POSITIONS.length) {
+                nextPosition = this.autoPosition(finalPosition, popupDimensions);
+                if (nextPosition) {
+                    finalPosition = this.calculatePopupPosition(nextPosition, targetElementPosition, popupDimensions, margin);
+                }
+            }
+
+            this.setState({
+                position: nextPosition ? nextPosition : this.state.position, // eslint-disable-line
+                positionStyleTop: `${finalPosition.top}px`,
+                positionStyleLeft: `${finalPosition.left}px`
+            }, 0);
         });
-
-        // apply position to popup
-        /*        popupHTMLElement.style.left = `${finalPosition.left}px`;
-         popupHTMLElement.style.top = `${finalPosition.top}px`;
-         popupHTMLElement.style.bottom = 'auto';
-         popupHTMLElement.style.right = 'auto';
-         popupHTMLElement.style.display = 'block';*/
-
-
     }
 
     /**

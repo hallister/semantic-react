@@ -137,11 +137,14 @@ export default class Modal extends React.PureComponent {
         const { onModalOpened } = this.props;
         const modalElement = ReactDOM.findDOMNode(this.modal);
         if (modalElement) {
-            // calculate top placement
-            const { height } = modalElement.getBoundingClientRect();
-            const scrolling = height >= window.innerHeight;
-            const marginTop = -Math.round(height / 2);
-            this.setState({ marginTop: marginTop, scrolling: scrolling });
+            // Help to folks who're using inline-to-style libraries for styling
+            setTimeout(() => {
+                // calculate top placement
+                const { height } = modalElement.getBoundingClientRect();
+                const scrolling = height >= window.innerHeight;
+                const marginTop = -Math.round(height / 2);
+                this.setState({ marginTop: marginTop, scrolling: scrolling });
+            }, 0);
         }
         onModalOpened();
     }
