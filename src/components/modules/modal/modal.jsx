@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Portal from 'react-portal';
+import throttle from 'lodash.throttle';
 import EventListener from 'react-event-listener';
 import { isNodeInRoot } from '../../utilities';
 import Dimmer from '../dimmer/dimmer';
@@ -77,6 +78,7 @@ export default class Modal extends React.PureComponent {
 
         this.modal = null;
         this.portalRef = null;
+        this.handleResize = throttle(this.setPlacement.bind(this), 100);
     }
 
     getChildContext() {
@@ -135,18 +137,21 @@ export default class Modal extends React.PureComponent {
     
     onPortalOpened = () => {
         const { onModalOpened } = this.props;
+        onModalOpened();
+        this.setPlacement();
+    }
+    
+    setPlacement = () => {
         const modalElement = ReactDOM.findDOMNode(this.modal);
         if (modalElement) {
             // Help to folks who're using inline-to-style libraries for styling
             setTimeout(() => {
-                // calculate top placement
-                const { height } = modalElement.getBoundingClientRect();
+                const height = modalElement.offsetHeight;
                 const scrolling = height >= window.innerHeight;
                 const marginTop = -Math.round(height / 2);
                 this.setState({ marginTop: marginTop, scrolling: scrolling });
             }, 0);
         }
-        onModalOpened();
     }
 
     /**
@@ -189,6 +194,9 @@ export default class Modal extends React.PureComponent {
                         style={modalStyle}
                         scrolling={scrolling}
                     >
+                        <EventListener
+                            target="window"
+                            onResize={this.handleResize}/>
                         <EventListener
                             target={document}
                             onKeyDown={this.onPressEsc}

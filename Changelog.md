@@ -1,3 +1,7 @@
+# 0.11.1-2
+* Modal: Recalculate modal position on resizing, use offsetHeight instead of getBoundingClientRect().height
+* Modal: Delay calculation of modal height to next tick ```setTimeout(() => {}, 0)```
+
 # 0.11.0
 * Removed react-measure from dependencies
 * Page dimmer adds 'dimmable dimmed' classes to the document.body
