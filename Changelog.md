@@ -1,3 +1,6 @@
+# 0.11.3
+* Select: Fix error when option is null | undefined
+
 # 0.11.1-2
 * Modal: Recalculate modal position on resizing, use offsetHeight instead of getBoundingClientRect().height
 * Modal: Delay calculation of modal height to next tick ```setTimeout(() => {}, 0)```

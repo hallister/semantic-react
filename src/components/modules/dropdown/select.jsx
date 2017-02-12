@@ -310,7 +310,7 @@ export default class Select extends React.PureComponent {
 
         return React.Children.map(this.props.children, child => {
             // Process only option or option like childs and if it's selected
-            if (selected.indexOf(child.props.value) !== -1) {
+            if (child && child.props && selected.indexOf(child.props.value) !== -1) {
                 return (
                     <SemanticCSSTransition
                         enter="in scale"
@@ -358,7 +358,7 @@ export default class Select extends React.PureComponent {
             if (!search || !searchString) {
                 // traverse in childs, find necessary node
                 React.Children.forEach(this.props.children, child => {
-                    if (typeof child.props.value !== 'undefined' && selected.indexOf(child.props.value) !== -1) {
+                    if (child && child.props && typeof child.props.value !== 'undefined' && selected.indexOf(child.props.value) !== -1) {
                         content = <div className="text">{child.props.children}</div>
                     }
                 });
@@ -443,6 +443,9 @@ export default class Select extends React.PureComponent {
         let newChildren = [];
         React.Children.forEach(this.props.children, child => {
             // only process option like childs
+            if (!child) {
+                return;
+            }
             if (typeof child.props.value !== 'undefined') {
                 let match = true;
                 if (search && searchString !== '') {
