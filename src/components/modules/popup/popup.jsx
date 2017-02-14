@@ -332,8 +332,8 @@ export default class Popup extends React.PureComponent {
 
             this.setState({
                 position: nextPosition ? nextPosition : this.state.position, // eslint-disable-line
-                positionStyleTop: `${finalPosition.top}px`,
-                positionStyleLeft: `${finalPosition.left}px`
+                positionStyleTop: `${Math.round(finalPosition.top)}px`,
+                positionStyleLeft: `${Math.round(finalPosition.left)}px`
             }, 0);
         });
     }
