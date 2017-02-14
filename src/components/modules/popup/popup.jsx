@@ -158,7 +158,10 @@ export default class Popup extends React.PureComponent {
 
     onAnimationRest = () => {
         if (!this.state.active && this.state.closing) {
-            this.setState({ closing: false })
+            // delay to the next tick otherwise react will throw a warning
+            setTimeout(() => {
+                this.setState({ closing: false })
+            }, 0);
         }
     }
 
@@ -213,7 +216,7 @@ export default class Popup extends React.PureComponent {
 
         return (
             <Portal
-                isOpened={this.state.active || (!this.state.active && this.state.closing)}
+                isOpened={this.state.active || this.state.closing}
             >
                 <div style={portalStyle}>
                     <EventListener

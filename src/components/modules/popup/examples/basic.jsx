@@ -11,22 +11,22 @@ class MyPopup extends React.Component {
         }
     }
 
-    onButtonHoverEnter = (event) => {
+    onButtonHoverEnter(event) {
         this.setState({ popupActive: true, buttonEl: event.target });
     }
 
-    onPopupRequestClose = () => {
+    onPopupRequestClose() {
         this.setState({ popupActive: false });
     }
 
     render() {
         return (
             <div>
-                <Button onMouseEnter={this.onButtonHoverEnter}>
+                <Button onMouseEnter={this.onButtonHoverEnter.bind(this)}>
                     Hover Me!
                 </Button>
                 <Popup active={this.state.popupActive}
-                       onRequestClose={this.onPopupRequestClose}
+                       onRequestClose={this.onPopupRequestClose.bind(this)}
                        target={this.state.buttonEl}
                 >
                     This is just popup
