@@ -26,7 +26,7 @@ export default class MenuItem extends React.PureComponent {
         menuValue: React.PropTypes.oneOfType([
             React.PropTypes.number,
             React.PropTypes.string
-        ]).isRequired
+        ])
     };
     static defaultProps = {
         ...DefaultProps.defaultProps

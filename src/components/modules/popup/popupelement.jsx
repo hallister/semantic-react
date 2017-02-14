@@ -2,8 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
-export const POSITIONS = ['top left', 'top center', 'top right', 'right center',
-                'bottom right', 'bottom center', 'bottom left', 'left center'];
+export const POSITIONS = [
+    'top left', 'top center', 'top right', 'right center', 'bottom right', 'bottom center', 'bottom left', 'left center'
+];
 
 /**
  * Popup component without animation transitions
@@ -46,8 +47,9 @@ export default class PopupElement extends React.PureComponent {
         /**
          * Popup position
          */
-        position: React.PropTypes.oneOf(['top left', 'top center', 'top right', 'right center',
-                'bottom right', 'bottom center', 'bottom left', 'left center'])
+        position: React.PropTypes.oneOf([
+            'top left', 'top center', 'top right', 'right center', 'bottom right', 'bottom center', 'bottom left', 'left center'
+        ])
     };
     
     static defaultProps = {
