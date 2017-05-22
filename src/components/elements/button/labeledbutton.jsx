@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
 import Icon from './../icon/icon';
@@ -20,15 +21,15 @@ export default class LabeledButton extends React.PureComponent {
         /**
          * Label position, default to right
          */
-        labeled: React.PropTypes.oneOf(['left', 'right']),
+        labeled: PropTypes.oneOf(['left', 'right']),
         /**
          * Type of label, could be text label or icon
          */
-        labelType: React.PropTypes.oneOf(['text', 'icon']),
+        labelType: PropTypes.oneOf(['text', 'icon']),
         /**
          * Label, if given string will be used as label text or icon name (if labelType is icon).
          */
-        label: React.PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
         /**
          * Label component. Default will be Icon for labelType icon and Label for labelType label
          */

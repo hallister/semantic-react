@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -11,11 +12,11 @@ export default class Dimmable extends React.PureComponent {
         /**
          * Blur dimmer
          */
-        blurring: React.PropTypes.bool,
+        blurring: PropTypes.bool,
         /**
          * Add dimmed class to dimmable. This could be omitted and you can instead set overflow: hidden instead
          */
-        dimmed: React.PropTypes.bool
+        dimmed: PropTypes.bool
     };
 
     static defaultProps = {

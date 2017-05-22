@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -11,21 +12,21 @@ export default class MenuItem extends React.PureComponent {
         /**
          * Is item active
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * Is item disabled
          */
-        disabled: React.PropTypes.bool,
+        disabled: PropTypes.bool,
         /**
          * Item color
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * Item value (used in controlled menu)
          */
-        menuValue: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.string
+        menuValue: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string
         ])
     };
     static defaultProps = {

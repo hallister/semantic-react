@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import Components from 'react-styleguidist/src/rsg-components/Components';
 import TableOfContents from 'react-styleguidist/src/rsg-components/TableOfContents';
@@ -155,11 +156,11 @@ export default class StyleGuide extends Component {
 
     static childContextTypes = {
         codeKey: PropTypes.number.isRequired,
-        config: PropTypes.object.isRequired,
+        config: PropTypes.object.isRequired
     };
 
     static defaultProps = {
-        sidebar: true,
+        sidebar: true
     };
 
     constructor(props) {
@@ -170,7 +171,7 @@ export default class StyleGuide extends Component {
     getChildContext() {
         return {
             codeKey: this.props.codeKey,
-            config: this.props.config,
+            config: this.props.config
         };
     }
 

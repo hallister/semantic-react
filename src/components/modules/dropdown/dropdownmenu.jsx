@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import EventListener from 'react-event-listener';
 import elementType from 'react-prop-types/lib/elementType';
@@ -20,15 +21,15 @@ export default class DropdownMenu extends React.PureComponent {
         /**
          * Active/Close menu
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * Menu icon
          */
-        icon: React.PropTypes.string,
+        icon: PropTypes.string,
         /**
          * Menu label
          */
-        label: React.PropTypes.string,
+        label: PropTypes.string,
         /**
          * Specify component to be used as Menu.
          * Usually is should be menu but with custom options applied (for example inverted).
@@ -38,25 +39,25 @@ export default class DropdownMenu extends React.PureComponent {
         /**
          * Menu active value
          */
-        menuValue: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.string,
-            React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]))
+        menuValue: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
+            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
         ]),
         /**
          * Callback for active item change. Will not be fired if menuValue was omitted
          * Will pass new menuValue or array of new menuValue
          * If all items were unselected would pass null if menuValue is single value or empty array if menuValue is array
          */
-        onMenuChange: React.PropTypes.func,
+        onMenuChange: PropTypes.func,
         /**
          * Callback for menu item click
          */
-        onMenuItemClick: React.PropTypes.func,
+        onMenuItemClick: PropTypes.func,
         /**
          * Callback will be called when menu wants to be closed (for ex. from outside click)
          */
-        onRequestClose: React.PropTypes.func
+        onRequestClose: PropTypes.func
     };
 
     static defaultProps = {

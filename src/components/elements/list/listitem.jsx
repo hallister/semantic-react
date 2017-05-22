@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import elementType from 'react-prop-types/lib/elementType';
 import classNames from 'classnames';
 import Icon from '../icon/icon';
@@ -14,19 +15,19 @@ export default class ListItem extends React.PureComponent {
         /**
          * Mark item as active. Valid only for link list
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * Content alignment
          */
-        contentAligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
+        contentAligned: PropTypes.oneOf(['top', 'middle', 'bottom']),
         /**
          * Image/Icon name
          */
-        image: React.PropTypes.string,
+        image: PropTypes.string,
         /**
          * Type of image/icon
          */
-        imageType: React.PropTypes.oneOf(['image', 'icon']),
+        imageType: PropTypes.oneOf(['image', 'icon']),
         /**
          * Image/Icon component. Override to tune
          */
@@ -38,7 +39,7 @@ export default class ListItem extends React.PureComponent {
     };
 
     static contextTypes = {
-        isLinkList: React.PropTypes.bool
+        isLinkList: PropTypes.bool
     };
 
     static defaultProps = {

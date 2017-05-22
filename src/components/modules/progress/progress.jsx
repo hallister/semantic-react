@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
 import Bar from './bar';
@@ -11,22 +12,22 @@ let validProps = {
 export default class Progress extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        active: React.PropTypes.bool,
-        attached: React.PropTypes.oneOf(['top', 'bottom']),
-        color: React.PropTypes.string,
-        disabled: React.PropTypes.bool,
-        duration: React.PropTypes.number,
-        error: React.PropTypes.bool,
-        indicating: React.PropTypes.bool,
-        inverted: React.PropTypes.bool,
-        progress: React.PropTypes.number,
-        size: React.PropTypes.string,
-        success: React.PropTypes.bool,
-        warning: React.PropTypes.bool
+        active: PropTypes.bool,
+        attached: PropTypes.oneOf(['top', 'bottom']),
+        color: PropTypes.string,
+        disabled: PropTypes.bool,
+        duration: PropTypes.number,
+        error: PropTypes.bool,
+        indicating: PropTypes.bool,
+        inverted: PropTypes.bool,
+        progress: PropTypes.number,
+        size: PropTypes.string,
+        success: PropTypes.bool,
+        warning: PropTypes.bool
     };
 
     static childContextTypes = {
-        isProgressChild: React.PropTypes.bool
+        isProgressChild: PropTypes.bool
     };
 
     static defaultProps = {

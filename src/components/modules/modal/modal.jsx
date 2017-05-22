@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Portal from 'react-portal';
 import throttle from 'lodash.throttle';
@@ -21,28 +22,28 @@ export default class Modal extends React.PureComponent {
         /**
          * Dimmer variations
          */
-        dimmed: React.PropTypes.oneOf(['blurring', 'inverted', 'blurring inverted']),
+        dimmed: PropTypes.oneOf(['blurring', 'inverted', 'blurring inverted']),
         /**
          * Callback from outside modal click
          */
-        onRequestClose: React.PropTypes.func,
+        onRequestClose: PropTypes.func,
         /**
          * Callback for modal opening
          */
-        onModalOpened: React.PropTypes.func,
+        onModalOpened: PropTypes.func,
         /**
          * Callback for modal closing
          */
-        onModalClosed: React.PropTypes.func,
+        onModalClosed: PropTypes.func,
         /**
          * Overlay zIndex
          */
-        zIndex: React.PropTypes.number
+        zIndex: PropTypes.number
     };
 
 
     static childContextTypes = {
-        isModalChild: React.PropTypes.bool
+        isModalChild: PropTypes.bool
     };
 
     static defaultProps = {

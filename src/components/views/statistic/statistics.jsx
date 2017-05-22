@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { Numbers, Colors, Sizes, validateClassProps } from '../../utilities';
@@ -13,13 +14,13 @@ let validProps = {
 export default class Statistics extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        even: React.PropTypes.bool,
-        color: React.PropTypes.string,
-        size: React.PropTypes.string
+        even: PropTypes.bool,
+        color: PropTypes.string,
+        size: PropTypes.string
     };
 
     static childContextTypes = {
-        isStatisticsChild: React.PropTypes.bool
+        isStatisticsChild: PropTypes.bool
     }
 
     static defaultProps = {

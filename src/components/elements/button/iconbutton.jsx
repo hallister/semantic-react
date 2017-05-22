@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
 import Button from './button';
@@ -14,7 +15,7 @@ export default class IconButton extends React.PureComponent {
         /**
          * Adds a SemanticUI color class to the icon.
          */
-        iconColor: React.PropTypes.string,
+        iconColor: PropTypes.string,
 
         /**
          * Icon component
@@ -24,7 +25,7 @@ export default class IconButton extends React.PureComponent {
         /**
          * Adds a SemanticUI name class to the icon.
          */
-        name: React.PropTypes.string.isRequired
+        name: PropTypes.string.isRequired
     };
 
     static defaultProps = {

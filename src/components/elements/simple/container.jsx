@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
 import DefaultProps from '../../defaultProps';
@@ -10,8 +11,8 @@ let validProps = {
 export default class Container extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
-        fluid: React.PropTypes.bool
+        aligned: PropTypes.oneOf(['right', 'left', 'justified', 'center']),
+        fluid: PropTypes.bool
     };
 
     static defaultProps = {

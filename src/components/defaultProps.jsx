@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import elementType from 'react-prop-types/lib/elementType';
 
 /**
@@ -16,7 +17,7 @@ DefaultProps.propTypes = {
     /**
      * Children nodes
      */
-    children: React.PropTypes.node,
+    children: PropTypes.node,
     /**
      * Use other component for composing results: <DropdownMenu component={Button}>
      */
@@ -24,11 +25,11 @@ DefaultProps.propTypes = {
     /**
      * Apply default semantic UI classes for component, for example ui button
      */
-    defaultClasses: React.PropTypes.bool,
+    defaultClasses: PropTypes.bool,
     /**
      * Additional CSS ui classes
      */
-    className: React.PropTypes.string
+    className: PropTypes.string
 };
 
 DefaultProps.defaultProps = {

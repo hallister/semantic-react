@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Checkbox from './checkbox';
 import DefaultProps  from '../../defaultProps';
@@ -6,12 +7,12 @@ import DefaultProps  from '../../defaultProps';
 export default class CheckboxFields extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        disabled: React.PropTypes.bool,
-        name: React.PropTypes.string.isRequired,
-        onClick: React.PropTypes.func,
-        radio: React.PropTypes.bool,
-        readOnly: React.PropTypes.bool,
-        type: React.PropTypes.oneOf([
+        disabled: PropTypes.bool,
+        name: PropTypes.string.isRequired,
+        onClick: PropTypes.func,
+        radio: PropTypes.bool,
+        readOnly: PropTypes.bool,
+        type: PropTypes.oneOf([
             'grouped',
             'inline'
         ]).isRequired

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Numbers, validateClassProps } from '../../utilities';
 import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
@@ -19,54 +20,54 @@ export default class Column extends React.PureComponent {
         /**
          * Horizontal content alignment
          */
-        aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+        aligned: PropTypes.oneOf(['right', 'left', 'center']),
         /**
          * Float to the right or left edge of the row
          */
-        floated: React.PropTypes.oneOf(['right', 'left']),
+        floated: PropTypes.oneOf(['right', 'left']),
         /**
          * Only visible for types. Could be single type string or array, i.e. only={["mobile","tablet"]}
          */
-        only: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf([
+        only: PropTypes.oneOfType([
+            PropTypes.oneOf([
                 'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
             ]),
-            React.PropTypes.arrayOf(React.PropTypes.oneOf([
+            PropTypes.arrayOf(PropTypes.oneOf([
                 'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
             ]))
         ]),
         /**
          * Column color
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * Column width for all device types
          */
-        width: React.PropTypes.number,
+        width: PropTypes.number,
         /**
          * Column width for mobile
          */
-        mobileWidth: React.PropTypes.number,
+        mobileWidth: PropTypes.number,
         /**
          * Column width for tablet
          */
-        tabletWidth: React.PropTypes.number,
+        tabletWidth: PropTypes.number,
         /**
          * Column width for computer
          */
-        computerWidth: React.PropTypes.number,
+        computerWidth: PropTypes.number,
         /**
          * Column width for large screens
          */
-        largeScreenWidth: React.PropTypes.number,
+        largeScreenWidth: PropTypes.number,
         /**
          * Column width for wide screens
          */
-        wideScreenWidth: React.PropTypes.number,
+        wideScreenWidth: PropTypes.number,
         /**
          * Vertical content alignment
          */
-        valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
+        valigned: PropTypes.oneOf(['top', 'middle', 'bottom'])
     };
 
     static defaultProps = {

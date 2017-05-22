@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { countChildren, Numbers } from '../../utilities';
 import Field from './field';
 import classNames from 'classnames';
@@ -11,19 +12,19 @@ export default class Fields extends React.PureComponent {
         /**
          * Fields can automatically divide fields to be equal width
          */
-        equalWidth: React.PropTypes.bool,
+        equalWidth: PropTypes.bool,
         /**
          * Fields can have their widths divided evenly
          */
-        fluid: React.PropTypes.bool,
+        fluid: PropTypes.bool,
         /**
          * Fields can show related choices
          */
-        grouped: React.PropTypes.bool,
+        grouped: PropTypes.bool,
         /**
          * Multiple fields may be inline in a row
          */
-        inline: React.PropTypes.bool
+        inline: PropTypes.bool
     };
 
     static defaultProps = {

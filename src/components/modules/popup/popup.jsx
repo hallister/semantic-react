@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Portal from 'react-portal';
 import EventListener from 'react-event-listener';
@@ -18,48 +19,48 @@ export default class Popup extends React.PureComponent {
         /**
          * True to display the popup. If false will be hidden
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * Auto position popup when needed
          */
-        autoPosition: React.PropTypes.bool,
+        autoPosition: PropTypes.bool,
         /**
          * Offset for distance of popup from element
          */
-        distanceAway: React.PropTypes.number,
+        distanceAway: PropTypes.number,
         /**
          * Use this position when element fails to fit on screen in all tried positions
          * If omitted, the last tried position will be used instead
          */
-        lastResortPosition: React.PropTypes.string,
+        lastResortPosition: PropTypes.string,
         /**
          * Offset in pixels from calculated position
          */
-        offset: React.PropTypes.number,
+        offset: PropTypes.number,
         /**
          * Callback when popup wants to be closed (i.e. when offscreen or clicked outside)
          */
-        onRequestClose: React.PropTypes.func,
+        onRequestClose: PropTypes.func,
         /**
          * When auto-positioning popup use opposite direction or adjacent as next position
          */
-        prefer: React.PropTypes.oneOf(['adjacent', 'opposite']),
+        prefer: PropTypes.oneOf(['adjacent', 'opposite']),
         /**
          * If true will prevent clicking on the other elements
          */
-        preventElementClicks: React.PropTypes.bool,
+        preventElementClicks: PropTypes.bool,
         /**
          * Hide popup when target element scrolls off the screen
          */
-        requestCloseWhenOffScreen: React.PropTypes.bool,
+        requestCloseWhenOffScreen: PropTypes.bool,
         /**
          * Target element to apply popup
          */
-        target: React.PropTypes.object.isRequired,
+        target: PropTypes.object.isRequired,
         /**
          * Overlay zIndex
          */
-        zIndex: React.PropTypes.number
+        zIndex: PropTypes.number
     };
 
     static defaultProps = {

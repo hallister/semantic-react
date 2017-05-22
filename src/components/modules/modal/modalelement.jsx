@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from './../../defaultProps';
 
@@ -11,27 +12,27 @@ export default class ModalElement extends React.PureComponent {
         /**
          * Should be modal visible
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * A modal can reduce its complexity
          */
-        basic: React.PropTypes.bool,
+        basic: PropTypes.bool,
         /**
          * A modal can use the entire size of the screen
          */
-        fullscreen: React.PropTypes.bool,
+        fullscreen: PropTypes.bool,
         /**
          * Scrolling content
          */
-        scrolling: React.PropTypes.bool,
+        scrolling: PropTypes.bool,
         /**
          * A modal can vary in size
          */
-        size: React.PropTypes.string,
+        size: PropTypes.string,
         /**
          * Internal
          */
-        closePortal: React.PropTypes.func
+        closePortal: PropTypes.func
     };
 
     static defaultProps = {

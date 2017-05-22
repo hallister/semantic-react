@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -8,7 +9,7 @@ export default class Flag extends React.PureComponent {
         /**
          * The country code, name or alias of the flag
          */
-        name: React.PropTypes.string.isRequired
+        name: PropTypes.string.isRequired
     };
 
     static defaultProps = {

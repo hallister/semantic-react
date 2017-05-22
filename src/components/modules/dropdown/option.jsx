@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MenuItem from './../../views/menu/menuitem';
 
@@ -11,9 +12,9 @@ export default class Option extends React.PureComponent {
         /**
          * Option value
          */
-        value: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.string
+        value: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string
         ]).isRequired
     };
 

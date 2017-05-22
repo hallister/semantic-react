@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Sizes, Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -13,34 +14,34 @@ export default class Steps extends React.PureComponent {
       /**
        * Steps can be shown as an ordered sequence
        */
-      ordered: React.PropTypes.bool,
+      ordered: PropTypes.bool,
       /**
        * Steps can be displayed stacked vertically
        */
-      vertical: React.PropTypes.bool,
+      vertical: PropTypes.bool,
       /**
        * Steps can stack vertically on smaller screens
        */
-      stackable: React.PropTypes.bool,
+      stackable: PropTypes.bool,
       /**
        * Steps can take up the width of their container
        */
-      fluid: React.PropTypes.bool,
+      fluid: PropTypes.bool,
       /**
        * Steps can be attached to other elements
        */
-      attached: React.PropTypes.oneOfType([
-          React.PropTypes.oneOf(['bottom', 'top']),
-          React.PropTypes.bool
+      attached: PropTypes.oneOfType([
+          PropTypes.oneOf(['bottom', 'top']),
+          PropTypes.bool
       ]),
       /**
        * Steps can be divided evenly inside their parent
        */
-      equalWidths: React.PropTypes.bool,
+      equalWidths: PropTypes.bool,
       /**
        * Steps can have different sizes
        */
-      size: React.PropTypes.oneOf(Sizes),
+      size: PropTypes.oneOf(Sizes)
   };
 
   static defaultProps = {
@@ -73,7 +74,7 @@ export default class Steps extends React.PureComponent {
           vertical: this.props.vertical,
           stackable: this.props.stackable,
           fluid: this.props.fluid,
-          attached: this.props.attached,
+          attached: this.props.attached
         };
 
         if (this.props.equalWidths && childCount > 0  && childCount <= 8) {

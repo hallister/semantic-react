@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { hasChild, Sizes, Colors } from '../../utilities';
 import DefaultProps from '../../defaultProps';
@@ -18,45 +19,45 @@ export default class Statistic extends React.PureComponent {
         /**
          * A string or number that represents the value of statistic
          */
-        value: React.PropTypes.oneTypeOf([
-            React.PropTypes.string,
-            React.PropTypes.number
+        value: PropTypes.oneTypeOf([
+            PropTypes.string,
+            PropTypes.number
         ]),
         /**
          * A string or number that represents the label of a statistic
          */
-        label: React.PropTypes.oneTypeOf([
-            React.PropTypes.string,
-            React.PropTypes.number
+        label: PropTypes.oneTypeOf([
+            PropTypes.string,
+            PropTypes.number
         ]),
         /**
          * A statistic can present its measurement horizontally
          */
-        horizontal: React.PropTypes.bool,
+        horizontal: PropTypes.bool,
         /**
          * A SemanticUI color class.
          */
-        color: React.PropTypes.oneOf(Colors),
+        color: PropTypes.oneOf(Colors),
         /**
          * Styles the component for a dark background.
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * Forces to component to float left or right.
          */
-        floated: React.PropTypes.oneOf(['right', 'left']),
+        floated: PropTypes.oneOf(['right', 'left']),
         /**
          * Adds a SemanticUI size class.
          */
-        size: React.PropTypes.oneOf(Sizes)
+        size: PropTypes.oneOf(Sizes)
     };
 
     static contextTypes = {
-        isStatisticsChild: React.PropTypes.bool
+        isStatisticsChild: PropTypes.bool
     };
 
     static childContextTypes = {
-        isStatisticChild: React.PropTypes.bool
+        isStatisticChild: PropTypes.bool
     };
 
     static defaultProps = {

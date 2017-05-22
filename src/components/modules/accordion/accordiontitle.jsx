@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 import elementType from 'react-prop-types/lib/elementType';
@@ -13,11 +14,11 @@ export default class AccordionTitle extends React.PureComponent {
         /**
          * True for active (visible) accordion section. This is being set by Accordion itself
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * Icon name
          */
-        icon: React.PropTypes.string,
+        icon: PropTypes.string,
         /**
          * Allows to override icon component
          */
@@ -25,11 +26,11 @@ export default class AccordionTitle extends React.PureComponent {
         /**
          * Accordion index. Used by Accordion component to control which content should be hidden/displayed
          */
-        index: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]).isRequired,
+        index: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         /**
          * Click handler. Being set by Accordion
          */
-        onClick: React.PropTypes.func
+        onClick: PropTypes.func
 
     };
 

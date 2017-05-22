@@ -2,7 +2,7 @@
 /* global sinon */
 import React from 'react';
 import sinon from 'sinon';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import { Icon, Text, Button } from '../../../elements';

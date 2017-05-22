@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -14,27 +15,27 @@ export default class Td extends React.PureComponent {
         /**
          * Cell text alignment
          */
-        aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+        aligned: PropTypes.oneOf(['right', 'left', 'center']),
         /**
          * A cell can be collapsing so that it only uses as much space as required
          */
-        collapsing: React.PropTypes.bool,
+        collapsing: PropTypes.bool,
         /**
          * A table cell can be selectable
          */
-        selectable: React.PropTypes.bool,
+        selectable: PropTypes.bool,
         /**
          * Content should remain on a single line, and not wrap.
          */
-        singleLine: React.PropTypes.bool,
+        singleLine: PropTypes.bool,
         /**
          * Cell emphasis
          */
-        emphasis: React.PropTypes.oneOf(['negative', 'positive', 'error', 'warning']),
+        emphasis: PropTypes.oneOf(['negative', 'positive', 'error', 'warning']),
         /**
          * Vertical cell alignment
          */
-        valigned: React.PropTypes.oneOf(['top', 'bottom', 'middle'])
+        valigned: PropTypes.oneOf(['top', 'bottom', 'middle'])
     };
 
     static defaultProps = {

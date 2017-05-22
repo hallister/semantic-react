@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
 import { validateClassProps, hasChild } from '../../utilities';
@@ -18,39 +19,39 @@ export default class Header extends React.PureComponent {
         /**
          * A header can have its text aligned to a side
          */
-        aligned: React.PropTypes.oneOf(['right', 'left', 'justified', 'center']),
+        aligned: PropTypes.oneOf(['right', 'left', 'justified', 'center']),
         /**
          * A header can be attached to other content, like a segment
          */
-        attached: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['bottom', 'top']),
-            React.PropTypes.bool
+        attached: PropTypes.oneOfType([
+            PropTypes.oneOf(['bottom', 'top']),
+            PropTypes.bool
         ]),
         /**
          * A header can be formatted with different colors
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * A header can show that it is inactive
          */
-        disabled: React.PropTypes.bool,
+        disabled: PropTypes.bool,
         /**
          * Header may be used as divider
          */
-        divider: React.PropTypes.bool,
+        divider: PropTypes.bool,
         /**
          * dividing: can be formatted to divide itself from the content below it
          * block: can be formatted to appear inside a content block
          */
-        emphasis: React.PropTypes.oneOf(['dividing', 'block']),
+        emphasis: PropTypes.oneOf(['dividing', 'block']),
         /**
          * A header can sit to the left or right of other content
          */
-        floated: React.PropTypes.oneOf(['right', 'left']),
+        floated: PropTypes.oneOf(['right', 'left']),
         /**
          * Icon name for header. This will turn header into icon header (ui icon header)
          */
-        icon: React.PropTypes.string,
+        icon: PropTypes.string,
         /**
          * Icon component
          */
@@ -58,31 +59,31 @@ export default class Header extends React.PureComponent {
         /**
          * A header can have its colors inverted for contrast
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * May be used as menu item
          */
-        item: React.PropTypes.bool,
+        item: PropTypes.bool,
         /**
          * May have various sizes
          */
-        size: React.PropTypes.string
+        size: PropTypes.string
     };
 
     // we don't want the ui in these circumstances
     static contextTypes = {
-        isListChild: React.PropTypes.bool,
-        isItemsChild: React.PropTypes.bool,
-        isHeaderChild: React.PropTypes.bool,
-        isAccordionChild: React.PropTypes.bool,
-        isMenuChild: React.PropTypes.bool,
-        isCardChild: React.PropTypes.bool,
-        isModalChild: React.PropTypes.bool
+        isListChild: PropTypes.bool,
+        isItemsChild: PropTypes.bool,
+        isHeaderChild: PropTypes.bool,
+        isAccordionChild: PropTypes.bool,
+        isMenuChild: PropTypes.bool,
+        isCardChild: PropTypes.bool,
+        isModalChild: PropTypes.bool
     };
 
     // any header/sub header under a header is a sub header
     static childContextTypes = {
-        isHeaderChild: React.PropTypes.bool
+        isHeaderChild: PropTypes.bool
     };
 
     static defaultProps = {

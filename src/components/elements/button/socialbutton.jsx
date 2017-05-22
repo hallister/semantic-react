@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import IconButton from './iconbutton';
 import Button from './button';
@@ -14,7 +15,7 @@ export default class SocialButton extends React.PureComponent {
         /**
          * Adds a SemanticUI name class to the icon.
          */
-        name: React.PropTypes.string.isRequired
+        name: PropTypes.string.isRequired
     };
 
     /* eslint-disable */

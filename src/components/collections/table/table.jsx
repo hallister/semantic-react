@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -16,102 +17,102 @@ export default class Table extends React.PureComponent {
         /**
          * A table header, row, or cell can adjust its text alignment
          */
-        aligned: React.PropTypes.oneOf(['top', 'bottom']),
+        aligned: PropTypes.oneOf(['top', 'bottom']),
         /**
          * A table can reduce its complexity to increase readability.
          */
-        basic: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['very']),
-            React.PropTypes.bool
+        basic: PropTypes.oneOfType([
+            PropTypes.oneOf(['very']),
+            PropTypes.bool
         ]),
         /**
          * A table may be divided each row into separate cells
          */
-        celled: React.PropTypes.bool,
+        celled: PropTypes.bool,
         /**
          * A cell can be collapsing so that it only uses as much space as required
          */
-        collapsing: React.PropTypes.bool,
+        collapsing: PropTypes.bool,
         /**
          * A table can be given a color to distinguish it from other tables.
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * A table can specify its column count to divide its content evenly
          */
-        columns: React.PropTypes.number,
+        columns: PropTypes.number,
         /**
          * A table may sometimes need to be more compact to make more rows visible at a time
          */
-        compact: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['very']),
-            React.PropTypes.bool
+        compact: PropTypes.oneOfType([
+            PropTypes.oneOf(['very']),
+            PropTypes.bool
         ]),
-        definition: React.PropTypes.bool,
+        definition: PropTypes.bool,
         /**
          * A table can use table-layout: fixed a special faster form of table rendering that does not resize table cells based on content.
          */
-        fixed: React.PropTypes.bool,
+        fixed: PropTypes.bool,
         /**
          * A table's colors can be inverted
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * A table may sometimes need to be more padded for legibility
          */
-        padded: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['very']),
-            React.PropTypes.bool
+        padded: PropTypes.oneOfType([
+            PropTypes.oneOf(['very']),
+            PropTypes.bool
         ]),
         /**
          * A table can have its rows appear selectable
          */
-        selectable: React.PropTypes.bool,
+        selectable: PropTypes.bool,
         /**
          * A table can specify that its cell contents should remain on a single line, and not wrap.
          */
-        singleLine: React.PropTypes.bool,
+        singleLine: PropTypes.bool,
         /**
          * A table can also be small or large
          */
-        size: React.PropTypes.string,
+        size: PropTypes.string,
         /**
          * A table may allow a user to sort contents by clicking on a table header.
          * NOTE: You need to set "sorted descending"/"sorted ascending" class names for corresponding <th> element
          */
-        sortable: React.PropTypes.bool,
+        sortable: PropTypes.bool,
         /**
          * A table can specify how it stacks table content responsively
          */
-        stackable: React.PropTypes.shape({
-            computer: React.PropTypes.bool,
-            mobile: React.PropTypes.bool,
-            tablet: React.PropTypes.bool
+        stackable: PropTypes.shape({
+            computer: PropTypes.bool,
+            mobile: PropTypes.bool,
+            tablet: PropTypes.bool
         }),
         /**
          * A table can stripe alternate rows of content with a darker color to increase contrast
          */
-        striped: React.PropTypes.bool,
+        striped: PropTypes.bool,
         /**
          * A table can be formatted to display complex structured data
          */
-        structured: React.PropTypes.bool,
+        structured: PropTypes.bool,
         /**
          * Reverse of stackable
          */
-        unstackable: React.PropTypes.shape({
-            computer: React.PropTypes.bool,
-            mobile: React.PropTypes.bool,
-            tablet: React.PropTypes.bool
+        unstackable: PropTypes.shape({
+            computer: PropTypes.bool,
+            mobile: PropTypes.bool,
+            tablet: PropTypes.bool
         }),
         /**
          * A table header, row, or cell can adjust its vertical alignment
          */
-        valigned: React.PropTypes.oneOf(['center', 'right']),
+        valigned: PropTypes.oneOf(['center', 'right']),
         /**
          * Table width in grid columns
          */
-        width: React.PropTypes.number
+        width: PropTypes.number
     };
 
     static defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -11,35 +12,35 @@ export default class Accordion extends React.PureComponent {
         /**
          * Pass false to disable animation
          */
-        animating: React.PropTypes.bool,
+        animating: PropTypes.bool,
         /**
          * Current visible content. Strings and numbers are accepted
          */
-        activeIndexes: React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])),
+        activeIndexes: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
         /**
-         * React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]))
+         * PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
          */
-        fluid: React.PropTypes.bool,
+        fluid: PropTypes.bool,
         /**
          * An accordion can be formatted to appear on dark backgrounds
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * Callback when accordion wants to be changed
          */
-        onAccordionChange: React.PropTypes.func,
+        onAccordionChange: PropTypes.func,
         /**
          * A styled accordion adds basic formatting
          */
-        styled: React.PropTypes.bool
+        styled: PropTypes.bool
     };
 
     static contextTypes = {
-        isAccordionChild: React.PropTypes.bool
+        isAccordionChild: PropTypes.bool
     };
 
     static childContextTypes = {
-        isAccordionChild: React.PropTypes.bool
+        isAccordionChild: PropTypes.bool
     };
 
     static defaultProps = {

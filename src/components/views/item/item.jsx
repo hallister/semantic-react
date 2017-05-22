@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 import Content from './../../elements/simple/content';
@@ -9,11 +10,11 @@ export default class Item extends React.PureComponent {
         /**
          * Item image
          */
-        image: React.PropTypes.string,
+        image: PropTypes.string,
         /**
          * Vertical alignment of content
          */
-        contentAligned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
+        contentAligned: PropTypes.oneOf(['top', 'middle', 'bottom'])
     };
 
     static defaultProps = {

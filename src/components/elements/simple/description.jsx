@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 export default class Description extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        hidden: React.PropTypes.bool,
-        visible: React.PropTypes.bool
+        hidden: PropTypes.bool,
+        visible: PropTypes.bool
     };
 
     static defaultProps = {

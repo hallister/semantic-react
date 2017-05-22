@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -6,9 +7,9 @@ import DefaultProps from '../../defaultProps';
 export default class Comments extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        collapsed: React.PropTypes.bool,
-        minimal: React.PropTypes.bool,
-        threaded: React.PropTypes.bool
+        collapsed: PropTypes.bool,
+        minimal: PropTypes.bool,
+        threaded: PropTypes.bool
     };
 
     static defaultProps = {

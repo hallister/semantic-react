@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -20,60 +21,60 @@ export default class Icon extends React.PureComponent {
          * Vertical alignment of icon. Useful when child of other elements:
          * Item
          */
-        aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
+        aligned: PropTypes.oneOf(['top', 'middle', 'bottom']),
         /**
          * An icon can be formatted to appear bordered
          */
-        bordered: React.PropTypes.bool,
+        bordered: PropTypes.bool,
         /**
          * An icon can be formatted to appear circular
          */
-        circular: React.PropTypes.bool,
+        circular: PropTypes.bool,
         /**
          * An icon can be formatted with different colors
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * Render as corner icon if used in <Icons/>
          */
-        corner: React.PropTypes.bool,
+        corner: PropTypes.bool,
         /**
          * Icon could be disabled or used as simple loader
          */
-        state: React.PropTypes.oneOf(['disabled', 'loading']),
+        state: PropTypes.oneOf(['disabled', 'loading']),
         /**
          * An icon can be fitted, without any space to the left or right of it.
          */
-        fitted: React.PropTypes.bool,
+        fitted: PropTypes.bool,
         /**
          * Floated icon: Useful when child of other elements:
          * Item
          */
-        floated: React.PropTypes.oneOf(['left', 'right']),
+        floated: PropTypes.oneOf(['left', 'right']),
         /**
          * An icon can be flipped
          */
-        flipped: React.PropTypes.oneOf(['horizontally', 'vertically']),
+        flipped: PropTypes.oneOf(['horizontally', 'vertically']),
         /**
          * An icon can have its colors inverted for contrast
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * Could be formatted as link
          */
-        link: React.PropTypes.bool,
+        link: PropTypes.bool,
         /**
          * Icon name
          */
-        name: React.PropTypes.string,
+        name: PropTypes.string,
         /**
          * Icon size
          */
-        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
+        size: PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         /**
          * An icon can be rotated
          */
-        rotated: React.PropTypes.oneOf(['clockwise', 'counterclockwise'])
+        rotated: PropTypes.oneOf(['clockwise', 'counterclockwise'])
     };
 
     static defaultProps = {

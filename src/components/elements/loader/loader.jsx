@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { hasChild } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -9,29 +10,29 @@ export default class Loader extends React.PureComponent {
         /**
          * Loaders can appear inline centered with content
          */
-        centered: React.PropTypes.bool,
+        centered: PropTypes.bool,
         /**
          * Loaders can appear inline with content
          */
-        inline: React.PropTypes.bool,
+        inline: PropTypes.bool,
         /**
          * Loaders can have their colors inverted.
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * Loaders can have different sizes
          */
-        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
+        size: PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         /**
          * Loader state
          */
-        state: React.PropTypes.oneOf([
+        state: PropTypes.oneOf([
             'active', 'indeterminate', 'disabled'
         ]),
         /**
          * A loader can contain text
          */
-        text: React.PropTypes.bool
+        text: PropTypes.bool
     };
 
     static defaultProps = {

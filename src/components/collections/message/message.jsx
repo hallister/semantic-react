@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -7,7 +8,7 @@ import { hasFirstChild } from '../../utilities';
 
 const validProps = {
     attached: ['bottom', 'top'],
-    emphasis: ['success', 'error', 'info', 'warning', 'positive', 'negative'],
+    emphasis: ['success', 'error', 'info', 'warning', 'positive', 'negative']
 };
 
 export default class Message extends React.PureComponent {
@@ -16,43 +17,43 @@ export default class Message extends React.PureComponent {
         /**
          * A message can be formatted to attach itself to other content
          */
-        attached: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['bottom', 'top']),
-            React.PropTypes.bool
+        attached: PropTypes.oneOfType([
+            PropTypes.oneOf(['bottom', 'top']),
+            PropTypes.bool
         ]),
         /**
          * A message can be formatted to be different colors
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * A message can only take up the width of its content.
          */
-        compact: React.PropTypes.bool,
+        compact: PropTypes.bool,
         /**
          * A message can float above content that it is related to
          */
-        floating: React.PropTypes.bool,
+        floating: PropTypes.bool,
         /**
          * A message can be hidden
          */
-        hidden: React.PropTypes.bool,
+        hidden: PropTypes.bool,
         /**
          * A message can contain an icon. If message contain icon as first child then it will be set automatically,
          * unless you provide it explicitly
          */
-        icon: React.PropTypes.bool,
+        icon: PropTypes.bool,
         /**
          * A message can have different sizes
          */
-        size: React.PropTypes.string,
+        size: PropTypes.string,
         /**
          * Another emphasis
          */
-        emphasis: React.PropTypes.oneOf(['success', 'error', 'info', 'warning', 'positive', 'negative']),
+        emphasis: PropTypes.oneOf(['success', 'error', 'info', 'warning', 'positive', 'negative']),
         /**
          * Message is visible
          */
-        visible: React.PropTypes.bool
+        visible: PropTypes.bool
     };
 
     static defaultProps = {

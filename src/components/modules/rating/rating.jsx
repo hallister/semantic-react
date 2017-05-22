@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 import RatingIcon from './icon';
@@ -12,23 +13,23 @@ export default class Rating extends React.PureComponent {
         /**
          * Rating type
          */
-        type: React.PropTypes.oneOf(['default', 'star', 'heart']),
+        type: PropTypes.oneOf(['default', 'star', 'heart']),
         /**
          * Rating size
          */
-        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
+        size: PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         /**
          * Rating max value
          */
-        max: React.PropTypes.number,
+        max: PropTypes.number,
         /**
          * Rating value
          */
-        value: React.PropTypes.number,
+        value: PropTypes.number,
         /*
          * Rating change value callback
          */
-        onChange: React.PropTypes.func
+        onChange: PropTypes.func
     };
 
     static defaultProps = {

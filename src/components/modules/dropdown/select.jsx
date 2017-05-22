@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import EventListener from 'react-event-listener';
@@ -23,84 +24,84 @@ export default class Select extends React.PureComponent {
         /**
          * Should be dropdown opened
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * Name for dropdown input
          */
-        name: React.PropTypes.string,
+        name: PropTypes.string,
         /**
          * Icon name for dropdown
          */
-        icon: React.PropTypes.string,
+        icon: PropTypes.string,
         /**
          * String used as placeholder if dropdown has no selected value
          * Will be grayed (<div class="default text">) if dropdown is selection
          * or normally displayed (<div class="text">) otherwise
          */
-        placeholder: React.PropTypes.string,
+        placeholder: PropTypes.string,
         /**
          * Searchable dropdown
          */
-        search: React.PropTypes.bool,
+        search: PropTypes.bool,
         /**
          * Search glyph width
          */
-        searchGlyphWidth: React.PropTypes.number,
+        searchGlyphWidth: PropTypes.number,
         /**
          * Ignore case when performing search
          */
-        searchIgnoreCase: React.PropTypes.bool,
+        searchIgnoreCase: PropTypes.bool,
         /**
          * Search box position
          */
-        searchPosition: React.PropTypes.oneOf([
+        searchPosition: PropTypes.oneOf([
             'dropdown', 'menu'
         ]),
         /**
          * Search header, valid only for searchPosition="menu"
          */
-        searchHeader: React.PropTypes.string,
+        searchHeader: PropTypes.string,
         /**
          * Specify message which will be displayed when search has no results
          */
-        searchNoResultsMessage: React.PropTypes.string,
+        searchNoResultsMessage: PropTypes.string,
         /**
          * Specify message which will be displayed when search has no results and allowAdditions enabled
          */
-        allowAdditionsMessage: React.PropTypes.string,
+        allowAdditionsMessage: PropTypes.string,
         /**
          * Search string
          */
-        searchString: React.PropTypes.string,
+        searchString: PropTypes.string,
         /**
          * Selected value
          */
-        selected: React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])),
+        selected: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
         /**
          * Behave dropdown as HTML select
          */
-        selection: React.PropTypes.bool,
+        selection: PropTypes.bool,
         /**
          * Allow multiple selection
          */
-        multiple: React.PropTypes.bool,
+        multiple: PropTypes.bool,
         /**
          * Allow to add custom options
          */
-        allowAdditions: React.PropTypes.bool,
+        allowAdditions: PropTypes.bool,
         /**
          * Callback will be called when current selected value was changed.
          * Will pass array of new selected values as first param and total options count as second
          */
-        onSelectChange: React.PropTypes.func,
+        onSelectChange: PropTypes.func,
         /**
          * Callback will be called when selection dropdown wants to be closed. For now only for outside of dropdown clicks
          */
-        onRequestClose: React.PropTypes.func,
+        onRequestClose: PropTypes.func,
         /**
          * Callback will be called when search string is being changed. You probably just need to pass it back to component
          */
-        onSearchStringChange: React.PropTypes.func
+        onSearchStringChange: PropTypes.func
 
     };
 

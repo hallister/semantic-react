@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Segment from '../../elements/segment/segment';
 
@@ -8,17 +9,17 @@ export default class Tab extends React.PureComponent {
         /**
          * True if tab is active. Being set automatically
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * True if display loading spinner
          */
-        loading: React.PropTypes.bool,
+        loading: PropTypes.bool,
         /**
          * Tab index value. Should be equal to one of MenuItem value
          */
-        value: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.number
+        value: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
         ]).isRequired
     };
 

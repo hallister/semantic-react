@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Image from './../image/image';
 import { hasDescendant, validateClassProps } from '../../utilities';
@@ -15,23 +16,23 @@ export default class Reveal extends React.PureComponent {
         /**
          * An active reveal displays its hidden content
          */
-        active: React.PropTypes.bool,
-        circular: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
-        fade: React.PropTypes.bool,
-        image: React.PropTypes.bool,
-        instant: React.PropTypes.bool,
-        move: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['right', 'up', 'down']),
-            React.PropTypes.bool
+        active: PropTypes.bool,
+        circular: PropTypes.bool,
+        disabled: PropTypes.bool,
+        fade: PropTypes.bool,
+        image: PropTypes.bool,
+        instant: PropTypes.bool,
+        move: PropTypes.oneOfType([
+            PropTypes.oneOf(['right', 'up', 'down']),
+            PropTypes.bool
         ]),
-        rotate: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['left']),
-            React.PropTypes.bool
+        rotate: PropTypes.oneOfType([
+            PropTypes.oneOf(['left']),
+            PropTypes.bool
         ]),
         // required?
-        size: React.PropTypes.string,
-        type: React.PropTypes.string
+        size: PropTypes.string,
+        type: PropTypes.string
     };
 
     static defaultProps = {

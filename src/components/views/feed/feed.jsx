@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -6,7 +7,7 @@ import DefaultProps from '../../defaultProps';
 export default class Feed extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        size: React.PropTypes.string
+        size: PropTypes.string
     };
 
     static defaultProps = {

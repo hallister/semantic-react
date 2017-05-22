@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import DefaultProps from '../../defaultProps';
 import { Sizes } from '../../utilities';
 
@@ -9,7 +10,7 @@ export default class Breadcrumb extends React.PureComponent {
         /**
          * A breadcrumb can vary in size
          */
-        size: React.PropTypes.oneOf(Sizes)
+        size: PropTypes.oneOf(Sizes)
     };
 
     static defaultProps = {

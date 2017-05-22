@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../../elements/icon/icon';
 
@@ -10,27 +11,27 @@ export default class RatingIcon extends React.PureComponent {
         /**
          * Active rating icon
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * Selected (on hover) rating icon
          */
-        selected: React.PropTypes.bool,
+        selected: PropTypes.bool,
         /**
          * Icon index
          */
-        index: React.PropTypes.number.isRequired,
+        index: PropTypes.number.isRequired,
         /**
          * On click callback
          */
-        onClick: React.PropTypes.func,
+        onClick: PropTypes.func,
         /**
          * Mouse enter callback
          */
-        onMouseEnter: React.PropTypes.func,
+        onMouseEnter: PropTypes.func,
         /**
          * Mouse leave callback
          */
-        onMouseLeave: React.PropTypes.func
+        onMouseLeave: PropTypes.func
     };
 
     static defaultProps = {

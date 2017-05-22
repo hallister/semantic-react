@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -11,7 +12,7 @@ export default class BreadcrumbSection extends React.PureComponent {
         /**
          * Section may be active
          */
-        active: React.PropTypes.bool
+        active: PropTypes.bool
     };
 
     static defaultProps = {

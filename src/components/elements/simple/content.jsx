@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -14,45 +15,45 @@ export default class Content extends React.PureComponent {
         /**
          * True to be active content
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * Content vertical alignment. Useful when child of other elements:
          * Item
          */
-        aligned: React.PropTypes.string,
+        aligned: PropTypes.string,
         /**
          * Extra content
          */
-        extra: React.PropTypes.bool,
+        extra: PropTypes.bool,
         /**
          * Content floating. Useful when child of other elements:
          * Item
          */
-        floated: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.bool
+        floated: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.bool
         ]),
         /**
          * Hidden content
          */
-        hidden: React.PropTypes.bool,
+        hidden: PropTypes.bool,
         /**
          * Meta content
          */
-        meta: React.PropTypes.bool,
+        meta: PropTypes.bool,
         /**
          * Visible content
          */
-        visible: React.PropTypes.bool,
+        visible: PropTypes.bool,
         /**
          * Image content
          */
-        image: React.PropTypes.bool
+        image: PropTypes.bool
     };
 
     static contextTypes = {
-        isDimmerChild: React.PropTypes.bool,
-        isModalChild: React.PropTypes.bool
+        isDimmerChild: PropTypes.bool,
+        isModalChild: PropTypes.bool
     };
 
     static defaultProps = {

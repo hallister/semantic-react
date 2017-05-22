@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SemanticCSSTransition from '../../animation/animation';
 import AnimationProps from '../../animation/animationProps';
 import classNames from 'classnames';
@@ -17,29 +18,29 @@ export default class Dimmer extends React.PureComponent {
         /**
          * Hide/Display dimmer
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * Page dimmer. Doesn't require dimmable section
          */
-        page: React.PropTypes.bool,
+        page: PropTypes.bool,
         /**
          * Inverted dimmer
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * Disables auto-wrapping child contents into <Content>
          */
-        noWrapChildren: React.PropTypes.bool,
+        noWrapChildren: PropTypes.bool,
         /**
          * internal
          */
-        closePortal: React.PropTypes.func
+        closePortal: PropTypes.func
     };
 
     
     // This forces <Content> to add a centered div below it.
     static childContextTypes = {
-        isDimmerChild: React.PropTypes.bool
+        isDimmerChild: PropTypes.bool
     };
 
     static defaultProps = {

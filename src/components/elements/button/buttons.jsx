@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -18,51 +19,51 @@ export default class Buttons extends React.PureComponent {
         /**
          * It's attached to some other attachable component.
          */
-        attached: React.PropTypes.oneOf(['bottom', 'top']),
+        attached: PropTypes.oneOf(['bottom', 'top']),
 
         /**
          * Adds simple styling to the component.
          */
-        basic: React.PropTypes.bool,
+        basic: PropTypes.bool,
 
         /**
          * Adds a SemanticUI color class.
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
 
         /**
          * Reduces the padding on the component.
          */
-        compact: React.PropTypes.bool,
+        compact: PropTypes.bool,
 
         /**
          * Forces all children to an equal width.
          */
-        equal: React.PropTypes.bool,
+        equal: PropTypes.bool,
 
         /**
          * Forces to component to float left or right.
          */
-        floated: React.PropTypes.oneOf(['left', 'right']),
+        floated: PropTypes.oneOf(['left', 'right']),
 
         /**
          * Styles the component for a dark background.
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
 
         /**
          * Adds a SemanticUI size class.
          */
-        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
+        size: PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
 
         /**
          * Forces child components to render vertically.
          */
-        vertical: React.PropTypes.bool
+        vertical: PropTypes.bool
     };
 
     static childContextTypes = {
-        isAttached: React.PropTypes.bool
+        isAttached: PropTypes.bool
     };
 
     static defaultProps = {

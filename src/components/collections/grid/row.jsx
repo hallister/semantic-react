@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Numbers, validateClassProps } from '../../utilities';
 import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
@@ -17,50 +18,50 @@ export default class Row extends React.PureComponent {
         /**
          * Horizontal content alignment
          */
-        aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+        aligned: PropTypes.oneOf(['right', 'left', 'center']),
         /**
          * Center columns in row
          */
-        centered: React.PropTypes.bool,
+        centered: PropTypes.bool,
         /**
          * Double column width on tablet and mobile sizes
          */
-        doubling: React.PropTypes.bool,
+        doubling: PropTypes.bool,
         /**
          * Automatically resize elements to split the available width evently
          */
-        equal: React.PropTypes.bool,
+        equal: PropTypes.bool,
         /**
          * Only visible for types. Could be single type string or array, i.e. only={["mobile","tablet"]}
          */
-        only: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf([
+        only: PropTypes.oneOfType([
+            PropTypes.oneOf([
                 'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
             ]),
-            React.PropTypes.arrayOf(React.PropTypes.oneOf([
+            PropTypes.arrayOf(PropTypes.oneOf([
                 'mobile', 'tablet', 'computer', 'large screen', 'widescreen'
             ]))
         ]),
         /**
          * Specify row columns count
          */
-        columns: React.PropTypes.number,
+        columns: PropTypes.number,
         /**
          * Stretch content to take up the entire column height
          */
-        stretched: React.PropTypes.bool,
+        stretched: PropTypes.bool,
         /**
          * Row color
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * Justified content fits exactly inside the grid column, taking up the entire width from one side to the other
          */
-        justified: React.PropTypes.bool,
+        justified: PropTypes.bool,
         /**
          * Vertical content alignment
          */
-        valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
+        valigned: PropTypes.oneOf(['top', 'middle', 'bottom'])
     };
 
     static defaultProps = {

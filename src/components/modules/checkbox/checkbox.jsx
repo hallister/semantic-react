@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps  from '../../defaultProps';
 
@@ -8,35 +9,35 @@ export default class Checkbox extends React.PureComponent {
         /**
          * Apply additional class name to to the label
          */
-        labelClassName: React.PropTypes.string,
+        labelClassName: PropTypes.string,
         /**
          * State checked
          */
-        checked: React.PropTypes.bool,
+        checked: PropTypes.bool,
         /**
          * Does not allow user interaction
          */
-        disabled: React.PropTypes.bool,
+        disabled: PropTypes.bool,
         /**
          * It does disabled, but does not allow user interaction
          */
-        readOnly: React.PropTypes.bool,
+        readOnly: PropTypes.bool,
         /**
          * Callback handler to click checkbox
          */
-        onClick: React.PropTypes.func,
+        onClick: PropTypes.func,
         /**
         * Attr name
          */
-        name: React.PropTypes.string,
+        name: PropTypes.string,
         /**
         * Checkbox - appearance
          */
-        type: React.PropTypes.oneOf(['default', 'radio', 'toggle', 'slider']),
+        type: PropTypes.oneOf(['default', 'radio', 'toggle', 'slider']),
         /**
         * A fitted checkbox does not leave padding for a label
          */
-        fitted: React.PropTypes.bool
+        fitted: PropTypes.bool
     };
 
     static defaultProps = {

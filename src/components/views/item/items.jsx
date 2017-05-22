@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -8,19 +9,19 @@ export default class Items extends React.PureComponent {
         /**
          * Items can be divided to better distinguish between grouped content
          */
-        divided: React.PropTypes.bool,
+        divided: PropTypes.bool,
         /**
          * An item can be formatted so that the entire contents link to another page
          */
-        link: React.PropTypes.bool,
+        link: PropTypes.bool,
         /**
          * A group of items can relax its padding to provide more negative space
          */
-        relaxed: React.PropTypes.relaxed
+        relaxed: PropTypes.relaxed
     };
 
     static childContextTypes = {
-        isItemsChild: React.PropTypes.bool
+        isItemsChild: PropTypes.bool
     };
 
     static defaultProps = {

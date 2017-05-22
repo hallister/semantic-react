@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -15,70 +16,70 @@ export default class Segment extends React.PureComponent {
         /**
          * A segment can have its text aligned to a side
          */
-        aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+        aligned: PropTypes.oneOf(['right', 'left', 'center']),
         /**
          * A segment can be attached to other content on a page
          */
-        attached: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['bottom', 'top']),
-            React.PropTypes.bool
+        attached: PropTypes.oneOfType([
+            PropTypes.oneOf(['bottom', 'top']),
+            PropTypes.bool
         ]),
         /**
          * A basic segment has no special formatting
          */
-        basic: React.PropTypes.bool,
+        basic: PropTypes.bool,
         /**
          * Blurring segment when used with dimmer
          */
-        blurring: React.PropTypes.bool,
+        blurring: PropTypes.bool,
         /**
          * A segment can clear floated content
          */
-        clearing: React.PropTypes.bool,
+        clearing: PropTypes.bool,
         /**
          * A segment can be colored
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * Container segment
          */
-        container: React.PropTypes.bool,
+        container: PropTypes.bool,
         /**
          * A segment may show its content is disabled
          */
-        disabled: React.PropTypes.bool,
+        disabled: PropTypes.bool,
         /**
          * A segment can be formatted to appear more or less noticeable
          */
-        emphasis: React.PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
+        emphasis: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
         /**
          * A segment can appear to the left or right of other content
          */
-        floated: React.PropTypes.oneOf(['right', 'left']),
+        floated: PropTypes.oneOf(['right', 'left']),
         /**
          * A segment can have its colors inverted for contrast
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * A segment may show its content is being loaded
          */
-        loading: React.PropTypes.bool,
+        loading: PropTypes.bool,
         /**
          * Segment spacing
          */
-        spacing: React.PropTypes.oneOf(['fitted', 'padded']),
+        spacing: PropTypes.oneOf(['fitted', 'padded']),
         /**
          * Segment type
          */
-        type: React.PropTypes.oneOf(['raised', 'stacked', 'piled']),
+        type: PropTypes.oneOf(['raised', 'stacked', 'piled']),
         /**
          * A vertical segment formats content to be aligned as part of a vertical group
          */
-        vertical: React.PropTypes.bool,
+        vertical: PropTypes.bool,
         /**
          * Segment zIndex
          */
-        zIndex: React.PropTypes.number
+        zIndex: PropTypes.number
     };
 
     static defaultProps = {

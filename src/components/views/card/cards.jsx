@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 export default class Cards extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        link: React.PropTypes.bool,
-        onClick: React.PropTypes.func
+        link: PropTypes.bool,
+        onClick: PropTypes.func
     };
 
     static childContextTypes = {
-        isCardsChild: React.PropTypes.bool
+        isCardsChild: PropTypes.bool
     };
 
     static defaultProps = {

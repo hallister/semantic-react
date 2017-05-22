@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Numbers, validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -20,96 +21,96 @@ export default class Menu extends React.PureComponent {
         /**
          * A menu may be attached to other content segments
          */
-        attached: React.PropTypes.oneOf(['top', 'bottom']),
+        attached: PropTypes.oneOf(['top', 'bottom']),
         /**
          * A menu item or menu can have no borders
          */
-        borderless: React.PropTypes.bool,
+        borderless: PropTypes.bool,
         /**
          * Use equal width for menu items
          */
-        even: React.PropTypes.bool,
+        even: PropTypes.bool,
         /**
          * A menu item or menu can remove element padding, vertically or horizontally
          */
-        fitted: React.PropTypes.oneOfType([
-            React.PropTypes.bool,
-            React.PropTypes.oneOf(['horizontally', 'vertically'])
+        fitted: PropTypes.oneOfType([
+            PropTypes.bool,
+            PropTypes.oneOf(['horizontally', 'vertically'])
         ]),
         /**
          * A menu can be fixed to a side of its context
          */
-        fixed: React.PropTypes.oneOfType([
-            React.PropTypes.bool,
-            React.PropTypes.oneOf(['right', 'left', 'top', 'bottom'])
+        fixed: PropTypes.oneOfType([
+            PropTypes.bool,
+            PropTypes.oneOf(['right', 'left', 'top', 'bottom'])
         ]),
         /**
          * Float left or right
          */
-        floated: React.PropTypes.oneOf(['right', 'left']),
+        floated: PropTypes.oneOf(['right', 'left']),
         /**
          * A vertical menu may take the size of its container. (A horizontal menu does this by default)
          */
-        fluid: React.PropTypes.bool,
+        fluid: PropTypes.bool,
         /**
          * A menu can be formatted with different colors
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * A menu may have its colors inverted to show greater contrast
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * Menu active value
          */
-        menuValue: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.string,
-            React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]))
+        menuValue: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
+            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
         ]),
         /**
          * Callback for active item change. Will not be fired if menuValue was omitted
          * Will pass new menuValue or array of new menuValue
          * If all items were unselected would pass null if menuValue is single value or empty array if menuValue is array
          */
-        onMenuChange: React.PropTypes.func,
+        onMenuChange: PropTypes.func,
         /**
          * Callback for menu item click
          */
-        onMenuItemClick: React.PropTypes.func,
+        onMenuItemClick: PropTypes.func,
         /**
          * A pagination menu is specially formatted to present links to pages of content
          */
-        pagination: React.PropTypes.bool,
+        pagination: PropTypes.bool,
         /**
          * A menu can point to show its relationship to nearby content
          */
-        pointing: React.PropTypes.bool,
+        pointing: PropTypes.bool,
         /**
          * A menu can adjust its appearance to de-emphasize its contents
          */
-        secondary: React.PropTypes.bool,
+        secondary: PropTypes.bool,
         /**
          * A menu can be formatted to show tabs of information
          */
-        tabular: React.PropTypes.bool,
+        tabular: PropTypes.bool,
         /**
          * A menu can be formatted for text content
          */
-        text: React.PropTypes.bool,
+        text: PropTypes.bool,
         /**
          * A vertical menu displays elements vertically..
          */
-        vertical: React.PropTypes.bool
+        vertical: PropTypes.bool
     };
 
     static contextTypes = {
-        isMenuChild: React.PropTypes.bool,
-        isDropdownChild: React.PropTypes.bool
+        isMenuChild: PropTypes.bool,
+        isDropdownChild: PropTypes.bool
     };
 
     static childContextTypes = {
-        isMenuChild: React.PropTypes.bool
+        isMenuChild: PropTypes.bool
     };
 
     static defaultProps = {

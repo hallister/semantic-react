@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Numbers, hasFirstChild } from '../../utilities';
 import Checkbox from './../../modules/checkbox/checkbox';
@@ -11,30 +12,30 @@ export default class Field extends React.PureComponent {
         /**
          * Grouped field
          */
-        grouped: React.PropTypes.bool,
+        grouped: PropTypes.bool,
         /**
          * A field can have its label next to instead of above it.
          */
-        inline: React.PropTypes.bool,
+        inline: PropTypes.bool,
         /**
          * Field label
          */
-        label: React.PropTypes.string,
+        label: PropTypes.string,
         /**
          * A field can show that input is mandatory
          */
-        required: React.PropTypes.bool,
+        required: PropTypes.bool,
         /**
          * Field state
          */
-        state: React.PropTypes.oneOf([
+        state: PropTypes.oneOf([
             'disabled',
             'error'
         ]),
         /**
          * Field width in columns
          */
-        width: React.PropTypes.number
+        width: PropTypes.number
     };
 
     static defaultProps = {

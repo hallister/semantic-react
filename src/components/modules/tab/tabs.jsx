@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DefaultProps from '../../defaultProps';
 import TabMenu from './tabmenu';
 import Tab from './tab';
@@ -9,14 +10,14 @@ export default class Tabs extends React.PureComponent {
         /**
          * Active tab value
          */
-        activeTab: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.string
+        activeTab: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string
         ]).isRequired,
         /**
          * Current tab want's to be changed
          */
-        onTabChange: React.PropTypes.func
+        onTabChange: PropTypes.func
     };
 
     static defaultProps = {

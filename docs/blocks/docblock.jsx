@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Segment, Header } from '../../src/components/elements';
 
 export default class DocBlock extends React.Component {

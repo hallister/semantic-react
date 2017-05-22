@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -8,30 +9,30 @@ export default class Rail extends React.PureComponent {
         /**
          * A rail can appear attached to the main viewport
          */
-        attached: React.PropTypes.bool,
+        attached: PropTypes.bool,
         /**
          * A rail can appear closer to the main viewport
          */
-        close: React.PropTypes.oneOfType([
-            React.PropTypes.bool,
-            React.PropTypes.oneOf(['very'])
+        close: PropTypes.oneOfType([
+            PropTypes.bool,
+            PropTypes.oneOf(['very'])
         ]),
         /**
          * A rail can create a division between itself and a container
          */
-        dividing: React.PropTypes.bool,
+        dividing: PropTypes.bool,
         /**
          * A rail can be presented on the left or right side of a container
          */
-        floated: React.PropTypes.oneOf(['right', 'left']).isRequired,
+        floated: PropTypes.oneOf(['right', 'left']).isRequired,
         /**
          * A rail can attach itself to the inside of a container
          */
-        internal: React.PropTypes.bool,
+        internal: PropTypes.bool,
         /**
          * A rail can have different sizes
          */
-        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
+        size: PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive'])
     };
 
     static defaultProps = {

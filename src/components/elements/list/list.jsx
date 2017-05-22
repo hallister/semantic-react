@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -14,61 +15,61 @@ export default class List extends React.PureComponent {
         /**
          * Controls content alignment for all items in list
          */
-        aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
+        aligned: PropTypes.oneOf(['top', 'middle', 'bottom']),
         /**
          * A list can animate to set the current item apart from the list
          */
-        animated: React.PropTypes.bool,
+        animated: PropTypes.bool,
         /**
          * Cell type
          */
-        celled: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['divided']),
-            React.PropTypes.bool
+        celled: PropTypes.oneOfType([
+            PropTypes.oneOf(['divided']),
+            PropTypes.bool
         ]),
         /**
          * Controls content floating for all items in list
          */
-        floated: React.PropTypes.oneOf(['right', 'left']),
+        floated: PropTypes.oneOf(['right', 'left']),
         /**
          * A list can be formatted to have items appear horizontally
          */
-        horizontal: React.PropTypes.bool,
+        horizontal: PropTypes.bool,
         /**
          * A list can be inverted to appear on a dark background
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * A list can be specially formatted for navigation links
          */
-        link: React.PropTypes.bool,
+        link: PropTypes.bool,
         /**
          * A list can relax its padding to provide more negative space
          */
-        relaxed: React.PropTypes.bool,
+        relaxed: PropTypes.bool,
         /**
          * A selection list formats list items as possible choices
          */
-        selection: React.PropTypes.bool,
+        selection: PropTypes.bool,
         /**
          * A list can vary in size
          */
-        size: React.PropTypes.string,
+        size: PropTypes.string,
         /**
          * Type of the list
          * Bulleted: mark items with a bullet
          * Ordered: mark items with a number
          */
-        type: React.PropTypes.oneOf(['bulleted', 'ordered'])
+        type: PropTypes.oneOf(['bulleted', 'ordered'])
     };
 
     static contextTypes = {
-        isListChild: React.PropTypes.bool
+        isListChild: PropTypes.bool
     };
 
     static childContextTypes = {
-        isListChild: React.PropTypes.bool,
-        isLinkList: React.PropTypes.bool
+        isListChild: PropTypes.bool,
+        isLinkList: PropTypes.bool
     };
 
     static defaultProps = {

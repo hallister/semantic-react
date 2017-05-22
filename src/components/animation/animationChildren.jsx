@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import AnimationProps from './animationProps'
 
 /**
@@ -15,16 +16,16 @@ export default class SemanticCSSTransitionChildren extends React.Component {
         /**
          * Enter callback
          */
-        onEnter: React.PropTypes.func,
+        onEnter: PropTypes.func,
         /**
          * Leave callback
          */
-        onLeave: React.PropTypes.func,
+        onLeave: PropTypes.func,
         /**
          * Run animation on component mounting (transition component)
          * It's necessary for portal components
          */
-        runOnMount: React.PropTypes.bool
+        runOnMount: PropTypes.bool
     };
 
     static defaultProps = {

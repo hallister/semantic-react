@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -11,11 +12,11 @@ export default class AccordionBody extends React.PureComponent {
         /**
          * True for active (visible) accordion section. This is being set by Accordion itself
          */
-        active: React.PropTypes.bool,
+        active: PropTypes.bool,
         /**
          * True for styled accordion. This is being set by Accordion itself
          */
-        styled: React.PropTypes.bool
+        styled: PropTypes.bool
     };
 
     static defaultProps = {

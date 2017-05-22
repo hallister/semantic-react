@@ -1,25 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 export default class Card extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        centered: React.PropTypes.bool,
-        col: React.PropTypes.string,
-        color: React.PropTypes.string,
-        doubling: React.PropTypes.string,
-        fluid: React.PropTypes.bool,
-        link: React.PropTypes.bool,
-        onClick: React.PropTypes.func
+        centered: PropTypes.bool,
+        col: PropTypes.string,
+        color: PropTypes.string,
+        doubling: PropTypes.string,
+        fluid: PropTypes.bool,
+        link: PropTypes.bool,
+        onClick: PropTypes.func
     };
 
     static contextTypes = {
-        isCardChild: React.PropTypes.bool
+        isCardChild: PropTypes.bool
     };
 
     static childContextTypes = {
-        isCardChild: React.PropTypes.bool
+        isCardChild: PropTypes.bool
     };
 
     static defaultProps = {

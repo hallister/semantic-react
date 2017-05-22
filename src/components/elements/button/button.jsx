@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { validateClassProps } from '../../utilities';
 import DefaultProps from './../../defaultProps';
@@ -18,77 +19,77 @@ export default class Button extends React.PureComponent {
         /**
          * Adds a fade or slide animation on hover.
          */
-        animated: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['fade', 'vertical']),
-            React.PropTypes.bool
+        animated: PropTypes.oneOfType([
+            PropTypes.oneOf(['fade', 'vertical']),
+            PropTypes.bool
         ]),
 
         /**
          * It's attached to some other attachable component.
          */
-        attached: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['left', 'right', 'bottom', 'top']),
-            React.PropTypes.bool
+        attached: PropTypes.oneOfType([
+            PropTypes.oneOf(['left', 'right', 'bottom', 'top']),
+            PropTypes.bool
         ]),
 
         /**
          * Adds simple styling to the component.
          */
-        basic: React.PropTypes.bool,
+        basic: PropTypes.bool,
 
         /**
          * A button can be circular
          */
-        circular: React.PropTypes.bool,
+        circular: PropTypes.bool,
 
         /**
          * Adds a SemanticUI color class.
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
 
         /**
          * Reduces the padding on the component.
          */
-        compact: React.PropTypes.bool,
+        compact: PropTypes.bool,
 
         /**
          * A button can be formatted to show different levels of emphasis
          */
-        emphasis: React.PropTypes.oneOf(['primary', 'secondary', 'positive', 'negative']),
+        emphasis: PropTypes.oneOf(['primary', 'secondary', 'positive', 'negative']),
 
         /**
          * Forces to component to float left or right.
          */
-        floated: React.PropTypes.oneOf(['left', 'right']),
+        floated: PropTypes.oneOf(['left', 'right']),
 
         /**
          * The component fills the parent components horizontal space.
          */
-        fluid: React.PropTypes.bool,
+        fluid: PropTypes.bool,
 
         /**
          * Styles the component for a dark background.
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
 
         /**
          * Adds a SemanticUI size class.
          */
-        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
+        size: PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
 
         /**
          * Indicates whether the button is currently highlighted or disabled.
          */
-        state: React.PropTypes.oneOf(['active', 'disabled', 'loading']),
+        state: PropTypes.oneOf(['active', 'disabled', 'loading']),
 
         /**
          * A button can be formatted to toggle on and off
          */
-        toggle: React.PropTypes.bool
+        toggle: PropTypes.bool
     };
 
     static contextTypes = {
-        isAttached: React.PropTypes.bool
+        isAttached: PropTypes.bool
     };
 
     static defaultProps = {

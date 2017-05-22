@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -11,27 +12,27 @@ export default class Divider extends React.PureComponent {
         /**
          * Content segment vertically or horizontally
          */
-        aligned: React.PropTypes.oneOf(['horizontal', 'vertical']),
+        aligned: PropTypes.oneOf(['horizontal', 'vertical']),
         /**
          * A divider can clear the contents above it
          */
-        clearing: React.PropTypes.bool,
+        clearing: PropTypes.bool,
         /**
          * Formats divider as header-like (taking less space and don't capitalize content)
          */
-        header: React.PropTypes.bool,
+        header: PropTypes.bool,
         /**
          * A hidden divider divides content without creating a dividing line
          */
-        hidden: React.PropTypes.bool,
+        hidden: PropTypes.bool,
         /**
          * A divider can have its colors inverted
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * Divider spacing
          */
-        spacing: React.PropTypes.oneOf(['fitted', 'padded'])
+        spacing: PropTypes.oneOf(['fitted', 'padded'])
     };
 
     static defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -11,19 +12,19 @@ export default class Labels extends React.PureComponent {
         /**
          * Labels can share shapes
          */
-        circular: React.PropTypes.bool,
+        circular: PropTypes.bool,
         /**
          * Labels can share colors together
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * Labels can share tag formatting
          */
-        tag: React.PropTypes.bool,
+        tag: PropTypes.bool,
         /**
          * Labels can share sizes together
          */
-        size: React.PropTypes.string
+        size: PropTypes.string
     };
 
     static defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -8,19 +9,19 @@ export default class Segments extends React.PureComponent {
         /**
          * Compact segments
          */
-        compact: React.PropTypes.bool,
+        compact: PropTypes.bool,
         /**
          * Horizontal segments
          */
-        horizontal: React.PropTypes.bool,
+        horizontal: PropTypes.bool,
         /**
          * Inverted segments
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * Type of segments
          */
-        type: React.PropTypes.oneOf(['raised', 'stacked', 'piled']),
+        type: PropTypes.oneOf(['raised', 'stacked', 'piled'])
     };
 
     static defaultProps = {

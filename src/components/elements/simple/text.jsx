@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 export default class Text extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        extra: React.PropTypes.bool
+        extra: PropTypes.bool
     };
 
     static defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -8,23 +9,23 @@ export default class Form extends React.PureComponent {
         /**
          * Forms can automatically divide fields to be equal width
          */
-        equalWidth: React.PropTypes.bool,
+        equalWidth: PropTypes.bool,
         /**
          * A form on a dark background may have to invert its color scheme
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * If a form is in loading state, it will automatically show a loading indicator.
          */
-        loading: React.PropTypes.bool,
+        loading: PropTypes.bool,
         /**
          * A form can vary in size
          */
-        size: React.PropTypes.string,
+        size: PropTypes.string,
         /**
          * Form state
          */
-        state: React.PropTypes.oneOf([
+        state: PropTypes.oneOf([
             'success',
             'error',
             'warning'
@@ -33,7 +34,7 @@ export default class Form extends React.PureComponent {
 
     static defaultProps = {
         ...DefaultProps.defaultProps,
-        component: 'form',
+        component: 'form'
     };
 
     render() {

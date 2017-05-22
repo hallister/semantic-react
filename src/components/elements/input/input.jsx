@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
 import DefaultProps from '../../defaultProps';
@@ -18,22 +19,22 @@ export default class Input extends React.PureComponent {
         /**
          * Action position
          */
-        actionPosition: React.PropTypes.oneOf(['left', 'right']),
+        actionPosition: PropTypes.oneOf(['left', 'right']),
         /**
          * An input can take the size of its container
          */
-        fluid: React.PropTypes.bool,
+        fluid: PropTypes.bool,
         /**
          * Render icon
          */
-        icon: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.bool
+        icon: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.bool
         ]),
         /**
          * Icon position
          */
-        iconPosition: React.PropTypes.oneOf(['left', 'right']),
+        iconPosition: PropTypes.oneOf(['left', 'right']),
         /**
          * Pass custom icon component
          */
@@ -41,11 +42,11 @@ export default class Input extends React.PureComponent {
         /**
          * Inverted input
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * Render label for input
          */
-        label: React.PropTypes.string,
+        label: PropTypes.string,
         /**
          * Pass custom label component
          */
@@ -53,30 +54,30 @@ export default class Input extends React.PureComponent {
         /**
          * Label position
          */
-        labelPosition: React.PropTypes.oneOf(['left', 'right', 'left corner', 'right corner']),
+        labelPosition: PropTypes.oneOf(['left', 'right', 'left corner', 'right corner']),
         /**
          * Input placeholder
          */
-        placeholder: React.PropTypes.string,
+        placeholder: PropTypes.string,
         /**
          * Input size
          */
-        size: React.PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
+        size: PropTypes.oneOf(['mini', 'tiny', 'small', 'medium', 'large', 'big', 'huge', 'massive']),
         /**
          * Input state
          */
-        state: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['focus', 'loading', 'disabled', 'error']),
-            React.PropTypes.arrayOf(React.PropTypes.oneOf(['focus', 'loading', 'disabled', 'error']))
+        state: PropTypes.oneOfType([
+            PropTypes.oneOf(['focus', 'loading', 'disabled', 'error']),
+            PropTypes.arrayOf(PropTypes.oneOf(['focus', 'loading', 'disabled', 'error']))
         ]),
         /**
          * Render transparent input
          */
-        transparent: React.PropTypes.bool,
+        transparent: PropTypes.bool,
         /**
          * Input value
          */
-        value: React.PropTypes.string
+        value: PropTypes.string
     };
 
     static defaultProps = {

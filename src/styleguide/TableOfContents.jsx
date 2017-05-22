@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Menu, MenuItem } from '../components/semantic-react';
 
 export default class TableOfContents extends React.Component {
     static propTypes = {
-        components: React.PropTypes.array.isRequired
+        components: PropTypes.array.isRequired
     };
     
     constructor(props) {

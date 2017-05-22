@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Numbers, validateClassProps } from '../../utilities';
 import DefaultProps from '../../defaultProps';
 import classNames from 'classnames';
@@ -22,69 +23,69 @@ export default class Grid extends React.PureComponent {
         /**
          * Horizontal content alignment
          */
-        aligned: React.PropTypes.oneOf(['right', 'left', 'center']),
+        aligned: PropTypes.oneOf(['right', 'left', 'center']),
         /**
          * Center columns
          */
-        centered: React.PropTypes.bool,
+        centered: PropTypes.bool,
         /**
          * Divide rows into cells
          */
-        celled: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['internally']),
-            React.PropTypes.bool
+        celled: PropTypes.oneOfType([
+            PropTypes.oneOf(['internally']),
+            PropTypes.bool
         ]),
         /**
          * Grid column count
          */
-        columns: React.PropTypes.number,
+        columns: PropTypes.number,
         /**
          * Add container class, i.e. ui grid container
          */
-        container: React.PropTypes.bool,
+        container: PropTypes.bool,
         /**
          * Add dividers between ros
          */
-        divided: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['vertically', 'internally']),
-            React.PropTypes.bool
+        divided: PropTypes.oneOfType([
+            PropTypes.oneOf(['vertically', 'internally']),
+            PropTypes.bool
         ]),
         /**
          * Double column width on tablet and mobile sizes
          */
-        doubling: React.PropTypes.bool,
+        doubling: PropTypes.bool,
         /**
          * Automatically resize elements to split the available width evently
          */
-        equal: React.PropTypes.bool,
+        equal: PropTypes.bool,
         /**
          * Preserve gutters on first and las columns
          */
-        padded: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['horizontally', 'vertically']),
-            React.PropTypes.bool
+        padded: PropTypes.oneOfType([
+            PropTypes.oneOf(['horizontally', 'vertically']),
+            PropTypes.bool
         ]),
         /**
          * Increase size of gutters
          */
-        relaxed: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['very']),
-            React.PropTypes.bool
+        relaxed: PropTypes.oneOfType([
+            PropTypes.oneOf(['very']),
+            PropTypes.bool
         ]),
         /**
          * Reverse the order of columns or rows by device
          */
-        reversed: React.PropTypes.oneOfType([
+        reversed: PropTypes.oneOfType([
             'mobile', 'mobile vertically', 'tablet', 'tablet vertically', 'computer', 'computer vertically'
         ]),
         /**
          * Automatically stack rows into single columns on mobile devices
          */
-        stackable: React.PropTypes.bool,
+        stackable: PropTypes.bool,
         /**
          * Vertical content alignment
          */
-        valigned: React.PropTypes.oneOf(['top', 'middle', 'bottom'])
+        valigned: PropTypes.oneOf(['top', 'middle', 'bottom'])
     };
 
     static defaultProps = {

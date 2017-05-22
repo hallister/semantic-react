@@ -1,3 +1,7 @@
+# 0.12.0
+* react-transition-group package is now required as peer dependency
+* Updated for react 15.5
+
 # 0.11.3
 * Select: Fix error when option is null | undefined
 

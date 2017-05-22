@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import elementType from 'react-prop-types/lib/elementType';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
@@ -19,63 +20,63 @@ export default class Image extends React.PureComponent {
         /**
          * An image can specify its vertical alignment
          */
-        aligned: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
+        aligned: PropTypes.oneOf(['top', 'middle', 'bottom']),
         /**
          * An image may be formatted to appear inline with text as an avatar
          */
-        avatar: React.PropTypes.bool,
+        avatar: PropTypes.bool,
         /**
          * An image may include a border to emphasize the edges of white or transparent content
          */
-        bordered: React.PropTypes.bool,
+        bordered: PropTypes.bool,
         /**
          * An image can appear centered in a content block
          */
-        centered: React.PropTypes.bool,
+        centered: PropTypes.bool,
         /**
          * An image can take up the width of its container
          */
-        fluid: React.PropTypes.bool,
+        fluid: PropTypes.bool,
         /**
          * An image can sit to the left or right of other content
          */
-        floated: React.PropTypes.oneOf(['right', 'left']),
+        floated: PropTypes.oneOf(['right', 'left']),
         /**
          * An image may appear at different sizes
          */
-        size: React.PropTypes.string,
+        size: PropTypes.string,
         /**
          * An image can specify that it needs an additional spacing to separate it from nearby content
          */
-        spaced: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['right', 'left']),
-            React.PropTypes.bool
+        spaced: PropTypes.oneOfType([
+            PropTypes.oneOf(['right', 'left']),
+            PropTypes.bool
         ]),
         /**
          * Image src
          */
-        src: React.PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
         /**
          * Image shape
          */
-        shape: React.PropTypes.oneOf(['circular', 'rounded']),
+        shape: PropTypes.oneOf(['circular', 'rounded']),
         /**
          * Image state, could be disabled or hidden
          */
-        state: React.PropTypes.oneOf(['disabled', 'visible', 'hidden']),
+        state: PropTypes.oneOf(['disabled', 'visible', 'hidden']),
         /**
          * Wrap image component under other component, for example <a/> or <div/>
          * In this case this component will receive image classes instead
          */
-        wrapComponent: React.PropTypes.oneOfType([
-            React.PropTypes.bool,
+        wrapComponent: PropTypes.oneOfType([
+            PropTypes.bool,
             elementType
         ])
     };
 
     static contextTypes = {
-        isCommentsChild: React.PropTypes.bool, // Image in Comment should be wrapper into <div/>
-        isItemsChild: React.PropTypes.bool // Image in Items should be wrapped into <div/>
+        isCommentsChild: PropTypes.bool, // Image in Comment should be wrapper into <div/>
+        isItemsChild: PropTypes.bool // Image in Items should be wrapped into <div/>
     };
 
     static defaultProps = {

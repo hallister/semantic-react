@@ -1,14 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
 export default class Bar extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        duration: React.PropTypes.number,
-        progress: React.PropTypes.number,
-        showPercentage: React.PropTypes.bool,
-        style: React.PropTypes.object
+        duration: PropTypes.number,
+        progress: PropTypes.number,
+        showPercentage: PropTypes.bool,
+        style: PropTypes.object
     };
 
     static defaultProps = {

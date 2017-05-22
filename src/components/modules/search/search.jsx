@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from './../../elements/icon/icon';
 import Results from './results';
@@ -24,21 +25,21 @@ export default class Search extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
         ...AnimationProps.propTypes,
-        emptyHeader: React.PropTypes.string,
-        emptyMessage: React.PropTypes.string,
-        icon: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.bool
+        emptyHeader: PropTypes.string,
+        emptyMessage: PropTypes.string,
+        icon: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.bool
         ]),
-        loading: React.PropTypes.bool,
-        onChange: React.PropTypes.func.isRequired,
-        onSearchClick: React.PropTypes.func,
-        placeholder: React.PropTypes.string,
-        results: React.PropTypes.oneOfType([
-            React.PropTypes.array,
-            React.PropTypes.object
+        loading: PropTypes.bool,
+        onChange: PropTypes.func.isRequired,
+        onSearchClick: PropTypes.func,
+        placeholder: PropTypes.string,
+        results: PropTypes.oneOfType([
+            PropTypes.array,
+            PropTypes.object
         ]),
-        value: React.PropTypes.string
+        value: PropTypes.string
     };
 
     static defaultProps = {

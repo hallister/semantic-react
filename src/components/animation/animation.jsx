@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactTransitionGroup from 'react/lib/ReactTransitionGroup';
+import ReactTransitionGroup from 'react-transition-group/TransitionGroup';
 import SemanticCSSTransitionChildren from './animationChildren';
 
 function FirstChild(props) {

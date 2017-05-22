@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Content from './../../elements/simple/content';
 import DefaultProps from '../../defaultProps';
@@ -6,15 +7,15 @@ import DefaultProps from '../../defaultProps';
 export default class Results extends React.PureComponent {
     static propTypes = {
         ...DefaultProps.propTypes,
-        emptyHeader: React.PropTypes.string,
-        emptyMessage: React.PropTypes.string,
-        onSearchClick: React.PropTypes.func,
-        results: React.PropTypes.oneOfType([
-            React.PropTypes.array,
-            React.PropTypes.object
+        emptyHeader: PropTypes.string,
+        emptyMessage: PropTypes.string,
+        onSearchClick: PropTypes.func,
+        results: PropTypes.oneOfType([
+            PropTypes.array,
+            PropTypes.object
         ]),
-        search: React.PropTypes.string,
-        style: React.PropTypes.object
+        search: PropTypes.string,
+        style: PropTypes.object
     };
 
     static defaultProps = {

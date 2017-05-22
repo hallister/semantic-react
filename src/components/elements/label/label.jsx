@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
@@ -19,76 +20,76 @@ export default class Label extends React.PureComponent {
         /**
          * A label can attach to a content segment
          */
-        attached: React.PropTypes.oneOf(['top', 'bottom', 'top right', 'top left', 'bottom left', 'bottom right']),
+        attached: PropTypes.oneOf(['top', 'bottom', 'top right', 'top left', 'bottom left', 'bottom right']),
         /**
          * A label can reduce its complexity
          */
-        basic: React.PropTypes.bool,
+        basic: PropTypes.bool,
         /**
          * A label can be circular
          */
-        circular: React.PropTypes.bool,
+        circular: PropTypes.bool,
         /**
          * A label can have different colors
          */
-        color: React.PropTypes.string,
+        color: PropTypes.string,
         /**
          * A label can position itself in the corner of an element
          */
-        corner: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['left', 'right']),
-            React.PropTypes.bool
+        corner: PropTypes.oneOfType([
+            PropTypes.oneOf(['left', 'right']),
+            PropTypes.bool
         ]),
         /**
          * Empty label
          */
-        empty: React.PropTypes.bool,
+        empty: PropTypes.bool,
         /**
          * A label can float above another element
          */
-        floating: React.PropTypes.bool,
+        floating: PropTypes.bool,
         /**
          * A horizontal label is formatted to label content along-side it horizontally
          */
-        horizontal: React.PropTypes.bool,
+        horizontal: PropTypes.bool,
 
         /**
          * Add image to the label
          */
-        image: React.PropTypes.string,
+        image: PropTypes.string,
         /**
          * Format label as link (uses <a> tag)
          */
-        link: React.PropTypes.bool,
+        link: PropTypes.bool,
         /**
          * A label can point to content next to it
          */
-        pointing: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
-            React.PropTypes.bool
+        pointing: PropTypes.oneOfType([
+            PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+            PropTypes.bool
         ]),
         /**
          * A label can appear as a ribbon attaching itself to an element.
          */
-        ribbon: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['right']),
-            React.PropTypes.bool
+        ribbon: PropTypes.oneOfType([
+            PropTypes.oneOf(['right']),
+            PropTypes.bool
         ]),
 
         /**
          * A label can be small or large
          */
-        size: React.PropTypes.string,
+        size: PropTypes.string,
         /**
          * A label can appear as a tag
          */
-        tag: React.PropTypes.bool
+        tag: PropTypes.bool
     };
 
     static contextTypes = {
-        isCardsChild: React.PropTypes.bool,
-        isProgressChild: React.PropTypes.bool,
-        isStatisticChild: React.PropTypes.bool
+        isCardsChild: PropTypes.bool,
+        isProgressChild: PropTypes.bool,
+        isStatisticChild: PropTypes.bool
     };
 
     static defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DefaultProps from '../../defaultProps';
 
@@ -18,36 +19,36 @@ export default class PopupElement extends React.PureComponent {
         /**
          * Basic popup variation
          */
-        basic: React.PropTypes.bool,
+        basic: PropTypes.bool,
         /**
          * Fluid popup
          */
-        fluid: React.PropTypes.bool,
+        fluid: PropTypes.bool,
         /**
          * No maximum width and continue to flow to fit its content
          */
-        flowing: React.PropTypes.bool,
+        flowing: PropTypes.bool,
         /**
          * Inverted popup
          */
-        inverted: React.PropTypes.bool,
+        inverted: PropTypes.bool,
         /**
          * Popup size
          */
-        size: React.PropTypes.oneOf([
+        size: PropTypes.oneOf([
             'mini', 'tiny', 'small', 'large', 'huge'
         ]),
         /**
          * Make content of popup wide
          */
-        wide: React.PropTypes.oneOfType([
-            React.PropTypes.bool,
-            React.PropTypes.string
+        wide: PropTypes.oneOfType([
+            PropTypes.bool,
+            PropTypes.string
         ]),
         /**
          * Popup position
          */
-        position: React.PropTypes.oneOf([
+        position: PropTypes.oneOf([
             'top left', 'top center', 'top right', 'right center', 'bottom right', 'bottom center', 'bottom left', 'left center'
         ])
     };

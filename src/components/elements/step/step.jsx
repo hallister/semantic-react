@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { validateClassProps } from '../../utilities';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
@@ -14,15 +15,15 @@ export default class Step extends React.PureComponent {
       /**
        * A step can contain a title
        */
-      title: React.PropTypes.string,
+      title: PropTypes.string,
       /**
        * A step can contain a description
        */
-      description: React.PropTypes.string,
+      description: PropTypes.string,
       /**
        * A step can contain an icon
        */
-      icon: React.PropTypes.string,
+      icon: PropTypes.string,
       /**
        * Icon component
        */
@@ -30,19 +31,19 @@ export default class Step extends React.PureComponent {
       /**
        * A step can link
        */
-      link: React.PropTypes.string,
+      link: PropTypes.string,
       /**
        * A step can be highlighted as active
        */
-      active: React.PropTypes.bool,
+      active: PropTypes.bool,
       /**
        * A step can show that a user has completed it
        */
-      completed: React.PropTypes.bool,
+      completed: PropTypes.bool,
       /**
        * A step can show that it cannot be selected
        */
-      disabled: React.PropTypes.bool
+      disabled: PropTypes.bool
   };
 
   static defaultProps = {
@@ -88,7 +89,7 @@ export default class Step extends React.PureComponent {
 
           active: this.props.active,
           completed: this.props.completed,
-          disabled: this.props.disabled,
+          disabled: this.props.disabled
       };
 
       return validateClassProps(classes, this.props, validProps);
