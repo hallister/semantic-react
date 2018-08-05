@@ -1,3 +1,9 @@
+# Project Status
+
+[Semantic-UI-React](https://github.com/Semantic-Org/Semantic-UI-React) is now the official React port of the Semantic-UI library. With the signficant work Semantic-UI-React has done over the last several years, this project has largely become dated. At this time, it is recommended that you port any current software using this package to the official release.
+
+Thank you everyone who contributed to this project!
+
 # Semantic React
 
 ## View current documentation [WIP](http://hallister.github.io/semantic-react/)
