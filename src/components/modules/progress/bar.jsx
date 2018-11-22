@@ -29,13 +29,13 @@ export default class Bar extends React.PureComponent {
 
     render() {
         /* eslint-disable no-use-before-define */
-        let { defaultClasses, progress, showPercentage, component,
+        let { defaultClasses, progress, showPercentage, duration, component,
               ...other } = this.props;
         /* eslint-enable no-use-before-define */
 
               // add classnames
         other.className = classNames(this.props.className, this.getClasses());
-        other.style = { width: progress + '%', transitionDuration: this.props.duration + 'ms' }
+        other.style = { width: progress + '%', transitionDuration: duration + 'ms' }
 
         return React.createElement(
             this.props.component,
